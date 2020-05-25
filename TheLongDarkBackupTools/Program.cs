@@ -34,6 +34,24 @@ namespace TheLongDarkBackupTools
             System.Diagnostics.Process.Start(web);
         }
 
+        /// <summary>
+        /// 产生一个弹出信息框
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool NewMassageBox(object str)
+        {
+            var ret = false;
 
+            return ret;
+        }
+
+        /// <summary>
+        /// 选择文件夹(未完成)
+        /// </summary>
+        public static void ChoiceFolder()
+        {
+
+        }
     }
 }
