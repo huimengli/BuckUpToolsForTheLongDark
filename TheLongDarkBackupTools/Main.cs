@@ -21,5 +21,10 @@ namespace TheLongDarkBackupTools
         {
 
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Item.OpenWeb("https://github.com/huimengli/BuckUpToolsForTheLongDark");
+        }
     }
 }

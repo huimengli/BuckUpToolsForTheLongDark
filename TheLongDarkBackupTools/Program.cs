@@ -16,7 +16,24 @@ namespace TheLongDarkBackupTools
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Main());
         }
+    }
+
+    /// <summary>
+    /// 工具类
+    /// </summary>
+    public static class Item
+    {
+        /// <summary>
+        /// 打开网站
+        /// </summary>
+        /// <param name="web"></param>
+        public static void OpenWeb(string web)
+        {
+            System.Diagnostics.Process.Start(web);
+        }
+
+
     }
 }
