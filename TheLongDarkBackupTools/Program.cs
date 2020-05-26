@@ -122,6 +122,7 @@ namespace TheLongDarkBackupTools
                 }
                 FileName = dialog.FileName;
             }
+            FileName = FileName ?? "";
             label.Text = FileName.Length > path.Length ? FileName.Remove(0, path.Length+1) : "";
         }
     }
