@@ -12,10 +12,22 @@ namespace TheLongDarkBackupTools
 {
     public partial class Main : Form
     {
+        /// <summary>
+        /// 是否存在其他窗体
+        /// </summary>
+        public static bool IsElseForm;
+
+        /// <summary>
+        /// 是否需要提示
+        /// </summary>
+        public bool NeedHelp;
+
         public Main()
         {
             InitializeComponent();
             Text = "漫漫长夜存档备份工具";
+            IsElseForm = false;
+            NeedHelp = false;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -25,25 +37,45 @@ namespace TheLongDarkBackupTools
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Item.OpenWeb("https://github.com/huimengli/BuckUpToolsForTheLongDark");
+            if (!IsElseForm)
+            {
+                Item.OpenWeb("https://github.com/huimengli/BuckUpToolsForTheLongDark");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
-            //dialog.Description = "请选择存档所在文件夹";
-            //if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    if (string.IsNullOrEmpty(dialog.SelectedPath))
-            //    {
-            //        return;
-            //    }
-            //    //this.LoadingText = "处理中...";
-            //    //this.LoadingDisplay = true;
-            //    //Action<string> a = DaoRuData;
-            //    //a.BeginInvoke(dialog.SelectedPath, asyncCallback, a);
-            //}
-            Item.NewMassageBox("null");
+            if (!IsElseForm&&NeedHelp)
+            {
+                Item.NewMassageBox("提示", "请寻找Hinterland文件夹中的TheLongDark\n文件夹,如果没有请至少保存一下存档");
+            }
+            Item.ChoiceFolder(textBox1);
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (!IsElseForm&&NeedHelp)
+            {
+                Item.NewMassageBox("提示", "生存模式的存档大多为sandbox+数字");
+            }
+            if ((textBox1.Text==""||textBox1.Text ==null)&&!IsElseForm)
+            {
+                Item.NewMassageBox("警告", "请先选择文件夹");
+            }
+            else
+            {
+                Item.ChoiceFile(textBox1.Text, textBox2);
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            NeedHelp = !NeedHelp;
         }
     }
 }

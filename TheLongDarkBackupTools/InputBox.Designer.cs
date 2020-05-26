@@ -92,6 +92,8 @@
             this.Controls.Add(this.label1);
             this.Name = "InputBox";
             this.Text = "InputBox";
+            this.Load += new System.EventHandler(this.InputBox_Load);
+            this.Disposed += new System.EventHandler(this.InputBox_UnLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
 

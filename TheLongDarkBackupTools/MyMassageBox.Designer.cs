@@ -100,6 +100,7 @@
             this.Name = "MassageBox";
             this.Text = "MassageBox";
             this.Load += new System.EventHandler(this.MassageBox_Load);
+            this.Disposed += new System.EventHandler(this.MassageBox_UnLoad);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

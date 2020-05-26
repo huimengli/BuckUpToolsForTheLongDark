@@ -17,6 +17,11 @@ namespace TheLongDarkBackupTools
         /// </summary>
         public bool returnValue;
 
+        /// <summary>
+        /// 标签对象
+        /// </summary>
+        public Control labelObj;
+
         public MyMassageBox(string title,string value)
         {
             InitializeComponent();
@@ -25,9 +30,15 @@ namespace TheLongDarkBackupTools
             label2.Text = value;
         }
 
+        public MyMassageBox(string title,string value,Control label):this(title,value)
+        {
+            labelObj = label;
+        }
+
         private void MassageBox_Load(object sender, EventArgs e)
         {
             returnValue = false;
+            Main.IsElseForm = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -40,6 +51,22 @@ namespace TheLongDarkBackupTools
         {
             returnValue = false;
             Close();
+        }
+
+        private void MassageBox_UnLoad(object sender,EventArgs e)
+        {
+            try
+            {
+                if (labelObj!=null)
+                {
+                    labelObj.Text = returnValue.ToString();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            Main.IsElseForm = false;
         }
     }
 }
