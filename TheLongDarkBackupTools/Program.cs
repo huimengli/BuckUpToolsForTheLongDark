@@ -133,6 +133,42 @@ namespace TheLongDarkBackupTools
         /// <summary>
         /// 选择文件夹
         /// </summary>
+        /// <param name="label">提示标签</param>
+        /// <param name="tishi">选择时候提示内容</param>
+        /// <param name="path">已经存在的文件路径</param>
+        /// <param name="needNewFolder">是否允许创建新文件夹</param>
+        public static void ChoiceFolder(Control label, string tishi, string path, bool needNewFolder)
+        {
+
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.Description = tishi;
+            dialog.ShowNewFolderButton = needNewFolder;
+            if (path != String.Empty && path != null)
+            {
+                dialog.SelectedPath = path;
+            }
+            //else
+            //{
+            //    dialog.SelectedPath = dialog.SelectedPath + "\\Hinterland\\TheLongDark";
+            //}
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (string.IsNullOrEmpty(dialog.SelectedPath))
+                {
+                    return;
+                }
+                //this.LoadingText = "处理中...";
+                //this.LoadingDisplay = true;
+                //Action<string> a = DaoRuData;
+                //a.BeginInvoke(dialog.SelectedPath, asyncCallback, a);
+                path = dialog.SelectedPath;
+            }
+            label.Text = path;
+        }
+
+        /// <summary>
+        /// 选择文件夹
+        /// </summary>
         /// <param name="tishi">选择时候提示内容</param>
         /// <param name="folder">系统文件夹枚举项</param>
         public static void ChoiceFolder(Control label,string tishi,Environment.SpecialFolder folder)

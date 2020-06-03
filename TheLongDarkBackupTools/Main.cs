@@ -59,7 +59,7 @@ namespace TheLongDarkBackupTools
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!IsElseForm&&NeedHelp)
+            if (!IsElseForm && NeedHelp)
             {
                 Item.NewMassageBox("提示", "请寻找Hinterland文件夹中的TheLongDark\n文件夹,如果没有请至少保存一下存档");
             }
@@ -72,18 +72,18 @@ namespace TheLongDarkBackupTools
             var allValues = Item.GetValues(IniAllValues, "path", "name", "savePath", "saveTimes");
             textBox1.Text = allValues[0];
             textBox2.Text = allValues[1];
-            textBox3.Text = allValues[2]=="" ? CurrentPath + "bfFolder":allValues[2];
-            saveTimes = allValues[3]==""?0: int.Parse(allValues[3]);
+            textBox3.Text = allValues[2] == "" ? CurrentPath + "bfFolder" : allValues[2];
+            saveTimes = allValues[3] == "" ? 0 : int.Parse(allValues[3]);
             label6.Text = "当前备份的存档指针:" + saveTimes.ToString();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (!IsElseForm&&NeedHelp)
+            if (!IsElseForm && NeedHelp)
             {
                 Item.NewMassageBox("提示", "生存模式的存档大多为sandbox+数字");
             }
-            if ((textBox1.Text==""||textBox1.Text ==null)&&!IsElseForm)
+            if ((textBox1.Text == "" || textBox1.Text == null) && !IsElseForm)
             {
                 Item.NewMassageBox("警告", "请先选择文件夹");
             }
@@ -104,7 +104,7 @@ namespace TheLongDarkBackupTools
             {
                 Item.NewMassageBox("提示", "不设置默认保存在工具同一目录");
             }
-            Item.ChoiceFolder(textBox3, "请选择备份保存的文件夹", CurrentPath);
+            Item.ChoiceFolder(textBox3, "请选择备份保存的文件夹", CurrentPath, true);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -112,7 +112,7 @@ namespace TheLongDarkBackupTools
             if (ChackTexts())
             {
                 SaveTimeAdd();
-                Item.Save(textBox1.Text, textBox2.Text, textBox3.Text,saveTimes);
+                Item.Save(textBox1.Text, textBox2.Text, textBox3.Text, saveTimes);
             }
         }
 
@@ -154,9 +154,9 @@ namespace TheLongDarkBackupTools
             Item.NewFolder(textBox3.Text);
         }
 
-        private void Main_Unload(object sender,EventArgs e)
+        private void Main_Unload(object sender, EventArgs e)
         {
-            Item.SaveIni(IniPath,textBox1.Text, textBox2.Text, textBox3.Text, saveTimes);
+            Item.SaveIni(IniPath, textBox1.Text, textBox2.Text, textBox3.Text, saveTimes);
         }
 
         private void button5_Click(object sender, EventArgs e)
