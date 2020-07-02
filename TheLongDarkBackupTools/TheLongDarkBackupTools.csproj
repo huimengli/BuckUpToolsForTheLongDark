@@ -103,6 +103,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="dict\漫漫长夜备份工具_v0.1.zip" />
+    <None Include="dict\漫漫长夜备份工具_v0.2.zip" />
+    <None Include="dict\漫漫长夜备份工具_v0.2_zh-en.zip" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -117,6 +120,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dict\readme.txt" />
+    <Content Include="dict\漫漫长夜备份工具_v0.3.exe" />
     <Content Include="favicon.ico" />
     <Content Include="image\background.png" />
     <Content Include="image\background_min.png" />

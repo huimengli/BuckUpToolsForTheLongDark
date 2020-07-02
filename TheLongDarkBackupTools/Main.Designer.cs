@@ -224,7 +224,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(107, 12);
             this.label6.TabIndex = 17;
-            this.label6.Text = "当前备份存档数量:";
+            this.label6.Text = "当前备份存档指针:";
             // 
             // Main
             // 
