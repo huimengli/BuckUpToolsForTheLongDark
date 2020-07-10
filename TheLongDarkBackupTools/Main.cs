@@ -155,7 +155,7 @@ namespace TheLongDarkBackupTools
         {
             if (ChackTexts())
             {
-                Item.ReadSave(gameSavePath.val, textBox3.Text);
+                Item.ReadSave( textBox3.Text, gameSavePath.val);
             }
         }
 

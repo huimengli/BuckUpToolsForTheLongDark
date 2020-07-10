@@ -120,11 +120,13 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "readBuckUp";
             this.Text = "读取备份页面";
+            this.Load += new System.EventHandler(this.readBuckUp_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.readBuckUp_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.readBuckUp_DragEnter);
             this.Disposed += new System.EventHandler(this.readBuckUp_UnLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion

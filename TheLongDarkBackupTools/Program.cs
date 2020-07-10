@@ -528,16 +528,16 @@ namespace TheLongDarkBackupTools
         /// <summary>
         /// 读取存档
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path">备份所在位置</param>
         /// <param name="name"></param>
-        /// <param name="savePath"></param>
+        /// <param name="savePath">存档所在位置</param>
         public static void ReadSave(string path,string name,string savePath,int saveTimes)
         {
-            if (File.Exists(path + "\\" + name ))
+            if (File.Exists(savePath + "\\" + name ))
             {
-                File.Delete(path + "\\" + name);
+                File.Delete(savePath + "\\" + name);
             }
-            var copyCmd = "copy /b \"" + savePath + "\\" + name + "_bf" + saveTimes + "\" \"" + path + "\\" + name + "\" ";
+            var copyCmd = "copy /b \"" + path + "\\" + name + "_bf" + saveTimes + "\" \"" + savePath + "\\" + name + "\" ";
             //Main.saveTimes++;
             UseCmd(copyCmd);
         }
@@ -545,23 +545,32 @@ namespace TheLongDarkBackupTools
         /// <summary>
         /// 读取存档
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path">备份文件所在位置</param>
         /// <param name="name"></param>
-        /// <param name="savePath"></param>
+        /// <param name="savePath">存档所在位置</param>
         public static void ReadSave(string path, string savePath)
         {
-            var name = GetTheNewFile(savePath);
+            var name = GetTheNewFile(path);
             if (string.IsNullOrEmpty(name))
             {
                 return;
             }
-            var saveTimes = new Regex(@"bf[\d]*").Match(name).Groups[0].ToString();
-
-            if (File.Exists(path + "\\" + name))
+            var saveTimes = new Regex(@"_bf[\d]*").Match(name).Groups[0].ToString();
+            var trueName = "";
+            try
             {
-                File.Delete(path + "\\" + name);
+                trueName = name.Remove(name.Length - saveTimes.Length);
             }
-            var copyCmd = "copy /b \"" + savePath + "\\" + name + "_" + saveTimes + "\" \"" + path + "\\" + name + "\" ";
+            catch (Exception)
+            {
+                trueName = name;
+            }
+
+            if (File.Exists(savePath + "\\" + trueName))
+            {
+                File.Delete(savePath + "\\" + trueName);
+            }
+            var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes*/ + "\" \"" + savePath + "\\" + trueName + "\" ";
             //Main.saveTimes++;
             UseCmd(copyCmd);
         }
@@ -569,19 +578,66 @@ namespace TheLongDarkBackupTools
         /// <summary>
         /// 读取存档
         /// </summary>
-        /// <param name="file">文件对象</param>
+        /// <param name="path"></param>
+        /// <param name="haveName">路径中是否含有文件名</param>
         /// <param name="savePath"></param>
+        public static void ReadSave(string path, string savePath,bool haveName)
+        {
+            if (haveName==false)
+            {
+                ReadSave(path, savePath);
+                return;
+            }
+            else {
+                var name = PathGetName(path);
+                path = PathGetFolder(path);
+                var saveTimes = new Regex(@"_bf[\d]*").Match(name).Groups[0].ToString();
+                var trueName = "";
+                try
+                {
+                    trueName = name.Remove(name.Length - saveTimes.Length);
+                }
+                catch (Exception)
+                {
+                    trueName = name;
+                }
+
+                if (File.Exists(savePath + "\\" + trueName))
+                {
+                    File.Delete(savePath + "\\" + trueName);
+                }
+                var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes*/ + "\" \"" + savePath + "\\" + trueName + "\" ";
+                //Main.saveTimes++;
+                UseCmd(copyCmd);
+            }                       
+        }
+
+        /// <summary>
+        /// 读取存档(因为参数中含有文件导致文件被gc回收[也就是删除]所以没法用)
+        /// </summary>
+        /// <param name="file">文件对象</param>
+        /// <param name="savePath">存档所在位置</param>
         public static void ReadSave(FileInfo file, string savePath)
         {
             var name = file.Name;
             var path = file.DirectoryName;
-            var saveTimes = new Regex(@"bf[\d]*").Match(name).Groups[0].ToString();
-
-            if (File.Exists(path + "\\" + name))
+            var saveTimes = new Regex(@"_bf[\d]*").Match(name).Groups[0].ToString();
+            var trueName = "";
+            try
             {
-                File.Delete(path + "\\" + name);
+               trueName = name.Remove(name.Length - saveTimes.Length);
             }
-            var copyCmd = "copy /b \"" + savePath + "\\" + name + "_" + saveTimes + "\" \"" + path + "\\" + name + "\" ";
+            catch (Exception)
+            {
+                trueName = name;
+            }
+            Console.WriteLine(trueName);
+
+            if (File.Exists(savePath + "\\" + trueName))
+            {
+                File.Delete(savePath + "\\" + trueName);
+            }
+            var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes */+ "\" \"" + savePath + "\\" + trueName + "\" ";
             //Main.saveTimes++;
             UseCmd(copyCmd);
         }
@@ -775,6 +831,41 @@ namespace TheLongDarkBackupTools
             var index = MaxIndex(allTimes);
 
             ret = files[index].Name;
+
+            return ret;
+        }
+
+        /// <summary>
+        /// 从路径+文件名中切割出文件名
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string PathGetName(string path)
+        {
+            var ret = "";
+
+            var all = path.Split('\\', '/');
+
+            ret = all[all.Length - 1];
+
+            return ret;
+        }
+
+        /// <summary>
+        /// 从路径+文件名中切割出路径
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string PathGetFolder(string path)
+        {
+            var ret = "";
+
+            var all = path.Split('\\', '/');
+
+            for (int i = 0; i < all.Length-1; i++)
+            {
+                ret += all[i] += "\\";
+            }
 
             return ret;
         }

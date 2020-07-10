@@ -46,7 +46,14 @@ namespace TheLongDarkBackupTools
             string path = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();       //获得路径
             textBox1.Text = path;
             var file = new FileInfo(path);
-            Item.ReadSave(file, gameSavePath.val);
+            try
+            {
+                Item.ReadSave(file, gameSavePath.val);
+            }
+            catch (Exception err)
+            {
+                throw err;
+            }
         }
 
         private void readBuckUp_DragEnter(object sender, DragEventArgs e)
@@ -74,6 +81,11 @@ namespace TheLongDarkBackupTools
         private void readBuckUp_UnLoad(object sender,EventArgs e)
         {
             form.Opacity = 1;
+        }
+
+        private void readBuckUp_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

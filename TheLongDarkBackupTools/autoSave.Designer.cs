@@ -59,8 +59,6 @@
             this.button4.Text = "返回";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            this.button4.DragDrop += new System.Windows.Forms.DragEventHandler(this.autoSave_DragDrop);
-            this.button4.DragEnter += new System.Windows.Forms.DragEventHandler(this.autoSave_DragEnter);
             // 
             // button1
             // 
