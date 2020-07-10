@@ -22,12 +22,22 @@ namespace TheLongDarkBackupTools
         /// </summary>
         public Control labelObj;
 
+        /// <summary>
+        /// 修改值对象
+        /// </summary>
+        public Value value;
+
         public InputBox(string title,string tishi)
         {
             InitializeComponent();
             Text = title;
             label2.Text = tishi;
             returnValue = "";
+        }
+
+        public InputBox(string title,string tishi,Value value):this(title,tishi)
+        {
+            this.value = value;
         }
 
         public InputBox(string title,string tishi,Control control):this(title,tishi)
@@ -52,14 +62,18 @@ namespace TheLongDarkBackupTools
         {
             Main.IsElseForm = true;
         }
-        
+
         private void InputBox_UnLoad(object sender, EventArgs e)
         {
             try
             {
-                if (labelObj!=null)
+                if (labelObj != null)
                 {
                     labelObj.Text = returnValue;
+                }
+                if (value != null)
+                {
+                    value.val = returnValue;
                 }
             }
             catch (Exception)
