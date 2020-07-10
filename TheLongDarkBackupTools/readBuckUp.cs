@@ -70,7 +70,15 @@ namespace TheLongDarkBackupTools
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Item.OpenFolder(buckUpPath.val);
+            if (Directory.Exists(buckUpPath.val))
+            {
+                Item.OpenFolder(buckUpPath.val);
+            }
+            else
+            {
+                Directory.CreateDirectory(buckUpPath.val);
+                Item.OpenFolder(buckUpPath.val);
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)

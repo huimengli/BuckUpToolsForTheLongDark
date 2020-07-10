@@ -163,7 +163,15 @@ namespace TheLongDarkBackupTools
         {
             if (ChackTexts())
             {
-                Item.OpenFolder(textBox3.Text);
+                if (Directory.Exists(textBox3.Text))
+                {
+                    Item.OpenFolder(textBox3.Text);
+                }
+                else
+                {
+                    Directory.CreateDirectory(textBox3.Text);
+                    Item.OpenFolder(textBox3.Text);
+                }
             }
         }
 
