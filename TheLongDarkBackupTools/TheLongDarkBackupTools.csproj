@@ -51,12 +51,6 @@
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=1.2.0.246, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceProcess" />
@@ -71,23 +65,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="autoSave.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="autoSave.Designer.cs">
-      <DependentUpon>autoSave.cs</DependentUpon>
-    </Compile>
     <Compile Include="InputBox.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InputBox.Designer.cs">
       <DependentUpon>InputBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="InputChouseBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InputChouseBox.Designer.cs">
-      <DependentUpon>InputChouseBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -103,20 +85,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="readBuckUp.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="readBuckUp.Designer.cs">
-      <DependentUpon>readBuckUp.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="autoSave.resx">
-      <DependentUpon>autoSave.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="InputBox.resx">
       <DependentUpon>InputBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InputChouseBox.resx">
-      <DependentUpon>InputChouseBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
@@ -133,10 +103,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="readBuckUp.resx">
-      <DependentUpon>readBuckUp.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="dict\漫漫长夜备份工具_v0.1.zip" />
+    <None Include="dict\漫漫长夜备份工具_v0.2.zip" />
+    <None Include="dict\漫漫长夜备份工具_v0.2_zh-en.zip" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -151,12 +120,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dict\readme.txt" />
+    <Content Include="dict\漫漫长夜备份工具_v0.3.exe" />
     <Content Include="favicon.ico" />
     <Content Include="image\background.png" />
     <Content Include="image\background_min.png" />
-    <Content Include="image\background_min_black.png" />
-    <Content Include="image\favicon.ico" />
-    <Content Include="image\warning.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
