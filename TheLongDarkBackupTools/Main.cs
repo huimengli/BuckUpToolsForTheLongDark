@@ -77,6 +77,10 @@ namespace TheLongDarkBackupTools
                 }
             }
             textBox3.Text = allValues[0] == "" ? CurrentPath + "bfFolder\\" : allValues[0];
+            if (Item.CheckFolder(textBox3.Text) == false)
+            {
+                Directory.CreateDirectory(textBox3.Text);
+            }
             saveTimes = 0; /*allValues[2] == "" ? 0 : int.Parse(allValues[2]);*/
         }
 
