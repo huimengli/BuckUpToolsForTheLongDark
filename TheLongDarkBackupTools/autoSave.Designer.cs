@@ -135,6 +135,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "autoSave";
             this.Text = "自动保存检测";
+            this.Load += new System.EventHandler(this.autoSave_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.autoSave_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.autoSave_DragEnter);
             this.Disposed += new System.EventHandler(this.autoSave_UnLoad);

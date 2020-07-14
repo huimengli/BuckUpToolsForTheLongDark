@@ -315,7 +315,7 @@ namespace TheLongDarkBackupTools
         /// <summary>
         /// 保存文件
         /// </summary>
-        public static void Save(string path,string name,string savePath,int times)
+        public static void Save(string path,string name,string savePath,long times)
         {
             if (File.Exists(savePath+"\\"+name+"_bf"+times.ToString()))
             {
@@ -329,7 +329,7 @@ namespace TheLongDarkBackupTools
         /// <summary>
         /// 保存文件
         /// </summary>
-        public static void Save(string pathName,string savePath,int times)
+        public static void Save(string pathName,string savePath,long times)
         {
             var file = new FileInfo(pathName);
             var path = file.DirectoryName;

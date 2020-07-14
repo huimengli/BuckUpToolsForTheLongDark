@@ -9,39 +9,12 @@ namespace test
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-            //var jsonFile = File.ReadAllText(@"C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBackupTools\bin\Debug\bfFolder\sandbox4_bf1",Encoding.Default);
+        //static void Main(string[] args)
+        //{
+            
 
-            //Console.WriteLine(jsonFile);
-
-            //Image img = new Bitmap(Screen.AllScreens[0].Bounds.Width, Screen.AllScreens[0].Bounds.Height);
-            //Graphics g = Graphics.FromImage(img);
-            //g.CopyFromScreen(new Point(0, 0), new Point(0, 0), Screen.AllScreens[0].Bounds.Size);
-            //Clipboard.SetImage(img);
-            //img.Save(savePath);
-
-            //Console.WriteLine(g);
-
-            //var p1 = JsonConvert.DeserializeObject(jsonFile);
-
-            //Console.WriteLine(p1);
-
-            var thisPath = Directory.GetCurrentDirectory();
-
-            var path = @"C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox3";
-
-            var file = new FileInfo(path);
-
-
-            Console.WriteLine(file);
-
-            Console.WriteLine(file.Name);
-
-            Console.WriteLine(file.Directory);
-
-            Console.Read();
-        }
+        //    Console.Read();
+        //}
 
         /// <summary>
         /// 获取文件夹中最近修改的文件
@@ -240,5 +213,54 @@ namespace test
         }
 
         #endregion
+    }
+
+    public class watcher
+    {
+        public static void Main(string[] args)
+        {
+            //如果没有指定目录，则退出程序
+            if (args.Length != 1)
+            {
+                //显示调用程序的正确方法
+                Console.WriteLine("usage:Watcher.exe(directory)");
+                return;
+            }
+            //创建一个新的FileSystemWatcher并设置其属性
+            FileSystemWatcher watcher = new FileSystemWatcher();
+            watcher.Path = args[0];
+            /*监视LastAcceSS和LastWrite时间的更改以及文件或目录的重命名*/
+            watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite |
+                   NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            //只监视文本文件
+            watcher.Filter = "*.txt";
+            //添加事件句柄
+            //当由FileSystemWatcher所指定的路径中的文件或目录的
+            //大小、系统属性、最后写时间、最后访问时间或安全权限
+            //发生更改时，更改事件就会发生
+            watcher.Changed += new FileSystemEventHandler(OnChanged);
+            //由FileSystemWatcher所指定的路径中文件或目录被创建时，创建事件就会发生
+            watcher.Created += new FileSystemEventHandler(OnChanged);
+            //当由FileSystemWatcher所指定的路径中文件或目录被删除时，删除事件就会发生
+            watcher.Deleted += new FileSystemEventHandler(OnChanged);
+            //当由FileSystemWatcher所指定的路径中文件或目录被重命名时，重命名事件就会发生
+            watcher.Renamed += new RenamedEventHandler(OnRenamed);
+            //开始监视
+            watcher.EnableRaisingEvents = true;
+            //等待用户退出程序
+            Console.WriteLine("Press\'q\' to quit the sample.");
+            while (Console.Read() != 'q') ;
+        }
+        //定义事件处理程序
+        public static void OnChanged(object sender, FileSystemEventArgs e)
+        {
+            //指定当文件被更改、创建或删除时要做的事
+            Console.WriteLine("file:" + e.FullPath + "" + e.ChangeType);
+        }
+        public static void OnRenamed(object sender, RenamedEventArgs e)
+        {
+            //指定当文件被重命名时发生的动作
+            Console.WriteLine("Fi]e:{0} renamed to{1}", e.OldFullPath, e.FullPath);
+        }
     }
 }

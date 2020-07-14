@@ -61,8 +61,8 @@ namespace TheLongDarkBackupTools
         private void Main_Load(object sender, EventArgs e)
         {
             IniAllValues = Item.ReadAllIni(IniPath)[0];
-            var allValues = Item.GetValues(IniAllValues, "path", "savePath", "saveTimes");
-            gameSavePath.val = allValues[0];
+            var allValues = Item.GetValues(IniAllValues, "savePath");
+            gameSavePath.val = "";
             if (string.IsNullOrEmpty(gameSavePath.val))
             {
                 //自动读取存档路径
@@ -76,8 +76,8 @@ namespace TheLongDarkBackupTools
                     new InputChouseBox("提示", "没有找到存档文件夹\n请手动输入或者右边选择:", gameSavePath);
                 }
             }
-            textBox3.Text = allValues[1] == "" ? CurrentPath + "bfFolder\\" : allValues[1];
-            saveTimes = allValues[2] == "" ? 0 : int.Parse(allValues[2]);
+            textBox3.Text = allValues[0] == "" ? CurrentPath + "bfFolder\\" : allValues[0];
+            saveTimes = 0; /*allValues[2] == "" ? 0 : int.Parse(allValues[2]);*/
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -192,7 +192,8 @@ namespace TheLongDarkBackupTools
                 if (string.IsNullOrEmpty(fileName)==false)
                 {
                     SaveTimeAdd();
-                    Item.Save(gameSavePath.val, fileName, textBox3.Text, saveTimes);
+                    var time = DateTime.Now.ToFileTimeUtc();
+                    Item.Save(gameSavePath.val, fileName, textBox3.Text, time);
                 }
             }
         }

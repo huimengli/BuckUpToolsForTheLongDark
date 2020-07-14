@@ -108,7 +108,8 @@ namespace TheLongDarkBackupTools
                 }
                 if (value != null&&times!=null)
                 {
-                    Item.Save(Item.FileName, value.val, int.Parse(times.val));
+                    var time = DateTime.Now.ToFileTimeUtc();
+                    Item.Save(Item.FileName, value.val, time);
                 }
                 if (value != null)
                 {
