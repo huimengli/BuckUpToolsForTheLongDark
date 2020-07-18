@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace TheLongDarkBackupTools
 {
@@ -37,7 +38,7 @@ namespace TheLongDarkBackupTools
         /// <summary>
         /// 临时文件夹路径
         /// </summary>
-        private string TemporaryPath = AppDomain.CurrentDomain.BaseDirectory + @"temporary\";
+        public static string TemporaryPath = AppDomain.CurrentDomain.BaseDirectory + @"temporary\";
 
         /// <summary>
         /// 构造函数
@@ -126,12 +127,26 @@ namespace TheLongDarkBackupTools
             watcher.Renamed += new RenamedEventHandler(watch.OnRenamed);
             //开始监视
             watcher.EnableRaisingEvents = true;
-
         }
     }
 
     public class Watcher
     {
+        /// <summary>
+        /// 被修改的文件列表
+        /// </summary>
+        private List<string> changeFiles = new List<string>();
+
+        /// <summary>
+        /// 当前是否在执行备份
+        /// </summary>
+        private bool isSave = false;
+
+        /// <summary>
+        /// 等待时间(默认一秒)
+        /// </summary>
+        public static int waitTime = 1000;
+
         /// <summary>
         /// 监测修改
         /// </summary>
@@ -139,6 +154,22 @@ namespace TheLongDarkBackupTools
         /// <param name="e"></param>
         public void OnChange(object sender,FileSystemEventArgs e)
         {
+            if (File.Exists(e.FullPath)&&e.ChangeType!= WatcherChangeTypes.Deleted)
+            {
+                var file = new FileInfo(e.FullPath);
+                Console.WriteLine("文件变动");
+            }
+            else
+            {
+                if (Directory.Exists(e.FullPath))
+                {
+                    Console.WriteLine("文件夹变动");
+                }
+                else
+                {
+                    Console.WriteLine("删除变动");
+                }
+            }
             Console.WriteLine("file:" + e.FullPath + " " + e.ChangeType);
         }
 
@@ -151,5 +182,16 @@ namespace TheLongDarkBackupTools
         {
             Console.WriteLine("file: " + e.OldFullPath + " change name to " + e.FullPath);
         }
+
+        public void Save(object sender,FileSystemEventArgs e)
+        {
+            var time = DateTime.Now.ToFileTimeUtc();
+            var file = new FileInfo(e.FullPath);
+            var imgSrc = autoSave.TemporaryPath +file.Name+ "_bf"+time.ToString()+".png";
+            Item.Screenshot(imgSrc);
+
+        }
+
+
     }
 }

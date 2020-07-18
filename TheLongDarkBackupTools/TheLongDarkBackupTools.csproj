@@ -136,6 +136,7 @@
     <None Include="dict\漫漫长夜备份工具_v0.1.zip" />
     <None Include="dict\漫漫长夜备份工具_v0.2.zip" />
     <None Include="dict\漫漫长夜备份工具_v0.2_zh-en.zip" />
+    <None Include="memorandumBook\readme.md" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -152,10 +153,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="dict\readme.txt" />
-    <Content Include="dict\漫漫长夜备份工具_v0.3.exe" />
+    <Content Include="dict\漫漫长夜备份工具_v0.3.0.exe" />
+    <Content Include="dict\漫漫长夜备份工具_v0.3.1.exe" />
+    <Content Include="dict\漫漫长夜备份工具_v0.4.0.exe" />
+    <Content Include="dict\漫漫长夜备份工具_v0.4.1.exe" />
+    <Content Include="dict\漫漫长夜备份工具_v0.4.2.exe" />
+    <Content Include="dict\漫漫长夜备份工具_v0.4.3.exe" />
+    <Content Include="dict\漫漫长夜备份工具_v0.4.4.exe" />
     <Content Include="favicon.ico" />
     <Content Include="image\background.png" />
     <Content Include="image\background_min.png" />
+    <Content Include="memorandumBook\游戏一次保存修改的文件监控记录.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

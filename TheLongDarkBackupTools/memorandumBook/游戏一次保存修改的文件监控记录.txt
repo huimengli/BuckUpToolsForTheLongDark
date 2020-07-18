@@ -1,0 +1,87 @@
+﻿
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098_temp Created
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098_temp Created
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098_temp Created
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098_temp Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098_temp Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098_temp Changed
+删除变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098 Deleted
+删除变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098 Deleted
+删除变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098 Deleted
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098 Created
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098 Created
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098 Created
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098 Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098 Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098 Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098 Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098 Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098 Changed
+删除变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098_temp Deleted
+删除变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098_temp Deleted
+删除变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098_temp Deleted
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4_temp Created
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4_temp Created
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4_temp Created
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4_temp Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4_temp Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4_temp Changed
+删除变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 Deleted
+删除变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 Deleted
+删除变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 Deleted
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 Created
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 Created
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 Created
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 Changed
+删除变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4_temp Deleted
+删除变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4_temp Deleted
+删除变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4_temp Deleted
+线程 0x2054 已退出，返回值为 0 (0x0)。
+线程 0x2a9c 已退出，返回值为 0 (0x0)。

@@ -124,7 +124,7 @@ namespace TheLongDarkBackupTools
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(66, 308);
+            this.button6.Location = new System.Drawing.Point(66, 279);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(190, 23);
             this.button6.TabIndex = 16;
@@ -146,19 +146,19 @@ namespace TheLongDarkBackupTools
             // 
             this.button2.Location = new System.Drawing.Point(66, 221);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(190, 23);
+            this.button2.Size = new System.Drawing.Size(93, 23);
             this.button2.TabIndex = 18;
-            this.button2.Text = "备份存档(备份最新存档)";
+            this.button2.Text = "备份最新存档";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(66, 250);
+            this.button4.Location = new System.Drawing.Point(163, 221);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(190, 23);
+            this.button4.Size = new System.Drawing.Size(93, 23);
             this.button4.TabIndex = 19;
-            this.button4.Text = "备份存档(选择存档备份)";
+            this.button4.Text = "选择存档备份";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -174,7 +174,7 @@ namespace TheLongDarkBackupTools
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(66, 337);
+            this.button7.Location = new System.Drawing.Point(66, 308);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(190, 23);
             this.button7.TabIndex = 21;
@@ -184,7 +184,7 @@ namespace TheLongDarkBackupTools
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(66, 279);
+            this.button8.Location = new System.Drawing.Point(66, 250);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(190, 23);
             this.button8.TabIndex = 22;
