@@ -119,6 +119,7 @@ namespace TheLongDarkBackupTools
             //大小、系统属性、最后写时间、最后访问时间或安全权限
             //发生更改时，更改事件就会发生
             watcher.Changed += new FileSystemEventHandler(watch.OnChange);
+            watcher.Changed += new FileSystemEventHandler(watch.ChackChange);
             //由FileSystemWatcher所指定的路径中文件或目录被创建时，创建事件就会发生
             watcher.Created += new FileSystemEventHandler(watch.OnChange);
             //当由FileSystemWatcher所指定的路径中文件或目录被删除时，删除事件就会发生
@@ -138,14 +139,69 @@ namespace TheLongDarkBackupTools
         private List<string> changeFiles = new List<string>();
 
         /// <summary>
-        /// 当前是否在执行备份
+        /// 上一次文件列表的数量是多少
         /// </summary>
-        private bool isSave = false;
+        private int lastChangeFilesCount = 0;
 
         /// <summary>
         /// 等待时间(默认一秒)
         /// </summary>
         public static int waitTime = 1000;
+
+        /// <summary>
+        /// 向修改文件列表中添加新的文件
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public bool AddFile(string fileName)
+        {
+            lastChangeFilesCount = changeFiles.Count;
+            var ret = false;
+
+            if (changeFiles.IndexOf(fileName)==-1)
+            {
+                ret = true;
+                changeFiles.Add(fileName);
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// 在修改文件列表中删去文件
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public bool DeleteFile(string fileName)
+        {
+            lastChangeFilesCount = changeFiles.Count;
+            var ret = false;
+            var index = changeFiles.IndexOf(fileName);
+
+            if (index>=0)
+            {
+                changeFiles.RemoveAt(index);
+                ret = true;
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// 检查更改
+        /// </summary>
+        public void ChackChange(object sender,FileSystemEventArgs e)
+        {
+            while (true)
+            {
+                Thread.Sleep(waitTime);
+                if (lastChangeFilesCount==changeFiles.Count)
+                {
+                    Item.Log("更改已经结束");
+                    break;
+                }
+            }
+        }
 
         /// <summary>
         /// 监测修改
@@ -157,6 +213,7 @@ namespace TheLongDarkBackupTools
             if (File.Exists(e.FullPath)&&e.ChangeType!= WatcherChangeTypes.Deleted)
             {
                 var file = new FileInfo(e.FullPath);
+                AddFile(e.FullPath);
                 Console.WriteLine("文件变动");
             }
             else
@@ -167,6 +224,7 @@ namespace TheLongDarkBackupTools
                 }
                 else
                 {
+                    DeleteFile(e.FullPath);
                     Console.WriteLine("删除变动");
                 }
             }

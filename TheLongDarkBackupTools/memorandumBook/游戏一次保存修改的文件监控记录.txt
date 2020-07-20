@@ -1,4 +1,5 @@
-﻿
+﻿活动存档变更
+
 文件变动
 file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\user001.64098_temp Created
 文件变动
@@ -85,3 +86,42 @@ file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4_temp D
 file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4_temp Deleted
 线程 0x2054 已退出，返回值为 0 (0x0)。
 线程 0x2a9c 已退出，返回值为 0 (0x0)。
+
+普通存档变更:
+
+删除变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.64098_temp Created
+删除变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.64098_temp Changed
+更改已经结束
+删除变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.64098 Deleted
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.64098 Created
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.64098 Changed
+更改已经结束
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.64098 Changed
+更改已经结束
+删除变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.64098_temp Deleted
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox3_temp Created
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox3_temp Changed
+更改已经结束
+删除变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox3 Deleted
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox3 Created
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox3 Changed
+更改已经结束
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox3 Changed
+更改已经结束
+删除变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox3_temp Deleted
+线程 0x21d4 已退出，返回值为 0 (0x0)。
+线程 0x1728 已退出，返回值为 0 (0x0)。
