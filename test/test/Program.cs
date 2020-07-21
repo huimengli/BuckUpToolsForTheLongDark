@@ -8,6 +8,7 @@ using ICSharpCode.SharpZipLib.BZip2;
 using ICSharpCode.SharpZipLib.GZip;
 using System.Timers;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace test
 {
@@ -219,56 +220,101 @@ namespace test
         #endregion
     }
 
+    class testThreading
+    {
+        static AutoResetEvent autoReset = new AutoResetEvent(true);
+        static ManualResetEvent resetEvent = new ManualResetEvent(true);
+
+        public static void Main(string[] args)
+        {
+            var i = 0;
+            Thread threads = new Thread(new ThreadStart(EachChange));
+            threads.Start();
+            while (true)
+            {
+                i++;
+                Console.WriteLine("第" + i.ToString() + "次工作");
+                if (i<5)
+                {
+                    threads.Abort();//此平台不能终止线程...
+                    Console.WriteLine("线程被终止");
+                    Thread.Sleep(1 * 1000);
+                    threads.Start();
+                    Console.WriteLine("线程被重启");
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        private static async void EachChange()
+        {
+            var time = DateTime.Now;
+            await Task.Delay(10 * 1000);
+            var time2 = DateTime.Now;
+            Console.WriteLine(time.ToString());
+            Console.WriteLine(time2.ToString());
+        }
+
+        public static DateTime GetTime()
+        {
+            resetEvent.WaitOne();
+            return DateTime.Now;
+        }
+    }
+
     public class watcher
     {
         public static string watcherFile;
 
-        public static void Main(string[] args)
-        {
-            ////如果没有指定目录，则退出程序
-            //if (args.Length != 1)
-            //{
-            //    //显示调用程序的正确方法
-            //    Console.WriteLine("usage:Watcher.exe(directory)");
-            //    return;
-            //}
+        //public static void Main(string[] args)
+        //{
+        //    ////如果没有指定目录，则退出程序
+        //    //if (args.Length != 1)
+        //    //{
+        //    //    //显示调用程序的正确方法
+        //    //    Console.WriteLine("usage:Watcher.exe(directory)");
+        //    //    return;
+        //    //}
 
-            watcherFile = Console.ReadLine();
+        //    //watcherFile = Console.ReadLine();
 
-            #region 文件夹监控测试
-            //Console.WriteLine(watcherFile);
-            ////创建一个新的FileSystemWatcher并设置其属性
-            //FileSystemWatcher watcher = new FileSystemWatcher();
-            //watcher.Path = watcherFile;
-            ///*监视LastAcceSS和LastWrite时间的更改以及文件或目录的重命名*/
-            //watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite |
-            //       NotifyFilters.FileName | NotifyFilters.DirectoryName;
-            ////只监视文本文件
-            ////watcher.Filter = "*.txt";
-            ////添加事件句柄
-            ////当由FileSystemWatcher所指定的路径中的文件或目录的
-            ////大小、系统属性、最后写时间、最后访问时间或安全权限
-            ////发生更改时，更改事件就会发生
-            //watcher.Changed += new FileSystemEventHandler(OnChanged);
-            ////由FileSystemWatcher所指定的路径中文件或目录被创建时，创建事件就会发生
-            //watcher.Created += new FileSystemEventHandler(OnChanged);
-            //watcher.Created += new FileSystemEventHandler(Copy);
-            ////当由FileSystemWatcher所指定的路径中文件或目录被删除时，删除事件就会发生
-            //watcher.Deleted += new FileSystemEventHandler(OnChanged);
-            ////当由FileSystemWatcher所指定的路径中文件或目录被重命名时，重命名事件就会发生
-            //watcher.Renamed += new RenamedEventHandler(OnRenamed);
-            ////开始监视
-            //watcher.EnableRaisingEvents = true;
-            ////等待用户退出程序
-            //Console.WriteLine("Press\'q\' to quit the sample.");
-            //while (Console.Read() != 'q') ; 
-            #endregion
+        //    #region 文件夹监控测试
+        //    //Console.WriteLine(watcherFile);
+        //    ////创建一个新的FileSystemWatcher并设置其属性
+        //    //FileSystemWatcher watcher = new FileSystemWatcher();
+        //    //watcher.Path = watcherFile;
+        //    ///*监视LastAcceSS和LastWrite时间的更改以及文件或目录的重命名*/
+        //    //watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite |
+        //    //       NotifyFilters.FileName | NotifyFilters.DirectoryName;
+        //    ////只监视文本文件
+        //    ////watcher.Filter = "*.txt";
+        //    ////添加事件句柄
+        //    ////当由FileSystemWatcher所指定的路径中的文件或目录的
+        //    ////大小、系统属性、最后写时间、最后访问时间或安全权限
+        //    ////发生更改时，更改事件就会发生
+        //    //watcher.Changed += new FileSystemEventHandler(OnChanged);
+        //    ////由FileSystemWatcher所指定的路径中文件或目录被创建时，创建事件就会发生
+        //    //watcher.Created += new FileSystemEventHandler(OnChanged);
+        //    //watcher.Created += new FileSystemEventHandler(Copy);
+        //    ////当由FileSystemWatcher所指定的路径中文件或目录被删除时，删除事件就会发生
+        //    //watcher.Deleted += new FileSystemEventHandler(OnChanged);
+        //    ////当由FileSystemWatcher所指定的路径中文件或目录被重命名时，重命名事件就会发生
+        //    //watcher.Renamed += new RenamedEventHandler(OnRenamed);
+        //    ////开始监视
+        //    //watcher.EnableRaisingEvents = true;
+        //    ////等待用户退出程序
+        //    //Console.WriteLine("Press\'q\' to quit the sample.");
+        //    //while (Console.Read() != 'q') ; 
+        //    #endregion
 
-            var file = new FileInfo(watcherFile);
+        //    //var file = new FileInfo(watcherFile);
 
-            //ZipFile(watcherFile, file.DirectoryName + "\\2.zip", ZipEnum.BZIP2);
-            UnZipFile(watcherFile, file.DirectoryName + "\\2.png", ZipEnum.BZIP2);
-        }
+        //    //ZipFile(watcherFile, file.DirectoryName + "\\2.zip", ZipEnum.BZIP2);
+        //    //UnZipFile(watcherFile, file.DirectoryName + "\\2.png", ZipEnum.BZIP2);
+        //}
 
         //定义事件处理程序
         public static void OnChanged(object sender, FileSystemEventArgs e)

@@ -403,7 +403,7 @@ namespace TheLongDarkBackupTools
             g.CopyFromScreen(new Point(0, 0), new Point(0, 0), Screen.AllScreens[0].Bounds.Size);
             //Clipboard.SetImage(img);
             img.Save(savePath);
-            Console.WriteLine(g);
+            //Console.WriteLine(g);
         }
 
         /// <summary>
@@ -704,10 +704,14 @@ namespace TheLongDarkBackupTools
         /// </summary>  
         public enum ZipEnum
         {
-            //压缩时间长，压缩率高  
+            /// <summary>
+            /// 压缩时间长，压缩率高
+            /// </summary>            
             BZIP2,
 
-            //压缩效率高，压缩率低  
+            /// <summary>
+            /// 压缩效率高，压缩率低
+            /// </summary>
             GZIP
         }
 
@@ -761,6 +765,64 @@ namespace TheLongDarkBackupTools
             }
             return flag;
         }
+
+        /// <summary>
+        /// 解压压缩包(单个文件的压缩包)
+        /// </summary>
+        /// <param name="zipFileName">压缩包路径</param>
+        /// <param name="srcFileName">解压文件到</param>
+        /// <param name="zipEnum">压缩类型</param>
+        /// <returns></returns>
+        public static bool UnZipFile(string zipFileName, string srcFileName, ZipEnum zipEnum)
+        {
+            var ret = true;
+
+            try
+            {
+                switch (zipEnum)
+                {
+                    case ZipEnum.BZIP2:
+
+                        var inFile = File.OpenRead(zipFileName);
+                        var outFile = File.Open(srcFileName, FileMode.Create);
+
+                        BZip2.Decompress(inFile, outFile, true);
+
+                        inFile.Close();
+                        outFile.Close();
+
+                        break;
+                    case ZipEnum.GZIP:
+
+                        var srcFile = File.Open(srcFileName, FileMode.Create);
+                        var zipFile = new GZipInputStream(File.OpenRead(zipFileName));
+
+                        int buffersize = 2048;//设置缓冲区大小
+                        byte[] fileData = new byte[buffersize];//创建缓冲数据
+
+                        while (buffersize > 0)//一直读取到文件末尾
+                        {
+                            buffersize = zipFile.Read(fileData, 0, buffersize);
+                            srcFile.Write(fileData, 0, buffersize);//写入目标文件
+                        }
+
+
+                        srcFile.Close();
+                        zipFile.Close();
+
+                        break;
+                    default: break;
+                }
+            }
+            catch (Exception)
+            {
+                ret = false;
+                throw;
+            }
+
+            return ret;
+        }
+
 
         #endregion
 

@@ -1,0 +1,508 @@
+﻿文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x2b80 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 Changed
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4448 已退出，返回值为 0 (0x0)。
+2020-07-21 20:15:54线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4b38 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (2) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (2) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x42fc 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (2) Changed
+2020-07-21 20:15:55线程开始
+线程 0x429c 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x2f98 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (3) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (3) Changed
+文件变动
+线程 0x3bb4 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (3) Changed
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4348 已退出，返回值为 0 (0x0)。
+2020-07-21 20:15:55线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4838 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (4) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x1290 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (4) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (4) Changed
+2020-07-21 20:15:56线程开始
+线程 0x44d4 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x960 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (5) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x453c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (5) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x29fc 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (5) Changed
+2020-07-21 20:15:57线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x41bc 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (6) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x3440 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (6) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (6) Changed
+线程 0x8b8 已退出，返回值为 0 (0x0)。
+2020-07-21 20:15:58线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x2328 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (7) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x2c6c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (7) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (7) Changed
+2020-07-21 20:15:58线程开始
+线程 0x46d4 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x27d0 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (8) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (8) Changed
+线程 0x45a0 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (8) Changed
+2020-07-21 20:15:59线程开始
+线程 0x4090 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x479c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (9) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x2c3c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (9) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (9) Changed
+线程 0xb78 已退出，返回值为 0 (0x0)。
+2020-07-21 20:15:59线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x24e8 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (10) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (10) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (10) Changed
+线程 0x490c 已退出，返回值为 0 (0x0)。
+2020-07-21 20:16:00线程开始
+线程 0x4624 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x38bc 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (11) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4488 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (11) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x1608 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (11) Changed
+2020-07-21 20:16:00线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x20cc 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (12) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4270 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (12) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (12) Changed
+2020-07-21 20:16:00线程开始
+线程 0x458c 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x49f0 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (13) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x3c24 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (13) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (13) Changed
+线程 0x47f4 已退出，返回值为 0 (0x0)。
+2020-07-21 20:16:00线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x353c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (14) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4378 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (14) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (14) Changed
+线程 0x4b08 已退出，返回值为 0 (0x0)。
+2020-07-21 20:16:01线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x3824 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (15) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x3064 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (15) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (15) Changed
+2020-07-21 20:16:01线程开始
+线程 0x44f8 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x483c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (16) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4dc 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (16) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x42ec 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (16) Changed
+2020-07-21 20:16:01线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x620 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (17) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4014 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (17) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (17) Changed
+2020-07-21 20:16:01线程开始
+线程 0x4310 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x485c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (18) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4528 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (18) Changed
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (18) Changed
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+2020-07-21 20:16:02线程开始
+线程 0x27a0 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x43c0 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (19) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (19) Changed
+文件变动
+线程 0x2530 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (19) Changed
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+2020-07-21 20:16:02线程开始
+线程 0x44cc 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x2f44 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (20) Created
+文件变动
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (20) Changed
+文件变动
+线程 0x440 已退出，返回值为 0 (0x0)。
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (20) Changed
+线程 0x3f5c 已退出，返回值为 0 (0x0)。
+2020-07-21 20:16:02线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x47c4 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (21) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x430c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (21) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x45a8 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (21) Changed
+2020-07-21 20:16:02线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x47ac 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (22) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (22) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (22) Changed
+2020-07-21 20:16:03线程开始
+线程 0x4574 已退出，返回值为 0 (0x0)。
+线程 0x38f4 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x2d2c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (23) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (23) Changed
+线程 0x4238 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x2c84 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (23) Changed
+2020-07-21 20:16:03线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x3a98 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (24) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x155c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (24) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (24) Changed
+2020-07-21 20:16:03线程开始
+线程 0x4884 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x2cc8 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (25) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x44e4 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (25) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (25) Changed
+线程 0x2eb8 已退出，返回值为 0 (0x0)。
+2020-07-21 20:16:04线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x42f8 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (26) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4a3c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (26) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (26) Changed
+线程 0x3790 已退出，返回值为 0 (0x0)。
+2020-07-21 20:16:05线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x427c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (27) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (27) Changed
+文件变动
+线程 0x2c78 已退出，返回值为 0 (0x0)。
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (27) Changed
+线程 0x38e0 已退出，返回值为 0 (0x0)。
+2020-07-21 20:16:06线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4578 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (28) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x3610 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (28) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x151c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (28) Changed
+2020-07-21 20:16:06线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4890 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (29) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (29) Changed
+文件变动
+线程 0x4b34 已退出，返回值为 0 (0x0)。
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (29) Changed
+线程 0x1b74 已退出，返回值为 0 (0x0)。
+2020-07-21 20:16:07线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x3518 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (30) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x3120 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (30) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (30) Changed
+线程 0x4584 已退出，返回值为 0 (0x0)。
+2020-07-21 20:16:08线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x1928 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (31) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x41c0 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (31) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x108c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (31) Changed
+2020-07-21 20:16:09线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x2e58 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (32) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x3e94 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (32) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (32) Changed
+线程 0x132c 已退出，返回值为 0 (0x0)。
+2020-07-21 20:16:09线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x31b8 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (33) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (33) Changed
+线程 0x4970 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x17dc 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (33) Changed
+2020-07-21 20:16:10线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4720 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (34) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4918 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (34) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x2270 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (34) Changed
+2020-07-21 20:16:11线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x3d3c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (35) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4818 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (35) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (35) Changed
+线程 0x3594 已退出，返回值为 0 (0x0)。
+2020-07-21 20:16:12线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x3f60 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (36) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (36) Changed
+文件变动
+线程 0x4980 已退出，返回值为 0 (0x0)。
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x40c4 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (36) Changed
+2020-07-21 20:16:12线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x461c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (37) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (37) Changed
+线程 0x4158 已退出，返回值为 0 (0x0)。
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x15fc 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (37) Changed
+2020-07-21 20:16:13线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x48e8 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (38) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x37a0 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (38) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (38) Changed
+线程 0x28f0 已退出，返回值为 0 (0x0)。
+2020-07-21 20:16:14线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x246c 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (39) Created
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x4af0 已退出，返回值为 0 (0x0)。
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (39) Changed
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\Administrator\AppData\Local\Hinterland\TheLongDark\sandbox4 - 副本 (39) Changed
+线程 0x3b50 已退出，返回值为 0 (0x0)。
+2020-07-21 20:16:14线程开始
+2020-07-21 20:16:24线程完成任务
+线程 0x1a70 已退出，返回值为 0 (0x0)。
+线程 0x211c 已退出，返回值为 0 (0x0)。
+线程 0x3e9c 已退出，返回值为 0 (0x0)。

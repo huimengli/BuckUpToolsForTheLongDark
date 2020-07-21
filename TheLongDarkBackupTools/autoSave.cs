@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace TheLongDarkBackupTools
 {
@@ -26,6 +27,11 @@ namespace TheLongDarkBackupTools
         private Value buckUpPath;
 
         /// <summary>
+        /// 备份所在的位置
+        /// </summary>
+        public static Value BuckUpPath;
+
+        /// <summary>
         /// 主页面
         /// </summary>
         private Form form;
@@ -38,7 +44,12 @@ namespace TheLongDarkBackupTools
         /// <summary>
         /// 临时文件夹路径
         /// </summary>
-        public static string TemporaryPath = AppDomain.CurrentDomain.BaseDirectory + @"temporary\";
+        //public static string TemporaryPath;//= AppDomain.CurrentDomain.BaseDirectory + @"temporary\";
+
+        /// <summary>
+        /// zip文件保存路径
+        /// </summary>
+        public static string ZipPath;
 
         /// <summary>
         /// 构造函数
@@ -51,7 +62,13 @@ namespace TheLongDarkBackupTools
             this.form = form;
             this.gameSavePath = gameSavePath;
             this.buckUpPath = buckUpPath;
+            BuckUpPath = buckUpPath;
+            ZipPath = buckUpPath.val + @"\zippath\";
             InitializeComponent();
+            if (Directory.Exists(ZipPath)==false)
+            {
+                Directory.CreateDirectory(ZipPath);
+            }
             label4.Text = "";//自动保存还没有做好
         }
 
@@ -119,7 +136,7 @@ namespace TheLongDarkBackupTools
             //大小、系统属性、最后写时间、最后访问时间或安全权限
             //发生更改时，更改事件就会发生
             watcher.Changed += new FileSystemEventHandler(watch.OnChange);
-            watcher.Changed += new FileSystemEventHandler(watch.ChackChange);
+            //watcher.Changed += new FileSystemEventHandler(watch.ChackChange);
             //由FileSystemWatcher所指定的路径中文件或目录被创建时，创建事件就会发生
             watcher.Created += new FileSystemEventHandler(watch.OnChange);
             //当由FileSystemWatcher所指定的路径中文件或目录被删除时，删除事件就会发生
@@ -136,7 +153,7 @@ namespace TheLongDarkBackupTools
         /// <summary>
         /// 被修改的文件列表
         /// </summary>
-        private List<string> changeFiles = new List<string>();
+        private static List<string> changeFiles = new List<string>();
 
         /// <summary>
         /// 上一次文件列表的数量是多少
@@ -147,6 +164,26 @@ namespace TheLongDarkBackupTools
         /// 等待时间(默认一秒)
         /// </summary>
         public static int waitTime = 1000;
+
+        /// <summary>
+        /// 检查是否完成变更的线程
+        /// </summary>
+        private Thread changeOver = new Thread(Change);
+
+        /// <summary>
+        /// 测试是否是用户数据
+        /// </summary>
+        private static Regex testUser = new Regex("user");
+
+        /// <summary>
+        /// 信号器
+        /// </summary>
+        //private AutoResetEvent resetEvent = new AutoResetEvent(true);
+
+        /// <summary>
+        /// 变动已经完成
+        /// </summary>
+        //private bool changeOver = true;
 
         /// <summary>
         /// 向修改文件列表中添加新的文件
@@ -215,6 +252,24 @@ namespace TheLongDarkBackupTools
                 var file = new FileInfo(e.FullPath);
                 AddFile(e.FullPath);
                 Console.WriteLine("文件变动");
+                if (changeOver.ThreadState== ThreadState.Unstarted||changeOver.ThreadState== ThreadState.WaitSleepJoin)
+                {
+                    if (changeOver.IsAlive)
+                    {
+                        changeOver.Abort();
+                        changeOver = new Thread(Change);
+                        changeOver.Start();
+                    }
+                    else
+                    {
+                        changeOver.Start();
+                    }
+                }
+                else if (changeOver.ThreadState==ThreadState.Stopped)
+                {
+                    changeOver = new Thread(Change);
+                    changeOver.Start();
+                }
             }
             else
             {
@@ -245,11 +300,75 @@ namespace TheLongDarkBackupTools
         {
             var time = DateTime.Now.ToFileTimeUtc();
             var file = new FileInfo(e.FullPath);
-            var imgSrc = autoSave.TemporaryPath +file.Name+ "_bf"+time.ToString()+".png";
-            Item.Screenshot(imgSrc);
-
+            //var imgSrc = autoSave.TemporaryPath +file.Name+ "_bf"+time.ToString()+".png";
+            //Item.Screenshot(imgSrc);
         }
 
+        /// <summary>
+        /// 内容修改
+        /// 最开始的时候写成异步函数了
+        /// 异步调用 task.delay 会导致
+        /// 运行过程中 thread.isalive 参数在调用时候
+        /// 除了最开始一次其他都是 false
+        /// </summary>
+        public static void Change()
+        {
+            var time = DateTime.Now;
+            Item.Log(time.ToString()+"线程开始");
+            //等待五秒,如果线程未结束,就开始进行备份
+            Thread.Sleep(5 * 1000);
+            var time2 = DateTime.Now;
+            Item.Log(time2.ToString()+"线程完成任务");
+            foreach (var item in changeFiles)
+            {
+                Item.Log(item);
+                if (testUser.IsMatch(item)==false)
+                {
+                    //需要自动备份的文件对象
+                    var file = new FileInfo(item);
+                    //截图并保存到临时文件夹
+                    Item.Screenshot(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
+                    //备份文件为在文件夹为zip文件
+                    Item.ZipFile(file.FullName, autoSave.ZipPath + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".zip", Item.ZipEnum.GZIP);
+                }
+            }
+        }
+    }
 
+    /// <summary>
+    /// 是或者否?
+    /// </summary>
+    public class TrueFalse
+    {
+        /// <summary>
+        /// 保护起来的值
+        /// </summary>
+        private bool value;
+
+        /// <summary>
+        /// 只读的值
+        /// </summary>
+        public bool Value
+        {
+            get
+            {
+                return value;
+            }
+        }
+
+        public TrueFalse()
+        {
+            value = false;
+        }
+
+        public TrueFalse(bool torf)
+        {
+            value = torf;
+        }
+
+        public void ChangeValue(bool torf)
+        {
+            value = torf;
+        }
     }
 }
