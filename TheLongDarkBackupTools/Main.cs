@@ -48,13 +48,18 @@ namespace TheLongDarkBackupTools
             IsElseForm = false;
             NeedHelp = false;
             IniPath = CurrentPath + "BuckUpTools.ini";
+            if (File.Exists(IniPath)==false) {
+                var tishi = CurrentPath + "注意事项.txt";
+                File.WriteAllText(tishi, Massage.tishi);
+                Item.OpenOnWindows(tishi);
+            }
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (!IsElseForm)
             {
-                Item.OpenOnWindwos("https://github.com/huimengli/BuckUpToolsForTheLongDark");
+                Item.OpenOnWindows("https://github.com/huimengli/BuckUpToolsForTheLongDark");
             }
         }
 

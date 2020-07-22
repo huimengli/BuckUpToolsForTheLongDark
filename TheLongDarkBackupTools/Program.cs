@@ -53,7 +53,7 @@ namespace TheLongDarkBackupTools
         /// 打开网站|其他东西
         /// </summary>
         /// <param name="web">网址|地址</param>
-        public static void OpenOnWindwos(string web)
+        public static void OpenOnWindows(string web)
         {
             System.Diagnostics.Process.Start(web);
         }

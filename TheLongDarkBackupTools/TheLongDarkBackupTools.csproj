@@ -92,6 +92,7 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="massage.cs" />
     <Compile Include="MyMassageBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +165,7 @@
     <Content Include="image\background.png" />
     <Content Include="image\background_min.png" />
     <Content Include="memorandumBook\多线程测试结果.txt" />
+    <Content Include="memorandumBook\注意事项.txt" />
     <Content Include="memorandumBook\游戏一次保存修改的文件监控记录.txt" />
   </ItemGroup>
   <ItemGroup>
