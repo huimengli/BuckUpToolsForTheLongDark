@@ -227,26 +227,31 @@ namespace test
 
         public static void Main(string[] args)
         {
-            var i = 0;
-            Thread threads = new Thread(new ThreadStart(EachChange));
-            threads.Start();
-            while (true)
-            {
-                i++;
-                Console.WriteLine("第" + i.ToString() + "次工作");
-                if (i<5)
-                {
-                    threads.Abort();//此平台不能终止线程...
-                    Console.WriteLine("线程被终止");
-                    Thread.Sleep(1 * 1000);
-                    threads.Start();
-                    Console.WriteLine("线程被重启");
-                }
-                else
-                {
-                    break;
-                }
-            }
+            //var i = 0;
+            //Thread threads = new Thread(new ThreadStart(EachChange));
+            //threads.Start();
+            //while (true)
+            //{
+            //    i++;
+            //    Console.WriteLine("第" + i.ToString() + "次工作");
+            //    if (i<5)
+            //    {
+            //        threads.Abort();//此平台不能终止线程...
+            //        Console.WriteLine("线程被终止");
+            //        Thread.Sleep(1 * 1000);
+            //        threads.Start();
+            //        Console.WriteLine("线程被重启");
+            //    }
+            //    else
+            //    {
+            //        break;
+            //    }
+            //}
+
+            var file = new DirectoryInfo(@"C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\test\");
+            Console.WriteLine(file);
+            file.Attributes = FileAttributes.Hidden;
+            Console.Read();
         }
 
         private static async void EachChange()

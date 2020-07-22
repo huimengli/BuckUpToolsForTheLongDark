@@ -555,11 +555,20 @@ namespace TheLongDarkBackupTools
             {
                 return;
             }
+            var file = new FileInfo(name);
+            var lastName = file.Extension;
             var saveTimes = new Regex(@"_bf[\d]*").Match(name).Groups[0].ToString();
             var trueName = "";
             try
             {
-                trueName = name.Remove(name.Length - saveTimes.Length);
+                if (string.IsNullOrEmpty(lastName))
+                {
+                    trueName = name.Remove(name.Length - saveTimes.Length);
+                }
+                else
+                {
+                    trueName = name.Remove(name.Length - saveTimes.Length - lastName.Length);
+                }
             }
             catch (Exception)
             {
@@ -570,9 +579,27 @@ namespace TheLongDarkBackupTools
             {
                 File.Delete(savePath + "\\" + trueName);
             }
-            var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes*/ + "\" \"" + savePath + "\\" + trueName + "\" ";
-            //Main.saveTimes++;
-            UseCmd(copyCmd);
+
+            if (string.IsNullOrEmpty(lastName))
+            {
+                var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes */+ "\" \"" + savePath + "\\" + trueName + "\" ";
+                //Main.saveTimes++;
+                UseCmd(copyCmd);
+            }
+            else if (lastName == ".zip")
+            {
+                UnZipFile(file.FullName, savePath + "\\" + trueName, ZipEnum.GZIP);
+            }
+            else if (lastName == ".png")
+            {
+                var zipFilePath = file.DirectoryName + @"\zippath\" + trueName + saveTimes + ".zip";
+                if (File.Exists(zipFilePath)==false)
+                {
+                    Log("备份文件不存在!");
+                    return;
+                }
+                UnZipFile(zipFilePath, savePath + "\\" + trueName, ZipEnum.GZIP);
+            }
         }
 
         /// <summary>
@@ -613,19 +640,29 @@ namespace TheLongDarkBackupTools
         }
 
         /// <summary>
-        /// 读取存档(因为参数中含有文件导致文件被gc回收[也就是删除]所以没法用)
+        /// 读取存档
+        /// 可以读取zip类型的存档
+        /// 
         /// </summary>
         /// <param name="file">文件对象</param>
         /// <param name="savePath">存档所在位置</param>
         public static void ReadSave(FileInfo file, string savePath)
         {
             var name = file.Name;
+            var lastName = file.Extension;
             var path = file.DirectoryName;
             var saveTimes = new Regex(@"_bf[\d]*").Match(name).Groups[0].ToString();
             var trueName = "";
             try
             {
-               trueName = name.Remove(name.Length - saveTimes.Length);
+                if (string.IsNullOrEmpty(lastName))
+                {
+                    trueName = name.Remove(name.Length - saveTimes.Length);
+                }
+                else
+                {
+                    trueName = name.Remove(name.Length - saveTimes.Length-lastName.Length);
+                }
             }
             catch (Exception)
             {
@@ -637,9 +674,22 @@ namespace TheLongDarkBackupTools
             {
                 File.Delete(savePath + "\\" + trueName);
             }
-            var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes */+ "\" \"" + savePath + "\\" + trueName + "\" ";
-            //Main.saveTimes++;
-            UseCmd(copyCmd);
+
+            if (string.IsNullOrEmpty(lastName))
+            {
+                var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes */+ "\" \"" + savePath + "\\" + trueName + "\" ";
+                //Main.saveTimes++;
+                UseCmd(copyCmd);
+            }
+            else if (lastName==".zip")
+            {
+                UnZipFile(file.FullName, savePath + "\\" + trueName, ZipEnum.GZIP);
+            }
+            else if (lastName==".png")
+            {
+                var zipFilePath = file.DirectoryName + @"\zippath\"+trueName+saveTimes+".zip";
+                UnZipFile(zipFilePath, savePath + "\\" + trueName, ZipEnum.GZIP);
+            }
         }
 
         /// <summary>

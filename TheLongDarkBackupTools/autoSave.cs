@@ -39,7 +39,7 @@ namespace TheLongDarkBackupTools
         /// <summary>
         /// 文件夹监控对象
         /// </summary>
-        public static FileSystemWatcher watcher = new FileSystemWatcher();
+        public static FileSystemWatcher watcher;
 
         /// <summary>
         /// 临时文件夹路径
@@ -50,6 +50,11 @@ namespace TheLongDarkBackupTools
         /// zip文件保存路径
         /// </summary>
         public static string ZipPath;
+
+        /// <summary>
+        /// 建立检查
+        /// </summary>
+        public Watcher watch;
 
         /// <summary>
         /// 构造函数
@@ -68,8 +73,15 @@ namespace TheLongDarkBackupTools
             if (Directory.Exists(ZipPath)==false)
             {
                 Directory.CreateDirectory(ZipPath);
+                var dir = new DirectoryInfo(ZipPath);
+                dir.Attributes = FileAttributes.Hidden;
             }
-            label4.Text = "";//自动保存还没有做好
+            else
+            {
+                var dir = new DirectoryInfo(ZipPath);
+                dir.Attributes = FileAttributes.Hidden;
+            }
+            //label4.Text = "";//自动保存还没有做好
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -87,6 +99,9 @@ namespace TheLongDarkBackupTools
             form.Opacity = 1;
             //结束文件夹监视
             watcher.EnableRaisingEvents = false;
+            watch = null;
+            //进行强制回收内存
+            GC.Collect();
         }
 
         private void autoSave_DragDrop(object sender, DragEventArgs e)
@@ -121,28 +136,35 @@ namespace TheLongDarkBackupTools
 
         private void autoSave_Load(object sender, EventArgs e)
         {
-            var watch = new Watcher();
+            if (watch == null)
+            {
+                watch = new Watcher();
+            }
+            if (watcher==null)
+            {
+                watcher = new FileSystemWatcher();
+                watcher.Path = gameSavePath.val;
+                /*监视LastAcceSS和LastWrite时间的更改以及文件或目录的重命名*/
+                watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite |
+                      NotifyFilters.FileName | NotifyFilters.DirectoryName;
+                //添加事件句柄
+                //当由FileSystemWatcher所指定的路径中的文件或目录的
+                //大小、系统属性、最后写时间、最后访问时间或安全权限
+                //发生更改时，更改事件就会发生
+                watcher.Changed += new FileSystemEventHandler(watch.OnChange);
+                //watcher.Changed += new FileSystemEventHandler(watch.ChackChange);
+                //由FileSystemWatcher所指定的路径中文件或目录被创建时，创建事件就会发生
+                watcher.Created += new FileSystemEventHandler(watch.OnChange);
+                //当由FileSystemWatcher所指定的路径中文件或目录被删除时，删除事件就会发生
+                watcher.Deleted += new FileSystemEventHandler(watch.OnChange);
+                //当由FileSystemWatcher所指定的路径中文件或目录被重命名时，重命名事件就会发生
+                watcher.Renamed += new RenamedEventHandler(watch.OnRenamed);
+            }
             if (!Directory.Exists(gameSavePath.val))
             {
                 Console.WriteLine("存档文件夹不存在！");
                 return;
             }
-            watcher.Path = gameSavePath.val;
-            /*监视LastAcceSS和LastWrite时间的更改以及文件或目录的重命名*/
-            watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite |
-                  NotifyFilters.FileName | NotifyFilters.DirectoryName;
-            //添加事件句柄
-            //当由FileSystemWatcher所指定的路径中的文件或目录的
-            //大小、系统属性、最后写时间、最后访问时间或安全权限
-            //发生更改时，更改事件就会发生
-            watcher.Changed += new FileSystemEventHandler(watch.OnChange);
-            //watcher.Changed += new FileSystemEventHandler(watch.ChackChange);
-            //由FileSystemWatcher所指定的路径中文件或目录被创建时，创建事件就会发生
-            watcher.Created += new FileSystemEventHandler(watch.OnChange);
-            //当由FileSystemWatcher所指定的路径中文件或目录被删除时，删除事件就会发生
-            watcher.Deleted += new FileSystemEventHandler(watch.OnChange);
-            //当由FileSystemWatcher所指定的路径中文件或目录被重命名时，重命名事件就会发生
-            watcher.Renamed += new RenamedEventHandler(watch.OnRenamed);
             //开始监视
             watcher.EnableRaisingEvents = true;
         }
@@ -319,20 +341,44 @@ namespace TheLongDarkBackupTools
             Thread.Sleep(5 * 1000);
             var time2 = DateTime.Now;
             Item.Log(time2.ToString()+"线程完成任务");
-            foreach (var item in changeFiles)
+            try
             {
-                Item.Log(item);
-                if (testUser.IsMatch(item)==false)
+                foreach (var item in changeFiles)
                 {
-                    //需要自动备份的文件对象
-                    var file = new FileInfo(item);
-                    //截图并保存到临时文件夹
-                    Item.Screenshot(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
-                    //备份文件为在文件夹为zip文件
-                    Item.ZipFile(file.FullName, autoSave.ZipPath + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".zip", Item.ZipEnum.GZIP);
+                    Item.Log(item);
+                    if (testUser.IsMatch(item) == false)
+                    {
+                        //需要自动备份的文件对象
+                        var file = new FileInfo(item);
+                        //截图并保存到临时文件夹
+                        Item.Screenshot(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
+                        //备份文件为在文件夹为zip文件
+                        Item.ZipFile(file.FullName, autoSave.ZipPath + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".zip", Item.ZipEnum.GZIP);
+                    }
                 }
             }
+            catch (Exception err)
+            {
+                Item.Log(err);
+            }
         }
+        
+        /// <summary>
+        /// 回收机制
+        /// </summary>
+        //~Watcher()
+        //{
+        //    try
+        //    {
+        //        changeOver.Start();
+        //        changeOver.Abort();
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        Item.Log(err);
+        //    }
+        //    changeOver.DisableComObjectEagerCleanup();
+        //}
     }
 
     /// <summary>
