@@ -1,6 +1,4 @@
-﻿using ICSharpCode.SharpZipLib.BZip2;
-using ICSharpCode.SharpZipLib.GZip;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -9,6 +7,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.IO.Compression;
 
 /// <summary>
 /// 漫漫长夜备份工具
@@ -37,7 +36,7 @@ namespace TheLongDarkBackupTools
         /// <summary>
         /// 选择的文件夹路径
         /// </summary>
-        private static string Path;
+        private static string ChousePath;
 
         /// <summary>
         /// 存档文件路径
@@ -196,9 +195,9 @@ namespace TheLongDarkBackupTools
             dialog.Description = tishi;
             dialog.ShowNewFolderButton = false;
             dialog.RootFolder = folder;
-            if (Path!=String.Empty&&Path!=null)
+            if (ChousePath!=String.Empty&&ChousePath!=null)
             {
-                dialog.SelectedPath = Path;
+                dialog.SelectedPath = ChousePath;
             }
             //else
             //{
@@ -214,9 +213,9 @@ namespace TheLongDarkBackupTools
                 //this.LoadingDisplay = true;
                 //Action<string> a = DaoRuData;
                 //a.BeginInvoke(dialog.SelectedPath, asyncCallback, a);
-                Path = dialog.SelectedPath;
+                ChousePath = dialog.SelectedPath;
             }
-            label.Text = Path;
+            label.Text = ChousePath;
         }
 
         public static void ChoiceFolder(Value value)
@@ -249,9 +248,9 @@ namespace TheLongDarkBackupTools
             dialog.Description = tishi;
             dialog.ShowNewFolderButton = false;
             dialog.RootFolder = folder;
-            if (Path != String.Empty && Path != null)
+            if (ChousePath != String.Empty && ChousePath != null)
             {
-                dialog.SelectedPath = Path;
+                dialog.SelectedPath = ChousePath;
             }
             //else
             //{
@@ -267,9 +266,9 @@ namespace TheLongDarkBackupTools
                 //this.LoadingDisplay = true;
                 //Action<string> a = DaoRuData;
                 //a.BeginInvoke(dialog.SelectedPath, asyncCallback, a);
-                Path = dialog.SelectedPath;
+                ChousePath = dialog.SelectedPath;
             }
-            value.val = Path;
+            value.val = ChousePath;
         }
 
         /// <summary>
@@ -586,19 +585,19 @@ namespace TheLongDarkBackupTools
                 //Main.saveTimes++;
                 UseCmd(copyCmd);
             }
-            else if (lastName == ".zip")
+            else if (lastName == ".gz")
             {
-                UnZipFile(file.FullName, savePath + "\\" + trueName, ZipEnum.GZIP);
+                UnZipFile(file.FullName, savePath + "\\" + trueName);
             }
             else if (lastName == ".png")
             {
-                var zipFilePath = file.DirectoryName + @"\zippath\" + trueName + saveTimes + ".zip";
+                var zipFilePath = file.DirectoryName + @"\zippath\" + trueName + saveTimes + ".gz";
                 if (File.Exists(zipFilePath)==false)
                 {
                     Log("备份文件不存在!");
                     return;
                 }
-                UnZipFile(zipFilePath, savePath + "\\" + trueName, ZipEnum.GZIP);
+                UnZipFile(zipFilePath, savePath + "\\" + trueName);
             }
         }
 
@@ -681,14 +680,14 @@ namespace TheLongDarkBackupTools
                 //Main.saveTimes++;
                 UseCmd(copyCmd);
             }
-            else if (lastName==".zip")
+            else if (lastName==".gz")
             {
-                UnZipFile(file.FullName, savePath + "\\" + trueName, ZipEnum.GZIP);
+                UnZipFile(file.FullName, savePath + "\\" + trueName);
             }
             else if (lastName==".png")
             {
-                var zipFilePath = file.DirectoryName + @"\zippath\"+trueName+saveTimes+".zip";
-                UnZipFile(zipFilePath, savePath + "\\" + trueName, ZipEnum.GZIP);
+                var zipFilePath = file.DirectoryName + @"\zippath\"+trueName+saveTimes+".gz";
+                UnZipFile(zipFilePath, savePath + "\\" + trueName);
             }
         }
 
@@ -765,114 +764,228 @@ namespace TheLongDarkBackupTools
             GZIP
         }
 
-        /// <summary>  
-        /// 制作压缩包（单个文件压缩）  
-        /// </summary>  
-        /// <param name="srcFileName">原文件</param>  
-        /// <param name="zipFileName">压缩文件</param>  
-        /// <param name="zipEnum">压缩算法枚举</param>  
-        /// <returns>压缩成功标志</returns>  
-        public static bool ZipFile(string srcFileName, string zipFileName, ZipEnum zipEnum)
+        /// <summary>
+        /// 单文件压缩（生成的压缩包和第三方的解压软件兼容）
+        /// </summary>
+        /// <param name="sourceFilePath"></param>
+        /// <returns></returns>
+        public static void ZipFile(string sourceFilePath, string zipFileName)
         {
-            bool flag = true;
-            try
+            //string zipFileName = sourceFilePath + ".gz";
+            using (FileStream sourceFileStream = new FileInfo(sourceFilePath).OpenRead())
             {
-                switch (zipEnum)
+                using (FileStream zipFileStream = File.Create(zipFileName))
                 {
-                    case ZipEnum.BZIP2:
-
-                        FileStream inStream = File.OpenRead(srcFileName);
-                        FileStream outStream = File.Open(zipFileName, FileMode.Create);
-
-                        //参数true表示压缩完成后，inStream和outStream连接都释放  
-                        BZip2.Compress(inStream, outStream, true, 4096);
-
-                        inStream.Close();
-                        outStream.Close();
-
-
-                        break;
-                    case ZipEnum.GZIP:
-
-                        FileStream srcFile = File.OpenRead(srcFileName);
-
-                        GZipOutputStream zipFile = new GZipOutputStream(File.Open(zipFileName, FileMode.Create));
-
-                        byte[] fileData = new byte[srcFile.Length];
-                        srcFile.Read(fileData, 0, (int)srcFile.Length);
-                        zipFile.Write(fileData, 0, fileData.Length);
-
-                        srcFile.Close();
-                        zipFile.Close();
-
-                        break;
-                    default: break;
+                    using (GZipStream zipStream = new GZipStream(zipFileStream, CompressionMode.Compress))
+                    {
+                        sourceFileStream.CopyTo(zipStream);
+                    }
                 }
             }
-            catch
-            {
-                flag = false;
-            }
-            return flag;
+            //return zipFileName;
         }
 
         /// <summary>
-        /// 解压压缩包(单个文件的压缩包)
+        /// 自定义多文件压缩（生成的压缩包和第三方的压缩文件解压不兼容）
         /// </summary>
-        /// <param name="zipFileName">压缩包路径</param>
-        /// <param name="srcFileName">解压文件到</param>
-        /// <param name="zipEnum">压缩类型</param>
-        /// <returns></returns>
-        public static bool UnZipFile(string zipFileName, string srcFileName, ZipEnum zipEnum)
+        /// <param name="sourceFileList">文件列表</param>
+        /// <param name="saveFullPath">压缩包全路径</param>
+        public static void ZipFiles(string[] sourceFileList, string saveFullPath)
         {
-            var ret = true;
-
-            try
+            MemoryStream ms = new MemoryStream();
+            foreach (string filePath in sourceFileList)
             {
-                switch (zipEnum)
+                Console.WriteLine(filePath);
+                if (File.Exists(filePath))
                 {
-                    case ZipEnum.BZIP2:
-
-                        var inFile = File.OpenRead(zipFileName);
-                        var outFile = File.Open(srcFileName, FileMode.Create);
-
-                        BZip2.Decompress(inFile, outFile, true);
-
-                        inFile.Close();
-                        outFile.Close();
-
-                        break;
-                    case ZipEnum.GZIP:
-
-                        var srcFile = File.Open(srcFileName, FileMode.Create);
-                        var zipFile = new GZipInputStream(File.OpenRead(zipFileName));
-
-                        int buffersize = 2048;//设置缓冲区大小
-                        byte[] fileData = new byte[buffersize];//创建缓冲数据
-
-                        while (buffersize > 0)//一直读取到文件末尾
-                        {
-                            buffersize = zipFile.Read(fileData, 0, buffersize);
-                            srcFile.Write(fileData, 0, buffersize);//写入目标文件
-                        }
-
-
-                        srcFile.Close();
-                        zipFile.Close();
-
-                        break;
-                    default: break;
+                    string fileName = Path.GetFileName(filePath);
+                    byte[] fileNameBytes = System.Text.Encoding.UTF8.GetBytes(fileName);
+                    byte[] sizeBytes = BitConverter.GetBytes(fileNameBytes.Length);
+                    ms.Write(sizeBytes, 0, sizeBytes.Length);
+                    ms.Write(fileNameBytes, 0, fileNameBytes.Length);
+                    byte[] fileContentBytes = System.IO.File.ReadAllBytes(filePath);
+                    ms.Write(BitConverter.GetBytes(fileContentBytes.Length), 0, 4);
+                    ms.Write(fileContentBytes, 0, fileContentBytes.Length);
                 }
             }
-            catch (Exception)
+            ms.Flush();
+            ms.Position = 0;
+            using (FileStream zipFileStream = File.Create(saveFullPath))
             {
-                ret = false;
-                throw;
+                using (GZipStream zipStream = new GZipStream(zipFileStream, CompressionMode.Compress))
+                {
+                    ms.Position = 0;
+                    ms.CopyTo(zipStream);
+                }
             }
-
-            return ret;
+            ms.Close();
         }
 
+        /// <summary>
+        /// 多文件压缩解压
+        /// </summary>
+        /// <param name="zipPath">压缩文件路径</param>
+        /// <param name="targetPath">解压目录</param>
+        public static void UnZipFiles(string zipPath, string targetPath)
+        {
+            byte[] fileSize = new byte[4];
+            if (File.Exists(zipPath))
+            {
+                using (FileStream fStream = File.Open(zipPath, FileMode.Open))
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        using (GZipStream zipStream = new GZipStream(fStream, CompressionMode.Decompress))
+                        {
+                            zipStream.CopyTo(ms);
+                        }
+                        ms.Position = 0;
+                        while (ms.Position != ms.Length)
+                        {
+                            ms.Read(fileSize, 0, fileSize.Length);
+                            int fileNameLength = BitConverter.ToInt32(fileSize, 0);
+                            byte[] fileNameBytes = new byte[fileNameLength];
+                            ms.Read(fileNameBytes, 0, fileNameBytes.Length);
+                            string fileName = System.Text.Encoding.UTF8.GetString(fileNameBytes);
+                            string fileFulleName = targetPath + fileName;
+                            ms.Read(fileSize, 0, 4);
+                            int fileContentLength = BitConverter.ToInt32(fileSize, 0);
+                            byte[] fileContentBytes = new byte[fileContentLength];
+                            ms.Read(fileContentBytes, 0, fileContentBytes.Length);
+                            using (FileStream childFileStream = File.Create(fileFulleName))
+                            {
+                                childFileStream.Write(fileContentBytes, 0, fileContentBytes.Length);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 单文件压缩（生成的压缩包和第三方的解压软件兼容）
+        /// </summary>
+        /// <param name="sourceFilePath"></param>
+        /// <returns></returns>
+        public static void UnZipFile(string zipFileName, string sourceFilePath)
+        {
+            using (GZipStream zipStream = new GZipStream(new FileInfo(zipFileName).OpenRead(), CompressionMode.Decompress))
+            {
+                using (FileStream srcStream = File.Create(sourceFilePath))
+                {
+                    zipStream.CopyTo(srcStream);
+                }
+            }
+        }
+        #region 弃用的压缩方式（无法使程序为单文件）
+        ///// <summary>  
+        ///// 制作压缩包（单个文件压缩）  
+        ///// </summary>  
+        ///// <param name="srcFileName">原文件</param>  
+        ///// <param name="zipFileName">压缩文件</param>  
+        ///// <param name="zipEnum">压缩算法枚举</param>  
+        ///// <returns>压缩成功标志</returns>  
+        //public static bool ZipFile(string srcFileName, string zipFileName, ZipEnum zipEnum)
+        //{
+        //    bool flag = true;
+        //    try
+        //    {
+        //        switch (zipEnum)
+        //        {
+        //            case ZipEnum.BZIP2:
+
+        //                FileStream inStream = File.OpenRead(srcFileName);
+        //                FileStream outStream = File.Open(zipFileName, FileMode.Create);
+
+        //                //参数true表示压缩完成后，inStream和outStream连接都释放  
+        //                BZip2.Compress(inStream, outStream, true, 4096);
+
+        //                inStream.Close();
+        //                outStream.Close();
+
+
+        //                break;
+        //            case ZipEnum.GZIP:
+
+        //                FileStream srcFile = File.OpenRead(srcFileName);
+
+        //                GZipOutputStream zipFile = new GZipOutputStream(File.Open(zipFileName, FileMode.Create));
+
+        //                byte[] fileData = new byte[srcFile.Length];
+        //                srcFile.Read(fileData, 0, (int)srcFile.Length);
+        //                zipFile.Write(fileData, 0, fileData.Length);
+
+        //                srcFile.Close();
+        //                zipFile.Close();
+
+        //                break;
+        //            default: break;
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        flag = false;
+        //    }
+        //    return flag;
+        //}
+
+        ///// <summary>
+        ///// 解压压缩包(单个文件的压缩包)
+        ///// </summary>
+        ///// <param name="zipFileName">压缩包路径</param>
+        ///// <param name="srcFileName">解压文件到</param>
+        ///// <param name="zipEnum">压缩类型</param>
+        ///// <returns></returns>
+        //public static bool UnZipFile(string zipFileName, string srcFileName, ZipEnum zipEnum)
+        //{
+        //    var ret = true;
+
+        //    try
+        //    {
+        //        switch (zipEnum)
+        //        {
+        //            case ZipEnum.BZIP2:
+
+        //                var inFile = File.OpenRead(zipFileName);
+        //                var outFile = File.Open(srcFileName, FileMode.Create);
+
+        //                BZip2.Decompress(inFile, outFile, true);
+
+        //                inFile.Close();
+        //                outFile.Close();
+
+        //                break;
+        //            case ZipEnum.GZIP:
+
+        //                var srcFile = File.Open(srcFileName, FileMode.Create);
+        //                var zipFile = new GZipInputStream(File.OpenRead(zipFileName));
+
+        //                int buffersize = 2048;//设置缓冲区大小
+        //                byte[] fileData = new byte[buffersize];//创建缓冲数据
+
+        //                while (buffersize > 0)//一直读取到文件末尾
+        //                {
+        //                    buffersize = zipFile.Read(fileData, 0, buffersize);
+        //                    srcFile.Write(fileData, 0, buffersize);//写入目标文件
+        //                }
+
+
+        //                srcFile.Close();
+        //                zipFile.Close();
+
+        //                break;
+        //            default: break;
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        ret = false;
+        //        throw;
+        //    }
+
+        //    return ret;
+        //} 
+        #endregion
 
         #endregion
 

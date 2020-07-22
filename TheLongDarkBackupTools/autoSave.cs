@@ -353,7 +353,7 @@ namespace TheLongDarkBackupTools
                         //截图并保存到临时文件夹
                         Item.Screenshot(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
                         //备份文件为在文件夹为zip文件
-                        Item.ZipFile(file.FullName, autoSave.ZipPath + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".zip", Item.ZipEnum.GZIP);
+                        Item.ZipFile(file.FullName, autoSave.ZipPath + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".gz");
                     }
                 }
             }
