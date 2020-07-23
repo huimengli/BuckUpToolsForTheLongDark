@@ -23,8 +23,11 @@ namespace TheLongDarkBuckupTools
         [STAThread]
         static void Main()
         {
+            //获取程序进程名称
+            //MessageBox.Show(Process.GetCurrentProcess().ProcessName);
+
             //防止多个备份工具同时运行
-            if (Process.GetProcessesByName("TheLongDarkBuckupTools").Length > 1)
+            if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
             {
                 MessageBox.Show("程序已经在运行！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
