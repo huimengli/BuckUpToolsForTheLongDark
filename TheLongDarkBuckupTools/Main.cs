@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 
-namespace TheLongDarkBackupTools
+namespace TheLongDarkBuckupTools
 {
     public partial class Main : Form
     {
@@ -65,6 +65,7 @@ namespace TheLongDarkBackupTools
 
         private void Main_Load(object sender, EventArgs e)
         {
+            //Console.WriteLine(System.Diagnostics.Process.GetProcesses("TheLongDarkBuckUpTools").ToString());
             IniAllValues = Item.ReadAllIni(IniPath)[0];
             var allValues = Item.GetValues(IniAllValues, "savePath");
             gameSavePath.val = "";

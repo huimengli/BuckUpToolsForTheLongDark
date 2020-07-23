@@ -12,7 +12,7 @@ using System.IO.Compression;
 /// <summary>
 /// 漫漫长夜备份工具
 /// </summary>
-namespace TheLongDarkBackupTools
+namespace TheLongDarkBuckupTools
 {
     static class Program
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace TheLongDarkBackupTools
+namespace TheLongDarkBuckupTools
 {
     partial class Main
     {

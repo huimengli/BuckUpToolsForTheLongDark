@@ -1,4 +1,4 @@
-﻿namespace TheLongDarkBackupTools
+﻿namespace TheLongDarkBuckupTools
 {
     partial class autoSave
     {

@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Text.RegularExpressions;
 
-namespace TheLongDarkBackupTools
+namespace TheLongDarkBuckupTools
 {
     public partial class autoSave : Form
     {

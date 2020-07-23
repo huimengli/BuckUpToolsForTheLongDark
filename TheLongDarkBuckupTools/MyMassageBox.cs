@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TheLongDarkBackupTools
+namespace TheLongDarkBuckupTools
 {
     public partial class MyMassageBox : Form
     {
