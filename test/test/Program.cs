@@ -10,6 +10,7 @@ using System.Timers;
 using System.Threading;
 using System.Threading.Tasks;
 using System.IO.Compression;
+using System.Diagnostics;
 
 namespace test
 {
@@ -293,12 +294,13 @@ namespace test
         //    return ret;
         //}
 
+        #region 压缩工具
         /// <summary>
         /// 单文件压缩（生成的压缩包和第三方的解压软件兼容）
         /// </summary>
         /// <param name="sourceFilePath"></param>
         /// <returns></returns>
-        public static void ZipFile(string sourceFilePath,string zipFileName)
+        public static void ZipFile(string sourceFilePath, string zipFileName)
         {
             //string zipFileName = sourceFilePath + ".gz";
             using (FileStream sourceFileStream = new FileInfo(sourceFilePath).OpenRead())
@@ -396,7 +398,7 @@ namespace test
         /// </summary>
         /// <param name="sourceFilePath"></param>
         /// <returns></returns>
-        public static void UnZipFile( string zipFileName, string sourceFilePath)
+        public static void UnZipFile(string zipFileName, string sourceFilePath)
         {
             using (GZipStream zipStream = new GZipStream(new FileInfo(zipFileName).OpenRead(), CompressionMode.Decompress))
             {
@@ -407,6 +409,7 @@ namespace test
             }
         }
 
+        #endregion
     }
 
     class testThreading
@@ -441,9 +444,12 @@ namespace test
             //Console.WriteLine(file);
             //file.Attributes = FileAttributes.Hidden;
 
-            var fileName = Console.ReadLine();
+            //var fileName = Console.ReadLine();
+            //Program.UnZipFile(fileName, @"C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBackupTools\bin\Debug\bfFolder\zippath\sandbox3");
 
-            Program.UnZipFile(fileName, @"C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBackupTools\bin\Debug\bfFolder\zippath\sandbox3");
+            Console.WriteLine(AppDomain.CurrentDomain.FriendlyName);
+
+            Console.WriteLine(Process.GetCurrentProcess());
 
             Console.Read();
         }
