@@ -1521,4 +1521,60 @@ namespace TheLongDarkBuckupTools
         }
     }
 
+    #region 自定义的tabControl(弃用)
+    //public class TabControlEx : TabControl
+    //{
+    //    private Color _BackColor; //背景颜色
+
+    //    public TabControlEx()
+    //    {
+    //        this.SetStyle(ControlStyles.UserPaint, true);//用户自己绘制
+    //        this.SetStyle(ControlStyles.ResizeRedraw, true);
+    //        this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);   //
+    //        this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+    //        //让控件支持透明色
+    //        this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+    //        this.UpdateStyles();
+    //    }
+
+    //    public override Color BackColor
+    //    {//重写backcolor属性 
+    //        get
+    //        {
+    //            return this._BackColor;
+    //        }
+    //        set
+    //        {
+    //            this._BackColor = value;
+    //        }
+    //    }
+
+    //    protected override void OnPaint(PaintEventArgs e)
+    //    {
+    //        this.DrawTitle(e.Graphics);
+    //        base.OnPaint(e);
+    //    }
+
+    //    protected virtual void DrawTitle(Graphics g)
+    //    {
+    //        Image imgButton = OcvMana.Properties.Resources.button;
+
+    //        StringFormat sf = new StringFormat();
+    //        sf.Alignment = StringAlignment.Center;
+    //        sf.LineAlignment = StringAlignment.Center;
+    //        Font font = new System.Drawing.Font("微软雅黑", 10F, FontStyle.Bold);//设置标签字体样式
+    //        using (SolidBrush sb = new SolidBrush(Color.FromArgb(127, 0, 0, 0)))
+    //        {
+    //            for (int i = 0; i < this.TabPages.Count; i++)
+    //            {
+    //                Rectangle rect = this.GetTabRect(i);
+    //                Rectangle newRect = new Rectangle(rect.Left + 7, rect.Top, rect.Width - 7, rect.Height);
+
+    //                g.DrawImage(imgButton, newRect);
+    //                g.DrawString(this.TabPages[i].Text, font, Brushes.White, rect, sf);
+    //            }
+    //        }
+    //    }
+    //} 
+    #endregion
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -265,6 +266,56 @@ namespace TheLongDarkBuckupTools
             {
                 new autoSave(this, gameSavePath, new Value(textBox3.Text)).Show();
                 Opacity = 0;
+            }
+        }
+
+        private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            //获取TabControl主控件的工作区域
+            Rectangle rec = tabControl1.ClientRectangle;
+
+            //获取背景图片，我的背景图片在项目资源文件中。
+            //Image backImage = (Image)new System.ComponentModel.ComponentResourceManager().GetObject("background_min_black");
+            Image backImage = Resources.Resource.background_min_black;
+
+            //新建一个StringFormat对象，用于对标签文字的布局设置
+            StringFormat StrFormat = new StringFormat();
+            StrFormat.LineAlignment = StringAlignment.Center;// 设置文字垂直方向居中
+
+            StrFormat.Alignment = StringAlignment.Center;// 设置文字水平方向居中           
+
+            // 标签背景填充颜色，也可以是图片
+
+            SolidBrush bru = new SolidBrush(Color.FromArgb(72, 181, 250));
+
+            SolidBrush bruFont = new SolidBrush(Color.FromArgb(217, 54, 26));// 标签字体颜色
+
+            Font font = new System.Drawing.Font("微软雅黑", 12F);//设置标签字体样式
+
+
+
+            //绘制主控件的背景
+
+            e.Graphics.DrawImage(backImage, 0, 0, tabControl1.Width, tabControl1.Height);
+
+            //绘制标签样式
+
+            for (int i = 0; i < tabControl1.TabPages.Count; i++)
+
+            {
+
+                //获取标签头的工作区域
+
+                Rectangle recChild = tabControl1.GetTabRect(i);
+
+                //绘制标签头背景颜色
+
+                e.Graphics.FillRectangle(bru, recChild);
+
+                //绘制标签头的文字
+
+                e.Graphics.DrawString(tabControl1.TabPages[i].Text, font, bruFont, recChild, StrFormat);
+
             }
         }
     }

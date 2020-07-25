@@ -117,6 +117,11 @@
     <Compile Include="readBuckUp.Designer.cs">
       <DependentUpon>readBuckUp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="autoSave.resx">
       <DependentUpon>autoSave.cs</DependentUpon>
     </EmbeddedResource>
@@ -128,6 +133,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Main1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MyMassageBox.resx">
       <DependentUpon>MyMassageBox.cs</DependentUpon>
@@ -144,6 +151,10 @@
     </Compile>
     <EmbeddedResource Include="readBuckUp.resx">
       <DependentUpon>readBuckUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="dict\漫漫长夜备份工具_v0.1.zip" />
     <None Include="dict\漫漫长夜备份工具_v0.2.zip" />
@@ -173,8 +184,9 @@
     <Content Include="dict\漫漫长夜备份工具_v0.4.3.exe" />
     <Content Include="dict\漫漫长夜备份工具_v0.4.4.exe" />
     <Content Include="favicon.ico" />
-    <Content Include="image\Buckground.png" />
-    <Content Include="image\Buckground_min.png" />
+    <None Include="image\background_min_black.png" />
+    <Content Include="image\background.png" />
+    <Content Include="image\background_min.png" />
     <Content Include="memorandumBook\多线程测试结果.txt" />
     <Content Include="memorandumBook\注意事项.txt" />
     <Content Include="memorandumBook\游戏一次保存修改的文件监控记录.txt" />
@@ -191,5 +203,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
