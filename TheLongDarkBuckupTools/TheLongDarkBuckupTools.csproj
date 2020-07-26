@@ -133,7 +133,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
-      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Main1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MyMassageBox.resx">
@@ -187,6 +186,8 @@
     <None Include="image\background_min_black.png" />
     <Content Include="image\background.png" />
     <Content Include="image\background_min.png" />
+    <None Include="image\tab_background.png" />
+    <None Include="image\tab_each_background.png" />
     <Content Include="memorandumBook\多线程测试结果.txt" />
     <Content Include="memorandumBook\注意事项.txt" />
     <Content Include="memorandumBook\游戏一次保存修改的文件监控记录.txt" />

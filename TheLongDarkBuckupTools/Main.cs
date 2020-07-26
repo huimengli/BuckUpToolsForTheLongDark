@@ -42,6 +42,11 @@ namespace TheLongDarkBuckupTools
         /// </summary>
         private Value gameSavePath = new Value("");
 
+        /// <summary>
+        /// 快捷备份按键
+        /// </summary>
+        public static Keys QuickSave;
+
         public Main()
         {
             InitializeComponent();
@@ -54,6 +59,7 @@ namespace TheLongDarkBuckupTools
                 File.WriteAllText(tishi, Massage.tishi);
                 Item.OpenOnWindows(tishi);
             }
+            QuickSave = (Keys)Enum.Parse(typeof(Keys), textBox1.Text);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -276,7 +282,10 @@ namespace TheLongDarkBuckupTools
 
             //获取背景图片，我的背景图片在项目资源文件中。
             //Image backImage = (Image)new System.ComponentModel.ComponentResourceManager().GetObject("background_min_black");
-            Image backImage = Resources.Resource.background_min_black;
+            Image backImage = Resources.Resource.tab_background;
+
+            //每个小页面的背景图片
+            Image EachBackImage = Resources.Resource.tab_each_background;
 
             //新建一个StringFormat对象，用于对标签文字的布局设置
             StringFormat StrFormat = new StringFormat();
@@ -286,9 +295,11 @@ namespace TheLongDarkBuckupTools
 
             // 标签背景填充颜色，也可以是图片
 
-            SolidBrush bru = new SolidBrush(Color.FromArgb(72, 181, 250));
-
-            SolidBrush bruFont = new SolidBrush(Color.FromArgb(217, 54, 26));// 标签字体颜色
+            //SolidBrush bru = new SolidBrush(Color.FromArgb(72, 181, 250));
+            SolidBrush bru = new SolidBrush(Color.FromArgb(0,255, 255, 255));
+            
+            //SolidBrush bruFont = new SolidBrush(Color.FromArgb(217, 54, 26));// 标签字体颜色
+            SolidBrush bruFont = new SolidBrush(Color.FromArgb(0, 0, 0));// 标签字体颜色
 
             Font font = new System.Drawing.Font("微软雅黑", 12F);//设置标签字体样式
 
@@ -301,22 +312,24 @@ namespace TheLongDarkBuckupTools
             //绘制标签样式
 
             for (int i = 0; i < tabControl1.TabPages.Count; i++)
-
             {
-
                 //获取标签头的工作区域
-
                 Rectangle recChild = tabControl1.GetTabRect(i);
-
+                
                 //绘制标签头背景颜色
-
                 e.Graphics.FillRectangle(bru, recChild);
 
                 //绘制标签头的文字
-
                 e.Graphics.DrawString(tabControl1.TabPages[i].Text, font, bruFont, recChild, StrFormat);
 
+                //每页的背景颜色
+                tabControl1.TabPages[i].BackgroundImage = EachBackImage;
             }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("抱歉,暂时不能修改按键", "抱歉", MessageBoxButtons.OK);
         }
     }
 }
