@@ -57,6 +57,9 @@ namespace TheLongDarkBuckupTools
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.button11 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -265,7 +268,10 @@ namespace TheLongDarkBuckupTools
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.textBox4);
             this.tabPage2.Controls.Add(this.textBox3);
+            this.tabPage2.Controls.Add(this.label7);
+            this.tabPage2.Controls.Add(this.button11);
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.button3);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -286,7 +292,7 @@ namespace TheLongDarkBuckupTools
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Location = new System.Drawing.Point(12, 56);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(181, 158);
+            this.groupBox3.Size = new System.Drawing.Size(181, 116);
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "快捷按键设置";
@@ -357,6 +363,38 @@ namespace TheLongDarkBuckupTools
             this.label3.TabIndex = 0;
             this.label3.Text = "该快捷按键仅在自动存档界面\r\n且游戏程序运行时候才能使用";
             // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(159, 197);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(29, 21);
+            this.button11.TabIndex = 12;
+            this.button11.Text = "...\r\n";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Visible = false;
+            this.button11.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Location = new System.Drawing.Point(9, 175);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(184, 16);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "选择快捷备份的对象文件\r\n";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label7.Visible = false;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(15, 197);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(138, 21);
+            this.textBox4.TabIndex = 11;
+            this.textBox4.Visible = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -418,5 +456,8 @@ namespace TheLongDarkBuckupTools
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button11;
     }
 }

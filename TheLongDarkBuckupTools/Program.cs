@@ -494,6 +494,25 @@ namespace TheLongDarkBuckupTools
         }
 
         /// <summary>
+        /// 截图
+        /// </summary>
+        /// <param name="savePath">保存位置</param>
+        public static Image Screenshot(string savePath,bool nowSave)
+        {
+            Image img = new Bitmap(Screen.AllScreens[0].Bounds.Width, Screen.AllScreens[0].Bounds.Height);
+            Graphics g = Graphics.FromImage(img);
+            g.CopyFromScreen(new Point(0, 0), new Point(0, 0), Screen.AllScreens[0].Bounds.Size);
+            //Clipboard.SetImage(img);
+            //img.Save(savePath);
+            //Console.WriteLine(g);
+            if (nowSave)
+            {
+                img.Save(savePath);
+            }
+            return img;
+        }
+
+        /// <summary>
         /// 文件合并
         /// </summary>
         /// <param name="jpgPath"></param>
@@ -559,6 +578,11 @@ namespace TheLongDarkBuckupTools
             File.WriteAllLines(path, ini,System.Text.Encoding.Unicode);
         }
 
+        /// <summary>
+        /// 读取ini配置文件中所有内容
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static string[] ReadAllIni(string path)
         {
             if (File.Exists(path))
@@ -1360,7 +1384,16 @@ namespace TheLongDarkBuckupTools
 
         #endregion
 
-
+        /// <summary>
+        /// 打印所有进程名称
+        /// </summary>
+        public static void PrintAllProcess()
+        {
+            foreach (var p in Process.GetProcesses())
+            {
+                Console.WriteLine(p.ProcessName);
+            }
+        }
     }
 
     /// <summary>

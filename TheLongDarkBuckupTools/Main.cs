@@ -270,7 +270,7 @@ namespace TheLongDarkBuckupTools
         {
             if (IsElseForm==false)
             {
-                new autoSave(this, gameSavePath, new Value(textBox3.Text)).Show();
+                new autoSave(this, gameSavePath, new Value(textBox3.Text),new Value(textBox4.Text)).Show();
                 Opacity = 0;
             }
         }

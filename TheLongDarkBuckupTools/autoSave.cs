@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Text.RegularExpressions;
+using System.Runtime.InteropServices;
+//using System.Diagnostics;
 
 namespace TheLongDarkBuckupTools
 {
@@ -57,6 +59,11 @@ namespace TheLongDarkBuckupTools
         public Watcher watch;
 
         /// <summary>
+        /// 快速保存对象
+        /// </summary>
+        public Value quickSave;
+
+        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="form"></param>
@@ -81,7 +88,21 @@ namespace TheLongDarkBuckupTools
                 var dir = new DirectoryInfo(ZipPath);
                 dir.Attributes = FileAttributes.Hidden;
             }
-            //label4.Text = "";//自动保存还没有做好
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="form"></param>
+        /// <param name="gameSavePath"></param>
+        /// <param name="buckUpPath"></param>
+        public autoSave(Form form,Value gameSavePath,Value buckUpPath,Value quickSave):this(form,gameSavePath,buckUpPath)
+        {
+            this.quickSave = quickSave;
+            //开始键盘监视
+            Start();
+            OnKeyUpEvent += new KeyEventHandler(AllKeyUp);
+            //label4.Text = "";//自动保存还没有做好//做好了
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -100,6 +121,8 @@ namespace TheLongDarkBuckupTools
             //结束文件夹监视
             watcher.EnableRaisingEvents = false;
             watch = null;
+            //卸载键盘监视
+            Stop();
             //进行强制回收内存
             GC.Collect();
         }
@@ -136,6 +159,8 @@ namespace TheLongDarkBuckupTools
 
         private void autoSave_Load(object sender, EventArgs e)
         {
+            //MessageBox.Show(System.Diagnostics.Process.GetProcessesByName("tld").Length.ToString(), "测试", MessageBoxButtons.OK);
+            
             if (watch == null)
             {
                 watch = new Watcher();
@@ -168,6 +193,332 @@ namespace TheLongDarkBuckupTools
             //开始监视
             watcher.EnableRaisingEvents = true;
         }
+
+        #region 键盘监测
+
+        #region 全局常量声明
+        private const int WM_KEYDOWN = 0x100;
+        private const int WM_KEYUP = 0x101;
+        private const int WM_SYSKEYDOWN = 0x104;
+        private const int WM_SYSKEYUP = 0x105;
+        #endregion
+
+        #region 全局的事件
+        public event KeyEventHandler OnKeyDownEvent;
+        public event KeyEventHandler OnKeyUpEvent;
+        public event KeyPressEventHandler OnKeyPressEvent;
+        #endregion
+
+        #region 鼠标常量
+        /// <summary>
+        /// 键盘钩子句柄
+        /// </summary>
+        static int hKeyboardHook = 0;
+        /// <summary>
+        /// 类型  定义在winuser.h
+        /// </summary>
+        public const int WH_KEYBOARD_LL = 13;
+        #endregion
+
+        #region 有关键盘
+        /// <summary>
+        /// 声明键盘钩子事件类型.
+        /// </summary>
+        HookProc KeyboardHookProcedure;
+        /// <summary>
+        /// 声明键盘钩子的封送结构类型
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public class KeyboardHookStruct
+        {
+            /// <summary>
+            /// 表示一个在1到254间的虚似键盘码
+            /// </summary>
+            public int vkCode;
+            /// <summary>
+            /// 表示硬件扫描码
+            /// </summary>
+            public int scanCode;
+            public int flags;
+            public int time;
+            public int dwExtraInfo;
+        }
+        #endregion
+
+        #region api
+        /// <summary>
+        /// 装置钩子的函数
+        /// </summary>
+        /// <param name="idHook"></param>
+        /// <param name="lpfn"></param>
+        /// <param name="hInstance"></param>
+        /// <param name="threadId"></param>
+        /// <returns></returns>
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern int SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
+        /// <summary>
+        /// 卸下钩子的函数
+        /// </summary>
+        /// <param name="idHook"></param>
+        /// <returns></returns>
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool UnhookWindowsHookEx(int idHook);
+        /// <summary>
+        /// 下一个钩挂的函数
+        /// </summary>
+        /// <param name="idHook"></param>
+        /// <param name="nCode"></param>
+        /// <param name="wParam"></param>
+        /// <param name="lParam"></param>
+        /// <returns></returns>
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern int CallNextHookEx(int idHook, int nCode, Int32 wParam, IntPtr lParam);
+        /// <summary>
+        /// 转化成ASCII码
+        /// </summary>
+        /// <param name="uVirtKey"></param>
+        /// <param name="uScanCode"></param>
+        /// <param name="lpbKeyState"></param>
+        /// <param name="lpwTransKey"></param>
+        /// <param name="fuState"></param>
+        /// <returns></returns>
+        [DllImport("user32")]
+        public static extern int ToAscii(int uVirtKey, int uScanCode, byte[] lpbKeyState, byte[] lpwTransKey, int fuState);
+        /// <summary>
+        /// 获取键盘状态
+        /// </summary>
+        /// <param name="pbKeyState"></param>
+        /// <returns></returns>
+        [DllImport("user32")]
+        public static extern int GetKeyboardState(byte[] pbKeyState);
+        /// <summary>
+        /// 获取模块句柄
+        /// </summary>
+        /// <param name="lpModuleName"></param>
+        /// <returns></returns>
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        private static extern IntPtr GetModuleHandle(string lpModuleName);
+        /// <summary>
+        /// 钩子定义声明器
+        /// </summary>
+        /// <param name="nCode"></param>
+        /// <param name="wParam"></param>
+        /// <param name="lParam"></param>
+        /// <returns></returns>
+        public delegate int HookProc(int nCode, Int32 wParam, IntPtr lParam);
+        /// <summary>
+        /// 先前按下的键
+        /// </summary>
+        public List<Keys> preKeys = new List<Keys>();
+
+        #endregion
+
+        #region 键盘钩子安装与卸载处理
+
+        /// <summary>
+        /// 安装键盘钩子
+        /// </summary>
+        public void Start()
+        {
+            Console.WriteLine("开始安装钩子");
+            //安装键盘钩子
+            if (hKeyboardHook == 0)
+            {
+                KeyboardHookProcedure = new HookProc(KeyboardHookProc);
+                //hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProcedure, Marshal.GetHINSTANCE(Assembly.GetExecutingAssembly().GetModules()[0]), 0);
+                System.Diagnostics.Process curProcess = System.Diagnostics.Process.GetCurrentProcess();
+                System.Diagnostics.ProcessModule curModule = curProcess.MainModule;
+                hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProcedure, GetModuleHandle(curModule.ModuleName), 0);
+                if (hKeyboardHook == 0)
+                {
+                    Stop();
+                    throw new Exception("安装键盘钩子");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 卸载键盘钩子
+        /// </summary>
+        public void Stop()
+        {
+            bool retKeyboard = true;
+            if (hKeyboardHook != 0)
+            {
+                retKeyboard = UnhookWindowsHookEx(hKeyboardHook);
+                hKeyboardHook = 0;
+            }
+            //如果卸下钩子失败
+            if (!(retKeyboard)) throw new Exception("卸下钩子失败");
+            Console.WriteLine("键盘钩子已经卸下");
+        }
+        #endregion
+
+        #region 处理方法
+        /// <summary>
+        /// 键盘钩子程序
+        /// </summary>
+        /// <param name="nCode"></param>
+        /// <param name="wParam"></param>
+        /// <param name="lParam"></param>
+        /// <returns></returns>
+        private int KeyboardHookProc(int nCode, Int32 wParam, IntPtr lParam)
+        {
+            //Console.WriteLine("事件激发");
+            //Console.WriteLine(wParam);
+            //Console.WriteLine(preKeys.ToArray().Length);
+            if ((nCode >= 0) && (OnKeyDownEvent != null || OnKeyUpEvent != null || OnKeyPressEvent != null))
+            {
+                //Console.WriteLine(1);
+                KeyboardHookStruct MyKeyboardHookStruct = (KeyboardHookStruct)Marshal.PtrToStructure(lParam, typeof(KeyboardHookStruct));
+                //当有OnKeyDownEvent 或 OnKeyPressEvent不为null时,ctrl alt shift keyup时 preKeys
+                //中的对应的键增加                  
+                if ((OnKeyDownEvent != null || OnKeyPressEvent != null) && (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN))
+                {
+                    Keys keyData = (Keys)MyKeyboardHookStruct.vkCode;
+                    //Console.WriteLine(keyData);
+                    if (IsCtrlAltShiftKeys(keyData) && preKeys.IndexOf(keyData) == -1)
+                    {
+                        preKeys.Add(keyData);
+                    }
+                }
+                //引发OnKeyDownEvent
+                if (OnKeyDownEvent != null && (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN))
+                {
+                    Keys keyData = (Keys)MyKeyboardHookStruct.vkCode;
+                    KeyEventArgs e = new KeyEventArgs(GetDownKeys(keyData));
+                    OnKeyDownEvent(this, e);
+                }
+                //引发OnKeyPressEvent
+                if (OnKeyPressEvent != null && wParam == WM_KEYDOWN)
+                {
+                    byte[] keyState = new byte[256];
+                    GetKeyboardState(keyState);
+                    byte[] inBuffer = new byte[2];
+                    if (ToAscii(MyKeyboardHookStruct.vkCode,
+                    MyKeyboardHookStruct.scanCode,
+                    keyState,
+                    inBuffer,
+                    MyKeyboardHookStruct.flags) == 1)
+                    {
+                        KeyPressEventArgs e = new KeyPressEventArgs((char)inBuffer[0]);
+                        OnKeyPressEvent(this, e);
+                    }
+                }
+                //当有OnKeyDownEvent 或 OnKeyPressEvent不为null时,ctrl alt shift keyup时 preKeys
+                //中的对应的键删除
+                if ((OnKeyDownEvent != null || OnKeyPressEvent != null) && (wParam == WM_KEYUP || wParam == WM_SYSKEYUP))
+                {
+                    Keys keyData = (Keys)MyKeyboardHookStruct.vkCode;
+                    if (IsCtrlAltShiftKeys(keyData))
+                    {
+                        for (int i = preKeys.Count - 1; i >= 0; i--)
+                        {
+                            if (preKeys[i] == keyData)
+                            {
+                                preKeys.RemoveAt(i);
+                            }
+                        }
+                    }
+                }
+                //引发OnKeyUpEvent
+                if (OnKeyUpEvent != null && (wParam == WM_KEYUP || wParam == WM_SYSKEYUP))
+                {
+                    Keys keyData = (Keys)MyKeyboardHookStruct.vkCode;
+                    KeyEventArgs e = new KeyEventArgs(GetDownKeys(keyData));
+                    OnKeyUpEvent(this, e);
+                }
+            }
+            return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
+        }
+        /// <summary>
+        /// 获取落下的按键
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private Keys GetDownKeys(Keys key)
+        {
+            Keys rtnKey = Keys.None;
+            foreach (Keys keyTemp in preKeys)
+            {
+                switch (keyTemp)
+                {
+                    case Keys.LControlKey:
+                    case Keys.RControlKey:
+                        rtnKey = rtnKey | Keys.Control;
+                        break;
+                    case Keys.LMenu:
+                    case Keys.RMenu:
+                        rtnKey = rtnKey | Keys.Alt;
+                        break;
+                    case Keys.LShiftKey:
+                    case Keys.RShiftKey:
+                        rtnKey = rtnKey | Keys.Shift;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            rtnKey = rtnKey | key;
+            return rtnKey;
+        }
+        /// <summary>
+        /// 是否是其他（ctrl，shift，alt）按键
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private Boolean IsCtrlAltShiftKeys(Keys key)
+        {
+            Console.WriteLine(key);
+            switch (key)
+            {
+                case Keys.LControlKey:
+                case Keys.RControlKey:
+                case Keys.LMenu:
+                case Keys.RMenu:
+                case Keys.LShiftKey:
+                case Keys.RShiftKey:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        #endregion
+
+        #region 键盘事件
+
+        /// <summary>
+        /// 全部按键弹起
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void AllKeyUp(object sender, KeyEventArgs e)
+        {
+            var time = DateTime.Now;
+            Console.WriteLine(Item.GetTheNewFile(gameSavePath.val));
+            //文件名
+            var fileName = string.IsNullOrEmpty(quickSave.val)?gameSavePath.val+"\\"+Item.GetTheNewFile(gameSavePath.val):quickSave.val;
+            //Console.WriteLine(e.KeyCode);
+            if (e.KeyCode==Main.QuickSave&&System.Diagnostics.Process.GetProcessesByName("tld").Length>0)
+            {
+                //需要自动备份的文件对象
+                var file = new FileInfo(fileName);
+                //截图并保存到临时文件夹
+                Item.Screenshot(BuckUpPath.val + "\\" + file.Name + "_bf" + time.ToFileTimeUtc().ToString() + ".png");
+                //程序运行到这里可以保存之前的截图文件了
+                //img.Save(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
+                //备份文件为在文件夹为zip文件
+                Item.ZipFile(file.FullName, ZipPath + file.Name + "_bf" + time.ToFileTimeUtc().ToString() + ".gz");
+            }
+            else if (e.KeyCode==Main.QuickSave&&System.Diagnostics.Process.GetProcessesByName("tld").Length==0)
+            {
+                Item.Save(fileName, BuckUpPath.val, time.ToFileTimeUtc());
+            }
+        }
+
+        #endregion
+
+        #endregion
     }
 
     public class Watcher
@@ -337,6 +688,8 @@ namespace TheLongDarkBuckupTools
         {
             var time = DateTime.Now;
             Item.Log(time.ToString()+"线程开始");
+            //获取截图但是暂不保存
+            Image img = Item.Screenshot("", false);
             //等待五秒,如果线程未结束,就开始进行备份
             Thread.Sleep(5 * 1000);
             var time2 = DateTime.Now;
@@ -346,14 +699,21 @@ namespace TheLongDarkBuckupTools
                 foreach (var item in changeFiles)
                 {
                     Item.Log(item);
-                    if (testUser.IsMatch(item) == false)
+                    if (testUser.IsMatch(item) == false&&System.Diagnostics.Process.GetProcessesByName("tld").Length>0)
                     {
                         //需要自动备份的文件对象
                         var file = new FileInfo(item);
                         //截图并保存到临时文件夹
-                        Item.Screenshot(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
+                        //Item.Screenshot(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
+                        //程序运行到这里可以保存之前的截图文件了
+                        img.Save(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
                         //备份文件为在文件夹为zip文件
                         Item.ZipFile(file.FullName, autoSave.ZipPath + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".gz");
+                    }
+                    else if (testUser.IsMatch(item) == false && System.Diagnostics.Process.GetProcessesByName("tld").Length ==0)
+                    {
+                        //游戏进程没运行则直接备份不截图
+                        Item.Save(item, autoSave.BuckUpPath.val, time2.ToFileTimeUtc());
                     }
                 }
             }

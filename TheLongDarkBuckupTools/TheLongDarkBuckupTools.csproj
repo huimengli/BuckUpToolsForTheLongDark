@@ -183,6 +183,7 @@
     <Content Include="dict\漫漫长夜备份工具_v0.4.3.exe" />
     <Content Include="dict\漫漫长夜备份工具_v0.4.4.exe" />
     <Content Include="favicon.ico" />
+    <Content Include="memorandumBook\输出-调试.txt" />
     <None Include="image\background_min_black.png" />
     <Content Include="image\background.png" />
     <Content Include="image\background_min.png" />

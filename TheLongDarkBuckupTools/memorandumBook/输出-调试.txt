@@ -1,0 +1,499 @@
+﻿“TheLongDarkBuckupTools.exe”(CLR v4.0.30319: DefaultDomain): 已加载“C:\windows\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll”。无法查找或打开 PDB 文件。
+“TheLongDarkBuckupTools.exe”(CLR v4.0.30319: DefaultDomain): 已加载“C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\TheLongDarkBuckupTools.exe”。已加载符号。
+“TheLongDarkBuckupTools.exe”(CLR v4.0.30319: TheLongDarkBuckupTools.exe): 已加载“C:\windows\Microsoft.Net\assembly\GAC_MSIL\System\v4.0_4.0.0.0__b77a5c561934e089\System.dll”。无法查找或打开 PDB 文件。
+“TheLongDarkBuckupTools.exe”(CLR v4.0.30319: TheLongDarkBuckupTools.exe): 已加载“C:\windows\Microsoft.Net\assembly\GAC_MSIL\System.Windows.Forms\v4.0_4.0.0.0__b77a5c561934e089\System.Windows.Forms.dll”。无法查找或打开 PDB 文件。
+“TheLongDarkBuckupTools.exe”(CLR v4.0.30319: TheLongDarkBuckupTools.exe): 已加载“C:\windows\Microsoft.Net\assembly\GAC_MSIL\System.Drawing\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Drawing.dll”。无法查找或打开 PDB 文件。
+“TheLongDarkBuckupTools.exe”(CLR v4.0.30319: TheLongDarkBuckupTools.exe): 已加载“C:\windows\Microsoft.Net\assembly\GAC_MSIL\System.Configuration\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll”。无法查找或打开 PDB 文件。
+“TheLongDarkBuckupTools.exe”(CLR v4.0.30319: TheLongDarkBuckupTools.exe): 已加载“C:\windows\Microsoft.Net\assembly\GAC_MSIL\System.Core\v4.0_4.0.0.0__b77a5c561934e089\System.Core.dll”。无法查找或打开 PDB 文件。
+“TheLongDarkBuckupTools.exe”(CLR v4.0.30319: TheLongDarkBuckupTools.exe): 已加载“C:\windows\Microsoft.Net\assembly\GAC_MSIL\System.Xml\v4.0_4.0.0.0__b77a5c561934e089\System.Xml.dll”。无法查找或打开 PDB 文件。
+“TheLongDarkBuckupTools.exe”(CLR v4.0.30319: TheLongDarkBuckupTools.exe): 已加载“C:\windows\Microsoft.Net\assembly\GAC_MSIL\Accessibility\v4.0_4.0.0.0__b03f5f7f11d50a3a\Accessibility.dll”。无法查找或打开 PDB 文件。
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>explorer.exe C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>explorer.exe C:\Users\29133\AppData\Local\Hinterland\TheLongDark\
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox4" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\sandbox4_bf132402033691402249"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+删除变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox4 Deleted
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox4 Created
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox4 Changed
+2020-07-26 10:16:30线程开始
+2020-07-26 10:16:35线程完成任务
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox4
+文件变动
+线程 0x14f0 已退出，返回值为 0 (0x0)。
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox4 Changed
+2020-07-26 10:16:36线程开始
+2020-07-26 10:16:41线程完成任务
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox4
+线程 0x1544 已退出，返回值为 0 (0x0)。
+线程 0xbbc 已退出，返回值为 0 (0x0)。
+删除变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox4 Deleted
+文件夹变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\backups Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave1 Changed
+2020-07-26 10:16:59线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave2 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave3 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint2 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint3 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint4 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint5 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint6 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint7 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\quicksave Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox3 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story2 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story3 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story4 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story5 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story6 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story7 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.58487 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.58590 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.58755 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.62505 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.62748 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.63122 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.63945 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.63997 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint1 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story1 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.64400 Changed
+2020-07-26 10:16:59线程开始
+线程 0x108c 已退出，返回值为 0 (0x0)。
+2020-07-26 10:17:04线程完成任务
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave1
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave1" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\autosave1_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave2
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave2" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\autosave2_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave3
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave3" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\autosave3_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint2
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint2" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\checkpoint2_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint3
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint3" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\checkpoint3_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint4
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint4" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\checkpoint4_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint5
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint5" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\checkpoint5_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint6
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint6" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\checkpoint6_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint7
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint7" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\checkpoint7_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\quicksave
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\quicksave" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\quicksave_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox3
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox3" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\sandbox3_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story2
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story2" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\story2_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story3
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story3" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\story3_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story4
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story4" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\story4_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story5
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story5" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\story5_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story6
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story6" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\story6_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story7
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story7" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\story7_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.58487
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.58590
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.58755
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.62505
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.62748
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.63122
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.63945
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.63997
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint1
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint1" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\checkpoint1_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story1
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story1" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\story1_bf132402034248153802"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.64400
+线程 0xb34 已退出，返回值为 0 (0x0)。
+线程 0x3084 已退出，返回值为 0 (0x0)。
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox4 Created
+2020-07-26 10:17:58线程开始
+文件变动
+引发的异常:“System.Threading.ThreadAbortException”(位于 mscorlib.dll 中)
+线程 0x18bc 已退出，返回值为 0 (0x0)。
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox4 Changed
+文件变动
+file:C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox4 Changed
+2020-07-26 10:17:58线程开始
+2020-07-26 10:18:03线程完成任务
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave1
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave1" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\autosave1_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave2
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave2" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\autosave2_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave3
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave3" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\autosave3_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint2
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint2" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\checkpoint2_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint3
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint3" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\checkpoint3_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint4
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint4" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\checkpoint4_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint5
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint5" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\checkpoint5_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint6
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint6" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\checkpoint6_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint7
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint7" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\checkpoint7_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\quicksave
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\quicksave" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\quicksave_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox3
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox3" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\sandbox3_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story2
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story2" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\story2_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story3
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story3" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\story3_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story4
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story4" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\story4_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story5
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story5" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\story5_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story6
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story6" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\story6_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story7
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story7" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\story7_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.58487
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.58590
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.58755
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.62505
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.62748
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.63122
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.63945
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.63997
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint1
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\checkpoint1" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\checkpoint1_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story1
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\story1" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\story1_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\user001.64400
+C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox4
+Microsoft Windows [版本 10.0.18362.959]
+(c) 2019 Microsoft Corporation。保留所有权利。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>copy /b "C:\Users\29133\AppData\Local\Hinterland\TheLongDark\sandbox4" "C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug\bfFolder\sandbox4_bf132402034839636528"
+已复制         1 个文件。
+
+C:\Users\29133\Desktop\任务\BuckUpToolsForTheLongDark\TheLongDarkBuckupTools\bin\Debug>exit
+
+线程 0x2ab0 已退出，返回值为 0 (0x0)。
+线程 0x30f4 已退出，返回值为 0 (0x0)。
+“TheLongDarkBuckupTools.exe”(CLR v4.0.30319: TheLongDarkBuckupTools.exe): 已加载“C:\windows\Microsoft.Net\assembly\GAC_MSIL\mscorlib.resources\v4.0_4.0.0.0_zh-Hans_b77a5c561934e089\mscorlib.resources.dll”。模块已生成，不包含符号。
+程序“[11864] TheLongDarkBuckupTools.exe”已退出，返回值为 0 (0x0)。
