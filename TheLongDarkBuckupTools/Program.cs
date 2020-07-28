@@ -686,19 +686,21 @@ namespace TheLongDarkBuckupTools
                 trueName = name;
             }
 
-            if (File.Exists(savePath + "\\" + trueName))
-            {
-                File.Delete(savePath + "\\" + trueName);
-            }
-
             if (string.IsNullOrEmpty(lastName))
             {
                 var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes */+ "\" \"" + savePath + "\\" + trueName + "\" ";
-                //Main.saveTimes++;
+                if (File.Exists(savePath + "\\" + trueName))
+                {
+                    File.Delete(savePath + "\\" + trueName);
+                }
                 UseCmd(copyCmd);
             }
             else if (lastName == ".gz")
             {
+                if (File.Exists(savePath + "\\" + trueName))
+                {
+                    File.Delete(savePath + "\\" + trueName);
+                }
                 UnZipFile(file.FullName, savePath + "\\" + trueName);
             }
             else if (lastName == ".png")
@@ -708,6 +710,10 @@ namespace TheLongDarkBuckupTools
                 {
                     MessageBox.Show("程序未找到.gz文件!\r\n请检查图片同名压缩包是否删除\r\n或者是否删除zippath文件夹", "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
+                }
+                if (File.Exists(savePath + "\\" + trueName))
+                {
+                    File.Delete(savePath + "\\" + trueName);
                 }
                 UnZipFile(zipFilePath, savePath + "\\" + trueName);
             }
@@ -781,19 +787,22 @@ namespace TheLongDarkBuckupTools
             }
             Console.WriteLine(trueName);
 
-            if (File.Exists(savePath + "\\" + trueName))
-            {
-                File.Delete(savePath + "\\" + trueName);
-            }
-
             if (string.IsNullOrEmpty(lastName))
             {
+                if (File.Exists(savePath + "\\" + trueName))
+                {
+                    File.Delete(savePath + "\\" + trueName);
+                }
                 var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes */+ "\" \"" + savePath + "\\" + trueName + "\" ";
                 //Main.saveTimes++;
                 UseCmd(copyCmd);
             }
             else if (lastName==".gz")
             {
+                if (File.Exists(savePath + "\\" + trueName))
+                {
+                    File.Delete(savePath + "\\" + trueName);
+                }
                 UnZipFile(file.FullName, savePath + "\\" + trueName);
             }
             else if (lastName==".png")
@@ -803,6 +812,10 @@ namespace TheLongDarkBuckupTools
                 {
                     MessageBox.Show("程序未找到.gz文件!\r\n请检查图片同名压缩包是否删除\r\n或者是否删除zippath文件夹", "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
+                }
+                if (File.Exists(savePath + "\\" + trueName))
+                {
+                    File.Delete(savePath + "\\" + trueName);
                 }
                 UnZipFile(zipFilePath, savePath + "\\" + trueName);
             }
