@@ -41,6 +41,7 @@ namespace TheLongDarkBuckupTools
             this.button8 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button12 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -57,15 +58,18 @@ namespace TheLongDarkBuckupTools
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button11 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button11 = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -73,7 +77,7 @@ namespace TheLongDarkBuckupTools
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("宋体", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(58, 33);
+            this.label1.Location = new System.Drawing.Point(58, 48);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(212, 48);
             this.label1.TabIndex = 0;
@@ -85,7 +89,7 @@ namespace TheLongDarkBuckupTools
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(63, 97);
+            this.label2.Location = new System.Drawing.Point(63, 107);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(203, 14);
             this.label2.TabIndex = 1;
@@ -97,7 +101,7 @@ namespace TheLongDarkBuckupTools
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linkLabel1.Location = new System.Drawing.Point(72, 120);
+            this.linkLabel1.Location = new System.Drawing.Point(10, 10);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(184, 16);
             this.linkLabel1.TabIndex = 2;
@@ -120,9 +124,9 @@ namespace TheLongDarkBuckupTools
             // 
             this.button6.Location = new System.Drawing.Point(8, 20);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(188, 23);
+            this.button6.Size = new System.Drawing.Size(93, 23);
             this.button6.TabIndex = 16;
-            this.button6.Text = "读取存档(读取最新存档)";
+            this.button6.Text = "读取最新存档";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -182,6 +186,7 @@ namespace TheLongDarkBuckupTools
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox2.Controls.Add(this.button12);
             this.groupBox2.Controls.Add(this.button7);
             this.groupBox2.Controls.Add(this.button6);
             this.groupBox2.Location = new System.Drawing.Point(2, 136);
@@ -190,6 +195,16 @@ namespace TheLongDarkBuckupTools
             this.groupBox2.TabIndex = 24;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "读取存档";
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(105, 20);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(91, 23);
+            this.button12.TabIndex = 23;
+            this.button12.Text = "选择文件读取";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // label5
             // 
@@ -244,6 +259,7 @@ namespace TheLongDarkBuckupTools
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabControl1.Location = new System.Drawing.Point(56, 145);
             this.tabControl1.Name = "tabControl1";
@@ -338,7 +354,7 @@ namespace TheLongDarkBuckupTools
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 85);
+            this.label6.Location = new System.Drawing.Point(9, 86);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 12);
             this.label6.TabIndex = 2;
@@ -348,7 +364,7 @@ namespace TheLongDarkBuckupTools
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 58);
+            this.label4.Location = new System.Drawing.Point(9, 59);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 12);
             this.label4.TabIndex = 1;
@@ -363,16 +379,13 @@ namespace TheLongDarkBuckupTools
             this.label3.TabIndex = 0;
             this.label3.Text = "该快捷按键仅在自动存档界面\r\n且游戏程序运行时候才能使用";
             // 
-            // button11
+            // textBox4
             // 
-            this.button11.Location = new System.Drawing.Point(159, 197);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(29, 21);
-            this.button11.TabIndex = 12;
-            this.button11.Text = "...\r\n";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Visible = false;
-            this.button11.Click += new System.EventHandler(this.button3_Click);
+            this.textBox4.Location = new System.Drawing.Point(15, 197);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(138, 21);
+            this.textBox4.TabIndex = 11;
+            this.textBox4.Visible = false;
             // 
             // label7
             // 
@@ -387,13 +400,40 @@ namespace TheLongDarkBuckupTools
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label7.Visible = false;
             // 
-            // textBox4
+            // button11
             // 
-            this.textBox4.Location = new System.Drawing.Point(15, 197);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(138, 21);
-            this.textBox4.TabIndex = 11;
-            this.textBox4.Visible = false;
+            this.button11.Location = new System.Drawing.Point(159, 197);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(29, 21);
+            this.button11.TabIndex = 12;
+            this.button11.Text = "...\r\n";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Visible = false;
+            this.button11.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.linkLabel2);
+            this.tabPage3.Controls.Add(this.linkLabel1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(208, 226);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "关于";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.linkLabel2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linkLabel2.Location = new System.Drawing.Point(10, 39);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(184, 16);
+            this.linkLabel2.TabIndex = 3;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "点这里查看贴吧上的内容";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
             // Main
             // 
@@ -404,7 +444,6 @@ namespace TheLongDarkBuckupTools
             this.ClientSize = new System.Drawing.Size(337, 446);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -422,6 +461,8 @@ namespace TheLongDarkBuckupTools
             this.tabPage2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -459,5 +500,8 @@ namespace TheLongDarkBuckupTools
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.Button button12;
     }
 }

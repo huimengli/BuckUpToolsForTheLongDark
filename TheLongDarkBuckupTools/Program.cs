@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.IO.Compression;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 /// <summary>
 /// 漫漫长夜备份工具
@@ -23,9 +24,6 @@ namespace TheLongDarkBuckupTools
         [STAThread]
         static void Main()
         {
-            //获取程序进程名称
-            //MessageBox.Show(Process.GetCurrentProcess().ProcessName);
-
             //防止多个备份工具同时运行
             if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
             {
@@ -43,7 +41,6 @@ namespace TheLongDarkBuckupTools
                 //处理非UI线程异常
                 AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-                
                 //程序启动
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
@@ -64,8 +61,7 @@ namespace TheLongDarkBuckupTools
                     str = string.Format("应用程序线程错误:{0}", err);
                 }
 
-
-                MessageBox.Show(str,"系统错误",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //MessageBox.Show("发生致命错误，请及时联系作者！", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -429,6 +425,18 @@ namespace TheLongDarkBuckupTools
             var copyCmd = "copy /b \"" + path + "\\" + name + "\" \"" + savePath + "\\" + name + "_bf"+times+"\"";
             //Main.saveTimes++;
             UseCmd(copyCmd);
+        }
+
+        /// <summary>
+        /// 保存文件
+        /// </summary>
+        /// <param name="file">文件对象</param>
+        /// <param name="savePath">备份的文件夹</param>
+        /// <param name="times">备份的时间</param>
+        public static void Save(FileInfo file,string savePath,long times)
+        {
+            var bfName = savePath+"\\"+file.Name + "_bf" + times.ToString();
+            file.CopyTo(bfName, true);
         }
 
         ///// <summary>
@@ -1007,6 +1015,24 @@ namespace TheLongDarkBuckupTools
                 }
             }
         }
+
+        /// <summary>
+        /// 从解压文件中读取全部字节
+        /// </summary>
+        /// <param name="zipFileName"></param>
+        /// <returns></returns>
+        public static byte[] UnZipFileToBytes(string zipFileName)
+        {
+            using (GZipStream zipStream = new GZipStream(new FileInfo(zipFileName).OpenRead(), CompressionMode.Decompress))
+            {
+                using (StreamReader streamReader = new StreamReader(zipStream))
+                {
+                    //Console.WriteLine(streamReader.CurrentEncoding);
+                    return streamReader.CurrentEncoding.GetBytes(streamReader.ReadToEnd());
+                }
+            }
+        }
+
         #region 弃用的压缩方式（无法使程序为单文件）
         ///// <summary>  
         ///// 制作压缩包（单个文件压缩）  
@@ -1407,6 +1433,24 @@ namespace TheLongDarkBuckupTools
                 Console.WriteLine(p.ProcessName);
             }
         }
+
+        /// <summary>
+        /// 反序列化
+        /// </summary>
+        /// <typeparam name="T">类</typeparam>
+        /// <param name="json">json数据对象</param>
+        /// <returns></returns>
+        public static T DeserializeObject<T>(string json)where T : class
+        {
+            if (json==null)
+            {
+                return null;
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<T>(json);
+            }            
+        }
     }
 
     /// <summary>
@@ -1414,7 +1458,15 @@ namespace TheLongDarkBuckupTools
         /// </summary>
     public static class AddValue
     {
-
+        /// <summary>
+        /// 文件名(无后缀)
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static string NameWithoutExtension(this FileInfo file)
+        {
+            return file.Name.Remove(file.Name.Length - file.Extension.Length, file.Extension.Length);
+        }
 
         ///// <summary>
         ///// 注册热键

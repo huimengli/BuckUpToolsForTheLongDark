@@ -170,7 +170,7 @@ namespace TheLongDarkBuckupTools
 
         private void button6_Click(object sender, EventArgs e)
         {
-            if (ChackTexts())
+            if (ChackTexts()&&IsElseForm==false)
             {
                 Item.ReadSave( textBox3.Text, gameSavePath.val);
             }
@@ -194,7 +194,7 @@ namespace TheLongDarkBuckupTools
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (ChackTexts())
+            if (ChackTexts() && IsElseForm == false)
             {
                 var fileName = "";
                 try
@@ -221,7 +221,8 @@ namespace TheLongDarkBuckupTools
             {
                 SaveTimeAdd();
                 var saveFile = new Value(textBox3.Text);
-                new InputChouseBox("选择", "请选择要备份的文件", saveFile, new Value(saveTimes.ToString())).Show();
+                //new InputChouseBox("选择", "请选择要备份的文件", saveFile, new Value(saveTimes.ToString())).Show();
+                new ShowFile(false, gameSavePath, saveFile).Show();
             }
         }
 
@@ -330,6 +331,24 @@ namespace TheLongDarkBuckupTools
         private void button9_Click(object sender, EventArgs e)
         {
             MessageBox.Show("抱歉,暂时不能修改按键", "抱歉", MessageBoxButtons.OK);
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!IsElseForm)
+            {
+                Item.OpenOnWindows("https://tieba.baidu.com/p/6677018117");
+            }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            new ShowFile(true, gameSavePath, new Value(textBox3.Text)).Show();
         }
     }
 }
