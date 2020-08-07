@@ -107,6 +107,7 @@
     <Compile Include="autoSave.Designer.cs">
       <DependentUpon>autoSave.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameData\BigData.cs" />
     <Compile Include="GameData\Enums.cs" />
     <Compile Include="GameData\GloBalData.cs" />
     <Compile Include="Helpers\CLZF.cs" />
@@ -191,9 +192,6 @@
     <EmbeddedResource Include="ShowFile.resx">
       <DependentUpon>ShowFile.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="dict\漫漫长夜备份工具_v0.1.zip" />
-    <None Include="dict\漫漫长夜备份工具_v0.2.zip" />
-    <None Include="dict\漫漫长夜备份工具_v0.2_zh-en.zip" />
     <None Include="memorandumBook\readme.md" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -211,14 +209,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dict\readme.txt" />
-    <Content Include="dict\漫漫长夜备份工具_v0.3.0.exe" />
-    <Content Include="dict\漫漫长夜备份工具_v0.3.1.exe" />
-    <Content Include="dict\漫漫长夜备份工具_v0.4.0.exe" />
-    <Content Include="dict\漫漫长夜备份工具_v0.4.1.exe" />
-    <Content Include="dict\漫漫长夜备份工具_v0.4.2.exe" />
-    <Content Include="dict\漫漫长夜备份工具_v0.4.3.exe" />
-    <Content Include="dict\漫漫长夜备份工具_v0.4.4.exe" />
     <Content Include="favicon.ico" />
     <Content Include="memorandumBook\输出-调试.txt" />
     <None Include="image\background_min_black.png" />
@@ -243,86 +233,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <PublishFile Include="dict\readme.txt">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="dict\漫漫长夜备份工具_v0.3.0.exe">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="dict\漫漫长夜备份工具_v0.3.1.exe">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="dict\漫漫长夜备份工具_v0.4.0.exe">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="dict\漫漫长夜备份工具_v0.4.1.exe">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="dict\漫漫长夜备份工具_v0.4.2.exe">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="dict\漫漫长夜备份工具_v0.4.3.exe">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="dict\漫漫长夜备份工具_v0.4.4.exe">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
     <PublishFile Include="favicon.ico">
       <Visible>False</Visible>
       <Group>

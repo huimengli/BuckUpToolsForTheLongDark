@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using TheLongDarkBuckupTools.GameData;
 using TheLongDarkBuckupTools.Helpers;
@@ -19,11 +20,6 @@ namespace TheLongDarkBuckupTools
         /// 备份所在位置
         /// </summary>
         private Value buckUpPath;
-
-        /// <summary>
-        /// 备份所在的位置
-        /// </summary>
-        public static Value BuckUpPath;
 
         /// <summary>
         /// zip文件保存路径
@@ -51,6 +47,21 @@ namespace TheLongDarkBuckupTools
         public string TempFolder;
 
         /// <summary>
+        /// 文件夹内文件信息文件
+        /// </summary>
+        public string FolderInfoIni;
+
+        /// <summary>
+        /// 所有的文件的简单信息
+        /// </summary>
+        public string AllFileInfo = "";
+
+        /// <summary>
+        /// 读取文件线程
+        /// </summary>
+        public Thread readFile;
+
+        /// <summary>
         /// 显示并选取文件页面构造函数
         /// </summary>
         /// <param name="isRead">是否是读取备份</param>
@@ -63,6 +74,7 @@ namespace TheLongDarkBuckupTools
             this.buckUpPath = buckUpPath;
             ZipPath = buckUpPath.val + @"\zippath\";
             TempFolder = AppDomain.CurrentDomain.BaseDirectory + @"\temp\";
+            FolderInfoIni = AppDomain.CurrentDomain.BaseDirectory + @"\FolderInfo.ini";
             Directory.CreateDirectory(TempFolder);
             if (Directory.Exists(ZipPath) == false)
             {
@@ -75,6 +87,8 @@ namespace TheLongDarkBuckupTools
                 var dir = new DirectoryInfo(ZipPath);
                 dir.Attributes = FileAttributes.Hidden;
             }
+            readFile = new Thread(new ThreadStart(FolderInfoIniInit));
+            //readFile.Start();
             InitializeComponent();
         }
 
@@ -95,8 +109,14 @@ namespace TheLongDarkBuckupTools
             }
             //进行一次强制垃圾回收,减小占用内存.
             GC.Collect();
+            //保存所有的文件信息
+            var theFile = new FileInfo(FolderInfoIni).OpenWrite();
+            var sw = new StreamWriter(theFile);
+            sw.Write(AllFileInfo);
+            sw.Close();
+            theFile.Close();
+            Console.WriteLine(AllFileInfo);
         }
-
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -237,6 +257,88 @@ namespace TheLongDarkBuckupTools
             else
             {
                 textBox7.Text = "无";
+            }
+        }
+
+        /// <summary>
+        /// 文件信息文件初始化
+        /// </summary>
+        private void FolderInfoIniInit()
+        {
+            if (File.Exists(FolderInfoIni) == false)
+            {
+                File.Create(FolderInfoIni);
+                var saveDatas = "";
+                var buckDatas = "";
+                var saveFiles = RemoveUsers(new DirectoryInfo(gameSavePath.val).GetFiles());
+                var buckFiles = RemoveUsers(new DirectoryInfo(buckUpPath.val).GetFiles());
+
+                foreach (var file in saveFiles)
+                {
+                    SlotData data = new SlotData();
+                    if (file.Extension == "")
+                    {
+                        data = Item.DeserializeObject<SlotData>(EncryptString.DecompressBytesToString(File.ReadAllBytes(file.FullName)));
+                    }
+                    else if (file.Extension == ".png")
+                    {
+                        var zipFile = ZipPath + file.NameWithoutExtension() + ".gz";
+                        Console.WriteLine("file:" + zipFile);
+                        if (File.Exists(zipFile) == false)
+                        {
+                            //MessageBox.Show("程序未找到文件:" + zipFile + "!\r\n请检查图片同名压缩包是否删除\r\n或者是否删除zippath文件夹", "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //return;
+                            //data = new SlotData();
+                        }
+                        else
+                        {
+                            Item.UnZipFile(zipFile, TempFolder + file.NameWithoutExtension());
+                            data = Item.DeserializeObject<SlotData>(EncryptString.DecompressBytesToString(File.ReadAllBytes(TempFolder + file.NameWithoutExtension())));
+                        }
+                    }
+                    saveDatas += data.ToBigDatas(file, false).ToString(true);
+                }
+                foreach (var file in buckFiles)
+                {
+                    SlotData data = new SlotData();
+                    if (file.Extension == "")
+                    {
+                        data = Item.DeserializeObject<SlotData>(EncryptString.DecompressBytesToString(File.ReadAllBytes(file.FullName)));
+                    }
+                    else if (file.Extension == ".png")
+                    {
+                        var zipFile = ZipPath + file.NameWithoutExtension() + ".gz";
+                        Console.WriteLine("file:" + zipFile);
+                        if (File.Exists(zipFile) == false)
+                        {
+                            //MessageBox.Show("程序未找到文件:" + zipFile + "!\r\n请检查图片同名压缩包是否删除\r\n或者是否删除zippath文件夹", "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //return;
+                            //data = new SlotData();
+                        }
+                        else
+                        {
+                            Item.UnZipFile(zipFile, TempFolder + file.NameWithoutExtension());
+                            data = Item.DeserializeObject<SlotData>(EncryptString.DecompressBytesToString(File.ReadAllBytes(TempFolder + file.NameWithoutExtension())));
+                        }
+                    }
+                    buckDatas += data.ToBigDatas(file, true).ToString(true);
+                }
+                AllFileInfo = new BigData("saveDatas", saveDatas).ToString() +
+                new BigData("buckDatas", buckDatas).ToString();
+
+                var theFile = new FileInfo(FolderInfoIni).OpenWrite();
+                var sw = new StreamWriter(theFile);
+                sw.Write(AllFileInfo);
+                sw.Close();
+                theFile.Close();
+            }
+            else
+            {
+                var theFile = new FileInfo(FolderInfoIni).OpenRead();
+                var sr = new StreamReader(theFile);
+                AllFileInfo = sr.ReadToEnd();
+                sr.Close();
+                theFile.Close();
             }
         }
     }

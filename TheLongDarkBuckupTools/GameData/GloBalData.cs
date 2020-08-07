@@ -81,6 +81,8 @@ namespace TheLongDarkBuckupTools.GameData
             return GetGameMode(this);
         }
 
+
+
         #endregion
     }
 }

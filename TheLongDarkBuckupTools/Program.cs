@@ -30,6 +30,14 @@ namespace TheLongDarkBuckupTools
                 MessageBox.Show("程序已经在运行！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+#if DEBUG
+
+            //程序启动
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Main());
+
+#else
 
             //捕获全局异常
             try
@@ -64,16 +72,18 @@ namespace TheLongDarkBuckupTools
                 MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //MessageBox.Show("发生致命错误，请及时联系作者！", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+#endif
         }
 
-        /// <summary>
-        ///这就是我们要在发生未处理异常时处理的方法，我这是写出错详细信息到文本，如出错后弹出一个漂亮的出错提示窗体，给大家做个参考
-        ///做法很多，可以是把出错详细信息记录到文本、数据库，发送出错邮件到作者信箱或出错后重新初始化等等
-        ///这就是仁者见仁智者见智，大家自己做了。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+            /// <summary>
+            ///这就是我们要在发生未处理异常时处理的方法，我这是写出错详细信息到文本，如出错后弹出一个漂亮的出错提示窗体，给大家做个参考
+            ///做法很多，可以是把出错详细信息记录到文本、数据库，发送出错邮件到作者信箱或出错后重新初始化等等
+            ///这就是仁者见仁智者见智，大家自己做了。
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
 
             string str = "";
