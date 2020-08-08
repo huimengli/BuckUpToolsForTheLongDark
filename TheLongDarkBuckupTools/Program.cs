@@ -369,11 +369,11 @@ namespace TheLongDarkBuckupTools
         /// 选择文件
         /// </summary>
         /// <param name="label"></param>
-        public static void ChoiceFile(string path,Control label)
+        public static void ChoiceFile(string path, Control label)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.InitialDirectory = path;
-            if (dialog.ShowDialog()==DialogResult.OK)
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
                 if (string.IsNullOrEmpty(dialog.FileName))
                 {
@@ -382,7 +382,25 @@ namespace TheLongDarkBuckupTools
                 FileName = dialog.FileName;
             }
             FileName = FileName ?? "";
-            label.Text = FileName.Length > path.Length ? FileName.Remove(0, path.Length+1) : "";
+            label.Text = FileName.Length > path.Length ? FileName.Remove(0, path.Length + 1) : "";
+        }
+
+        /// <summary>
+        /// 选择文件(不进行切割)
+        /// </summary>
+        /// <param name="label"></param>
+        public static void ChoiceFileWithoutCut(string path, Control label)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.InitialDirectory = path;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (string.IsNullOrEmpty(dialog.FileName))
+                {
+                    return;
+                }
+                label.Text = dialog.FileName;
+            }
         }
 
         /// <summary>
@@ -593,7 +611,7 @@ namespace TheLongDarkBuckupTools
         /// <param name="ini"></param>
         public static void SaveFile(string path,params string[] ini)
         {
-            File.WriteAllLines(path, ini,System.Text.Encoding.Unicode);
+            File.WriteAllLines(path, ini, Encoding.Unicode);
         }
 
         /// <summary>
@@ -1543,6 +1561,15 @@ namespace TheLongDarkBuckupTools
         public Value(string value)
         {
             val = value;
+        }
+
+        /// <summary>
+        /// 重写转化字符串
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return val;
         }
     }
 

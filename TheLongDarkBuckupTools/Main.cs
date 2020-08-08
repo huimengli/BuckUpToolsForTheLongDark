@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using TheLongDarkBuckupTools.GameData;
 
 namespace TheLongDarkBuckupTools
 {
@@ -47,6 +49,11 @@ namespace TheLongDarkBuckupTools
         /// </summary>
         public static Keys QuickSave;
 
+        /// <summary>
+        /// 启动方法
+        /// </summary>
+        private string starWay = "";
+
         public Main()
         {
             InitializeComponent();
@@ -59,7 +66,8 @@ namespace TheLongDarkBuckupTools
                 File.WriteAllText(tishi, Massage.tishi);
                 Item.OpenOnWindows(tishi);
             }
-            QuickSave = (Keys)Enum.Parse(typeof(Keys), textBox1.Text);
+            //QuickSave = (Keys)Enum.Parse(typeof(Keys), textBox1.Text);
+            //radioButton1.Checked = true;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -74,8 +82,8 @@ namespace TheLongDarkBuckupTools
         {
             //Console.WriteLine(System.Diagnostics.Process.GetProcesses("TheLongDarkBuckUpTools").ToString());
             IniAllValues = Item.ReadAllIni(IniPath)[0];
-            var allValues = Item.GetValues(IniAllValues, "savePath");
-            gameSavePath.val = "";
+            var allValues = BigData.Parses(IniAllValues);
+            gameSavePath.val = allValues.SearchData("savePath").Value;
             if (string.IsNullOrEmpty(gameSavePath.val))
             {
                 //自动读取存档路径
@@ -89,12 +97,33 @@ namespace TheLongDarkBuckupTools
                     new InputChouseBox("提示", "没有找到存档文件夹\n请手动输入或者右边选择:", gameSavePath);
                 }
             }
-            textBox3.Text = allValues[0] == "" ? CurrentPath + "bfFolder\\" : allValues[0];
-            if (Item.CheckFolder(textBox3.Text) == false)
+            textBox3.Text = string.IsNullOrEmpty(allValues.SearchData("buckPath").Value)?CurrentPath+"bfFolder\\":allValues.SearchData("buckPath").Value;
+            if (!Item.CheckFolder(textBox3.Text))
             {
                 Directory.CreateDirectory(textBox3.Text);
             }
-            saveTimes = 0; /*allValues[2] == "" ? 0 : int.Parse(allValues[2]);*/
+            saveTimes = string.IsNullOrEmpty(allValues.SearchData("saveTimes").Value)?0:int.Parse(allValues.SearchData("saveTimes").Value);
+            textBox1.Text = string.IsNullOrEmpty(allValues.SearchData("quickSave").Value)?"F6": allValues.SearchData("quickSave").Value;
+            QuickSave = (Keys)Enum.Parse(typeof(Keys), textBox1.Text);
+            var RIDIO = allValues.SearchData("starType").Value;
+            if (string.IsNullOrEmpty(RIDIO))
+            {
+                RIDIO = "0";
+            }
+            switch (RIDIO)
+            {
+                case "1":
+                    radioButton1.Checked = true;
+                    break;
+                case "2":
+                    radioButton2.Checked = true;
+                    textBox5.Text = allValues.SearchData("starWay").Value;
+                    starWay = textBox5.Text;
+                    break;
+                default:
+                    radioButton1.Checked = true;
+                    break;
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -154,6 +183,16 @@ namespace TheLongDarkBuckupTools
         private void Main_Unload(object sender, EventArgs e)
         {
             Item.SaveIni(IniPath,gameSavePath.val, textBox3.Text, saveTimes);
+            var Saves = new List<BigData>();
+            Saves.Add(new BigData("savePath", gameSavePath));
+            Saves.Add(new BigData("buckPath", textBox3.Text));
+            Saves.Add(new BigData("saveTimes",saveTimes));
+            Saves.Add(new BigData("saveTimes",saveTimes));
+            Saves.Add(new BigData("quickSave",textBox1.Text));
+            Saves.Add(new BigData("starType",radioButton1.Checked?1:radioButton2.Checked?2:0));
+            Saves.Add(new BigData("starWay",starWay));
+
+            Item.SaveFile(IniPath, Saves.ToArray().ToString(true));
         }
 
         //private void button5_Click(object sender, EventArgs e)
@@ -341,14 +380,50 @@ namespace TheLongDarkBuckupTools
             }
         }
 
-        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-
-        }
-
         private void button12_Click(object sender, EventArgs e)
         {
             new ShowFile(true, gameSavePath, new Value(textBox3.Text)).Show();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBox5.Text)==false)
+            {
+                Item.OpenOnWindows(textBox5.Text);
+            }
+            else
+            {
+                MessageBox.Show("请在关于界面设定游戏启动位置", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            starWay = textBox5.Text;
+            textBox5.Text = "steam://rungameid/305620";
+            textBox5.Enabled = false;
+
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            textBox5.Text = starWay;
+            textBox5.Enabled = true;
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked)
+            {
+                MessageBox.Show("不允许修改steam启动项", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (radioButton2.Checked)
+            {
+                Item.ChoiceFileWithoutCut(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), textBox5);
+                starWay = textBox5.Text;
+                return;
+            }
         }
     }
 }

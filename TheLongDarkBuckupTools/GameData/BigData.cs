@@ -81,7 +81,7 @@ namespace TheLongDarkBuckupTools.GameData
         /// <summary>
         /// 获取数据的正则表达式
         /// </summary>
-        private readonly Regex GetData = new Regex(@"([^:;]*):([^:;]*);");
+        public static readonly Regex GetData = new Regex(@"([^:;]*):([^:;]*);");
 
         #endregion
 
@@ -198,14 +198,14 @@ namespace TheLongDarkBuckupTools.GameData
         /// </summary>
         /// <param name="val">数据</param>
         /// <returns></returns>
-        public BigData Parse(string val)
+        public static BigData Parse(string val)
         {
             var data = GetData.Match(val);
             if (string.IsNullOrEmpty(data.Groups[0].ToString()))
             {
                 return new BigData();
             }
-            return new BigData(data.Groups[1].ToString(), data.Groups[2]);
+            return new BigData(Base64Decrypt(data.Groups[1].ToString()),Base64Decrypt(data.Groups[2].ToString()));
         }
 
         /// <summary>
@@ -213,7 +213,7 @@ namespace TheLongDarkBuckupTools.GameData
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        public BigData[] Parses(string val)
+        public static BigData[] Parses(string val)
         {
             var data = GetData.Matches(val);
             if (data.Count == 0)
@@ -223,7 +223,7 @@ namespace TheLongDarkBuckupTools.GameData
             var ret = new List<BigData>();
             foreach (Match item in data)
             {
-                ret.Add(new BigData(item.Groups[1].ToString(), item.Groups[2]));
+                ret.Add(new BigData(Base64Decrypt(item.Groups[1].ToString()), Base64Decrypt(item.Groups[2].ToString())));
             }
             return ret.ToArray();
         }
@@ -281,7 +281,7 @@ namespace TheLongDarkBuckupTools.GameData
         /// <returns></returns>
         public static BigData SearchData(this BigData[] datas, string title)
         {
-            BigData ret = null;
+            BigData ret = new BigData();
             foreach (var item in datas)
             {
                 if (item.Title == title)
