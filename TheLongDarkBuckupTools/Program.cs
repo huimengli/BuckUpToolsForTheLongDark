@@ -910,6 +910,50 @@ namespace TheLongDarkBuckupTools
         {
             return encode.GetString(Convert.FromBase64String(input));
         }
+
+        /// <summary>
+        /// 根据base64字符串返回一个封装好的GDI+位图。
+        /// </summary>
+        /// <param name="base64string">可转换成位图的base64字符串。</param>
+        /// <returns>Bitmap对象。</returns>
+        public static Bitmap GetImageFromBase64(string base64string)
+        {
+            byte[] b = Convert.FromBase64String(base64string);
+            MemoryStream ms = new MemoryStream(b);
+            Bitmap bitmap = new Bitmap(ms);
+            return bitmap;
+        }
+
+        /// <summary>
+        /// 将图片转换成base64字符串。
+        /// </summary>
+        /// <param name="imagefile">需要转换的图片文件。</param>
+        /// <returns>base64字符串。</returns>
+        public static string GetBase64FromImage(string imagefile)
+        {
+            string strbaser64 = "";
+
+            try
+            {
+                Bitmap bmp = new Bitmap(imagefile);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    byte[] arr = new byte[ms.Length];
+                    ms.Position = 0;
+                    ms.Read(arr, 0, (int)ms.Length);
+                    ms.Close();
+
+                    strbaser64 = Convert.ToBase64String(arr);
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("Something wrong during convert!");
+            }
+
+            return strbaser64;
+        }
         #endregion
 
         #region 压缩工具
@@ -1478,6 +1522,19 @@ namespace TheLongDarkBuckupTools
             {
                 return JsonConvert.DeserializeObject<T>(json);
             }            
+        }
+
+        /// <summary>
+        /// 从Byte[]转为Image
+        /// (漫漫长夜的备份数据用的不是这种方式)
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <returns></returns>
+        public static Image BytesToImage(byte[] buffer)
+        {
+            MemoryStream ms = new MemoryStream(buffer);
+            Image image = Image.FromStream(ms);
+            return image;
         }
     }
 

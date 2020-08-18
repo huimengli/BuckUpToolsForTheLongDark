@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using TheLongDarkBuckupTools.GameData;
+using TheLongDarkBuckupTools.Helpers;
 
 namespace TheLongDarkBuckupTools
 {
@@ -60,9 +61,9 @@ namespace TheLongDarkBuckupTools
             Text = "漫漫长夜存档备份工具";
             IsElseForm = false;
             NeedHelp = false;
+            var tishi = CurrentPath + "注意事项.txt";
             IniPath = CurrentPath + "BuckUpTools.ini";
-            if (File.Exists(IniPath)==false) {
-                var tishi = CurrentPath + "注意事项.txt";
+            if (File.Exists(tishi)==false) {
                 File.WriteAllText(tishi, Massage.tishi);
                 Item.OpenOnWindows(tishi);
             }

@@ -188,7 +188,12 @@ namespace TheLongDarkBuckupTools
             {
                 label4.Visible = true;
                 pictureBox1.Visible = false;
-                data = Item.DeserializeObject<SlotData>(EncryptString.DecompressBytesToString(File.ReadAllBytes(file.FullName)));
+                data = (SlotData)Item.DeserializeObject<SlotData>(EncryptString.DecompressBytesToString(File.ReadAllBytes(file.FullName)));
+                Console.WriteLine(data.m_Dict["screenshot"].Length);
+                var img = ((Screenshot)Item.DeserializeObject<Screenshot>(EncryptString.DecompressBytesToString(data.m_Dict["screenshot"]))).ToImage();
+                label4.Visible = false;
+                pictureBox1.Visible = true;
+                pictureBox1.Image = img;
             }
             else if (file.Extension == ".png")
             {

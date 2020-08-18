@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TheLongDarkBuckupTools
+namespace TheLongDarkBuckupTools.Helpers
 {
     class Massage
     {
@@ -30,7 +30,7 @@ namespace TheLongDarkBuckupTools
 
 7. 读取存档文件的功能做好了,但是只能读取少量数据...
 
-8. 请删除老版工具产生的BuckUpTools.ini,让程序重新生成一次.
+8. 成功读取了存档内的截图,但是存档内的截图分辨率只有320X200,而且在程序外不可见.
 
 其他：
 

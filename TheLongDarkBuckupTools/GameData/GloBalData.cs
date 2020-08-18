@@ -85,4 +85,33 @@ namespace TheLongDarkBuckupTools.GameData
 
         #endregion
     }
+
+    /// <summary>
+    /// 截图数据
+    /// </summary>
+    public class Screenshot
+    {
+        /// <summary>
+        /// 解码
+        /// </summary>
+        public string m_Encoded { get; set; }
+
+        /// <summary>
+        /// 重写转字符串
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "{\"m_Encoded\":\"" + m_Encoded.ToString() + "\"}";
+        }
+
+        /// <summary>
+        /// 截图数据转化为图片
+        /// </summary>
+        /// <returns></returns>
+        public System.Drawing.Image ToImage()
+        {
+            return (System.Drawing.Image)Item.GetImageFromBase64(this.m_Encoded);
+        }
+    }
 }

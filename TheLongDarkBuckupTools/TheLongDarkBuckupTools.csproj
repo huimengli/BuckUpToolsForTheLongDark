@@ -130,7 +130,7 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="massage.cs" />
+    <Compile Include="Helpers\massage.cs" />
     <Compile Include="MyMassageBox.cs">
       <SubType>Form</SubType>
     </Compile>
