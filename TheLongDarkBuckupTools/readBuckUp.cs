@@ -81,6 +81,11 @@ namespace TheLongDarkBuckupTools
             }
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Item.OpenFolder(gameSavePath.val);
+        }
+
         private void button4_Click(object sender, EventArgs e)
         {
             Close();

@@ -377,7 +377,7 @@ namespace TheLongDarkBuckupTools
         {
             if (!IsElseForm)
             {
-                Item.OpenOnWindows("https://tieba.baidu.com/p/6677018117");
+                Item.OpenOnWindows("https://tieba.baidu.com/p/6891350202");
             }
         }
 
@@ -425,6 +425,16 @@ namespace TheLongDarkBuckupTools
                 starWay = textBox5.Text;
                 return;
             }
+        }
+
+        private void label1_MouseEnter(object sender, EventArgs e)
+        {
+            label1.Text = "启动游戏";
+        }
+
+        private void label1_MouseLeave(object sender, EventArgs e)
+        {
+            label1.Text = "漫漫长夜";
         }
     }
 }

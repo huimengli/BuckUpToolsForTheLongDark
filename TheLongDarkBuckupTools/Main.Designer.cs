@@ -94,6 +94,8 @@ namespace TheLongDarkBuckupTools
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.toolTip1.SetToolTip(this.label1, "启动游戏");
             this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.MouseEnter += new System.EventHandler(this.label1_MouseEnter);
+            this.label1.MouseLeave += new System.EventHandler(this.label1_MouseLeave);
             // 
             // label2
             // 
@@ -106,6 +108,7 @@ namespace TheLongDarkBuckupTools
             this.label2.TabIndex = 1;
             this.label2.Text = "存档备份工具——作者：绘梦璃";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.label2, "作者:绘梦璃");
             // 
             // linkLabel1
             // 
@@ -178,6 +181,7 @@ namespace TheLongDarkBuckupTools
             this.button8.Size = new System.Drawing.Size(190, 23);
             this.button8.TabIndex = 22;
             this.button8.Text = "备份存档(打开自动备份界面)";
+            this.toolTip1.SetToolTip(this.button8, "打开然后玩就行");
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 

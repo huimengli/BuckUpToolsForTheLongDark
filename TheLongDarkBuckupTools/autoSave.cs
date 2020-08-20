@@ -105,9 +105,14 @@ namespace TheLongDarkBuckupTools
             //label4.Text = "";//自动保存还没有做好//做好了
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
             Item.OpenFolder(gameSavePath.val);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Item.OpenFolder(buckUpPath.val);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -716,6 +721,8 @@ namespace TheLongDarkBuckupTools
                         Item.Save(item, autoSave.BuckUpPath.val, time2.ToFileTimeUtc());
                     }
                 }
+                //之前没有重置导致出备份出错
+                changeFiles = new List<string>();
             }
             catch (Exception err)
             {
