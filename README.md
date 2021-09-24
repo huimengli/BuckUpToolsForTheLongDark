@@ -94,7 +94,7 @@
 ---------------------
 
 ##### 0.7.5 (可用)
-
+[漫漫长夜备份工具_v0.7.5_msi](https://github.com/huimengli/BuckUpToolsForTheLongDark/releases/tag/%E6%BC%AB%E6%BC%AB%E9%95%BF%E5%A4%9C%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7_v0.7.5_msi)
 
 1. 修改了一个小的bug
 
