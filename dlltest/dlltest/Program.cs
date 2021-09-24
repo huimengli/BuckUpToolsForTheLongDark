@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace dlltest
 {
@@ -6,7 +7,14 @@ namespace dlltest
     {
         static void Main(string[] args)
         {
-            UseCmd("explorer.exe");
+            //UseCmd("explorer.exe");
+            //throw new Exception("error");
+            //Console.WriteLine(IntPtr.Size);
+            //Console.Read();
+            var file = File.Create("1.txt");
+            var sw = new StreamWriter(file);
+            sw.Write("dll注入成功");
+            sw.Close();
         }
 
         /// <summary>

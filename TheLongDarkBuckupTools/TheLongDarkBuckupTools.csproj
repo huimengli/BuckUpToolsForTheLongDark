@@ -63,10 +63,10 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ManifestCertificateThumbprint>D33455A65A8FF4E459F88A38F19654EE1C5C8B6D</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>04D3F0969728DE88DCE63841976564A9A0D7BB7D</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>TheLongDarkBuckupTools_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>TheLongDarkBuckupTools_KEY.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -75,11 +75,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>TheLongDarkBuckupTools_KEY.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -105,9 +104,16 @@
     <Compile Include="autoSave.Designer.cs">
       <DependentUpon>autoSave.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangeFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeFile.Designer.cs">
+      <DependentUpon>ChangeFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameData\BigData.cs" />
     <Compile Include="GameData\Enums.cs" />
     <Compile Include="GameData\GloBalData.cs" />
+    <Compile Include="Helpers\BindableBase.cs" />
     <Compile Include="Helpers\CLZF.cs" />
     <Compile Include="Helpers\EncryptString.cs" />
     <Compile Include="InputBox.cs">
@@ -157,6 +163,9 @@
     <EmbeddedResource Include="autoSave.resx">
       <DependentUpon>autoSave.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChangeFile.resx">
+      <DependentUpon>ChangeFile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InputBox.resx">
       <DependentUpon>InputBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -201,6 +210,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="TheLongDarkBuckupTools_KEY.pfx" />
     <None Include="TheLongDarkBuckupTools_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

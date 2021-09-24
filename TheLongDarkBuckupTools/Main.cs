@@ -85,7 +85,7 @@ namespace TheLongDarkBuckupTools
             IniAllValues = Item.ReadAllIni(IniPath)[0];
             var allValues = BigData.Parses(IniAllValues);
             gameSavePath.val = allValues.SearchData("savePath").Value;
-            if (string.IsNullOrEmpty(gameSavePath.val))
+            if (string.IsNullOrWhiteSpace(gameSavePath.val)||!Directory.Exists(gameSavePath.val))
             {
                 //自动读取存档路径
                 gameSavePath.val = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -98,7 +98,8 @@ namespace TheLongDarkBuckupTools
                     new InputChouseBox("提示", "没有找到存档文件夹\n请手动输入或者右边选择:", gameSavePath);
                 }
             }
-            textBox3.Text = string.IsNullOrEmpty(allValues.SearchData("buckPath").Value)?CurrentPath+"bfFolder\\":allValues.SearchData("buckPath").Value;
+            textBox3.Text = allValues.SearchData("buckPath").Value;
+            textBox3.Text = string.IsNullOrEmpty(textBox3.Text) ||!Directory.Exists(textBox3.Text) ?CurrentPath+"bfFolder\\":allValues.SearchData("buckPath").Value;
             if (!Item.CheckFolder(textBox3.Text))
             {
                 Directory.CreateDirectory(textBox3.Text);
@@ -435,6 +436,13 @@ namespace TheLongDarkBuckupTools
         private void label1_MouseLeave(object sender, EventArgs e)
         {
             label1.Text = "漫漫长夜";
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            //打开一个全新的界面
+            new ChangeFile(this,gameSavePath,new Value(textBox3.Text)).Show();
+            Opacity = 0;
         }
     }
 }

@@ -172,6 +172,10 @@ namespace TheLongDarkBuckupTools
             }
             if (watcher==null)
             {
+                if (!Directory.Exists(gameSavePath.val))
+                {
+                    throw new Exception("存档文件夹不存在！");
+                }
                 watcher = new FileSystemWatcher();
                 watcher.Path = gameSavePath.val;
                 /*监视LastAcceSS和LastWrite时间的更改以及文件或目录的重命名*/
@@ -189,11 +193,6 @@ namespace TheLongDarkBuckupTools
                 watcher.Deleted += new FileSystemEventHandler(watch.OnChange);
                 //当由FileSystemWatcher所指定的路径中文件或目录被重命名时，重命名事件就会发生
                 watcher.Renamed += new RenamedEventHandler(watch.OnRenamed);
-            }
-            if (!Directory.Exists(gameSavePath.val))
-            {
-                Console.WriteLine("存档文件夹不存在！");
-                return;
             }
             //开始监视
             watcher.EnableRaisingEvents = true;

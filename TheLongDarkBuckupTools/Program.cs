@@ -1525,6 +1525,18 @@ namespace TheLongDarkBuckupTools
         }
 
         /// <summary>
+        /// 序列化
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        public static string SerializeObject(object o)
+        {
+            if (o == null)
+                return null;
+            return JsonConvert.SerializeObject(o);
+        }
+
+        /// <summary>
         /// 从Byte[]转为Image
         /// (漫漫长夜的备份数据用的不是这种方式)
         /// </summary>
@@ -1539,8 +1551,8 @@ namespace TheLongDarkBuckupTools
     }
 
     /// <summary>
-        /// 添加内容
-        /// </summary>
+    /// 添加内容
+    /// </summary>
     public static class AddValue
     {
         /// <summary>

@@ -63,6 +63,8 @@ namespace TheLongDarkBuckupTools
             this.label7 = new System.Windows.Forms.Label();
             this.button11 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button15 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -428,6 +430,8 @@ namespace TheLongDarkBuckupTools
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.button15);
+            this.tabPage3.Controls.Add(this.button14);
             this.tabPage3.Controls.Add(this.groupBox4);
             this.tabPage3.Controls.Add(this.linkLabel2);
             this.tabPage3.Controls.Add(this.linkLabel1);
@@ -437,6 +441,27 @@ namespace TheLongDarkBuckupTools
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "关于";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button15
+            // 
+            this.button15.Location = new System.Drawing.Point(13, 181);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(181, 23);
+            this.button15.TabIndex = 6;
+            this.button15.Text = "加速页面";
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Visible = false;
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(13, 152);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(181, 23);
+            this.button14.TabIndex = 5;
+            this.button14.Text = "修改文件";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Visible = false;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // groupBox4
             // 
@@ -581,5 +606,7 @@ namespace TheLongDarkBuckupTools
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button button15;
     }
 }
