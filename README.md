@@ -105,7 +105,16 @@
 2. 修改了存档位置和备份位置读取的规则
 
 ---------------------
+---------------------
 
+##### 0.7.6 (可用)
+[漫漫长夜备份工具_v0.7.6_msi](https://github.com/huimengli/BuckUpToolsForTheLongDark/releases/download/untagged-efd20842a8e9a15ede93/_v0.7.6_msi.exe)
+
+1. 修改了windows缩放导致的截图错误
+
+2. 修改了文件读取时的排序,现在会将更新的文件放在前面
+
+---------------------
 
 
 
