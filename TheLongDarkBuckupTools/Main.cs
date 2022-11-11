@@ -444,5 +444,10 @@ namespace TheLongDarkBuckupTools
             new ChangeFile(this,gameSavePath,new Value(textBox3.Text)).Show();
             Opacity = 0;
         }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            Item.Screenshot(@"C:\Users\29133\Desktop\测试的截图\test.png", true);
+        }
     }
 }

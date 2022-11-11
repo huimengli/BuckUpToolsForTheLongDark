@@ -508,7 +508,8 @@ namespace TheLongDarkBuckupTools
                 //需要自动备份的文件对象
                 var file = new FileInfo(fileName);
                 //截图并保存到临时文件夹
-                Item.Screenshot(BuckUpPath.val + "\\" + file.Name + "_bf" + time.ToFileTimeUtc().ToString() + ".png");
+                //Item.Screenshot(BuckUpPath.val + "\\" + file.Name + "_bf" + time.ToFileTimeUtc().ToString() + ".png");
+                Item.Screenshot(BuckUpPath.val + "\\" + file.Name + "_bf" + time.ToFileTimeUtc().ToString() + ".png",true);
                 //程序运行到这里可以保存之前的截图文件了
                 //img.Save(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
                 //备份文件为在文件夹为zip文件

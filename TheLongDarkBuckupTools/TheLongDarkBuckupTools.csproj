@@ -63,10 +63,10 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ManifestCertificateThumbprint>04D3F0969728DE88DCE63841976564A9A0D7BB7D</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E22C8C415C9EEB871B640983C4B72EBDFA09A99F</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>TheLongDarkBuckupTools_KEY.pfx</ManifestKeyFile>
+    <ManifestKeyFile>TheLongDarkBuckupTools_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -75,10 +75,11 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>TheLongDarkBuckupTools_KEY.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -210,7 +211,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="TheLongDarkBuckupTools_KEY.pfx" />
+    <None Include="TheLongDarkBuckupTools_Key.pfx" />
     <None Include="TheLongDarkBuckupTools_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

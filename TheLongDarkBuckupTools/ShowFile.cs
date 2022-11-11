@@ -171,9 +171,42 @@ namespace TheLongDarkBuckupTools
             }
             else
             {
-                listBox1.Items.AddRange(RemoveUsers(files));
+                files = RemoveUsers(files);
+                files = FilesSort(files);
+                listBox1.Items.AddRange(files);
             }
             button3.Text = isRead ? "读取该备份" : "备份该存档";
+        }
+
+        /// <summary>
+        /// 对文件排序
+        /// 将最新的文件排在最前面
+        /// </summary>
+        /// <param name="files"></param>
+        /// <returns></returns>
+        public FileInfo[] FilesSort(FileInfo[] files)
+        {
+            var ret = new List<FileInfo>();
+            var source = new List<FileInfo>(files);
+            long max = 0;
+            FileInfo theMax = null;
+            while (source.Count>0)
+            {
+                for (int i = 0; i < source.Count; i++)
+                {
+                    var file = source[i];
+                    if (max < file.CreationTime.ToFileTime())
+                    {
+                        max = file.CreationTime.ToFileTime();
+                        theMax = file;
+                    }
+                }
+                ret.Add(theMax);
+                source.Remove(theMax);
+                max = 0;
+            }
+            //ret.Reverse();//反向排序
+            return ret.ToArray();
         }
 
         /// <summary>
@@ -217,7 +250,7 @@ namespace TheLongDarkBuckupTools
         }
 
         /// <summary>
-        /// 移除用户信息文件
+        /// 移除用户信息文件(还有steam文件)
         /// </summary>
         /// <param name="files"></param>
         /// <returns></returns>
@@ -225,9 +258,10 @@ namespace TheLongDarkBuckupTools
         {
             var rets = new List<FileInfo>();
             var isuser = new Regex(@"user");
+            var issteam = new Regex(@"steam");
             foreach (var item in files)
             {
-                if (isuser.IsMatch(item.Name))
+                if (isuser.IsMatch(item.Name)||issteam.IsMatch(item.Name))
                 {
                     continue;
                 }
