@@ -1,8 +1,8 @@
 # BuckUpToolsForTheLongDark
 备份漫漫长夜沙盒模式的存档用的工具
 
-### version:0.7.5
-版本:0.7.5
+### version:0.7.6
+版本:0.7.6
 
 ### author:huimengli
 作者:绘梦璃
