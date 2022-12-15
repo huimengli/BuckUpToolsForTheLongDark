@@ -12,14 +12,24 @@ namespace TheLongDarkBuckupTools
     public partial class ShowFile : Form
     {
         /// <summary>
-        /// 游戏存档位置
+        /// 剧情游戏存档位置
         /// </summary>
-        private Value gameSavePath;
+        private Value gameStorySavePath;
 
         /// <summary>
-        /// 备份所在位置
+        /// 剧情备份所在位置
         /// </summary>
-        private Value buckUpPath;
+        private Value stroyBuckUpPath;
+
+        /// <summary>
+        /// 生存模式游戏存档位置
+        /// </summary>
+        private Value gameSurvivalSavePath;
+
+        /// <summary>
+        /// 生存模式备份所在位置
+        /// </summary>
+        private Value survivalBuckUpPath;
 
         /// <summary>
         /// zip文件保存路径
@@ -30,6 +40,11 @@ namespace TheLongDarkBuckupTools
         /// 是否是读取备份
         /// </summary>
         public bool isRead;
+
+        /// <summary>
+        /// 游戏模式
+        /// </summary>
+        public PlayType playType;
 
         /// <summary>
         /// 文件夹中文件数量
@@ -70,8 +85,45 @@ namespace TheLongDarkBuckupTools
         public ShowFile(bool isRead,Value gameSavePath,Value buckUpPath)
         {
             this.isRead = isRead;
-            this.gameSavePath = gameSavePath;
-            this.buckUpPath = buckUpPath;
+            this.gameStorySavePath = gameSavePath;
+            this.gameSurvivalSavePath = gameSavePath + @"Survival\";
+            this.stroyBuckUpPath = buckUpPath;
+            this.survivalBuckUpPath = buckUpPath + @"Survival\";
+            ZipPath = buckUpPath.val + @"\zippath\";
+            TempFolder = AppDomain.CurrentDomain.BaseDirectory + @"\temp\";
+            FolderInfoIni = AppDomain.CurrentDomain.BaseDirectory + @"\FolderInfo.ini";
+            Directory.CreateDirectory(TempFolder);
+            if (Directory.Exists(ZipPath) == false)
+            {
+                Directory.CreateDirectory(ZipPath);
+                var dir = new DirectoryInfo(ZipPath);
+                dir.Attributes = FileAttributes.Hidden;
+            }
+            else
+            {
+                var dir = new DirectoryInfo(ZipPath);
+                dir.Attributes = FileAttributes.Hidden;
+            }
+            readFile = new Thread(new ThreadStart(FolderInfoIniInit));
+            //readFile.Start();
+            InitializeComponent();
+        }
+
+        /// <summary>
+        /// 显示并选取文件页面构造函数
+        /// </summary>
+        /// <param name="isRead">是否是读取备份</param>
+        /// <param name="gameSavePath">存档所在位置</param>
+        /// <param name="buckUpPath">备份文件位置</param>
+        /// <param name="playType">游戏模式</param>
+        public ShowFile(bool isRead,Value gameSavePath,Value buckUpPath,PlayType playType)
+        {
+            this.isRead = isRead;
+            this.playType = playType;
+            this.gameStorySavePath = gameSavePath;
+            this.gameSurvivalSavePath = gameSavePath + @"Survival\";
+            this.stroyBuckUpPath = buckUpPath;
+            this.survivalBuckUpPath = buckUpPath + @"Survival\";
             ZipPath = buckUpPath.val + @"\zippath\";
             TempFolder = AppDomain.CurrentDomain.BaseDirectory + @"\temp\";
             FolderInfoIni = AppDomain.CurrentDomain.BaseDirectory + @"\FolderInfo.ini";
@@ -145,25 +197,77 @@ namespace TheLongDarkBuckupTools
             var file = (FileInfo)listBox1.SelectedItem;
             if (isRead)
             {
-                Item.ReadSave(file, gameSavePath.val);
+                switch (playType)
+                {
+                    case PlayType.Story:
+                        Item.ReadSave(file, gameStorySavePath.val);
+                        break;
+                    case PlayType.Survival:
+                        Item.ReadSave(file, gameSurvivalSavePath.val);
+                        break;
+                    default:
+                        throw new Exception("错误参数!");
+                }
             }
             else
             {
-                Console.WriteLine(DateTime.Now);
-                Item.Save(file, buckUpPath.val, DateTime.Now.ToFileTimeUtc());
+                //Console.WriteLine(DateTime.Now);
+                switch (playType)
+                {
+                    case PlayType.Story:
+                        Item.Save(file, stroyBuckUpPath.val, DateTime.Now.ToFileTimeUtc());
+                        break;
+                    case PlayType.Survival:
+                        Item.Save(file, survivalBuckUpPath.val, DateTime.Now.ToFileTimeUtc());
+                        break;
+                    default:
+                        throw new Exception("错误参数!");
+                }
             }
         }
 
         /// <summary>
         /// 检查isread参数
+        /// 同时检查playType参数
         /// </summary>
         private void ChackIsRead()
         {
             listBox1.Items.Clear();
             Text = isRead ? "文件查看器-读取备份状态" : "文件查看器-备份存档状态";
             label3.Text = isRead ? "页面状态:读取备份" : "页面状态:备份存档";
-            var dir = isRead ? new DirectoryInfo(buckUpPath.val) : new DirectoryInfo(gameSavePath.val);
-            var files = dir.GetFiles();
+            DirectoryInfo dir;
+            if (isRead)
+            {
+                switch (playType)
+                {
+                    case PlayType.Story:dir = new DirectoryInfo(stroyBuckUpPath.val);
+                        break;
+                    case PlayType.Survival:dir = new DirectoryInfo(survivalBuckUpPath.val);
+                        break;
+                    default:throw new Exception("错误模式!");
+                }
+            }
+            else
+            {
+                switch (playType)
+                {
+                    case PlayType.Story:dir = new DirectoryInfo(gameStorySavePath.val);
+                        break;
+                    case PlayType.Survival:dir = new DirectoryInfo(gameSurvivalSavePath.val);
+                        break;
+                    default: throw new Exception("错误模式!");
+                }
+            }
+            FileInfo[] files;
+            try
+            {
+                files = dir.GetFiles();
+            }
+            catch (Exception)
+            {
+                dir.Create();
+                files = new FileInfo[0];
+            }
             if (files.Length <= 0)
             {
                 MessageBox.Show(isRead ? "备份文件夹没有任何文件" : "存档文件夹没有任何文件", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -251,6 +355,7 @@ namespace TheLongDarkBuckupTools
 
         /// <summary>
         /// 移除用户信息文件(还有steam文件)
+        /// 移除最新的profile文件
         /// </summary>
         /// <param name="files"></param>
         /// <returns></returns>
@@ -259,9 +364,10 @@ namespace TheLongDarkBuckupTools
             var rets = new List<FileInfo>();
             var isuser = new Regex(@"user");
             var issteam = new Regex(@"steam");
+            var isprofile = new Regex(@"profile");
             foreach (var item in files)
             {
-                if (isuser.IsMatch(item.Name)||issteam.IsMatch(item.Name))
+                if (isuser.IsMatch(item.Name)||issteam.IsMatch(item.Name)||isprofile.IsMatch(item.Name))
                 {
                     continue;
                 }
@@ -281,10 +387,10 @@ namespace TheLongDarkBuckupTools
         {
             var file = (FileInfo)listBox1.SelectedItem;
             textBox1.Text = file.Name;
-            textBox2.Text = data.m_Name;
+            textBox2.Text = data.m_Name ?? data.m_InternalName;
             textBox3.Text = data.m_DisplayName;
             textBox4.Text = data.GetGameMode();
-            textBox5.Text = data.m_VersionChangelistNumber.ToString();
+            textBox5.Text = data.m_VersionChangelistNumber == 0 ? data.m_Changelist.ToString() : data.m_VersionChangelistNumber.ToString();
             textBox6.Text = data.m_Timestamp.ToString();
             if (isRead)
             {
@@ -309,8 +415,8 @@ namespace TheLongDarkBuckupTools
                 File.Create(FolderInfoIni);
                 var saveDatas = "";
                 var buckDatas = "";
-                var saveFiles = RemoveUsers(new DirectoryInfo(gameSavePath.val).GetFiles());
-                var buckFiles = RemoveUsers(new DirectoryInfo(buckUpPath.val).GetFiles());
+                var saveFiles = RemoveUsers(new DirectoryInfo(gameStorySavePath.val).GetFiles());
+                var buckFiles = RemoveUsers(new DirectoryInfo(stroyBuckUpPath.val).GetFiles());
 
                 foreach (var file in saveFiles)
                 {

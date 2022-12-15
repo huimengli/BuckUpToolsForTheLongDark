@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
+using TheLongDarkBuckupTools.Helpers;
 //using System.Diagnostics;
 
 namespace TheLongDarkBuckupTools
@@ -40,8 +41,15 @@ namespace TheLongDarkBuckupTools
 
         /// <summary>
         /// 文件夹监控对象
+        /// 老版本检测(生存模式检测)
         /// </summary>
-        public static FileSystemWatcher watcher;
+        public static FileSystemWatcher watcherStory;
+
+        /// <summary>
+        /// 文件夹监控对象
+        /// 新版生存模式检测
+        /// </summary>
+        public static FileSystemWatcher watcherSurvival;
 
         /// <summary>
         /// 临时文件夹路径
@@ -124,7 +132,8 @@ namespace TheLongDarkBuckupTools
         {
             form.Opacity = 1;
             //结束文件夹监视
-            watcher.EnableRaisingEvents = false;
+            watcherStory.EnableRaisingEvents = false;
+            watcherSurvival.EnableRaisingEvents = false;
             watch = null;
             //卸载键盘监视
             Stop();
@@ -170,32 +179,57 @@ namespace TheLongDarkBuckupTools
             {
                 watch = new Watcher();
             }
-            if (watcher==null)
+            if (watcherStory==null)
             {
                 if (!Directory.Exists(gameSavePath.val))
                 {
                     throw new Exception("存档文件夹不存在！");
                 }
-                watcher = new FileSystemWatcher();
-                watcher.Path = gameSavePath.val;
+                watcherStory = new FileSystemWatcher();
+                watcherStory.Path = gameSavePath.val;
                 /*监视LastAcceSS和LastWrite时间的更改以及文件或目录的重命名*/
-                watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite |
+                watcherStory.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite |
                       NotifyFilters.FileName | NotifyFilters.DirectoryName;
                 //添加事件句柄
                 //当由FileSystemWatcher所指定的路径中的文件或目录的
                 //大小、系统属性、最后写时间、最后访问时间或安全权限
                 //发生更改时，更改事件就会发生
-                watcher.Changed += new FileSystemEventHandler(watch.OnChange);
+                watcherStory.Changed += new FileSystemEventHandler(watch.OnChange);
                 //watcher.Changed += new FileSystemEventHandler(watch.ChackChange);
                 //由FileSystemWatcher所指定的路径中文件或目录被创建时，创建事件就会发生
-                watcher.Created += new FileSystemEventHandler(watch.OnChange);
+                watcherStory.Created += new FileSystemEventHandler(watch.OnChange);
                 //当由FileSystemWatcher所指定的路径中文件或目录被删除时，删除事件就会发生
-                watcher.Deleted += new FileSystemEventHandler(watch.OnChange);
+                watcherStory.Deleted += new FileSystemEventHandler(watch.OnChange);
                 //当由FileSystemWatcher所指定的路径中文件或目录被重命名时，重命名事件就会发生
-                watcher.Renamed += new RenamedEventHandler(watch.OnRenamed);
+                watcherStory.Renamed += new RenamedEventHandler(watch.OnRenamed);
+            }
+            if (watcherSurvival==null)
+            {
+                if (!Directory.Exists(gameSavePath.val+ "Survival\\"))
+                {
+                    throw new Exception("存档文件夹不存在！");
+                }
+                watcherSurvival = new FileSystemWatcher();
+                watcherSurvival.Path = gameSavePath.val;
+                /*监视LastAcceSS和LastWrite时间的更改以及文件或目录的重命名*/
+                watcherSurvival.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite |
+                      NotifyFilters.FileName | NotifyFilters.DirectoryName;
+                //添加事件句柄
+                //当由FileSystemWatcher所指定的路径中的文件或目录的
+                //大小、系统属性、最后写时间、最后访问时间或安全权限
+                //发生更改时，更改事件就会发生
+                watcherSurvival.Changed += new FileSystemEventHandler(watch.OnChange);
+                //watcher.Changed += new FileSystemEventHandler(watch.ChackChange);
+                //由FileSystemWatcher所指定的路径中文件或目录被创建时，创建事件就会发生
+                watcherSurvival.Created += new FileSystemEventHandler(watch.OnChange);
+                //当由FileSystemWatcher所指定的路径中文件或目录被删除时，删除事件就会发生
+                watcherSurvival.Deleted += new FileSystemEventHandler(watch.OnChange);
+                //当由FileSystemWatcher所指定的路径中文件或目录被重命名时，重命名事件就会发生
+                watcherSurvival.Renamed += new RenamedEventHandler(watch.OnRenamed);
             }
             //开始监视
-            watcher.EnableRaisingEvents = true;
+            watcherStory.EnableRaisingEvents = true;
+            watcherSurvival.EnableRaisingEvents = true;
         }
 
         #region 键盘监测
@@ -549,9 +583,23 @@ namespace TheLongDarkBuckupTools
         private Thread changeOver = new Thread(Change);
 
         /// <summary>
-        /// 测试是否是用户数据
+        /// 需要排除的文件
         /// </summary>
-        private static Regex testUser = new Regex("user");
+        private static List<Regex> Exclude = new List<Regex>
+        {
+            /// <summary>
+            /// 测试是否是用户数据
+            /// </summary>
+            new Regex("user"),
+            /// <summary>
+            /// 测试是否是steam文件
+            /// </summary>
+            new Regex(@"steam"),
+            /// <summary>
+            /// 测试是否是profile文件
+            /// </summary>
+            new Regex(@"profile"),
+        };
 
         /// <summary>
         /// 信号器
@@ -704,21 +752,28 @@ namespace TheLongDarkBuckupTools
                 foreach (var item in changeFiles)
                 {
                     Item.Log(item);
-                    if (testUser.IsMatch(item) == false&&System.Diagnostics.Process.GetProcessesByName("tld").Length>0)
+                    if (System.Diagnostics.Process.GetProcessesByName("tld").Length > 0)
                     {
-                        //需要自动备份的文件对象
-                        var file = new FileInfo(item);
-                        //截图并保存到临时文件夹
-                        //Item.Screenshot(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
-                        //程序运行到这里可以保存之前的截图文件了
-                        img.Save(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
-                        //备份文件为在文件夹为zip文件
-                        Item.ZipFile(file.FullName, autoSave.ZipPath + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".gz");
+                        if (Exclude.TestFile(item))
+                        {
+                            //需要自动备份的文件对象
+                            var file = new FileInfo(item);
+                            //截图并保存到临时文件夹
+                            //Item.Screenshot(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
+                            //程序运行到这里可以保存之前的截图文件了
+                            img.Save(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
+                            //备份文件为在文件夹为zip文件
+                            Item.ZipFile(file.FullName, autoSave.ZipPath + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".gz");
+                        }
                     }
-                    else if (testUser.IsMatch(item) == false && System.Diagnostics.Process.GetProcessesByName("tld").Length ==0)
+                    else
                     {
-                        //游戏进程没运行则直接备份不截图
-                        Item.Save(item, autoSave.BuckUpPath.val, time2.ToFileTimeUtc());
+                        if (Exclude.TestFile(item))
+                        {
+                            //游戏进程没运行则直接备份不截图
+                            Item.Save(item, autoSave.BuckUpPath.val, time2.ToFileTimeUtc());
+
+                        }
                     }
                 }
                 //之前没有重置导致出备份出错
@@ -746,6 +801,32 @@ namespace TheLongDarkBuckupTools
         //    }
         //    changeOver.DisableComObjectEagerCleanup();
         //}
+    }
+
+    public static class WatcherAdd
+    {
+        /// <summary>
+        /// 测试文件
+        /// true:需要的文件
+        /// false:不需要的文件
+        /// </summary>
+        /// <param name="regices"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static bool TestFile(this List<Regex> regices, string fileName)
+        {
+            var ret = true;
+
+            for (int i = 0; i < regices.Count; i++)
+            {
+                if (regices[i].IsMatch(fileName))
+                {
+                    return false;
+                }
+            }
+
+            return ret;
+        }
     }
 
     /// <summary>

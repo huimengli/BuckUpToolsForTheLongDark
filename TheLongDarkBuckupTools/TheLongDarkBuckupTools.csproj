@@ -29,8 +29,8 @@
     <PublisherName>绘梦璃</PublisherName>
     <SuiteName>TheLongDarkBuckUpTools</SuiteName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>6</ApplicationRevision>
-    <ApplicationVersion>0.7.0.%2a</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>0.8.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -117,6 +117,7 @@
     <Compile Include="Helpers\BindableBase.cs" />
     <Compile Include="Helpers\CLZF.cs" />
     <Compile Include="Helpers\EncryptString.cs" />
+    <Compile Include="Helpers\Item.cs" />
     <Compile Include="InputBox.cs">
       <SubType>Form</SubType>
     </Compile>

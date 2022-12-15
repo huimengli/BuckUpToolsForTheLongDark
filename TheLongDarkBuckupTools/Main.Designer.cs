@@ -147,7 +147,7 @@ namespace TheLongDarkBuckupTools
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(124, 29);
             this.button6.TabIndex = 16;
-            this.button6.Text = "读取最新存档";
+            this.button6.Text = "读取剧情存档";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -158,7 +158,7 @@ namespace TheLongDarkBuckupTools
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(124, 29);
             this.button2.TabIndex = 18;
-            this.button2.Text = "备份最新存档";
+            this.button2.Text = "备份剧情存档";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -169,7 +169,7 @@ namespace TheLongDarkBuckupTools
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(124, 29);
             this.button4.TabIndex = 19;
-            this.button4.Text = "选择存档备份";
+            this.button4.Text = "备份生存存档";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -233,7 +233,7 @@ namespace TheLongDarkBuckupTools
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(121, 29);
             this.button12.TabIndex = 23;
-            this.button12.Text = "选择文件读取";
+            this.button12.Text = "读取生存存档";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TheLongDarkBuckupTools.Helpers;
 
 namespace TheLongDarkBuckupTools.GameData
 {
@@ -12,8 +13,14 @@ namespace TheLongDarkBuckupTools.GameData
         #region 数据部分
         /// <summary>
         /// 存档名称
+        /// 老版本名称
         /// </summary>
         public string m_Name { get; set; }
+        /// <summary>
+        /// 存档名称
+        /// 新版本名称
+        /// </summary>
+        public string m_InternalName { get; set; }
         /// <summary>
         /// 基名称?
         /// </summary>
@@ -46,9 +53,20 @@ namespace TheLongDarkBuckupTools.GameData
         /// </summary>
         public Dictionary<string, byte[]> m_Dict { get; set; }
         /// <summary>
-        /// 存档版本
+        /// 存档版本(老版本存档数据名称)
+        /// 游戏版本号
         /// </summary>
         public int m_VersionChangelistNumber { get; set; }
+        /// <summary>
+        /// 存档版本(新版本存档数据名称)
+        /// 游戏版本号
+        /// </summary>
+        public int m_Changelist { get; set; }
+
+        /// <summary>
+        /// 未知内容
+        /// </summary>
+        public int m_Version { get; set; }
 
         #endregion
 

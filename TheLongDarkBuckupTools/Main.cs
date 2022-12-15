@@ -211,10 +211,11 @@ namespace TheLongDarkBuckupTools
 
         private void button6_Click(object sender, EventArgs e)
         {
-            if (ChackTexts()&&IsElseForm==false)
-            {
-                Item.ReadSave( textBox3.Text, gameSavePath.val);
-            }
+            //if (ChackTexts()&&IsElseForm==false)
+            //{
+            //    Item.ReadSave( textBox3.Text, gameSavePath.val);
+            //}
+            new ShowFile(true, gameSavePath, new Value(textBox3.Text),PlayType.Story).Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -235,24 +236,31 @@ namespace TheLongDarkBuckupTools
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //if (ChackTexts() && IsElseForm == false)
+            //{
+            //    var fileName = "";
+            //    try
+            //    {
+            //        fileName = Item.GetTheNewFile(gameSavePath.val);
+            //    }
+            //    catch (Exception err)
+            //    {
+            //        Console.WriteLine(err);
+            //        new InputChouseBox("提示", "没有找到存档文件夹\n请手动输入或者右边选择:", gameSavePath).Show();
+            //    }
+            //    if (string.IsNullOrEmpty(fileName)==false)
+            //    {
+            //        SaveTimeAdd();
+            //        var time = DateTime.Now.ToFileTimeUtc();
+            //        Item.Save(gameSavePath.val, fileName, textBox3.Text, time);
+            //    }
+            //}
             if (ChackTexts() && IsElseForm == false)
             {
-                var fileName = "";
-                try
-                {
-                    fileName = Item.GetTheNewFile(gameSavePath.val);
-                }
-                catch (Exception err)
-                {
-                    Console.WriteLine(err);
-                    new InputChouseBox("提示", "没有找到存档文件夹\n请手动输入或者右边选择:", gameSavePath).Show();
-                }
-                if (string.IsNullOrEmpty(fileName)==false)
-                {
-                    SaveTimeAdd();
-                    var time = DateTime.Now.ToFileTimeUtc();
-                    Item.Save(gameSavePath.val, fileName, textBox3.Text, time);
-                }
+                SaveTimeAdd();
+                var saveFile = new Value(textBox3.Text);
+                //new InputChouseBox("选择", "请选择要备份的文件", saveFile, new Value(saveTimes.ToString())).Show();
+                new ShowFile(false, gameSavePath, saveFile,PlayType.Story).Show();
             }
         }
 
@@ -263,7 +271,7 @@ namespace TheLongDarkBuckupTools
                 SaveTimeAdd();
                 var saveFile = new Value(textBox3.Text);
                 //new InputChouseBox("选择", "请选择要备份的文件", saveFile, new Value(saveTimes.ToString())).Show();
-                new ShowFile(false, gameSavePath, saveFile).Show();
+                new ShowFile(false, gameSavePath, saveFile,PlayType.Survival).Show();
             }
         }
 
@@ -384,7 +392,7 @@ namespace TheLongDarkBuckupTools
 
         private void button12_Click(object sender, EventArgs e)
         {
-            new ShowFile(true, gameSavePath, new Value(textBox3.Text)).Show();
+            new ShowFile(true, gameSavePath, new Value(textBox3.Text),PlayType.Survival).Show();
         }
 
         private void label1_Click(object sender, EventArgs e)
