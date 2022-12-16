@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TheLongDarkBuckupTools.Helpers;
@@ -17,7 +18,12 @@ namespace TheLongDarkBuckupTools
         /// <summary>
         /// 游戏存档位置
         /// </summary>
-        private Value gameSavePath;
+        private Value gameStorySavePath;
+
+        /// <summary>
+        /// 游戏存档位置
+        /// </summary>
+        private Value gameSurvivalSavePath;
 
         /// <summary>
         /// 备份所在位置
@@ -30,6 +36,11 @@ namespace TheLongDarkBuckupTools
         private Form form;
 
         /// <summary>
+        /// 是否是Survival模式
+        /// </summary>
+        private Regex isSurvival = new Regex("Survival");
+
+        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="gameSavePath">存档保存的位置</param>
@@ -37,7 +48,8 @@ namespace TheLongDarkBuckupTools
         public readBuckUp(Form form,Value gameSavePath,Value buckUpPath)
         {
             this.form = form;
-            this.gameSavePath = gameSavePath;
+            this.gameStorySavePath = gameSavePath;
+            this.gameSurvivalSavePath = gameSavePath+ @"\Survival\";
             this.buckUpPath = buckUpPath;
             InitializeComponent();
         }
@@ -49,7 +61,14 @@ namespace TheLongDarkBuckupTools
             var file = new FileInfo(path);
             try
             {
-                Item.ReadSave(file, gameSavePath.val);
+                if (isSurvival.IsMatch(file.Name)==false)
+                {
+                    Item.ReadSave(file, gameStorySavePath.val);
+                }
+                else
+                {
+                    Item.ReadSave(file, gameSurvivalSavePath.val);
+                }
             }
             catch (Exception err)
             {
@@ -84,7 +103,7 @@ namespace TheLongDarkBuckupTools
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Item.OpenFolder(gameSavePath.val);
+            Item.OpenFolder(gameStorySavePath.val);
         }
 
         private void button4_Click(object sender, EventArgs e)

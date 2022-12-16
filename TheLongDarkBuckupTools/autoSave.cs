@@ -18,21 +18,40 @@ namespace TheLongDarkBuckupTools
 {
     public partial class autoSave : Form
     {
+        /// <summary>
+        /// 剧情模式存档位置
+        /// </summary>
+        private Value gameStorySavePath;
 
         /// <summary>
-        /// 游戏存档位置
+        /// 生存模式存档位置
         /// </summary>
-        private Value gameSavePath;
+        private Value gameSurvivalSavePath;
 
         /// <summary>
-        /// 备份所在位置
+        /// 剧情模式备份所在位置
         /// </summary>
-        private Value buckUpPath;
+        private Value storyBuckUpPath;
 
         /// <summary>
-        /// 备份所在的位置
+        /// 剧情模式备份所在的位置
         /// </summary>
-        public static Value BuckUpPath;
+        public static Value StoryBuckUpPath;
+
+        /// <summary>
+        /// 生存模式备份所在位置
+        /// </summary>
+        private Value survivalBuckUpPath;
+
+        /// <summary>
+        /// 生存模式备份所在的位置
+        /// </summary>
+        public static Value SurvivalBuckUpPath;
+
+        /// <summary>
+        /// 游戏模式
+        /// </summary>
+        public PlayType playType;
 
         /// <summary>
         /// 主页面
@@ -72,6 +91,11 @@ namespace TheLongDarkBuckupTools
         public Value quickSave;
 
         /// <summary>
+        /// 是否是Survival模式
+        /// </summary>
+        private Regex isSurvival = new Regex("Survival");
+
+        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="form"></param>
@@ -80,9 +104,12 @@ namespace TheLongDarkBuckupTools
         public autoSave(Form form,Value gameSavePath,Value buckUpPath)
         {
             this.form = form;
-            this.gameSavePath = gameSavePath;
-            this.buckUpPath = buckUpPath;
-            BuckUpPath = buckUpPath;
+            this.gameStorySavePath = gameSavePath;
+            this.gameSurvivalSavePath = gameSavePath + @"\Survival\";
+            this.storyBuckUpPath = buckUpPath;
+            this.survivalBuckUpPath = buckUpPath + @"\Survival\";
+            StoryBuckUpPath = storyBuckUpPath;
+            SurvivalBuckUpPath = survivalBuckUpPath;
             ZipPath = buckUpPath.val + @"\zippath\";
             InitializeComponent();
             if (Directory.Exists(ZipPath)==false)
@@ -96,8 +123,12 @@ namespace TheLongDarkBuckupTools
                 var dir = new DirectoryInfo(ZipPath);
                 dir.Attributes = FileAttributes.Hidden;
             }
+            if (Directory.Exists(survivalBuckUpPath.val)==false)
+            {
+                Directory.CreateDirectory(survivalBuckUpPath.val);
+            }
         }
-
+        
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -109,18 +140,18 @@ namespace TheLongDarkBuckupTools
             this.quickSave = quickSave;
             //开始键盘监视
             Start();
-            OnKeyUpEvent += new KeyEventHandler(AllKeyUp);
-            //label4.Text = "";//自动保存还没有做好//做好了
+            //OnKeyUpEvent += new KeyEventHandler(AllKeyUp);
+            label4.Text = "快捷键保存有错误,暂时屏蔽!";//自动保存还没有做好//做好了
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Item.OpenFolder(gameSavePath.val);
+            Item.OpenFolder(gameStorySavePath.val);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Item.OpenFolder(buckUpPath.val);
+            Item.OpenFolder(storyBuckUpPath.val);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -151,7 +182,14 @@ namespace TheLongDarkBuckupTools
                 var main = (Main)form;
                 main.SaveTimeAdd();
                 var times = DateTime.Now.ToFileTimeUtc();
-                Item.Save(path, buckUpPath.val, times);
+                if (isSurvival.IsMatch(path)==false)
+                {
+                    Item.Save(path, storyBuckUpPath.val, times);
+                }
+                else
+                {
+                    Item.Save(path, survivalBuckUpPath.val, times);
+                }
             }
             catch (Exception err)
             {
@@ -181,12 +219,12 @@ namespace TheLongDarkBuckupTools
             }
             if (watcherStory==null)
             {
-                if (!Directory.Exists(gameSavePath.val))
+                if (!Directory.Exists(gameStorySavePath.val))
                 {
                     throw new Exception("存档文件夹不存在！");
                 }
                 watcherStory = new FileSystemWatcher();
-                watcherStory.Path = gameSavePath.val;
+                watcherStory.Path = gameStorySavePath.val;
                 /*监视LastAcceSS和LastWrite时间的更改以及文件或目录的重命名*/
                 watcherStory.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite |
                       NotifyFilters.FileName | NotifyFilters.DirectoryName;
@@ -194,23 +232,23 @@ namespace TheLongDarkBuckupTools
                 //当由FileSystemWatcher所指定的路径中的文件或目录的
                 //大小、系统属性、最后写时间、最后访问时间或安全权限
                 //发生更改时，更改事件就会发生
-                watcherStory.Changed += new FileSystemEventHandler(watch.OnChange);
+                watcherStory.Changed += new FileSystemEventHandler(watch.StoryOnChange);
                 //watcher.Changed += new FileSystemEventHandler(watch.ChackChange);
                 //由FileSystemWatcher所指定的路径中文件或目录被创建时，创建事件就会发生
-                watcherStory.Created += new FileSystemEventHandler(watch.OnChange);
+                watcherStory.Created += new FileSystemEventHandler(watch.StoryOnChange);
                 //当由FileSystemWatcher所指定的路径中文件或目录被删除时，删除事件就会发生
-                watcherStory.Deleted += new FileSystemEventHandler(watch.OnChange);
+                watcherStory.Deleted += new FileSystemEventHandler(watch.StoryOnChange);
                 //当由FileSystemWatcher所指定的路径中文件或目录被重命名时，重命名事件就会发生
                 watcherStory.Renamed += new RenamedEventHandler(watch.OnRenamed);
             }
             if (watcherSurvival==null)
             {
-                if (!Directory.Exists(gameSavePath.val+ "Survival\\"))
+                if (!Directory.Exists(gameSurvivalSavePath.val))
                 {
                     throw new Exception("存档文件夹不存在！");
                 }
                 watcherSurvival = new FileSystemWatcher();
-                watcherSurvival.Path = gameSavePath.val;
+                watcherSurvival.Path = gameSurvivalSavePath.val;
                 /*监视LastAcceSS和LastWrite时间的更改以及文件或目录的重命名*/
                 watcherSurvival.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite |
                       NotifyFilters.FileName | NotifyFilters.DirectoryName;
@@ -218,12 +256,12 @@ namespace TheLongDarkBuckupTools
                 //当由FileSystemWatcher所指定的路径中的文件或目录的
                 //大小、系统属性、最后写时间、最后访问时间或安全权限
                 //发生更改时，更改事件就会发生
-                watcherSurvival.Changed += new FileSystemEventHandler(watch.OnChange);
+                watcherSurvival.Changed += new FileSystemEventHandler(watch.SurvivalOnChange);
                 //watcher.Changed += new FileSystemEventHandler(watch.ChackChange);
                 //由FileSystemWatcher所指定的路径中文件或目录被创建时，创建事件就会发生
-                watcherSurvival.Created += new FileSystemEventHandler(watch.OnChange);
+                watcherSurvival.Created += new FileSystemEventHandler(watch.SurvivalOnChange);
                 //当由FileSystemWatcher所指定的路径中文件或目录被删除时，删除事件就会发生
-                watcherSurvival.Deleted += new FileSystemEventHandler(watch.OnChange);
+                watcherSurvival.Deleted += new FileSystemEventHandler(watch.SurvivalOnChange);
                 //当由FileSystemWatcher所指定的路径中文件或目录被重命名时，重命名事件就会发生
                 watcherSurvival.Renamed += new RenamedEventHandler(watch.OnRenamed);
             }
@@ -533,9 +571,9 @@ namespace TheLongDarkBuckupTools
         public void AllKeyUp(object sender, KeyEventArgs e)
         {
             var time = DateTime.Now;
-            Console.WriteLine(Item.GetTheNewFile(gameSavePath.val));
+            Console.WriteLine(Item.GetTheNewFile(gameStorySavePath.val));
             //文件名
-            var fileName = string.IsNullOrEmpty(quickSave.val)?gameSavePath.val+"\\"+Item.GetTheNewFile(gameSavePath.val):quickSave.val;
+            var fileName = string.IsNullOrEmpty(quickSave.val)?gameStorySavePath.val+"\\"+Item.GetTheNewFile(gameStorySavePath.val):quickSave.val;
             //Console.WriteLine(e.KeyCode);
             if (e.KeyCode==Main.QuickSave&&System.Diagnostics.Process.GetProcessesByName("tld").Length>0)
             {
@@ -543,7 +581,7 @@ namespace TheLongDarkBuckupTools
                 var file = new FileInfo(fileName);
                 //截图并保存到临时文件夹
                 //Item.Screenshot(BuckUpPath.val + "\\" + file.Name + "_bf" + time.ToFileTimeUtc().ToString() + ".png");
-                Item.Screenshot(BuckUpPath.val + "\\" + file.Name + "_bf" + time.ToFileTimeUtc().ToString() + ".png",true);
+                Item.Screenshot(StoryBuckUpPath.val + "\\" + file.Name + "_bf" + time.ToFileTimeUtc().ToString() + ".png",true);
                 //程序运行到这里可以保存之前的截图文件了
                 //img.Save(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
                 //备份文件为在文件夹为zip文件
@@ -551,7 +589,7 @@ namespace TheLongDarkBuckupTools
             }
             else if (e.KeyCode==Main.QuickSave&&System.Diagnostics.Process.GetProcessesByName("tld").Length==0)
             {
-                Item.Save(fileName, BuckUpPath.val, time.ToFileTimeUtc());
+                Item.Save(fileName, StoryBuckUpPath.val, time.ToFileTimeUtc());
             }
         }
 
@@ -580,7 +618,12 @@ namespace TheLongDarkBuckupTools
         /// <summary>
         /// 检查是否完成变更的线程
         /// </summary>
-        private Thread changeOver = new Thread(Change);
+        private Thread changeStoryOver = new Thread(StoryChange);
+
+        /// <summary>
+        /// 检查是否完成变更的线程
+        /// </summary>
+        private Thread changeSurvivalOver = new Thread(SurvivalChange);
 
         /// <summary>
         /// 需要排除的文件
@@ -671,30 +714,76 @@ namespace TheLongDarkBuckupTools
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void OnChange(object sender,FileSystemEventArgs e)
+        public void StoryOnChange(object sender,FileSystemEventArgs e)
         {
             if (File.Exists(e.FullPath)&&e.ChangeType!= WatcherChangeTypes.Deleted)
             {
                 var file = new FileInfo(e.FullPath);
                 AddFile(e.FullPath);
                 Console.WriteLine("文件变动");
-                if (changeOver.ThreadState== ThreadState.Unstarted||changeOver.ThreadState== ThreadState.WaitSleepJoin)
+                if (changeStoryOver.ThreadState== ThreadState.Unstarted||changeStoryOver.ThreadState== ThreadState.WaitSleepJoin)
                 {
-                    if (changeOver.IsAlive)
+                    if (changeStoryOver.IsAlive)
                     {
-                        changeOver.Abort();
-                        changeOver = new Thread(Change);
-                        changeOver.Start();
+                        changeStoryOver.Abort();
+                        changeStoryOver = new Thread(StoryChange);
+                        changeStoryOver.Start();
                     }
                     else
                     {
-                        changeOver.Start();
+                        changeStoryOver.Start();
                     }
                 }
-                else if (changeOver.ThreadState==ThreadState.Stopped)
+                else if (changeStoryOver.ThreadState==ThreadState.Stopped)
                 {
-                    changeOver = new Thread(Change);
-                    changeOver.Start();
+                    changeStoryOver = new Thread(StoryChange);
+                    changeStoryOver.Start();
+                }
+            }
+            else
+            {
+                if (Directory.Exists(e.FullPath))
+                {
+                    Console.WriteLine("文件夹变动");
+                }
+                else
+                {
+                    DeleteFile(e.FullPath);
+                    Console.WriteLine("删除变动");
+                }
+            }
+            Console.WriteLine("file:" + e.FullPath + " " + e.ChangeType);
+        }
+
+        /// <summary>
+        /// 监测修改
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void SurvivalOnChange(object sender,FileSystemEventArgs e)
+        {
+            if (File.Exists(e.FullPath)&&e.ChangeType!= WatcherChangeTypes.Deleted)
+            {
+                var file = new FileInfo(e.FullPath);
+                AddFile(e.FullPath);
+                Console.WriteLine("文件变动");
+                if (changeSurvivalOver.ThreadState== ThreadState.Unstarted||changeSurvivalOver.ThreadState== ThreadState.WaitSleepJoin)
+                {
+                    if (changeSurvivalOver.IsAlive)
+                    {
+                        changeSurvivalOver.Abort();
+                        changeSurvivalOver = new Thread(SurvivalChange);
+                        changeSurvivalOver.Start();
+                    }
+                    else
+                    {
+                        changeSurvivalOver.Start();
+                    }
+                }
+                else if (changeSurvivalOver.ThreadState==ThreadState.Stopped)
+                {
+                    changeSurvivalOver = new Thread(SurvivalChange);
+                    changeSurvivalOver.Start();
                 }
             }
             else
@@ -737,7 +826,7 @@ namespace TheLongDarkBuckupTools
         /// 运行过程中 thread.isalive 参数在调用时候
         /// 除了最开始一次其他都是 false
         /// </summary>
-        public static void Change()
+        public static void StoryChange()
         {
             var time = DateTime.Now;
             Item.Log(time.ToString()+"线程开始");
@@ -761,7 +850,7 @@ namespace TheLongDarkBuckupTools
                             //截图并保存到临时文件夹
                             //Item.Screenshot(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
                             //程序运行到这里可以保存之前的截图文件了
-                            img.Save(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
+                            img.Save(autoSave.StoryBuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
                             //备份文件为在文件夹为zip文件
                             Item.ZipFile(file.FullName, autoSave.ZipPath + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".gz");
                         }
@@ -771,8 +860,61 @@ namespace TheLongDarkBuckupTools
                         if (Exclude.TestFile(item))
                         {
                             //游戏进程没运行则直接备份不截图
-                            Item.Save(item, autoSave.BuckUpPath.val, time2.ToFileTimeUtc());
-
+                            Item.Save(item, autoSave.StoryBuckUpPath.val, time2.ToFileTimeUtc());
+                        }
+                    }
+                }
+                //之前没有重置导致出备份出错
+                changeFiles = new List<string>();
+            }
+            catch (Exception err)
+            {
+                Item.Log(err);
+            }
+        }
+        
+        /// <summary>
+        /// 内容修改
+        /// 最开始的时候写成异步函数了
+        /// 异步调用 task.delay 会导致
+        /// 运行过程中 thread.isalive 参数在调用时候
+        /// 除了最开始一次其他都是 false
+        /// </summary>
+        public static void SurvivalChange()
+        {
+            var time = DateTime.Now;
+            Item.Log(time.ToString()+"线程开始");
+            //获取截图但是暂不保存
+            Image img = Item.Screenshot("", false);
+            //等待五秒,如果线程未结束,就开始进行备份
+            Thread.Sleep(5 * 1000);
+            var time2 = DateTime.Now;
+            Item.Log(time2.ToString()+"线程完成任务");
+            try
+            {
+                foreach (var item in changeFiles)
+                {
+                    Item.Log(item);
+                    if (System.Diagnostics.Process.GetProcessesByName("tld").Length > 0)
+                    {
+                        if (Exclude.TestFile(item))
+                        {
+                            //需要自动备份的文件对象
+                            var file = new FileInfo(item);
+                            //截图并保存到临时文件夹
+                            //Item.Screenshot(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
+                            //程序运行到这里可以保存之前的截图文件了
+                            img.Save(autoSave.SurvivalBuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
+                            //备份文件为在文件夹为zip文件
+                            Item.ZipFile(file.FullName, autoSave.ZipPath + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".gz");
+                        }
+                    }
+                    else
+                    {
+                        if (Exclude.TestFile(item))
+                        {
+                            //游戏进程没运行则直接备份不截图
+                            Item.Save(item, autoSave.SurvivalBuckUpPath.val, time2.ToFileTimeUtc());
                         }
                     }
                 }

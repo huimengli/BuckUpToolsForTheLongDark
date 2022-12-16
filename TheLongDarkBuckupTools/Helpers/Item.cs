@@ -859,8 +859,19 @@ namespace TheLongDarkBuckupTools.Helpers
                 var zipFilePath = file.DirectoryName + @"\zippath\" + trueName + saveTimes + ".gz";
                 if (File.Exists(zipFilePath) == false)
                 {
-                    MessageBox.Show("程序未找到.gz文件!\r\n请检查图片同名压缩包是否删除\r\n或者是否删除zippath文件夹", "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    //新版本的文件夹应该也可以使用原版的zippath,所以需要再次判断
+                    var paths = file.DirectoryName.Split('\\');
+                    zipFilePath = "";
+                    for (int i = 0; i < paths.Length-1; i++)
+                    {
+                        zipFilePath += paths[i] + "\\";
+                    }
+                    zipFilePath+= @"\zippath\" + trueName + saveTimes + ".gz";
+                    if (File.Exists(zipFilePath) == false)
+                    {
+                        MessageBox.Show("程序未找到.gz文件!\r\n请检查图片同名压缩包是否删除\r\n或者是否删除zippath文件夹", "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return; 
+                    }
                 }
                 if (File.Exists(savePath + "\\" + trueName))
                 {

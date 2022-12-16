@@ -14,6 +14,16 @@ namespace TheLongDarkBuckupTools.Helpers
         public static string tishi =
             @"漫漫长夜备份工具
 作者：绘梦璃
+
+!!!!!!注意!!!!!!
+
+官方版本2.0.3将生存模式和剧情模式的存档分开放置了
+虽然我将程序修改过了,但是毕竟是仓促修改,不能确定0.8.0版本是否有bug
+如果有bug请向我反馈,在这个帖子下面留言即可.我会注意看的!
+https://tieba.baidu.com/p/6891350202?pid=146171762916#146171762916
+
+!!!!!!注意!!!!!!
+
 请注意以下事项：
 
 1. 自动备份页面打开后，程序才会在存档文件夹内容修改时进行自动备份
@@ -39,7 +49,6 @@ namespace TheLongDarkBuckupTools.Helpers
 修改内容：
 
 1. bfFolder文件夹空的时候，读取备份会导致程序崩溃（这个修好了，不用担心崩溃）。
-
 
 
 ";

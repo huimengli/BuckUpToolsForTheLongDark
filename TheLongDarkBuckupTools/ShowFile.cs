@@ -86,9 +86,9 @@ namespace TheLongDarkBuckupTools
         {
             this.isRead = isRead;
             this.gameStorySavePath = gameSavePath;
-            this.gameSurvivalSavePath = gameSavePath + @"Survival\";
+            this.gameSurvivalSavePath = gameSavePath + @"\Survival\";
             this.stroyBuckUpPath = buckUpPath;
-            this.survivalBuckUpPath = buckUpPath + @"Survival\";
+            this.survivalBuckUpPath = buckUpPath + @"\Survival\";
             ZipPath = buckUpPath.val + @"\zippath\";
             TempFolder = AppDomain.CurrentDomain.BaseDirectory + @"\temp\";
             FolderInfoIni = AppDomain.CurrentDomain.BaseDirectory + @"\FolderInfo.ini";
@@ -121,9 +121,9 @@ namespace TheLongDarkBuckupTools
             this.isRead = isRead;
             this.playType = playType;
             this.gameStorySavePath = gameSavePath;
-            this.gameSurvivalSavePath = gameSavePath + @"Survival\";
+            this.gameSurvivalSavePath = gameSavePath + @"\Survival\";
             this.stroyBuckUpPath = buckUpPath;
-            this.survivalBuckUpPath = buckUpPath + @"Survival\";
+            this.survivalBuckUpPath = buckUpPath + @"\Survival\";
             ZipPath = buckUpPath.val + @"\zippath\";
             TempFolder = AppDomain.CurrentDomain.BaseDirectory + @"\temp\";
             FolderInfoIni = AppDomain.CurrentDomain.BaseDirectory + @"\FolderInfo.ini";
