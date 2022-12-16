@@ -115,7 +115,7 @@
 ---------------------
 ---------------------
 
-##### 0.8.0 (可用)<a id="version_0.8.0></a>
+##### 0.8.0 (可用)<a id="version_0.8.0"></a>
 [漫漫长夜备份工具_v0.8.0_msi](https://github.com/huimengli/BuckUpToolsForTheLongDark/releases/tag/%E6%BC%AB%E6%BC%AB%E9%95%BF%E5%A4%9C%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7_v0.8.0_msi)
 
 1. 追加了一个新的检测,分别用于检测生存模式和故事模式的存档变更.
