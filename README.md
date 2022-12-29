@@ -1,8 +1,8 @@
 # BuckUpToolsForTheLongDark
 备份漫漫长夜沙盒模式的存档用的工具
 
-### version:0.7.6
-版本:0.7.6
+### version:[0.8.0](#version_0.8.0)
+版本:[0.8.0](#version_0.8.0)
 
 ### author:huimengli
 作者:绘梦璃
@@ -28,6 +28,8 @@
 4. 创建一个测试项目：尝试读取存档内容。
 
 5. 对于windowDPI缩放造成截图错误的修正
+
+6. 新版本的生存存档和剧情存档分开了
 
 #### 更新内容:
 
@@ -56,8 +58,7 @@
 ---------------------
 ---------------------
 
-##### 0.7.1 (可用)
-[漫漫长夜备份工具_v0.7.1](https://github.com/huimengli/BuckUpToolsForTheLongDark/releases/tag/%E6%BC%AB%E6%BC%AB%E9%95%BF%E5%A4%9C%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7_v0.7.1)
+##### 0.7.1 (不可用)
 
 1. 由于读取存档需要使用json模块进行反序列化,所以必须要引进一个dll
 
@@ -66,7 +67,7 @@
 ---------------------
 ---------------------
 
-##### 0.7.2 (可用)
+##### 0.7.2 (不可用)
 
 1. 修改了BuckUpTools.ini保存信息
 
@@ -77,15 +78,14 @@
 ---------------------
 ---------------------
 
-##### 0.7.3 (可用)
-[漫漫长夜备份工具_v0.7.3_msi](https://github.com/huimengli/BuckUpToolsForTheLongDark/releases/tag/%E6%BC%AB%E6%BC%AB%E9%95%BF%E5%A4%9C%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7_v0.7.3_msi)
+##### 0.7.3 (不可用)
 
 1. 成功读取了漫漫长夜存档文件中的截图
 
 ---------------------
 ---------------------
 
-##### 0.7.4 (可用)
+##### 0.7.4 (不可用)
 
 
 1. 修改了一个小的bug
@@ -97,8 +97,7 @@
 ---------------------
 ---------------------
 
-##### 0.7.5 (可用)
-[漫漫长夜备份工具_v0.7.5_msi](https://github.com/huimengli/BuckUpToolsForTheLongDark/releases/tag/%E6%BC%AB%E6%BC%AB%E9%95%BF%E5%A4%9C%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7_v0.7.5_msi)
+##### 0.7.5 (不可用)
 
 1. 修改了一个小的bug
 
@@ -107,12 +106,21 @@
 ---------------------
 ---------------------
 
-##### 0.7.6 (可用)
-[漫漫长夜备份工具_v0.7.6_msi](https://github.com/huimengli/BuckUpToolsForTheLongDark/releases/download/untagged-efd20842a8e9a15ede93/_v0.7.6_msi.exe)
+##### 0.7.6 (不可用)
 
 1. 修改了windows缩放导致的截图错误
 
 2. 修改了文件读取时的排序,现在会将更新的文件放在前面
+
+---------------------
+---------------------
+
+##### 0.8.0 (可用)<a id="version_0.8.0"></a>
+[漫漫长夜备份工具_v0.8.0_msi](https://github.com/huimengli/BuckUpToolsForTheLongDark/releases/tag/%E6%BC%AB%E6%BC%AB%E9%95%BF%E5%A4%9C%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7_v0.8.0_msi)
+
+1. 追加了一个新的检测,分别用于检测生存模式和故事模式的存档变更.
+
+2. 暂时删除了快捷按键备份.
 
 ---------------------
 
