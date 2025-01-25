@@ -12,6 +12,7 @@ using System.Threading;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 using TheLongDarkBuckupTools.Helpers;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 //using System.Diagnostics;
 
 namespace TheLongDarkBuckupTools
@@ -594,6 +595,32 @@ namespace TheLongDarkBuckupTools
         }
 
         #endregion
+
+        #endregion
+
+        #region 添加启动功能
+        private void label2_Click(object sender, EventArgs e)
+        {
+            var starWay = Program.PublicData["starWay"].ToString();
+            if (string.IsNullOrEmpty(starWay) == false)
+            {
+                Item.OpenOnWindows(starWay);
+            }
+            else
+            {
+                MessageBox.Show("请在程序主页 关于 界面设定游戏启动位置", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void label2_MouseEnter(object sender, EventArgs e)
+        {
+            label2.Text = "启动游戏";
+        }
+
+        private void label2_MouseLeave(object sender, EventArgs e)
+        {
+            label2.Text = "漫漫长夜";
+        }
 
         #endregion
     }

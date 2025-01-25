@@ -55,6 +55,22 @@ namespace TheLongDarkBuckupTools
         /// </summary>
         private string starWay = "";
 
+        /// <summary>
+        /// 启动方法
+        /// </summary>
+        private string StarWay
+        {
+            get
+            {
+                return starWay;
+            }
+            set
+            {
+                starWay = value;
+                Program.PublicData["starWay"] = starWay;
+            }
+        }
+
         public Main()
         {
             InitializeComponent();
@@ -120,7 +136,7 @@ namespace TheLongDarkBuckupTools
                 case "2":
                     radioButton2.Checked = true;
                     textBox5.Text = allValues.SearchData("starWay").Value;
-                    starWay = textBox5.Text;
+                    StarWay = textBox5.Text;
                     break;
                 default:
                     radioButton1.Checked = true;
@@ -192,7 +208,7 @@ namespace TheLongDarkBuckupTools
             Saves.Add(new BigData("saveTimes",saveTimes));
             Saves.Add(new BigData("quickSave",textBox1.Text));
             Saves.Add(new BigData("starType",radioButton1.Checked?1:radioButton2.Checked?2:0));
-            Saves.Add(new BigData("starWay",starWay));
+            Saves.Add(new BigData("starWay",StarWay));
 
             Item.SaveFile(IniPath, Saves.ToArray().ToString(true));
         }
@@ -409,15 +425,14 @@ namespace TheLongDarkBuckupTools
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            starWay = textBox5.Text;
+            StarWay = textBox5.Text;
             textBox5.Text = "steam://rungameid/305620";
             textBox5.Enabled = false;
-
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            textBox5.Text = starWay;
+            textBox5.Text = StarWay;
             textBox5.Enabled = true;
         }
 
@@ -431,7 +446,7 @@ namespace TheLongDarkBuckupTools
             else if (radioButton2.Checked)
             {
                 Item.ChoiceFileWithoutCut(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), textBox5);
-                starWay = textBox5.Text;
+                StarWay = textBox5.Text;
                 return;
             }
         }
@@ -456,6 +471,11 @@ namespace TheLongDarkBuckupTools
         private void button15_Click(object sender, EventArgs e)
         {
             Item.Screenshot(@"C:\Users\29133\Desktop\测试的截图\test.png", true);
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            StarWay = textBox5.Text;
         }
     }
 }
