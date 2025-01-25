@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using TheLongDarkBuckupTools.Helpers;
 
 namespace TheLongDarkBuckupTools.GameData
@@ -51,7 +52,7 @@ namespace TheLongDarkBuckupTools.GameData
         /// <summary>
         /// 玩家,地图,状态...的数据
         /// </summary>
-        public Dictionary<string, byte[]> m_Dict { get; set; }
+        public MDict m_Dict { get; set; }
         /// <summary>
         /// 存档版本(老版本存档数据名称)
         /// 游戏版本号
@@ -67,6 +68,13 @@ namespace TheLongDarkBuckupTools.GameData
         /// 未知内容
         /// </summary>
         public int m_Version { get; set; }
+
+        /// <summary>
+        /// 已安装选项内容
+        /// 已安装的DLC内容
+        /// </summary>
+
+        public List<string> m_InstalledOptionalContent { get; set; }
 
         #endregion
 
@@ -100,8 +108,6 @@ namespace TheLongDarkBuckupTools.GameData
             return GetGameMode(this);
         }
 
-
-
         #endregion
     }
 
@@ -131,6 +137,11 @@ namespace TheLongDarkBuckupTools.GameData
         public System.Drawing.Image ToImage()
         {
             return (System.Drawing.Image)Item.GetImageFromBase64(this.m_Encoded);
+        }
+
+        public static explicit operator Screenshot(Image v)
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -411,7 +422,7 @@ namespace TheLongDarkBuckupTools.GameData
 
         public IEnumerator<string> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetList().GetEnumerator();
         }
 
         #endregion
