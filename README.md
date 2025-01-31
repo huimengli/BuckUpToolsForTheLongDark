@@ -1,8 +1,8 @@
 # BuckUpToolsForTheLongDark
 备份漫漫长夜沙盒模式的存档用的工具
 
-### version:[0.8.0](#version_0.8.0)
-版本:[0.8.0](#version_0.8.0)
+### version:[0.8.1](#version_0.8.1)
+版本:[0.8.1](#version_0.8.1)
 
 ### author:huimengli
 作者:绘梦璃
@@ -123,7 +123,14 @@
 2. 暂时删除了快捷按键备份.
 
 ---------------------
+---------------------
 
+##### 0.8.1 (可用)<a id="version_0.8.1"></a>
+[漫漫长夜备份工具_v0.8.1_msi](https://github.com/huimengli/BuckUpToolsForTheLongDark/releases/tag/%E6%BC%AB%E6%BC%AB%E9%95%BF%E5%A4%9C%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7_v0.8.1_msi)
+
+1. 在自动备份界面添加了点击标题启动游戏的功能
+
+---------------------
 
 
 
