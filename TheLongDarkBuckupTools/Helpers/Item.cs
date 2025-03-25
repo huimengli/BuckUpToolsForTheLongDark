@@ -12,6 +12,7 @@ using System.IO.Compression;
 using Newtonsoft.Json;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace TheLongDarkBuckupTools.Helpers
 {
@@ -1571,6 +1572,63 @@ namespace TheLongDarkBuckupTools.Helpers
             MemoryStream ms = new MemoryStream(buffer);
             Image image = Image.FromStream(ms);
             return image;
+        }
+
+        /// <summary>
+        /// SHA256签名
+        /// (不适用于签名中文内容,中文加密和js上的加密不同)
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string SHA256(string data)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(data);
+            byte[] hash = SHA256Managed.Create().ComputeHash(bytes);
+
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                builder.Append(hash[i].ToString("X2"));
+            }
+
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// MD5签名
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string MD5(string data)
+        {
+            var bytes = Encoding.UTF8.GetBytes(data);
+            var hash = MD5CryptoServiceProvider.Create().ComputeHash(bytes);
+
+            var builder = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                builder.Append(hash[i].ToString("x2"));
+            }
+
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// MD5签名
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string MD5(byte[] data)
+        {
+            var hash = MD5CryptoServiceProvider.Create().ComputeHash(data);
+
+            var builder = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                builder.Append(hash[i].ToString("x2"));
+            }
+
+            return builder.ToString();
         }
     }
 

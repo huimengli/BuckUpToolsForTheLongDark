@@ -642,6 +642,10 @@ namespace TheLongDarkBuckupTools
             /// 测试是否是profile文件
             /// </summary>
             new Regex(@"profile"),
+            /// <summary>
+            /// 测试是否是拍立得照片数据
+            /// </summary>
+            new Regex(@"photo"),
         };
 
         /// <summary>

@@ -6,6 +6,8 @@ using System.Threading;
 using System.Windows.Forms;
 using TheLongDarkBuckupTools.GameData;
 using TheLongDarkBuckupTools.Helpers;
+using TheLongDarkBuckupTools.PhotoData;
+using TheLongDarkBuckupTools.AddFunc;
 
 namespace TheLongDarkBuckupTools
 {
@@ -184,7 +186,15 @@ namespace TheLongDarkBuckupTools
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //MessageBox.Show(listBox1.SelectedItem.ToString());
-            SelectFile((FileInfo)listBox1.SelectedItem);
+            var file = (FileInfo)listBox1.SelectedItem;
+            if (file.Name.StartsWith("photo"))
+            {
+                SelectPhoto(file);
+            }
+            else
+            {
+                SelectFile(file);
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -351,6 +361,30 @@ namespace TheLongDarkBuckupTools
                 }
             }
             ShowData(data);
+        }
+
+        /// <summary>
+        /// 选中图片
+        /// </summary>
+        /// <param name="file"></param>
+        private void SelectPhoto(FileInfo file)
+        {
+            NowSelect = file;
+            Dictionary<string, ImageData> data;
+            if (file.Extension == "")
+            {
+                label4.Visible = true;
+                pictureBox1.Visible = false;
+                var allBytes = File.ReadAllBytes(file.FullName);
+                var decodeBytes = EncryptString.DecompressBytesToString(allBytes);
+                data = Item.DeserializeObject<Dictionary<string, ImageData>>(decodeBytes);
+                PhotoViewer photoViewer = new PhotoViewer(data.ValuesToList());
+                photoViewer.Show();
+            }
+            else if (file.Extension == ".png")
+            {
+                MessageBox.Show("暂不支持查看备份的图片数据");
+            }
         }
 
         /// <summary>
