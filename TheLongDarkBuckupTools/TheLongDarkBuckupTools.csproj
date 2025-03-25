@@ -118,6 +118,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddFunc\DictionaryAdd.cs" />
+    <Compile Include="AddFunc\ListAdd.cs" />
     <Compile Include="autoSave.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,10 +132,12 @@
     <Compile Include="ChangeFile.Designer.cs">
       <DependentUpon>ChangeFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class\DictionaryEX.cs" />
     <Compile Include="GameData\BigData.cs" />
     <Compile Include="GameData\Enums.cs" />
     <Compile Include="GameData\GloBalData.cs" />
     <Compile Include="GameData\MDict.cs" />
+    <Compile Include="Helpers\Base64.cs" />
     <Compile Include="Helpers\BindableBase.cs" />
     <Compile Include="Helpers\CLZF.cs" />
     <Compile Include="Helpers\EncryptString.cs" />
@@ -162,6 +166,14 @@
     </Compile>
     <Compile Include="MyMassageBox.Designer.cs">
       <DependentUpon>MyMassageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PhotoData\Enums.cs" />
+    <Compile Include="PhotoData\ImageData.cs" />
+    <Compile Include="PhotoViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PhotoViewer.Designer.cs">
+      <DependentUpon>PhotoViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -200,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MyMassageBox.resx">
       <DependentUpon>MyMassageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PhotoViewer.resx">
+      <DependentUpon>PhotoViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
