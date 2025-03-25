@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Collections.Concurrent;
 
 /// <summary>
 /// 漫漫长夜备份工具
@@ -66,6 +67,14 @@ namespace TheLongDarkBuckupTools
 
 #endif
         }
+
+        /// <summary>
+        /// 多窗体之间共享数据
+        /// </summary>
+        /// <example> 这里记录着一些公共数据
+        /// starWay : Program.PublicData["starWay"] = "steam://rungameid/305620"; // 游戏启动路径
+        /// </example>
+        public static ConcurrentDictionary<string,object> PublicData = new ConcurrentDictionary<string, object>();
 
         /// <summary>
         ///这就是我们要在发生未处理异常时处理的方法，我这是写出错详细信息到文本，如出错后弹出一个漂亮的出错提示窗体，给大家做个参考

@@ -65,8 +65,9 @@ namespace TheLongDarkBuckupTools
             {
                 pictureBox1.Visible = false;
                 data = (SlotData)Item.DeserializeObject<SlotData>(EncryptString.DecompressBytesToString(File.ReadAllBytes(file.FullName)));
-                Console.WriteLine(data.m_Dict["screenshot"].Length);
-                var img = ((Screenshot)Item.DeserializeObject<Screenshot>(EncryptString.DecompressBytesToString(data.m_Dict["screenshot"]))).ToImage();
+                Console.WriteLine(data.m_Dict.screenshot.Length);
+                Screenshot screenshot = (Screenshot)Item.DeserializeObject<Screenshot>(EncryptString.DecompressBytesToString(data.m_Dict.screenshot));
+                Image img = screenshot.ToImage();
                 pictureBox1.Visible = true;
                 pictureBox1.Image = img;
             }
@@ -88,8 +89,8 @@ namespace TheLongDarkBuckupTools
                 }
             }
             ShowData(data);
-            var bootData = Item.DeserializeObject<BootData>(EncryptString.DecompressBytesToString(data.m_Dict["boot"]));
-            var proxy = Item.DeserializeObject<GlobalDataFormat>(EncryptString.DecompressBytesToString(data.m_Dict["global"]));
+            var bootData = Item.DeserializeObject<BootData>(EncryptString.DecompressBytesToString(data.m_Dict.boot));
+            var proxy = Item.DeserializeObject<GlobalDataFormat>(EncryptString.DecompressBytesToString(data.m_Dict.global));
             //Console.WriteLine(EncryptString.DecompressBytesToString(data.m_Dict["global"]));
         }
 
