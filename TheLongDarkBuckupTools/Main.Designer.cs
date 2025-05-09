@@ -72,6 +72,9 @@ namespace TheLongDarkBuckupTools
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -80,6 +83,7 @@ namespace TheLongDarkBuckupTools
             this.groupBox3.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -277,6 +281,7 @@ namespace TheLongDarkBuckupTools
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabControl1.Location = new System.Drawing.Point(56, 145);
             this.tabControl1.Name = "tabControl1";
@@ -532,6 +537,37 @@ namespace TheLongDarkBuckupTools
             this.linkLabel2.Text = "点这里查看贴吧上的内容";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.groupBox5);
+            this.tabPage4.Controls.Add(this.checkBox2);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(208, 226);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "限制";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(6, 6);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(102, 16);
+            this.checkBox2.TabIndex = 0;
+            this.checkBox2.Text = "是否启用限制?";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Location = new System.Drawing.Point(3, 29);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(202, 194);
+            this.groupBox5.TabIndex = 1;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "限制自动存档上限";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -562,6 +598,8 @@ namespace TheLongDarkBuckupTools
             this.tabPage3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -610,5 +648,8 @@ namespace TheLongDarkBuckupTools
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.GroupBox groupBox5;
     }
 }

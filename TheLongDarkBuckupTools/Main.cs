@@ -477,5 +477,10 @@ namespace TheLongDarkBuckupTools
         {
             StarWay = textBox5.Text;
         }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
