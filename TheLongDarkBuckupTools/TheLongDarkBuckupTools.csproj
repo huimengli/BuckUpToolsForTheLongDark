@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>TheLongDarkBuckupTools</RootNamespace>
     <AssemblyName>TheLongDarkBuckupTools</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -132,16 +132,25 @@
     <Compile Include="ChangeFile.Designer.cs">
       <DependentUpon>ChangeFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangeFile2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeFile2.Designer.cs">
+      <DependentUpon>ChangeFile2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\DictionaryEX.cs" />
     <Compile Include="GameData\BigData.cs" />
     <Compile Include="GameData\Enums.cs" />
     <Compile Include="GameData\GloBalData.cs" />
+    <Compile Include="GameData\GloBalDatas.cs" />
+    <Compile Include="GameData\GlobalSaveGameFormat.cs" />
     <Compile Include="GameData\MDict.cs" />
     <Compile Include="Helpers\Base64.cs" />
     <Compile Include="Helpers\BindableBase.cs" />
     <Compile Include="Helpers\CLZF.cs" />
     <Compile Include="Helpers\EncryptString.cs" />
     <Compile Include="Helpers\Item.cs" />
+    <Compile Include="Helpers\ItemDictionary.cs" />
     <Compile Include="InputBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +197,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Serialization\DeserializeAttribute.cs" />
+    <Compile Include="Serialization\EnumWrapper.cs" />
     <Compile Include="ShowFile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChangeFile.resx">
       <DependentUpon>ChangeFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangeFile2.resx">
+      <DependentUpon>ChangeFile2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InputBox.resx">
       <DependentUpon>InputBox.cs</DependentUpon>

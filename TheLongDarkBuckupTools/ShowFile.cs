@@ -290,6 +290,9 @@ namespace TheLongDarkBuckupTools
                 listBox1.Items.AddRange(files);
             }
             button3.Text = isRead ? "读取该备份" : "备份该存档";
+
+            // 修改按钮判断是否显示
+            button4.Visible = !isRead;
         }
 
         /// <summary>
@@ -519,6 +522,22 @@ namespace TheLongDarkBuckupTools
                 sr.Close();
                 theFile.Close();
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (NowSelect == null)
+            {
+                MessageBox.Show("没有选中任何存档!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (NowSelect.Name.StartsWith("photo"))
+            {
+                MessageBox.Show("不支持修改拍立得数据!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            ChangeFile2 changeFile = new ChangeFile2(NowSelect.FullName);
+            changeFile.Show();
         }
     }
 }
