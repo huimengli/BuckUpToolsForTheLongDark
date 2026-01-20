@@ -141,8 +141,9 @@ namespace TheLongDarkBuckupTools
             this.quickSave = quickSave;
             //开始键盘监视
             Start();
-            //OnKeyUpEvent += new KeyEventHandler(AllKeyUp);
-            label4.Text = "快捷键保存有错误,暂时屏蔽!";//自动保存还没有做好//做好了
+            OnKeyUpEvent += new KeyEventHandler(AllKeyUp);
+            //label4.Text = "快捷键保存有错误,暂时屏蔽!";//自动保存还没有做好//做好了
+            label4.Text = "快捷键保存正在测试中!";//自动保存还没有做好//做好了
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -576,22 +577,22 @@ namespace TheLongDarkBuckupTools
             //文件名
             var fileName = string.IsNullOrEmpty(quickSave.val)?gameStorySavePath.val+"\\"+Item.GetTheNewFile(gameStorySavePath.val):quickSave.val;
             //Console.WriteLine(e.KeyCode);
-            if (e.KeyCode==Main.QuickSave&&System.Diagnostics.Process.GetProcessesByName("tld").Length>0)
-            {
-                //需要自动备份的文件对象
-                var file = new FileInfo(fileName);
-                //截图并保存到临时文件夹
-                //Item.Screenshot(BuckUpPath.val + "\\" + file.Name + "_bf" + time.ToFileTimeUtc().ToString() + ".png");
-                Item.Screenshot(StoryBuckUpPath.val + "\\" + file.Name + "_bf" + time.ToFileTimeUtc().ToString() + ".png",true);
-                //程序运行到这里可以保存之前的截图文件了
-                //img.Save(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
-                //备份文件为在文件夹为zip文件
-                Item.ZipFile(file.FullName, ZipPath + file.Name + "_bf" + time.ToFileTimeUtc().ToString() + ".gz");
-            }
-            else if (e.KeyCode==Main.QuickSave&&System.Diagnostics.Process.GetProcessesByName("tld").Length==0)
-            {
-                Item.Save(fileName, StoryBuckUpPath.val, time.ToFileTimeUtc());
-            }
+            //if (e.KeyCode==Main.QuickSave&&System.Diagnostics.Process.GetProcessesByName("tld").Length>0)
+            //{
+            //    //需要自动备份的文件对象
+            //    var file = new FileInfo(fileName);
+            //    //截图并保存到临时文件夹
+            //    //Item.Screenshot(BuckUpPath.val + "\\" + file.Name + "_bf" + time.ToFileTimeUtc().ToString() + ".png");
+            //    Item.Screenshot(StoryBuckUpPath.val + "\\" + file.Name + "_bf" + time.ToFileTimeUtc().ToString() + ".png",true);
+            //    //程序运行到这里可以保存之前的截图文件了
+            //    //img.Save(autoSave.BuckUpPath.val + "\\" + file.Name + "_bf" + time2.ToFileTimeUtc().ToString() + ".png");
+            //    //备份文件为在文件夹为zip文件
+            //    Item.ZipFile(file.FullName, ZipPath + file.Name + "_bf" + time.ToFileTimeUtc().ToString() + ".gz");
+            //}
+            //else if (e.KeyCode==Main.QuickSave&&System.Diagnostics.Process.GetProcessesByName("tld").Length==0)
+            //{
+            //    Item.Save(fileName, StoryBuckUpPath.val, time.ToFileTimeUtc());
+            //}
         }
 
         #endregion

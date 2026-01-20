@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using TheLongDarkBuckupTools.GameData;
 using TheLongDarkBuckupTools.Helpers;
@@ -369,8 +370,6 @@ namespace TheLongDarkBuckupTools
 
             Font font = new System.Drawing.Font("微软雅黑", 12F);//设置标签字体样式
 
-
-
             //绘制主控件的背景
 
             e.Graphics.DrawImage(backImage, 0, 0, tabControl1.Width, tabControl1.Height);
@@ -481,6 +480,94 @@ namespace TheLongDarkBuckupTools
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 1. 启动游戏
+                if (string.IsNullOrEmpty(textBox5.Text) == false)
+                {
+                    Item.OpenOnWindows(textBox5.Text);
+                }
+                else
+                {
+                    MessageBox.Show("请在关于界面设定游戏启动位置", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                // 2. 关闭窗口
+                Hide();
+
+                // 3. 创建子线程以防影响UI
+                var overtime = 30; // 最多等待30秒
+                
+                // 4. 检测并等待游戏启动
+                var tldProcess = System.Diagnostics.Process.GetProcessesByName("tld");
+                while (tldProcess.Length == 0)
+                {
+                    Thread.Sleep(1000);
+                    overtime--;
+                    if (overtime <= 0)
+                    {
+                        throw new Exception(
+                            "游戏启动超时，请检查游戏是否已经启动，或者游戏是否已经安装，或者游戏是否已经启动成功");
+                    }
+                    tldProcess = System.Diagnostics.Process.GetProcessesByName("tld");
+                }
+
+                // 5. 检测process所在位置
+                var processPath = tldProcess[0].MainModule.FileName;
+
+#if DEBUG
+                // 弹窗显示
+                Item.NewMassageBox("提示", processPath);
+#endif
+
+                // 6. 检测游戏根目录
+                var gameRootPath = new FileInfo(processPath).DirectoryName;
+
+                // 7. 设置到程序
+                textBox4.Text = gameRootPath;
+                toolTip1.SetToolTip(this.textBox4, gameRootPath);
+                toolTip1.SetToolTip(this.button11, gameRootPath);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "启动失败，请检查游戏是否已经启动，或者游戏是否已经安装，或者游戏是否已经启动成功"+
+#if DEBUG
+                    "\n 错误信息：\n"+ e.ToString()
+#else
+                    ""
+#endif
+                    ,
+                    "错误",
+                    MessageBoxButtons.OK
+                );
+            }
+            finally
+            {
+                // 8. 强行关闭游戏
+                var tldProcess = System.Diagnostics.Process.GetProcessesByName("tld");
+                foreach (var process in tldProcess)
+                {
+                    process.Kill();
+                }
+
+                // 显示窗口
+                Show();
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            if (NeedHelp)
+            {
+                Item.NewMassageBox("提示", "选择游戏程序所在的根目录");
+            }
+            Item.ChoiceFolder(textBox4,"游戏根目录", Environment.SpecialFolder.Desktop);
+            this.toolTip1.SetToolTip(this.textBox4, this.textBox4.Text);
         }
     }
 }

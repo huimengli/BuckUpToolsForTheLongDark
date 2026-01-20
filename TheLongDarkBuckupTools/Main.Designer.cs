@@ -51,6 +51,7 @@ namespace TheLongDarkBuckupTools
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button16 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
@@ -71,10 +72,10 @@ namespace TheLongDarkBuckupTools
             this.button13 = new System.Windows.Forms.Button();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -139,6 +140,7 @@ namespace TheLongDarkBuckupTools
             this.checkBox1.TabIndex = 10;
             this.checkBox1.Text = "是否需要提示";
             this.checkBox1.UseVisualStyleBackColor = false;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // button6
             // 
@@ -241,7 +243,7 @@ namespace TheLongDarkBuckupTools
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(15, 28);
+            this.textBox3.Location = new System.Drawing.Point(12, 28);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(138, 21);
             this.textBox3.TabIndex = 11;
@@ -260,7 +262,7 @@ namespace TheLongDarkBuckupTools
             // 
             this.button3.Location = new System.Drawing.Point(159, 28);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(29, 21);
+            this.button3.Size = new System.Drawing.Size(34, 21);
             this.button3.TabIndex = 12;
             this.button3.Text = "...\r\n";
             this.button3.UseVisualStyleBackColor = true;
@@ -305,6 +307,7 @@ namespace TheLongDarkBuckupTools
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button16);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.textBox4);
             this.tabPage2.Controls.Add(this.textBox3);
@@ -318,6 +321,17 @@ namespace TheLongDarkBuckupTools
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "设置";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(150, 173);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(43, 21);
+            this.button16.TabIndex = 15;
+            this.button16.Text = "自动";
+            this.toolTip1.SetToolTip(this.button16, "启动一次游戏,然后自动判断游戏程序位置");
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // groupBox3
             // 
@@ -403,11 +417,11 @@ namespace TheLongDarkBuckupTools
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(15, 197);
+            this.textBox4.Enabled = false;
+            this.textBox4.Location = new System.Drawing.Point(12, 197);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(138, 21);
             this.textBox4.TabIndex = 11;
-            this.textBox4.Visible = false;
             // 
             // label7
             // 
@@ -416,22 +430,20 @@ namespace TheLongDarkBuckupTools
             this.label7.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label7.Location = new System.Drawing.Point(9, 175);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(183, 16);
+            this.label7.Size = new System.Drawing.Size(143, 16);
             this.label7.TabIndex = 13;
-            this.label7.Text = "选择快捷备份的对象文件\r\n";
+            this.label7.Text = "游戏程序所在位置:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label7.Visible = false;
             // 
             // button11
             // 
             this.button11.Location = new System.Drawing.Point(159, 197);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(29, 21);
+            this.button11.Size = new System.Drawing.Size(34, 21);
             this.button11.TabIndex = 12;
             this.button11.Text = "...\r\n";
             this.button11.UseVisualStyleBackColor = true;
-            this.button11.Visible = false;
-            this.button11.Click += new System.EventHandler(this.button3_Click);
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // tabPage3
             // 
@@ -548,6 +560,15 @@ namespace TheLongDarkBuckupTools
             this.tabPage4.Text = "限制";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Location = new System.Drawing.Point(3, 29);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(202, 194);
+            this.groupBox5.TabIndex = 1;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "限制自动存档上限";
+            // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
@@ -558,15 +579,6 @@ namespace TheLongDarkBuckupTools
             this.checkBox2.Text = "是否启用限制?";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Location = new System.Drawing.Point(3, 29);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(202, 194);
-            this.groupBox5.TabIndex = 1;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "限制自动存档上限";
             // 
             // Main
             // 
@@ -651,5 +663,6 @@ namespace TheLongDarkBuckupTools
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button button16;
     }
 }
