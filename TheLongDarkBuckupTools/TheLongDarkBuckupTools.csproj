@@ -114,6 +114,12 @@
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -205,6 +211,9 @@
     <Compile Include="PhotoViewer.Designer.cs">
       <DependentUpon>PhotoViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="PluginAbout\Helpers.cs" />
+    <Compile Include="PluginAbout\MD5Helper.cs" />
+    <Compile Include="PluginAbout\ZipExtractor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="readBuckUp.cs">
@@ -273,6 +282,7 @@
     </EmbeddedResource>
     <None Include="memorandumBook\readme.md" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="PluginAbout\BepInEx_win_x64.zip" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -291,6 +301,7 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="memorandumBook\输出-调试.txt" />
+    <EmbeddedResource Include="PluginAbout\SavePlugin.dll" />
     <None Include="image\background_min_black.png" />
     <Content Include="image\background.png" />
     <Content Include="image\background_min.png" />

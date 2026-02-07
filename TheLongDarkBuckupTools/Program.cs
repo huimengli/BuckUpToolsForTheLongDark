@@ -23,6 +23,19 @@ namespace TheLongDarkBuckupTools
                 return;
             }
 #if DEBUG
+            // 测试
+            // 1. 测试用ps1生成的MD5和c#生成的MD5是否一致
+            //string test = PluginAbout.Helpers.Test();
+            //MessageBox.Show(test);
+
+            // 2. 测试内嵌zip文件解压
+            //PluginAbout.Extractor.ExtractEmbeddedZip(
+            //    PluginAbout.Helpers.InnerZip,
+            //    "test",
+            //    true
+            //);
+            //Helpers.Item.OpenOnWindows("test");
+
             //MessageBox.Show("DEBUG");
             //程序启动
             Application.EnableVisualStyles();

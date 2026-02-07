@@ -344,7 +344,7 @@ namespace TheLongDarkBuckupTools
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Location = new System.Drawing.Point(12, 56);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(181, 116);
+            this.groupBox3.Size = new System.Drawing.Size(181, 111);
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "快捷按键设置";
@@ -422,6 +422,7 @@ namespace TheLongDarkBuckupTools
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(138, 21);
             this.textBox4.TabIndex = 11;
+            this.textBox4.DoubleClick += new System.EventHandler(this.textBox4_DoubleClick);
             // 
             // label7
             // 

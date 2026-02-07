@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TheLongDarkBuckupTools.GameData;
 using TheLongDarkBuckupTools.Helpers;
@@ -482,8 +483,62 @@ namespace TheLongDarkBuckupTools
 
         }
 
-        private void button16_Click(object sender, EventArgs e)
+        private async void button16_Click(object sender, EventArgs e)
         {
+            #region 倒计时窗体
+            // 创建一个空白窗体用于显示倒计时(不能关闭,居中显示)
+            var form = new Form();
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.Size = new Size(200, 100);
+            var label = new Label();
+            label.Text = "正在检测游戏是否启动";
+            label.Dock = DockStyle.Fill;
+            label.TextAlign = ContentAlignment.MiddleCenter;
+            label.Font = new Font("微软雅黑", 12);
+            form.Controls.Add(label);
+
+            // 创建一个倒计时显示
+            int overtime = 30; // 最多等待30秒
+            var timeLabel = new Label();
+            timeLabel.Text = $"{overtime} 秒后自动关闭";
+            timeLabel.Dock = DockStyle.Bottom;
+            timeLabel.TextAlign = ContentAlignment.MiddleCenter;
+            timeLabel.Font = new Font("微软雅黑", 12);
+            form.Controls.Add(timeLabel);
+            form.Show();
+
+            // 创建一个计时器
+            System.Windows.Forms.Timer _timer = new System.Windows.Forms.Timer();
+            _timer.Interval = 1000; // 设置定时器间隔为1秒
+            // 创建一个时间事件
+            Action _time_upload = () =>
+            {
+                // 更新计时显示
+                timeLabel.Text = $"{overtime} 秒后自动关闭";
+            };
+            EventHandler _time_tick = (object s, EventArgs err) =>
+            {
+                overtime--;
+                _time_upload();
+
+                if (overtime <= 0)
+                {
+                    _timer.Stop();
+                    form.Close();
+                }
+            };
+            _timer.Tick += _time_tick;
+            _timer.Start();
+
+            // 关闭窗体重写
+            FormClosingEventHandler formClose = (object s, FormClosingEventArgs err) =>
+            {
+                _timer.Stop();
+                _timer.Dispose();
+            };
+            form.FormClosing += formClose;
+            #endregion
             try
             {
                 // 1. 启动游戏
@@ -499,38 +554,53 @@ namespace TheLongDarkBuckupTools
                 // 2. 关闭窗口
                 Hide();
 
-                // 3. 创建子线程以防影响UI
-                var overtime = 30; // 最多等待30秒
-                
-                // 4. 检测并等待游戏启动
-                var tldProcess = System.Diagnostics.Process.GetProcessesByName("tld");
-                while (tldProcess.Length == 0)
+                // 3. 关键修改：使用 Task.Run 在后台执行，并 await 等待结果
+                // 这样不会阻塞 UI 线程，倒计时窗体可以正常工作
+                var gameRootPath = await Task.Run(() =>
                 {
-                    Thread.Sleep(1000);
-                    overtime--;
-                    if (overtime <= 0)
+                    // 4. 检测并等待游戏启动
+                    var tldProcess = System.Diagnostics.Process.GetProcessesByName("tld");
+                    while (tldProcess.Length == 0)
                     {
-                        throw new Exception(
-                            "游戏启动超时，请检查游戏是否已经启动，或者游戏是否已经安装，或者游戏是否已经启动成功");
+                        Thread.Sleep(1000);
+                        if (overtime <= 0)
+                        {
+                            throw new Exception(
+                                "游戏启动超时，请检查游戏是否已经启动，或者游戏是否已经安装，或者游戏是否已经启动成功");
+                        }
+                        tldProcess = System.Diagnostics.Process.GetProcessesByName("tld");
                     }
-                    tldProcess = System.Diagnostics.Process.GetProcessesByName("tld");
-                }
 
-                // 5. 检测process所在位置
-                var processPath = tldProcess[0].MainModule.FileName;
+                    // 5. 检测process所在位置
+                    var processPath = tldProcess[0].MainModule.FileName;
 
-#if DEBUG
-                // 弹窗显示
-                Item.NewMassageBox("提示", processPath);
-#endif
+                    // 6. 检测游戏根目录
+                    var rootPath = new FileInfo(processPath).DirectoryName;
 
-                // 6. 检测游戏根目录
-                var gameRootPath = new FileInfo(processPath).DirectoryName;
+                    // 7. 关闭游戏线程(权限不够)
+                    //tldProcess = System.Diagnostics.Process.GetProcessesByName("tld");
+                    //foreach (var process in tldProcess)
+                    //{
+                    //    process.Kill();
+                    //}
 
-                // 7. 设置到程序
+                    // 8. 返回游戏根目录
+                    return rootPath;
+                });
+
+                // 9. 设置到程序
                 textBox4.Text = gameRootPath;
                 toolTip1.SetToolTip(this.textBox4, gameRootPath);
                 toolTip1.SetToolTip(this.button11, gameRootPath);
+
+                // 10. 关闭倒计时弹窗
+                form.Close();
+#if DEBUG
+                // 弹窗显示
+                Item.NewMassageBox("根目录:", gameRootPath);
+#endif
+
+                // 11. 检测BepInEx插件是否安装(此方法抽象成函数)
             }
             catch (Exception)
             {
@@ -548,11 +618,18 @@ namespace TheLongDarkBuckupTools
             }
             finally
             {
-                // 8. 强行关闭游戏
+                // 最终处理
+                // 1. 如果游戏启动着则关闭
                 var tldProcess = System.Diagnostics.Process.GetProcessesByName("tld");
                 foreach (var process in tldProcess)
                 {
                     process.Kill();
+                }
+
+                // 2. 如果游戏目录没有找到
+                if (string.IsNullOrEmpty(textBox4.Text))
+                {
+                    MessageBox.Show("游戏目录没有找到，请手动选择", "提示", MessageBoxButtons.OK);
                 }
 
                 // 显示窗口
@@ -568,6 +645,19 @@ namespace TheLongDarkBuckupTools
             }
             Item.ChoiceFolder(textBox4,"游戏根目录", Environment.SpecialFolder.Desktop);
             this.toolTip1.SetToolTip(this.textBox4, this.textBox4.Text);
+        }
+
+        private void textBox4_DoubleClick(object sender, EventArgs e)
+        {
+            var path = textBox4.Text;
+            if (string.IsNullOrEmpty(path) == false)
+            {
+                Item.OpenOnWindows(path);
+            }
+            else
+            {
+                MessageBox.Show("请先选择游戏根目录", "提示", MessageBoxButtons.OK);
+            }
         }
     }
 }
