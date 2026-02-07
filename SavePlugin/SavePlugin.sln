@@ -1,9 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36603.0 d17.14
+VisualStudioVersion = 17.14.36603.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SavePlugin", "SavePlugin.csproj", "{5A6F826C-7DED-4232-BEE9-9540463A1940}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BepInEx.Core", "..\BepInEx\BepInEx.Core\BepInEx.Core.csproj", "{F0E36034-ED07-2DD8-6705-280E6F1B2AA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BepInEx.Preloader.Core", "..\BepInEx\BepInEx.Preloader.Core\BepInEx.Preloader.Core.csproj", "{7AC66B7A-75D1-7C92-CC91-141A54542E83}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unity", "Unity", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IL2CPP", "IL2CPP", "{62F83C80-6714-4C45-B8C9-46B60667C8AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BepInEx.Unity.IL2CPP", "..\BepInEx\Runtimes\Unity\BepInEx.Unity.IL2CPP\BepInEx.Unity.IL2CPP.csproj", "{FE816D6A-9555-812F-80C3-3E90BE7AE1B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{A8B8CB2F-CECE-4C66-8D2E-9645D1CD21F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BepInEx.Unity.Common", "..\BepInEx\Runtimes\Unity\BepInEx.Unity.Common\BepInEx.Unity.Common.csproj", "{50976345-AE93-B95E-2F2C-521C163C3D1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +29,31 @@ Global
 		{5A6F826C-7DED-4232-BEE9-9540463A1940}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A6F826C-7DED-4232-BEE9-9540463A1940}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A6F826C-7DED-4232-BEE9-9540463A1940}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0E36034-ED07-2DD8-6705-280E6F1B2AA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0E36034-ED07-2DD8-6705-280E6F1B2AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0E36034-ED07-2DD8-6705-280E6F1B2AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0E36034-ED07-2DD8-6705-280E6F1B2AA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AC66B7A-75D1-7C92-CC91-141A54542E83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AC66B7A-75D1-7C92-CC91-141A54542E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AC66B7A-75D1-7C92-CC91-141A54542E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AC66B7A-75D1-7C92-CC91-141A54542E83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE816D6A-9555-812F-80C3-3E90BE7AE1B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE816D6A-9555-812F-80C3-3E90BE7AE1B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE816D6A-9555-812F-80C3-3E90BE7AE1B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE816D6A-9555-812F-80C3-3E90BE7AE1B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50976345-AE93-B95E-2F2C-521C163C3D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50976345-AE93-B95E-2F2C-521C163C3D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50976345-AE93-B95E-2F2C-521C163C3D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50976345-AE93-B95E-2F2C-521C163C3D1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{62F83C80-6714-4C45-B8C9-46B60667C8AE} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{FE816D6A-9555-812F-80C3-3E90BE7AE1B0} = {62F83C80-6714-4C45-B8C9-46B60667C8AE}
+		{A8B8CB2F-CECE-4C66-8D2E-9645D1CD21F4} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{50976345-AE93-B95E-2F2C-521C163C3D1B} = {A8B8CB2F-CECE-4C66-8D2E-9645D1CD21F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EACB0602-0527-4D17-8C74-27B9C673F01A}

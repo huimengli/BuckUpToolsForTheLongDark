@@ -6,4 +6,20 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="dist\**" />
+    <EmbeddedResource Remove="dist\**" />
+    <None Remove="dist\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BepInEx\BepInEx.Core\BepInEx.Core.csproj" />
+    <ProjectReference Include="..\BepInEx\BepInEx.Preloader.Core\BepInEx.Preloader.Core.csproj" />
+    <ProjectReference Include="..\BepInEx\Runtimes\Unity\BepInEx.Unity.IL2CPP\BepInEx.Unity.IL2CPP.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /Y /R &quot;$(TargetDir)SavePlugin.dll&quot; &quot;$(SolutionDir)dict\&quot; || exit /b /1&#xD;&#xA;explorer /select,&quot;$(SolutionDir)dict\SavePlugin.dll&quot; || exit /b /1" />
+  </Target>
+
 </Project>
