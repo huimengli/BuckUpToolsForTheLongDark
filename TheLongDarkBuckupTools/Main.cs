@@ -5,8 +5,11 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TheLongDarkBuckupTools.AddFunc;
+using TheLongDarkBuckupTools.Class;
 using TheLongDarkBuckupTools.GameData;
 using TheLongDarkBuckupTools.Helpers;
+using TheLongDarkBuckupTools.PluginAbout;
 
 namespace TheLongDarkBuckupTools
 {
@@ -492,7 +495,7 @@ namespace TheLongDarkBuckupTools
             form.StartPosition = FormStartPosition.CenterScreen;
             form.Size = new Size(200, 100);
             var label = new Label();
-            label.Text = "正在检测游戏是否启动";
+            label.Text = "正在检测游戏根目录\n尝试启动游戏中...";
             label.Dock = DockStyle.Fill;
             label.TextAlign = ContentAlignment.MiddleCenter;
             label.Font = new Font("微软雅黑", 12);
@@ -539,6 +542,8 @@ namespace TheLongDarkBuckupTools
             };
             form.FormClosing += formClose;
             #endregion
+
+            #region 通过启动游戏获取程序根地址
             try
             {
                 // 1. 启动游戏
@@ -577,7 +582,7 @@ namespace TheLongDarkBuckupTools
                     // 6. 检测游戏根目录
                     var rootPath = new FileInfo(processPath).DirectoryName;
 
-                    // 7. 关闭游戏线程(权限不够)
+                    // 7. 关闭游戏线程(携程权限不够)
                     //tldProcess = System.Diagnostics.Process.GetProcessesByName("tld");
                     //foreach (var process in tldProcess)
                     //{
@@ -599,15 +604,13 @@ namespace TheLongDarkBuckupTools
                 // 弹窗显示
                 Item.NewMassageBox("根目录:", gameRootPath);
 #endif
-
-                // 11. 检测BepInEx插件是否安装(此方法抽象成函数)
             }
             catch (Exception)
             {
                 MessageBox.Show(
-                    "启动失败，请检查游戏是否已经启动，或者游戏是否已经安装，或者游戏是否已经启动成功"+
+                    "启动失败，请检查游戏是否已经启动，或者游戏是否已经安装，或者游戏是否已经启动成功" +
 #if DEBUG
-                    "\n 错误信息：\n"+ e.ToString()
+                    "\n 错误信息：\n" + e.ToString()
 #else
                     ""
 #endif
@@ -635,6 +638,29 @@ namespace TheLongDarkBuckupTools
                 // 显示窗口
                 Show();
             }
+
+            #endregion
+
+            // 11. 检测BepInEx插件是否安装(此方法抽象成函数)(这个方法懒得写了,直接每次解压算了)
+            var RootPath = textBox4.Text;
+            if (string.IsNullOrEmpty(RootPath) == false &&
+                MessageBox.Show(                    // 这里弹窗会阻塞UI线程,得用别的方法(已修改)
+                "是否覆盖安装BepInEx插件？\n\n",
+                "提示",
+                MessageBoxButtons.YesNo
+            ) == DialogResult.Yes)
+            {
+                Extractor.ExtractEmbeddedZip(
+                PluginAbout.Helpers.InnerZip,
+                RootPath,
+                true
+                );
+                Extractor.ExtractFile(
+                    PluginAbout.Helpers.InnerPlugin,
+                    Path.Combine(RootPath, $"Plugins\\{new ListEX<string>(PluginAbout.Helpers.InnerPlugin.Split('.'))["-2:"].Join(".")}"),
+                    true
+                );
+            }
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -643,7 +669,14 @@ namespace TheLongDarkBuckupTools
             {
                 Item.NewMassageBox("提示", "选择游戏程序所在的根目录");
             }
-            Item.ChoiceFolder(textBox4,"游戏根目录", Environment.SpecialFolder.Desktop);
+            if (string.IsNullOrEmpty(textBox4.Text))
+            {
+                Item.ChoiceFolder(textBox4, "游戏根目录", Environment.SpecialFolder.Desktop);
+            }
+            else
+            {
+                Item.ChoiceFolder(textBox4, "游戏根目录", textBox4.Text);
+            }
             this.toolTip1.SetToolTip(this.textBox4, this.textBox4.Text);
         }
 

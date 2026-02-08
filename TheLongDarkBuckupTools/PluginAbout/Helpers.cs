@@ -17,12 +17,12 @@ namespace TheLongDarkBuckupTools.PluginAbout
         /// <summary>
         /// 内嵌的BepInEx.zip文件
         /// </summary>
-        public static string InnerZip = @"PluginAbout.BepInEx_win_x64.zip";
+        public const string InnerZip = @"PluginAbout.BepInEx_win_x64.zip";
 
         /// <summary>
         /// 内嵌的插件文件
         /// </summary>
-        public static string InnerPlugin = @"PluginAbout.SavePlugin.dll";
+        public const string InnerPlugin = @"PluginAbout.SavePlugin.dll";
 
         /// <summary>
         /// BepInEx文件列表:MD5值

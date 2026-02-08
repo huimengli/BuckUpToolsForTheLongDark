@@ -166,6 +166,7 @@
       <DependentUpon>ChangeFile2.cs</DependentUpon>
     </Compile>
     <Compile Include="Class\DictionaryEX.cs" />
+    <Compile Include="Class\ListEX.cs" />
     <Compile Include="GameData\BigData.cs" />
     <Compile Include="GameData\Enums.cs" />
     <Compile Include="GameData\GloBalData.cs" />
