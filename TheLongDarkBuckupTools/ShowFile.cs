@@ -526,6 +526,11 @@ namespace TheLongDarkBuckupTools
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (isRead)
+            {
+                MessageBox.Show("不允许修改备份文件!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if (NowSelect == null)
             {
                 MessageBox.Show("没有选中任何存档!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);

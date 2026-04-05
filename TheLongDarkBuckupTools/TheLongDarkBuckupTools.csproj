@@ -114,6 +114,9 @@
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
@@ -175,7 +178,9 @@
     <Compile Include="Helpers\Base64.cs" />
     <Compile Include="Helpers\BindableBase.cs" />
     <Compile Include="Helpers\CLZF.cs" />
+    <Compile Include="Helpers\CommandHandler.cs" />
     <Compile Include="Helpers\EncryptString.cs" />
+    <Compile Include="Serialization\EnumWrapper.cs" />
     <Compile Include="Helpers\Item.cs" />
     <Compile Include="Helpers\ItemDictionary.cs" />
     <Compile Include="InputBox.cs">
@@ -197,6 +202,10 @@
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\massage.cs" />
+    <Compile Include="MoreData\Afflictions.cs" />
+    <Compile Include="MoreData\AfflictionsContainer.cs" />
+    <Compile Include="MoreData\BootSaveGameData.cs" />
+    <Compile Include="MoreData\ProfileState.cs" />
     <Compile Include="MyMassageBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -228,7 +237,6 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="Serialization\DeserializeAttribute.cs" />
-    <Compile Include="Serialization\EnumWrapper.cs" />
     <Compile Include="ShowFile.cs">
       <SubType>Form</SubType>
     </Compile>
