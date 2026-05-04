@@ -1,4 +1,6 @@
-﻿using BepInEx.Unity.IL2CPP;
+﻿using BepInEx;
+using BepInEx.Logging;
+using BepInEx.Unity.IL2CPP;
 using System.IO.Pipes;
 using System.Text;
 
@@ -7,8 +9,12 @@ namespace SavePlugin
     /// <summary>
     /// 快速保存插件
     /// </summary>
+
+    [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
     public class FastSave : BasePlugin
     {
+        internal static new ManualLogSource Log;
+
         /// <summary>
         /// 启动管道服务器
         /// </summary>
@@ -20,6 +26,10 @@ namespace SavePlugin
 
         public override void Load()
         {
+            // Plugin startup logic
+            Log = base.Log;
+            Log.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+
             // 初始化命名管道服务器
             _pipeServer = new NamedPipeServerStream(PipeName, PipeDirection.In);
 

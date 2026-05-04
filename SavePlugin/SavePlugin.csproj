@@ -1,25 +1,22 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>SavePlugin</AssemblyName>
+    <Product>快速保存插件</Product>
+    <Version>1.0.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+    <RestoreAdditionalProjectSources>
+      https://api.nuget.org/v3/index.json;
+      https://nuget.bepinex.dev/v3/index.json;
+      https://nuget.samboy.dev/v3/index.json
+    </RestoreAdditionalProjectSources>
+    <RootNamespace>SavePlugin</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="dist\**" />
-    <EmbeddedResource Remove="dist\**" />
-    <None Remove="dist\**" />
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.*" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\BepInEx\BepInEx.Core\BepInEx.Core.csproj" />
-    <ProjectReference Include="..\BepInEx\BepInEx.Preloader.Core\BepInEx.Preloader.Core.csproj" />
-    <ProjectReference Include="..\BepInEx\Runtimes\Unity\BepInEx.Unity.IL2CPP\BepInEx.Unity.IL2CPP.csproj" />
-  </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /Y /R &quot;$(TargetDir)SavePlugin.dll&quot; &quot;$(SolutionDir)dict\&quot; || exit /b /1&#xD;&#xA;explorer /select,&quot;$(SolutionDir)dict\SavePlugin.dll&quot; || exit /b /1" />
-  </Target>
-
 </Project>

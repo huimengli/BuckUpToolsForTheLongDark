@@ -651,9 +651,9 @@ namespace TheLongDarkBuckupTools
             ) == DialogResult.Yes)
             {
                 Extractor.ExtractEmbeddedZip(
-                PluginAbout.Helpers.InnerZip,
-                RootPath,
-                true
+                    PluginAbout.Helpers.InnerZip,
+                    RootPath,
+                    true
                 );
                 Extractor.ExtractFile(
                     PluginAbout.Helpers.InnerPlugin,
