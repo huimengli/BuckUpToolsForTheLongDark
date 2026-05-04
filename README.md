@@ -7,6 +7,16 @@
 ### author:huimengli
 作者:绘梦璃
 
+### 致谢 & 许可证
+
+本软件包含来自 "The Long Dark Save Editor2" 项目的代码。
+
+- 项目地址: https://github.com/FINDarkside/TLD-Save-Editor
+- 版权归属: Copyright (c) 2016-2019 FINDarkside
+- 许可证: MIT License
+
+该部分代码的使用遵循 MIT 许可证的条款。
+
 ### other
 
 #### 其他一些想法:

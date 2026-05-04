@@ -1138,7 +1138,7 @@ namespace TheLongDarkBuckupTools.GameData
             item.m_BeenInPlayerInventoryProxy = true;
             item.NormalizedCondition = 1;
             item.m_WornOut = false;
-            // item.m_HoursPlayed = MainWindow.Instance.CurrentSave.Global.TimeOfDay.m_HoursPlayedNotPausedProxy;
+            //item.m_HoursPlayed = MainWindow.Instance.CurrentSave.Global.TimeOfDay.m_HoursPlayedNotPausedProxy;
             var r = new Random();
             var id = r.Next();
             //while (MainWindow.Instance.CurrentSave.Global.Inventory.Items.Any(i => i.Gear.m_InstanceIDProxy == id))

@@ -103,5 +103,34 @@ namespace TheLongDarkBuckupTools.AddFunc
                 dictionary.Add(key, value);
             }
         }
+
+        /// <summary>
+        /// 从字典中获取指定键的值，如果键不存在，则返回默认值。
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dictionary"></param>
+        /// <param name="key"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
+        {
+            TValue value;
+            return dictionary.TryGetValue(key, out value) ? value : defaultValue;
+        }
+
+        /// <summary>
+        /// 从字典中获取指定键的值，如果键不存在，则返回null。
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dictionary"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static TValue Get<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) where TValue : class
+        {
+            TValue value;
+            return dictionary.TryGetValue(key, out value) ? value : null;
+        }
     }
 }

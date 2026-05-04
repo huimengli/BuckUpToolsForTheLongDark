@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TheLongDarkBuckupTools.GameData;
 using TheLongDarkBuckupTools.Helpers;
+using TheLongDarkBuckupTools.MoreData;
 
 namespace TheLongDarkBuckupTools
 {
@@ -40,7 +41,7 @@ namespace TheLongDarkBuckupTools
             InitializeComponent();
 
             this.filePath = filePath;
-            this.Name = "存档修改工具";
+            this.Text = "存档修改工具";
         }
 
         private void ChangeFile2_Load(object sender, EventArgs e)
@@ -77,12 +78,25 @@ namespace TheLongDarkBuckupTools
         /// <param name="data"></param>
         private void ShowData(SlotData data)
         {
+            // 解析总概数据
             textBox1.Text = fileInfo.Name;
             textBox2.Text = data.m_Name ?? data.m_InternalName;
             textBox3.Text = data.m_DisplayName;
             textBox4.Text = data.GetGameMode();
             textBox5.Text = data.m_VersionChangelistNumber == 0 ? data.m_Changelist.ToString(): data.m_VersionChangelistNumber.ToString();
             textBox6.Text = data.m_Timestamp.ToString();
+
+            // 解析存档截图数据
+            var img = ((Screenshot)Item.DeserializeObject<Screenshot>(EncryptString.DecompressBytesToString(data.m_Dict.screenshot))).ToImage() ?? null;
+            pictureBox1.Visible = true;
+            pictureBox1.Image = img;
+
+            // 解析Global数据
+            var globalJson = EncryptString.DecompressBytesToString(data.m_Dict.global);
+            var dynamicGlobal = (GlobalSaveGameFormat)Item.DeserializeObject<GlobalSaveGameFormat>(globalJson);
+
+            // 解析病痛数据
+            var Afflictions = new AfflictionsContainer(dynamicGlobal);
         }
     }
 }
