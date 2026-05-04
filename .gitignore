@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /Cheat Engine 6.8.2
+/.vscode
