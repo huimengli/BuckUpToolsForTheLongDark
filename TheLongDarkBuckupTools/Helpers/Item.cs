@@ -327,9 +327,10 @@ namespace TheLongDarkBuckupTools.Helpers
             {
                 File.Delete(savePath + "\\" + name + "_bf" + times.ToString());
             }
-            var copyCmd = "copy /b \"" + path + "\\" + name + "\" \"" + savePath + "\\" + name + "_bf" + times + "\"";
-            //Main.saveTimes++;
-            UseCmd(copyCmd);
+            // var copyCmd = "copy /b \"" + path + "\\" + name + "\" \"" + savePath + "\\" + name + "_bf" + times + "\"";
+            // //Main.saveTimes++;
+            // UseCmd(copyCmd);
+            File.Copy(Path.Combine(path, name), Path.Combine(savePath, name + "_bf" + times.ToString()), true);
         }
 
         /// <summary>
@@ -345,9 +346,10 @@ namespace TheLongDarkBuckupTools.Helpers
             {
                 File.Delete(savePath + "\\" + name + "_bf" + times.ToString());
             }
-            var copyCmd = "copy /b \"" + path + "\\" + name + "\" \"" + savePath + "\\" + name + "_bf" + times + "\"";
-            //Main.saveTimes++;
-            UseCmd(copyCmd);
+            // var copyCmd = "copy /b \"" + path + "\\" + name + "\" \"" + savePath + "\\" + name + "_bf" + times + "\"";
+            // //Main.saveTimes++;
+            // UseCmd(copyCmd);
+            File.Copy(Path.Combine(path, name), Path.Combine(savePath, name + "_bf" + times.ToString()), true);
         }
 
         /// <summary>
@@ -402,12 +404,13 @@ namespace TheLongDarkBuckupTools.Helpers
         /// </summary>
         /// <param name="bepath"></param>
         /// <param name="path"></param>
-        public static void ReadNewBfFile(string bepath, string path)
+        public static int ReadNewBfFile(string bepath, string path)
         {
-            var varCode = "set n=0";
-            var getNumCode = "for /f \"delims=\" %a in ('dir /a-d/b \"" + bepath + "\"') do set/an+=1";
-            var retCode = "echo %n%";
-            UseCmd(varCode, getNumCode, retCode);
+            // var varCode = "set n=0";
+            // var getNumCode = "for /f \"delims=\" %a in ('dir /a-d/b \"" + bepath + "\"') do set/an+=1";
+            // var retCode = "echo %n%";
+            // return UseCmd(varCode, getNumCode, retCode);
+            return Directory.GetFiles(bepath).Length;
         }
 
         /// <summary>
@@ -698,9 +701,10 @@ namespace TheLongDarkBuckupTools.Helpers
             {
                 File.Delete(savePath + "\\" + name);
             }
-            var copyCmd = "copy /b \"" + path + "\\" + name + "_bf" + saveTimes + "\" \"" + savePath + "\\" + name + "\" ";
-            //Main.saveTimes++;
-            UseCmd(copyCmd);
+            // var copyCmd = "copy /b \"" + path + "\\" + name + "_bf" + saveTimes + "\" \"" + savePath + "\\" + name + "\" ";
+            // //Main.saveTimes++;
+            // UseCmd(copyCmd);
+            File.Copy(Path.Combine(path, name + "_bf" + saveTimes), Path.Combine(savePath, name), true);
         }
 
         /// <summary>
@@ -738,12 +742,13 @@ namespace TheLongDarkBuckupTools.Helpers
 
             if (string.IsNullOrEmpty(lastName))
             {
-                var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes */+ "\" \"" + savePath + "\\" + trueName + "\" ";
+                // var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes */+ "\" \"" + savePath + "\\" + trueName + "\" ";
                 if (File.Exists(savePath + "\\" + trueName))
                 {
                     File.Delete(savePath + "\\" + trueName);
                 }
-                UseCmd(copyCmd);
+                // UseCmd(copyCmd);
+                File.Copy(Path.Combine(path, name), Path.Combine(savePath, trueName), true);
             }
             else if (lastName == ".gz")
             {
@@ -801,9 +806,10 @@ namespace TheLongDarkBuckupTools.Helpers
                 {
                     File.Delete(savePath + "\\" + trueName);
                 }
-                var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes*/ + "\" \"" + savePath + "\\" + trueName + "\" ";
-                //Main.saveTimes++;
-                UseCmd(copyCmd);
+                // var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes*/ + "\" \"" + savePath + "\\" + trueName + "\" ";
+                // //Main.saveTimes++;
+                // UseCmd(copyCmd);
+                File.Copy(Path.Combine(path, name), Path.Combine(savePath, trueName), true);
             }
         }
 
@@ -844,9 +850,10 @@ namespace TheLongDarkBuckupTools.Helpers
                 {
                     File.Delete(savePath + "\\" + trueName);
                 }
-                var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes */+ "\" \"" + savePath + "\\" + trueName + "\" ";
-                //Main.saveTimes++;
-                UseCmd(copyCmd);
+                // var copyCmd = "copy /b \"" + path + "\\" + name /*+ "_" + saveTimes */+ "\" \"" + savePath + "\\" + trueName + "\" ";
+                // //Main.saveTimes++;
+                // UseCmd(copyCmd);
+                File.Copy(Path.Combine(path, name), Path.Combine(savePath, trueName), true);
             }
             else if (lastName == ".gz")
             {
@@ -889,9 +896,10 @@ namespace TheLongDarkBuckupTools.Helpers
         /// <param name="path"></param>
         public static void OpenFolder(string path)
         {
-            var cmd = "explorer.exe ";
-            cmd += path;
-            UseCmd(cmd);
+            // var cmd = "explorer.exe ";
+            // cmd += path;
+            // UseCmd(cmd);
+            Process.Start("explorer.exe", path);
         }
 
         #region Base64加密解密
