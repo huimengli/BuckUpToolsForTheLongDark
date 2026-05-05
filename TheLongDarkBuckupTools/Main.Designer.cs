@@ -464,22 +464,26 @@ namespace TheLongDarkBuckupTools
             // 
             // button17
             // 
+            this.button17.Enabled = false;
             this.button17.Location = new System.Drawing.Point(13, 181);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(180, 23);
             this.button17.TabIndex = 7;
             this.button17.Text = "测试文件检测";
             this.button17.UseVisualStyleBackColor = true;
+            this.button17.Visible = false;
             this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
             // button15
             // 
+            this.button15.Enabled = false;
             this.button15.Location = new System.Drawing.Point(100, 152);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(94, 23);
             this.button15.TabIndex = 6;
             this.button15.Text = "测试截图";
             this.button15.UseVisualStyleBackColor = true;
+            this.button15.Visible = false;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
             // button14

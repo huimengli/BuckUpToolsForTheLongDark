@@ -140,12 +140,19 @@ namespace TheLongDarkBuckupTools
         /// <param name="buckUpPath"></param>
         public autoSave(Form form,Value gameSavePath,Value buckUpPath,Value quickSave):this(form,gameSavePath,buckUpPath)
         {
-            this.quickSave = quickSave;
-            //开始键盘监视
-            Start();
-            OnKeyUpEvent += new KeyEventHandler(AllKeyUp);
-            //label4.Text = "快捷键保存有错误,暂时屏蔽!";//自动保存还没有做好//做好了
-            label4.Text = "快捷键保存正在测试中!";//自动保存还没有做好//做好了
+            if (WinLator.IsRunningOnWinLator)
+            {
+                label4.Text = "WinLator不支持键盘钩子";
+            }
+            else
+            {
+                this.quickSave = quickSave;
+                //开始键盘监视
+                Start();
+                OnKeyUpEvent += new KeyEventHandler(AllKeyUp);
+                //label4.Text = "快捷键保存有错误,暂时屏蔽!";//自动保存还没有做好//做好了
+                label4.Text = "快捷键保存正在测试中!";//自动保存还没有做好//做好了
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -171,7 +178,10 @@ namespace TheLongDarkBuckupTools
             watcherSurvival.EnableRaisingEvents = false;
             watch = null;
             //卸载键盘监视
-            Stop();
+            if (WinLator.IsRunningOnWinLator == false)
+            {
+                Stop();
+            }
             //进行强制回收内存
             GC.Collect();
         }
