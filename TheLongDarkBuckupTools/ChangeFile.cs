@@ -65,7 +65,7 @@ namespace TheLongDarkBuckupTools
             {
                 pictureBox1.Visible = false;
                 data = (SlotData)Item.DeserializeObject<SlotData>(EncryptString.DecompressBytesToString(File.ReadAllBytes(file.FullName)));
-                Console.WriteLine(data.m_Dict.screenshot.Length);
+                Item.Log(data.m_Dict.screenshot.Length);
                 Screenshot screenshot = (Screenshot)Item.DeserializeObject<Screenshot>(EncryptString.DecompressBytesToString(data.m_Dict.screenshot));
                 Image img = screenshot.ToImage();
                 pictureBox1.Visible = true;
@@ -76,7 +76,7 @@ namespace TheLongDarkBuckupTools
                 pictureBox1.Visible = true;
                 pictureBox1.ImageLocation = file.FullName;
                 var zipFile = ZipPath + file.NameWithoutExtension() + ".gz";
-                Console.WriteLine("file:" + zipFile);
+                Item.Log("file:" + zipFile);
                 if (File.Exists(zipFile) == false)
                 {
                     MessageBox.Show("程序未找到文件:" + zipFile + "!\r\n请检查图片同名压缩包是否删除\r\n或者是否删除zippath文件夹", "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -91,7 +91,7 @@ namespace TheLongDarkBuckupTools
             ShowData(data);
             var bootData = Item.DeserializeObject<BootData>(EncryptString.DecompressBytesToString(data.m_Dict.boot));
             var proxy = Item.DeserializeObject<GlobalDataFormat>(EncryptString.DecompressBytesToString(data.m_Dict.global));
-            //Console.WriteLine(EncryptString.DecompressBytesToString(data.m_Dict["global"]));
+            //Item.Log(EncryptString.DecompressBytesToString(data.m_Dict["global"]));
         }
 
         /// <summary>

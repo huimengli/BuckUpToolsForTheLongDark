@@ -121,14 +121,14 @@ namespace TheLongDarkBuckupTools
                     }
                     catch (Exception err)
                     {
-                        Console.WriteLine(err);
+                        Item.Log(err);
                         value.val = returnValue;
                     }
                 }
             }
             catch (Exception err)
             {
-                Console.WriteLine(err);
+                Item.Log(err);
             }
             Main.IsElseForm = false;
         }

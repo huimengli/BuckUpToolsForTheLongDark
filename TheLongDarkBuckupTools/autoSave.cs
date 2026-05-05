@@ -195,7 +195,7 @@ namespace TheLongDarkBuckupTools
             }
             catch (Exception err)
             {
-                Console.WriteLine(err);
+                Item.Log(err);
             }
         }
 
@@ -398,7 +398,7 @@ namespace TheLongDarkBuckupTools
         /// </summary>
         public void Start()
         {
-            Console.WriteLine("开始安装钩子");
+            Item.Log("开始安装钩子");
             //安装键盘钩子
             if (hKeyboardHook == 0)
             {
@@ -428,7 +428,7 @@ namespace TheLongDarkBuckupTools
             }
             //如果卸下钩子失败
             if (!(retKeyboard)) throw new Exception("卸下钩子失败");
-            Console.WriteLine("键盘钩子已经卸下");
+            Item.Log("键盘钩子已经卸下");
         }
         #endregion
 
@@ -442,19 +442,19 @@ namespace TheLongDarkBuckupTools
         /// <returns></returns>
         private int KeyboardHookProc(int nCode, Int32 wParam, IntPtr lParam)
         {
-            //Console.WriteLine("事件激发");
-            //Console.WriteLine(wParam);
-            //Console.WriteLine(preKeys.ToArray().Length);
+            //Item.Log("事件激发");
+            //Item.Log(wParam);
+            //Item.Log(preKeys.ToArray().Length);
             if ((nCode >= 0) && (OnKeyDownEvent != null || OnKeyUpEvent != null || OnKeyPressEvent != null))
             {
-                //Console.WriteLine(1);
+                //Item.Log(1);
                 KeyboardHookStruct MyKeyboardHookStruct = (KeyboardHookStruct)Marshal.PtrToStructure(lParam, typeof(KeyboardHookStruct));
                 //当有OnKeyDownEvent 或 OnKeyPressEvent不为null时,ctrl alt shift keyup时 preKeys
                 //中的对应的键增加                  
                 if ((OnKeyDownEvent != null || OnKeyPressEvent != null) && (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN))
                 {
                     Keys keyData = (Keys)MyKeyboardHookStruct.vkCode;
-                    //Console.WriteLine(keyData);
+                    //Item.Log(keyData);
                     if (IsCtrlAltShiftKeys(keyData) && preKeys.IndexOf(keyData) == -1)
                     {
                         preKeys.Add(keyData);
@@ -547,7 +547,7 @@ namespace TheLongDarkBuckupTools
         /// <returns></returns>
         private Boolean IsCtrlAltShiftKeys(Keys key)
         {
-            Console.WriteLine(key);
+            Item.Log(key);
             switch (key)
             {
                 case Keys.LControlKey:
@@ -573,10 +573,10 @@ namespace TheLongDarkBuckupTools
         public void AllKeyUp(object sender, KeyEventArgs e)
         {
             var time = DateTime.Now;
-            Console.WriteLine(Item.GetTheNewFile(gameStorySavePath.val));
+            Item.Log(Item.GetTheNewFile(gameStorySavePath.val));
             //文件名
             var fileName = string.IsNullOrEmpty(quickSave.val)?gameStorySavePath.val+"\\"+Item.GetTheNewFile(gameStorySavePath.val):quickSave.val;
-            //Console.WriteLine(e.KeyCode);
+            //Item.Log(e.KeyCode);
             //if (e.KeyCode==Main.QuickSave&&System.Diagnostics.Process.GetProcessesByName("tld").Length>0)
             //{
             //    //需要自动备份的文件对象
@@ -642,6 +642,13 @@ namespace TheLongDarkBuckupTools
         /// 等待时间(默认一秒)
         /// </summary>
         public static int waitTime = 1000;
+
+        /// <summary>
+        /// 保存等待时间(单位:秒)
+        /// WinLator下为10秒
+        /// 其他为5秒
+        /// </summary>
+        private static int SaveWait = WinLator.IsRunningOnWinLator ? 10 : 5;
 
         /// <summary>
         /// 检查是否完成变更的线程
@@ -748,11 +755,13 @@ namespace TheLongDarkBuckupTools
         /// <param name="e"></param>
         public void StoryOnChange(object sender,FileSystemEventArgs e)
         {
-            if (File.Exists(e.FullPath)&&e.ChangeType!= WatcherChangeTypes.Deleted)
+            string fullPath = e.FullPath;
+            fullPath = WinLator.WatcherPathToFilePath(fullPath);
+            if (File.Exists(fullPath)&&e.ChangeType!= WatcherChangeTypes.Deleted)
             {
-                var file = new FileInfo(e.FullPath);
-                AddFile(e.FullPath);
-                Console.WriteLine("文件变动");
+                var file = new FileInfo(fullPath);
+                AddFile(fullPath);
+                Item.Log("文件变动");
                 if (changeStoryOver.ThreadState== ThreadState.Unstarted||changeStoryOver.ThreadState== ThreadState.WaitSleepJoin)
                 {
                     if (changeStoryOver.IsAlive)
@@ -774,17 +783,17 @@ namespace TheLongDarkBuckupTools
             }
             else
             {
-                if (Directory.Exists(e.FullPath))
+                if (Directory.Exists(fullPath))
                 {
-                    Console.WriteLine("文件夹变动");
+                    Item.Log("文件夹变动");
                 }
                 else
                 {
-                    DeleteFile(e.FullPath);
-                    Console.WriteLine("删除变动");
+                    DeleteFile(fullPath);
+                    Item.Log("删除变动");
                 }
             }
-            Console.WriteLine("file:" + e.FullPath + " " + e.ChangeType);
+            Item.Log("file:" + fullPath + " " + e.ChangeType);
         }
 
         /// <summary>
@@ -794,11 +803,13 @@ namespace TheLongDarkBuckupTools
         /// <param name="e"></param>
         public void SurvivalOnChange(object sender,FileSystemEventArgs e)
         {
-            if (File.Exists(e.FullPath)&&e.ChangeType!= WatcherChangeTypes.Deleted)
+            string fullPath = e.FullPath;
+            fullPath = WinLator.WatcherPathToFilePath(fullPath);
+            if (File.Exists(fullPath)&&e.ChangeType!= WatcherChangeTypes.Deleted)
             {
-                var file = new FileInfo(e.FullPath);
-                AddFile(e.FullPath);
-                Console.WriteLine("文件变动");
+                var file = new FileInfo(fullPath);
+                AddFile(fullPath);
+                Item.Log("文件变动");
                 if (changeSurvivalOver.ThreadState== ThreadState.Unstarted||changeSurvivalOver.ThreadState== ThreadState.WaitSleepJoin)
                 {
                     if (changeSurvivalOver.IsAlive)
@@ -820,17 +831,17 @@ namespace TheLongDarkBuckupTools
             }
             else
             {
-                if (Directory.Exists(e.FullPath))
+                if (Directory.Exists(fullPath))
                 {
-                    Console.WriteLine("文件夹变动");
+                    Item.Log("文件夹变动");
                 }
                 else
                 {
-                    DeleteFile(e.FullPath);
-                    Console.WriteLine("删除变动");
+                    DeleteFile(fullPath);
+                    Item.Log("删除变动");
                 }
             }
-            Console.WriteLine("file:" + e.FullPath + " " + e.ChangeType);
+            Item.Log("file:" + fullPath + " " + e.ChangeType);
         }
 
         /// <summary>
@@ -840,13 +851,17 @@ namespace TheLongDarkBuckupTools
         /// <param name="e"></param>
         public void OnRenamed(object sender,RenamedEventArgs e)
         {
-            Console.WriteLine("file: " + e.OldFullPath + " change name to " + e.FullPath);
+            string fullPath = e.FullPath;
+            fullPath = WinLator.WatcherPathToFilePath(fullPath);
+            Item.Log("file: " + e.OldFullPath + " change name to " + fullPath);
         }
 
         public void Save(object sender,FileSystemEventArgs e)
         {
+            string fullPath = e.FullPath;
+            fullPath = WinLator.WatcherPathToFilePath(fullPath);
             var time = DateTime.Now.ToFileTimeUtc();
-            var file = new FileInfo(e.FullPath);
+            var file = new FileInfo(fullPath);
             //var imgSrc = autoSave.TemporaryPath +file.Name+ "_bf"+time.ToString()+".png";
             //Item.Screenshot(imgSrc);
         }
@@ -864,16 +879,16 @@ namespace TheLongDarkBuckupTools
             Item.Log(time.ToString()+"线程开始");
             //获取截图但是暂不保存
             Image img = Item.Screenshot("", false);
-            //等待五秒,如果线程未结束,就开始进行备份
-            Thread.Sleep(5 * 1000);
+            //等待,如果线程未结束,就开始进行备份
+            Thread.Sleep(SaveWait * 1000);
             var time2 = DateTime.Now;
             Item.Log(time2.ToString()+"线程完成任务");
             try
             {
                 foreach (var item in changeFiles)
                 {
-                    Item.Log(item);
-                    if (System.Diagnostics.Process.GetProcessesByName("tld").Length > 0)
+                    Item.Log($"故事模式修改的文件: {item}");
+                    if (System.Diagnostics.Process.GetProcessesByName("tld").Length > 0 && WinLator.IsRunningOnWinLator == false)
                     {
                         if (Exclude.TestFile(item))
                         {
@@ -918,16 +933,16 @@ namespace TheLongDarkBuckupTools
             Item.Log(time.ToString()+"线程开始");
             //获取截图但是暂不保存
             Image img = Item.Screenshot("", false);
-            //等待五秒,如果线程未结束,就开始进行备份
-            Thread.Sleep(5 * 1000);
+            //等待,如果线程未结束,就开始进行备份
+            Thread.Sleep(SaveWait * 1000);
             var time2 = DateTime.Now;
             Item.Log(time2.ToString()+"线程完成任务");
             try
             {
                 foreach (var item in changeFiles)
                 {
-                    Item.Log(item);
-                    if (System.Diagnostics.Process.GetProcessesByName("tld").Length > 0)
+                    Item.Log($"生存模式修改的文件: {item}");
+                    if (System.Diagnostics.Process.GetProcessesByName("tld").Length > 0 && WinLator.IsRunningOnWinLator == false)
                     {
                         if (Exclude.TestFile(item))
                         {

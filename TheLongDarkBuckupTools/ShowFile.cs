@@ -169,7 +169,7 @@ namespace TheLongDarkBuckupTools
             sw.Write(AllFileInfo);
             sw.Close();
             theFile.Close();
-            Console.WriteLine(AllFileInfo);
+            Item.Log(AllFileInfo);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -237,7 +237,7 @@ namespace TheLongDarkBuckupTools
             }
             else
             {
-                //Console.WriteLine(DateTime.Now);
+                //Item.Log(DateTime.Now);
                 switch (playType)
                 {
                     case PlayType.Story:
@@ -355,7 +355,7 @@ namespace TheLongDarkBuckupTools
                 label4.Visible = true;
                 pictureBox1.Visible = false;
                 data = (SlotData)Item.DeserializeObject<SlotData>(EncryptString.DecompressBytesToString(File.ReadAllBytes(file.FullName)));
-                Console.WriteLine(data.m_Dict.screenshot.Length);
+                Item.Log(data.m_Dict.screenshot.Length);
                 var img = ((Screenshot)Item.DeserializeObject<Screenshot>(EncryptString.DecompressBytesToString(data.m_Dict.screenshot))).ToImage();
                 label4.Visible = false;
                 pictureBox1.Visible = true;
@@ -367,7 +367,7 @@ namespace TheLongDarkBuckupTools
                 pictureBox1.Visible = true;
                 pictureBox1.ImageLocation = file.FullName;
                 var zipFile = ZipPath + file.NameWithoutExtension() + ".gz";
-                Console.WriteLine("file:" + zipFile);
+                Item.Log("file:" + zipFile);
                 if (File.Exists(zipFile) == false)
                 {
                     MessageBox.Show("程序未找到文件:" + zipFile + "!\r\n请检查图片同名压缩包是否删除\r\n或者是否删除zippath文件夹", "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -449,7 +449,7 @@ namespace TheLongDarkBuckupTools
             {
                 var getTime = new Regex(@"_bf(\d+)");
                 var match = getTime.Match(file.Name);
-                //Console.WriteLine(time.Groups[1]);
+                //Item.Log(time.Groups[1]);
                 textBox7.Text = DateTime.FromFileTime(long.Parse(match.Groups[1].ToString())).ToString();
             }
             else
@@ -481,7 +481,7 @@ namespace TheLongDarkBuckupTools
                     else if (file.Extension == ".png")
                     {
                         var zipFile = ZipPath + file.NameWithoutExtension() + ".gz";
-                        Console.WriteLine("file:" + zipFile);
+                        Item.Log("file:" + zipFile);
                         if (File.Exists(zipFile) == false)
                         {
                             //MessageBox.Show("程序未找到文件:" + zipFile + "!\r\n请检查图片同名压缩包是否删除\r\n或者是否删除zippath文件夹", "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -506,7 +506,7 @@ namespace TheLongDarkBuckupTools
                     else if (file.Extension == ".png")
                     {
                         var zipFile = ZipPath + file.NameWithoutExtension() + ".gz";
-                        Console.WriteLine("file:" + zipFile);
+                        Item.Log("file:" + zipFile);
                         if (File.Exists(zipFile) == false)
                         {
                             //MessageBox.Show("程序未找到文件:" + zipFile + "!\r\n请检查图片同名压缩包是否删除\r\n或者是否删除zippath文件夹", "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);

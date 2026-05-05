@@ -64,6 +64,7 @@ namespace TheLongDarkBuckupTools
             this.label7 = new System.Windows.Forms.Label();
             this.button11 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button17 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -448,6 +449,7 @@ namespace TheLongDarkBuckupTools
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.button17);
             this.tabPage3.Controls.Add(this.button15);
             this.tabPage3.Controls.Add(this.button14);
             this.tabPage3.Controls.Add(this.groupBox4);
@@ -460,22 +462,31 @@ namespace TheLongDarkBuckupTools
             this.tabPage3.Text = "关于";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // button17
+            // 
+            this.button17.Location = new System.Drawing.Point(13, 181);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(180, 23);
+            this.button17.TabIndex = 7;
+            this.button17.Text = "测试文件检测";
+            this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
+            // 
             // button15
             // 
-            this.button15.Location = new System.Drawing.Point(13, 181);
+            this.button15.Location = new System.Drawing.Point(100, 152);
             this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(181, 23);
+            this.button15.Size = new System.Drawing.Size(94, 23);
             this.button15.TabIndex = 6;
             this.button15.Text = "测试截图";
             this.button15.UseVisualStyleBackColor = true;
-            this.button15.Visible = false;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
             // button14
             // 
             this.button14.Location = new System.Drawing.Point(13, 152);
             this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(181, 23);
+            this.button14.Size = new System.Drawing.Size(81, 23);
             this.button14.TabIndex = 5;
             this.button14.Text = "修改文件";
             this.button14.UseVisualStyleBackColor = true;
@@ -665,5 +676,6 @@ namespace TheLongDarkBuckupTools
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button button16;
+        private System.Windows.Forms.Button button17;
     }
 }

@@ -102,7 +102,7 @@ namespace TheLongDarkBuckupTools
 
         private void Main_Load(object sender, EventArgs e)
         {
-            //Console.WriteLine(System.Diagnostics.Process.GetProcesses("TheLongDarkBuckUpTools").ToString());
+            //Item.Log(System.Diagnostics.Process.GetProcesses("TheLongDarkBuckUpTools").ToString());
             IniAllValues = Item.ReadAllIni(IniPath)[0];
             var allValues = BigData.Parses(IniAllValues);
             gameSavePath.val = allValues.SearchData("savePath").Value;
@@ -199,7 +199,7 @@ namespace TheLongDarkBuckupTools
             }
             catch (Exception err)
             {
-                Console.WriteLine(err);
+                Item.Log(err);
             }
         }
 
@@ -266,7 +266,7 @@ namespace TheLongDarkBuckupTools
             //    }
             //    catch (Exception err)
             //    {
-            //        Console.WriteLine(err);
+            //        Item.Log(err);
             //        new InputChouseBox("提示", "没有找到存档文件夹\n请手动输入或者右边选择:", gameSavePath).Show();
             //    }
             //    if (string.IsNullOrEmpty(fileName)==false)
@@ -298,7 +298,7 @@ namespace TheLongDarkBuckupTools
 
         //private void label3_DragEnter(object sender, DragEventArgs e)
         //{
-        //    Console.WriteLine(e);
+        //    Item.Log(e);
         //    if (e.Data.GetDataPresent(DataFormats.FileDrop))
         //    {
         //        e.Effect = DragDropEffects.All;
@@ -312,7 +312,7 @@ namespace TheLongDarkBuckupTools
         //private void label3_DragDrop(object sender, DragEventArgs e)
         //{
         //    string path = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();       //获得路径
-        //    Console.WriteLine(path);
+        //    Item.Log(path);
         //}
 
         private void button5_Click(object sender, EventArgs e)
@@ -323,7 +323,7 @@ namespace TheLongDarkBuckupTools
             }
             catch (Exception err)
             {
-                Console.WriteLine(err);
+                Item.Log(err);
                 Item.ChoiceFolder(gameSavePath);
             }
         }
@@ -473,7 +473,12 @@ namespace TheLongDarkBuckupTools
 
         private void button15_Click(object sender, EventArgs e)
         {
-            Item.Screenshot(@"C:\Users\29133\Desktop\测试的截图\test.png", true);
+            MessageBox.Show($"当前是否是WinLator: {WinLator.IsRunningOnWine()}");
+
+            TextBox text = new TextBox();
+            Item.ChoiceFolder(text,"请选择一个文件夹存放测试截图",Environment.SpecialFolder.Desktop);
+            Item.Screenshot(Path.Combine(text.Text,"test.png"), true);
+            Item.OpenFile(Path.Combine(text.Text,"test.png"));
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
@@ -691,6 +696,33 @@ namespace TheLongDarkBuckupTools
             {
                 MessageBox.Show("请先选择游戏根目录", "提示", MessageBoxButtons.OK);
             }
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            var text = new TextBox();
+            Item.ChoiceFolder(text,"测试文件夹", Environment.SpecialFolder.Desktop);
+            MessageBox.Show(text.Text);
+
+            FileSystemWatcher watcher = new FileSystemWatcher(text.Text);
+            watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName;
+            watcher.Changed += new FileSystemEventHandler((o, fe) =>
+            {
+                MessageBox.Show($"{fe.FullPath} 文件被修改了");
+            });
+            watcher.Created += new FileSystemEventHandler((o, fe) =>
+            {
+                MessageBox.Show($"{fe.FullPath} 文件被创建了");
+            });
+            watcher.Deleted += new FileSystemEventHandler((o, fe) =>
+            {
+                MessageBox.Show($"{fe.FullPath} 文件被删除了");
+            });
+            // 开始监视
+            watcher.EnableRaisingEvents = true;
+
+            // 打开监视的文件夹
+            Item.OpenOnWindows(WinLator.WatcherPathToFilePath(text.Text));
         }
     }
 }

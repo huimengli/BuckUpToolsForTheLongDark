@@ -180,7 +180,9 @@
     <Compile Include="Helpers\BindableBase.cs" />
     <Compile Include="Helpers\CLZF.cs" />
     <Compile Include="Helpers\CommandHandler.cs" />
+    <Compile Include="Helpers\DebugTextWriter.cs" />
     <Compile Include="Helpers\EncryptString.cs" />
+    <Compile Include="Helpers\WinLator.cs" />
     <Compile Include="Serialization\EnumWrapper.cs" />
     <Compile Include="Helpers\Item.cs" />
     <Compile Include="Helpers\ItemDictionary.cs" />
