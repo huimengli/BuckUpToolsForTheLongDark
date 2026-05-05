@@ -675,7 +675,6 @@ namespace TheLongDarkBuckupTools.Helpers
             }
         }
 
-#if DEBUG
         /// <summary>
         /// Log打印追加
         /// </summary>
@@ -693,6 +692,7 @@ namespace TheLongDarkBuckupTools.Helpers
                 {
                     LogWriter = new StreamWriter(logFile.Open(FileMode.Append, FileAccess.Write, FileShare.ReadWrite), Encoding.UTF8);
                 }
+                LogWriter.AutoFlush = true;
             }
             LogWriter.WriteLine(text);
         }
@@ -738,37 +738,6 @@ namespace TheLongDarkBuckupTools.Helpers
 
             LogAdd(log);
         }
-#else
-        /// <summary>
-        /// 打印日志
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="file"></param>
-        /// <param name="member"></param>
-        /// <param name="line"></param>
-        public static void Log(string text,
-                string file = "",
-                string member = "",
-                int line = 0)
-        {
-            Console.WriteLine(text);
-        }
-
-        /// <summary>
-        /// 打印日志
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="file"></param>
-        /// <param name="member"></param>
-        /// <param name="line"></param>
-        public static void Log(object text,
-                string file = "",
-                string member = "",
-                int line = 0)
-        {
-            Console.WriteLine(text);
-        }
-#endif
 
         /// <summary>
         /// 从字符串中获取信息

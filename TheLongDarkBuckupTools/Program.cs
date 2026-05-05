@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Collections.Concurrent;
+using TheLongDarkBuckupTools.Helpers;
 
 /// <summary>
 /// 漫漫长夜备份工具
@@ -75,9 +76,8 @@ namespace TheLongDarkBuckupTools
                 }
 
                 MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //MessageBox.Show("发生致命错误，请及时联系作者！", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Item.Log($"系统错误: {str}");
             }
-
 #endif
         }
 
@@ -113,7 +113,7 @@ namespace TheLongDarkBuckupTools
             }
 
             MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //MessageBox.Show("发生致命错误，请及时联系作者！", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Item.Log($"系统错误: {str}");
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -131,7 +131,7 @@ namespace TheLongDarkBuckupTools
             }
 
             MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //MessageBox.Show("发生致命错误，请停止当前操作并及时联系作者！", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Item.Log($"系统错误: {str}");
         }
     }
 
