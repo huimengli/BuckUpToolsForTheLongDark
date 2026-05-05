@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
@@ -36,6 +37,11 @@ namespace TheLongDarkBuckupTools.Helpers
         /// 保存文件的文件路径
         /// </summary>
         //private static string SavePath;
+
+        /// <summary>
+        /// 日志文件存放路径
+        /// </summary>
+        public static string LogPath = Path.Combine(Application.StartupPath, "log.txt");
 
         /// <summary>
         /// 打开网站|其他东西
@@ -210,7 +216,7 @@ namespace TheLongDarkBuckupTools.Helpers
         public static void ChoiceFolder(Value value)
         {
             var tishi = "选择存档所在的文件夹\n大概是\\Hinterland\\TheLongDark下";
-            Console.WriteLine(tishi);
+            Item.Log(tishi);
             ChoiceFolder(value, "选择存档所在的文件夹\n大概是\\Hinterland\\TheLongDark下", Environment.SpecialFolder.LocalApplicationData);
         }
 
@@ -424,7 +430,7 @@ namespace TheLongDarkBuckupTools.Helpers
             g.CopyFromScreen(new Point(0, 0), new Point(0, 0), Screen.AllScreens[0].Bounds.Size);
             //Clipboard.SetImage(img);
             img.Save(savePath);
-            //Console.WriteLine(g);
+            //Item.Log(g);
         }
 
         ///// <summary>
@@ -439,7 +445,7 @@ namespace TheLongDarkBuckupTools.Helpers
         //    g.CopyFromScreen(new Point(0, 0), new Point(0, 0), Screen.AllScreens[0].Bounds.Size);
         //    //Clipboard.SetImage(img);
         //    //img.Save(savePath);
-        //    //Console.WriteLine(g);
+        //    //Item.Log(g);
         //    if (nowSave)
         //    {
         //        img.Save(savePath);
@@ -459,7 +465,7 @@ namespace TheLongDarkBuckupTools.Helpers
             Graphics g = Graphics.FromHwnd(IntPtr.Zero);
             var _dpi = GetScreenScalingFactor();
             var img = TakingScreenshotEx1(_dpi);
-            Console.WriteLine(_dpi);
+            Item.Log(_dpi);
             if (nowSave)
             {
                 img.Save(savePath);
@@ -557,7 +563,7 @@ namespace TheLongDarkBuckupTools.Helpers
             g.CopyFromScreen(new Point(0, 0), new Point(0, 0), Screen.AllScreens[0].Bounds.Size);
             //Clipboard.SetImage(img);
             //img.Save(savePath);
-            //Console.WriteLine(g);
+            //Item.Log(g);
             if (nowSave)
             {
                 img.Save(savePath);
@@ -594,7 +600,7 @@ namespace TheLongDarkBuckupTools.Helpers
             proIP.StandardInput.WriteLine(cmdCode);
             proIP.StandardInput.WriteLine("exit");
             string strResult = proIP.StandardOutput.ReadToEnd();
-            Console.WriteLine(strResult);
+            Item.Log(strResult);
             proIP.Close();
         }
 
@@ -618,7 +624,7 @@ namespace TheLongDarkBuckupTools.Helpers
             }
             proIP.StandardInput.WriteLine("exit");
             string strResult = proIP.StandardOutput.ReadToEnd();
-            Console.WriteLine(strResult);
+            Item.Log(strResult);
             proIP.Close();
         }
 
@@ -664,11 +670,87 @@ namespace TheLongDarkBuckupTools.Helpers
             }
         }
 
+#if DEBUG
         /// <summary>
-        /// 向控制台输出内容
+        /// 打印日志
         /// </summary>
-        /// <param name="str"></param>
-        public static void Log(object str) => Console.WriteLine(str);
+        /// <param name="text"></param>
+        /// <param name="file"></param>
+        /// <param name="member"></param>
+        /// <param name="line"></param>
+        public static void Log(string text,
+                [CallerFilePath] string file = "",
+                [CallerMemberName] string member = "",
+                [CallerLineNumber] int line = 0)
+        {
+            //MessageBoxShow("{0}({1})[{2}]: {3}", Path.GetFileName(file), member, line, text);
+            DateTime now = DateTime.Now;
+            Console.SetOut(new DebugTextWriter());
+            string log = String.Format("[{0}] ({1}:{2}) {3}: {4}", now.ToString("yyyy-MM-dd hh:mm:ss fff"), Path.GetFileName(file), line, member, text);
+            Console.WriteLine(log);
+
+            if (!File.Exists(LogPath))
+            {
+                File.Create(LogPath).Close();
+            }
+            File.AppendAllText(LogPath, log + "\r\n", Encoding.UTF8);
+        }
+
+        /// <summary>
+        /// 打印日志
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="file"></param>
+        /// <param name="member"></param>
+        /// <param name="line"></param>
+        public static void Log(object text,
+                [CallerFilePath] string file = "",
+                [CallerMemberName] string member = "",
+                [CallerLineNumber] int line = 0)
+        {
+            //MessageBoxShow("{0}({1})[{2}]: {3}", Path.GetFileName(file), member, line, text);
+            DateTime now = DateTime.Now;
+            Console.SetOut(new DebugTextWriter());
+            string log = String.Format("[{0}] ({1}:{2}) {3}: {4}", now.ToString("yyyy-MM-dd hh:mm:ss fff"), Path.GetFileName(file), line, member, text);
+            Console.WriteLine(log);
+
+            if (!File.Exists(LogPath))
+            {
+                File.Create(LogPath).Close();
+            }
+            File.AppendAllText(LogPath, log + "\r\n", Encoding.UTF8);
+        }
+#else
+        /// <summary>
+        /// 打印日志
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="file"></param>
+        /// <param name="member"></param>
+        /// <param name="line"></param>
+        public static void Log(string text,
+                string file = "",
+                string member = "",
+                int line = 0)
+        {
+            Console.WriteLine(text);
+        }
+
+        /// <summary>
+        /// 打印日志
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="file"></param>
+        /// <param name="member"></param>
+        /// <param name="line"></param>
+        public static void Log(object text,
+                string file = "",
+                string member = "",
+                int line = 0)
+        {
+            Console.WriteLine(text);
+        }
+#endif
 
         /// <summary>
         /// 从字符串中获取信息
@@ -842,7 +924,7 @@ namespace TheLongDarkBuckupTools.Helpers
             {
                 trueName = name;
             }
-            Console.WriteLine(trueName);
+            Item.Log(trueName);
 
             if (string.IsNullOrEmpty(lastName))
             {
@@ -1049,7 +1131,7 @@ namespace TheLongDarkBuckupTools.Helpers
             MemoryStream ms = new MemoryStream();
             foreach (string filePath in sourceFileList)
             {
-                Console.WriteLine(filePath);
+                Item.Log(filePath);
                 if (File.Exists(filePath))
                 {
                     string fileName = Path.GetFileName(filePath);
@@ -1143,7 +1225,7 @@ namespace TheLongDarkBuckupTools.Helpers
             {
                 using (StreamReader streamReader = new StreamReader(zipStream))
                 {
-                    //Console.WriteLine(streamReader.CurrentEncoding);
+                    //Item.Log(streamReader.CurrentEncoding);
                     return streamReader.CurrentEncoding.GetBytes(streamReader.ReadToEnd());
                 }
             }
@@ -1546,7 +1628,7 @@ namespace TheLongDarkBuckupTools.Helpers
         {
             foreach (var p in Process.GetProcesses())
             {
-                Console.WriteLine(p.ProcessName);
+                Item.Log(p.ProcessName);
             }
         }
 
