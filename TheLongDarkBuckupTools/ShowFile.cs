@@ -197,6 +197,22 @@ namespace TheLongDarkBuckupTools
             }
         }
 
+        private void listBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (listBox1.SelectedItem == null)
+                {
+                    MessageBox.Show("未选择文件!", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    var file = (FileInfo)listBox1.SelectedItem;
+                    Item.OpenFile(file.FullName);
+                }
+            }
+        }
+
         private void button3_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedItem == null)

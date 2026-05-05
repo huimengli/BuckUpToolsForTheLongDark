@@ -902,6 +902,16 @@ namespace TheLongDarkBuckupTools.Helpers
             Process.Start("explorer.exe", path);
         }
 
+        /// <summary>
+        /// 在文件管理器中打开并选中
+        /// </summary>
+        /// <param name="path"></param>
+
+        public static void OpenFile(string path)
+        {
+            Process.Start("explorer.exe", $"/select,{path}");
+        }
+
         #region Base64加密解密
         /// <summary>
         /// Base64加密

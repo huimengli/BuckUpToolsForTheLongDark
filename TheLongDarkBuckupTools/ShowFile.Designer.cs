@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowFile));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -56,7 +57,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -91,6 +91,16 @@
             this.splitContainer1.SplitterDistance = 219;
             this.splitContainer1.TabIndex = 0;
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(15, 386);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(188, 24);
+            this.button4.TabIndex = 7;
+            this.button4.Text = "修改(测试中)";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(15, 414);
@@ -111,8 +121,9 @@
             this.listBox1.ScrollAlwaysVisible = true;
             this.listBox1.Size = new System.Drawing.Size(204, 259);
             this.listBox1.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.listBox1, "文件由新到旧排列");
+            this.toolTip1.SetToolTip(this.listBox1, "文件由新到旧排列\r\n选中文件后右键点击会在文件夹中打开此文件\r\n");
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.listBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseUp);
             // 
             // button1
             // 
@@ -198,7 +209,7 @@
             this.textBox7.Enabled = false;
             this.textBox7.Location = new System.Drawing.Point(73, 183);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(217, 21);
+            this.textBox7.Size = new System.Drawing.Size(217, 28);
             this.textBox7.TabIndex = 15;
             // 
             // label11
@@ -206,7 +217,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(8, 186);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(59, 12);
+            this.label11.Size = new System.Drawing.Size(89, 18);
             this.label11.TabIndex = 14;
             this.label11.Text = "备份时间:";
             // 
@@ -215,7 +226,7 @@
             this.textBox6.Enabled = false;
             this.textBox6.Location = new System.Drawing.Point(73, 156);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(217, 21);
+            this.textBox6.Size = new System.Drawing.Size(217, 28);
             this.textBox6.TabIndex = 13;
             // 
             // label10
@@ -223,7 +234,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(8, 159);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(59, 12);
+            this.label10.Size = new System.Drawing.Size(89, 18);
             this.label10.TabIndex = 12;
             this.label10.Text = "修改时间:";
             // 
@@ -232,7 +243,7 @@
             this.textBox4.Enabled = false;
             this.textBox4.Location = new System.Drawing.Point(73, 102);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(217, 21);
+            this.textBox4.Size = new System.Drawing.Size(217, 28);
             this.textBox4.TabIndex = 11;
             // 
             // label8
@@ -240,7 +251,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(8, 132);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(59, 12);
+            this.label8.Size = new System.Drawing.Size(89, 18);
             this.label8.TabIndex = 10;
             this.label8.Text = "版    本:";
             // 
@@ -249,7 +260,7 @@
             this.textBox5.Enabled = false;
             this.textBox5.Location = new System.Drawing.Point(73, 129);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(217, 21);
+            this.textBox5.Size = new System.Drawing.Size(217, 28);
             this.textBox5.TabIndex = 7;
             // 
             // textBox3
@@ -257,7 +268,7 @@
             this.textBox3.Enabled = false;
             this.textBox3.Location = new System.Drawing.Point(73, 75);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(217, 21);
+            this.textBox3.Size = new System.Drawing.Size(217, 28);
             this.textBox3.TabIndex = 9;
             // 
             // label7
@@ -265,7 +276,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(8, 105);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 12);
+            this.label7.Size = new System.Drawing.Size(89, 18);
             this.label7.TabIndex = 8;
             this.label7.Text = "模    式:";
             // 
@@ -274,7 +285,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(8, 78);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(59, 12);
+            this.label9.Size = new System.Drawing.Size(89, 18);
             this.label9.TabIndex = 6;
             this.label9.Text = "玩家命名:";
             // 
@@ -283,7 +294,7 @@
             this.textBox2.Enabled = false;
             this.textBox2.Location = new System.Drawing.Point(73, 48);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(217, 21);
+            this.textBox2.Size = new System.Drawing.Size(217, 28);
             this.textBox2.TabIndex = 3;
             // 
             // label6
@@ -291,7 +302,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(8, 51);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(59, 12);
+            this.label6.Size = new System.Drawing.Size(89, 18);
             this.label6.TabIndex = 2;
             this.label6.Text = "存档名称:";
             // 
@@ -300,7 +311,7 @@
             this.textBox1.Enabled = false;
             this.textBox1.Location = new System.Drawing.Point(73, 21);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(217, 21);
+            this.textBox1.Size = new System.Drawing.Size(217, 28);
             this.textBox1.TabIndex = 1;
             // 
             // label5
@@ -308,7 +319,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(8, 24);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 12);
+            this.label5.Size = new System.Drawing.Size(89, 18);
             this.label5.TabIndex = 0;
             this.label5.Text = "文件名称:";
             // 
@@ -332,16 +343,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(15, 386);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(188, 24);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "修改(测试中)";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // ShowFile
             // 
