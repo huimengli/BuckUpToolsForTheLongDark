@@ -85,7 +85,7 @@ namespace TheLongDarkBuckupTools
             var tishi = CurrentPath + "注意事项.txt";
             IniPath = CurrentPath + "BuckUpTools.ini";
             if (File.Exists(tishi)==false) {
-                File.WriteAllText(tishi, Massage.tishi);
+                File.WriteAllText(tishi, Massage.tishi, System.Text.Encoding.UTF8);
                 Item.OpenOnWindows(tishi);
             }
             //QuickSave = (Keys)Enum.Parse(typeof(Keys), textBox1.Text);
