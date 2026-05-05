@@ -1,8 +1,8 @@
 # BuckUpToolsForTheLongDark
 备份漫漫长夜沙盒模式的存档用的工具
 
-### version:[0.8.2](#version_0.8.2)
-版本:[0.8.2](#version_0.8.2)
+### version:[0.8.3](#version_0.8.3)
+版本:[0.8.3](#version_0.8.3)
 
 ### author:huimengli
 作者:绘梦璃
@@ -150,6 +150,20 @@
 2. 现在不会备份拍立得照片了
 
 ---------------------
+---------------------
+
+##### 0.8.3 (可用)<a id="version_0.8.3"></a>
+[漫漫长夜备份工具_v0.8.3_msi](https://github.com/huimengli/BuckUpToolsForTheLongDark/releases/tag/%E6%BC%AB%E6%BC%AB%E9%95%BF%E5%A4%9C%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7_v0.8.3_msi)
+
+1. 添加了一些模块(来自于TLD-Save-Editor)
+2. 将几乎所有的cmd命令改成了c#原生API调用
+3. 添加了Log日志打印
+4. 添加了对于WinLator环境的兼容,现在程序应该可以在WinLator上运行了
+5. 删除了WinLator环境下的键盘钩子
+
+---------------------
+
+
 
 
 
