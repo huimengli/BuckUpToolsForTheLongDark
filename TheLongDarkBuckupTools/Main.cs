@@ -205,6 +205,7 @@ namespace TheLongDarkBuckupTools
 
         private void Main_Unload(object sender, EventArgs e)
         {
+            // 保存INI
             Item.SaveIni(IniPath,gameSavePath.val, textBox3.Text, saveTimes);
             var Saves = new List<BigData>();
             Saves.Add(new BigData("savePath", gameSavePath));
@@ -216,6 +217,12 @@ namespace TheLongDarkBuckupTools
             Saves.Add(new BigData("starWay",StarWay));
 
             Item.SaveFile(IniPath, Saves.ToArray().ToString(true));
+
+            // 如果Item打开了LogWriter则关闭
+            if (Item.LogWriter != null)
+            {
+                Item.LogWriter.Close();
+            }
         }
 
         //private void button5_Click(object sender, EventArgs e)

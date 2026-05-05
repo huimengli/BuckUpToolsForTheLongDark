@@ -13,6 +13,8 @@ using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 using TheLongDarkBuckupTools.Helpers;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using TheLongDarkBuckupTools.Class;
+using TheLongDarkBuckupTools.AddFunc;
 //using System.Diagnostics;
 
 namespace TheLongDarkBuckupTools
@@ -661,27 +663,20 @@ namespace TheLongDarkBuckupTools
         private Thread changeSurvivalOver = new Thread(SurvivalChange);
 
         /// <summary>
+        /// 需要排除的文件名开头
+        /// </summary>
+        private static List<string> ExcludeValue = new List<string>
+        {
+            "user",         //用户数据
+            "steam",        //steam文件
+            "profile",      //最新的profile文件
+            "photo"         //拍立得照片数据
+        };
+
+        /// <summary>
         /// 需要排除的文件
         /// </summary>
-        private static List<Regex> Exclude = new List<Regex>
-        {
-            /// <summary>
-            /// 测试是否是用户数据
-            /// </summary>
-            new Regex("user"),
-            /// <summary>
-            /// 测试是否是steam文件
-            /// </summary>
-            new Regex(@"steam"),
-            /// <summary>
-            /// 测试是否是profile文件
-            /// </summary>
-            new Regex(@"profile"),
-            /// <summary>
-            /// 测试是否是拍立得照片数据
-            /// </summary>
-            new Regex(@"photo"),
-        };
+        private static List<Regex> Exclude = ExcludeValue.Amplify(x => new Regex(x));
 
         /// <summary>
         /// 信号器
@@ -906,6 +901,7 @@ namespace TheLongDarkBuckupTools
                     {
                         if (Exclude.TestFile(item))
                         {
+                            Item.Log($"正在备份剧情模式存档文件: {item}");
                             //游戏进程没运行则直接备份不截图
                             Item.Save(item, autoSave.StoryBuckUpPath.val, time2.ToFileTimeUtc());
                         }
@@ -960,6 +956,7 @@ namespace TheLongDarkBuckupTools
                     {
                         if (Exclude.TestFile(item))
                         {
+                            Item.Log($"正在备份生存模式存档文件: {item}");
                             //游戏进程没运行则直接备份不截图
                             Item.Save(item, autoSave.SurvivalBuckUpPath.val, time2.ToFileTimeUtc());
                         }
@@ -1006,11 +1003,25 @@ namespace TheLongDarkBuckupTools
         {
             var ret = true;
 
-            for (int i = 0; i < regices.Count; i++)
+            if (WinLator.IsRunningOnWinLator)
             {
-                if (regices[i].IsMatch(fileName))
+                FileInfo file = new FileInfo(fileName);
+                for (int i = 0; i < regices.Count; i++)
                 {
-                    return false;
+                    if (file.NameWithoutExtension().ToLower().StartsWith(regices[i].ToString()))
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < regices.Count; i++)
+                {
+                    if (regices[i].IsMatch(fileName))
+                    {
+                        return false;
+                    }
                 }
             }
 

@@ -41,7 +41,12 @@ namespace TheLongDarkBuckupTools.Helpers
         /// <summary>
         /// 日志文件存放路径
         /// </summary>
-        public static string LogPath = Path.Combine(Application.StartupPath, "log.txt");
+        public static string LogPath = "log.txt";
+
+        /// <summary>
+        /// 日志文件写入器
+        /// </summary>
+        public static StreamWriter LogWriter;
 
         /// <summary>
         /// 打开网站|其他东西
@@ -355,7 +360,7 @@ namespace TheLongDarkBuckupTools.Helpers
             // var copyCmd = "copy /b \"" + path + "\\" + name + "\" \"" + savePath + "\\" + name + "_bf" + times + "\"";
             // //Main.saveTimes++;
             // UseCmd(copyCmd);
-            File.Copy(Path.Combine(path, name), Path.Combine(savePath, name + "_bf" + times.ToString()), true);
+            Save(file, savePath, times);
         }
 
         /// <summary>
@@ -672,6 +677,27 @@ namespace TheLongDarkBuckupTools.Helpers
 
 #if DEBUG
         /// <summary>
+        /// Log打印追加
+        /// </summary>
+        /// <param name="text"></param>
+        public static void LogAdd(string text)
+        {
+            if (LogWriter == null)
+            {
+                FileInfo logFile = new FileInfo(LogPath);
+                if (!File.Exists(LogPath))
+                {
+                    LogWriter = new StreamWriter(logFile.Open(FileMode.Create, FileAccess.Write, FileShare.ReadWrite), Encoding.UTF8);
+                }
+                else
+                {
+                    LogWriter = new StreamWriter(logFile.Open(FileMode.Append, FileAccess.Write, FileShare.ReadWrite), Encoding.UTF8);
+                }
+            }
+            LogWriter.WriteLine(text);
+        }
+
+        /// <summary>
         /// 打印日志
         /// </summary>
         /// <param name="text"></param>
@@ -689,11 +715,7 @@ namespace TheLongDarkBuckupTools.Helpers
             string log = String.Format("[{0}] ({1}:{2}) {3}: {4}", now.ToString("yyyy-MM-dd hh:mm:ss fff"), Path.GetFileName(file), line, member, text);
             Console.WriteLine(log);
 
-            if (!File.Exists(LogPath))
-            {
-                File.Create(LogPath).Close();
-            }
-            File.AppendAllText(LogPath, log + "\r\n", Encoding.UTF8);
+            LogAdd(log);
         }
 
         /// <summary>
@@ -714,11 +736,7 @@ namespace TheLongDarkBuckupTools.Helpers
             string log = String.Format("[{0}] ({1}:{2}) {3}: {4}", now.ToString("yyyy-MM-dd hh:mm:ss fff"), Path.GetFileName(file), line, member, text);
             Console.WriteLine(log);
 
-            if (!File.Exists(LogPath))
-            {
-                File.Create(LogPath).Close();
-            }
-            File.AppendAllText(LogPath, log + "\r\n", Encoding.UTF8);
+            LogAdd(log);
         }
 #else
         /// <summary>
