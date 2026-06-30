@@ -15,6 +15,8 @@ using TheLongDarkBuckupTools.Helpers;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using TheLongDarkBuckupTools.Class;
 using TheLongDarkBuckupTools.AddFunc;
+using System.Diagnostics;
+using ThreadState = System.Threading.ThreadState;
 //using System.Diagnostics;
 
 namespace TheLongDarkBuckupTools
@@ -882,8 +884,20 @@ namespace TheLongDarkBuckupTools
         {
             var time = DateTime.Now;
             Item.Log(time.ToString()+"线程开始");
-            //获取截图但是暂不保存
-            Image img = Item.Screenshot("", false);
+            ////获取截图但是暂不保存
+            //Image img = Item.Screenshot("", false);
+            Process[] processes = Process.GetProcessesByName("tld");
+            Image img;
+            if (processes.Length > 0 && WinLator.IsRunningOnWinLator == false)
+            {
+                //获取截图但是暂不保存
+                img = Item.Screenshot(processes[0],"", false);
+            }
+            else
+            {
+                //获取截图但是暂不保存
+                img = Item.Screenshot("", false);
+            }
             //等待,如果线程未结束,就开始进行备份
             Thread.Sleep(SaveWait * 1000);
             var time2 = DateTime.Now;
@@ -893,7 +907,7 @@ namespace TheLongDarkBuckupTools
                 foreach (var item in changeFiles)
                 {
                     Item.Log($"故事模式修改的文件: {item}");
-                    if (System.Diagnostics.Process.GetProcessesByName("tld").Length > 0 && WinLator.IsRunningOnWinLator == false)
+                    if (processes.Length > 0 && WinLator.IsRunningOnWinLator == false)
                     {
                         if (Exclude.TestFile(item))
                         {
@@ -937,8 +951,20 @@ namespace TheLongDarkBuckupTools
         {
             var time = DateTime.Now;
             Item.Log(time.ToString()+"线程开始");
-            //获取截图但是暂不保存
-            Image img = Item.Screenshot("", false);
+            ////获取截图但是暂不保存
+            //Image img = Item.Screenshot("", false);
+            Process[] processes = Process.GetProcessesByName("tld");
+            Image img;
+            if (processes.Length > 0 && WinLator.IsRunningOnWinLator == false)
+            {
+                //获取截图但是暂不保存
+                img = Item.Screenshot(processes[0], "", false);
+            }
+            else
+            {
+                //获取截图但是暂不保存
+                img = Item.Screenshot("", false);
+            }
             //等待,如果线程未结束,就开始进行备份
             Thread.Sleep(SaveWait * 1000);
             var time2 = DateTime.Now;
@@ -948,7 +974,7 @@ namespace TheLongDarkBuckupTools
                 foreach (var item in changeFiles)
                 {
                     Item.Log($"生存模式修改的文件: {item}");
-                    if (System.Diagnostics.Process.GetProcessesByName("tld").Length > 0 && WinLator.IsRunningOnWinLator == false)
+                    if (processes.Length > 0 && WinLator.IsRunningOnWinLator == false)
                     {
                         if (Exclude.TestFile(item))
                         {

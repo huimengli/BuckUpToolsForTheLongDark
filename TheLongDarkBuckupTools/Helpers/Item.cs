@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -476,6 +477,76 @@ namespace TheLongDarkBuckupTools.Helpers
                 img.Save(savePath);
             }
             return img;
+        }
+
+        // Windows API 导入
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetWindowRect(IntPtr hWnd, ref RECT rect);
+
+        [DllImport("user32.dll")]
+        private static extern bool IsWindowVisible(IntPtr hWnd);
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct RECT
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+
+        /// <summary>
+        /// 截图指定窗口
+        /// </summary>
+        /// <param name="gameProcess">目标进程</param>
+        /// <param name="savePath">保存路径（文件全名），若 nowSave 为 true 时使用</param>
+        /// <param name="nowSave">是否立即保存到文件</param>
+        /// <returns>截图的 Image 对象；若窗口无效或不可见，则返回 null</returns>
+        public static Image Screenshot(Process gameProcess, string savePath, bool nowSave)
+        {
+            if (gameProcess == null)
+                throw new ArgumentNullException(nameof(gameProcess));
+
+            IntPtr hWnd = gameProcess.MainWindowHandle;
+            if (hWnd == IntPtr.Zero)
+                return null;   // 没有主窗口
+
+            // 检查窗口是否可见（避免捕获不可见窗口）
+            if (!IsWindowVisible(hWnd))
+                return null;
+
+            RECT rect = new RECT();
+            if (GetWindowRect(hWnd, ref rect) == IntPtr.Zero)
+                return null;   // 获取窗口矩形失败
+
+            int width = rect.Right - rect.Left;
+            int height = rect.Bottom - rect.Top;
+            if (width <= 0 || height <= 0)
+                return null;
+
+            // 创建与窗口大小一致的 Bitmap
+            Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+                // 将屏幕指定区域复制到位图
+                g.CopyFromScreen(rect.Left, rect.Top, 0, 0, new Size(width, height));
+            }
+
+            // 如果需要保存，则保存为 PNG（可根据需要调整格式）
+            if (nowSave)
+            {
+                if (string.IsNullOrWhiteSpace(savePath))
+                    throw new ArgumentException("保存路径不能为空", nameof(savePath));
+
+                // 确保目录存在
+                string directory = System.IO.Path.GetDirectoryName(savePath);
+                if (!string.IsNullOrEmpty(directory) && !System.IO.Directory.Exists(directory))
+                    System.IO.Directory.CreateDirectory(directory);
+
+                bitmap.Save(savePath, ImageFormat.Png);
+            }
+
+            return bitmap;
         }
 
         #region 外来代码
