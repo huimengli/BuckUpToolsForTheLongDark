@@ -50,6 +50,116 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            // 徽章Tab控件
+            this.groupBoxFeats = new System.Windows.Forms.GroupBox();
+            this.trackBookSmarts = new System.Windows.Forms.TrackBar();
+            this.trackColdFusion = new System.Windows.Forms.TrackBar();
+            this.trackEfficientMachine = new System.Windows.Forms.TrackBar();
+            this.trackFireMaster = new System.Windows.Forms.TrackBar();
+            this.trackFreeRunner = new System.Windows.Forms.TrackBar();
+            this.trackSnowWalker = new System.Windows.Forms.TrackBar();
+            this.trackExpertTrapper = new System.Windows.Forms.TrackBar();
+            this.trackStraightToHeart = new System.Windows.Forms.TrackBar();
+            this.trackBlizzardWalker = new System.Windows.Forms.TrackBar();
+            this.lblBookSmarts = new System.Windows.Forms.Label();
+            this.lblColdFusion = new System.Windows.Forms.Label();
+            this.lblEfficientMachine = new System.Windows.Forms.Label();
+            this.lblFireMaster = new System.Windows.Forms.Label();
+            this.lblFreeRunner = new System.Windows.Forms.Label();
+            this.lblSnowWalker = new System.Windows.Forms.Label();
+            this.lblExpertTrapper = new System.Windows.Forms.Label();
+            this.lblStraightToHeart = new System.Windows.Forms.Label();
+            this.lblBlizzardWalker = new System.Windows.Forms.Label();
+            this.groupBox4DON = new System.Windows.Forms.GroupBox();
+            this.check4DON2018 = new System.Windows.Forms.CheckBox();
+            this.check4DON2019 = new System.Windows.Forms.CheckBox();
+            this.label4DONInfo = new System.Windows.Forms.Label();
+            this.labelProfileInfo = new System.Windows.Forms.Label();
+            this.btnSaveProfile = new System.Windows.Forms.Button();
+            // 玩家Tab控件
+            this.labelMode = new System.Windows.Forms.Label();
+            this.comboMode = new System.Windows.Forms.ComboBox();
+            this.labelCustom = new System.Windows.Forms.Label();
+            this.textCustomMode = new System.Windows.Forms.TextBox();
+            this.labelRegion = new System.Windows.Forms.Label();
+            this.comboRegion = new System.Windows.Forms.ComboBox();
+            this.groupBoxPos = new System.Windows.Forms.GroupBox();
+            this.labelPosX = new System.Windows.Forms.Label();
+            this.textPosX = new System.Windows.Forms.TextBox();
+            this.labelPosY = new System.Windows.Forms.Label();
+            this.textPosY = new System.Windows.Forms.TextBox();
+            this.labelPosZ = new System.Windows.Forms.Label();
+            this.textPosZ = new System.Windows.Forms.TextBox();
+            this.groupBoxStats = new System.Windows.Forms.GroupBox();
+            this.labelHP = new System.Windows.Forms.Label();
+            this.trackHP = new System.Windows.Forms.TrackBar();
+            this.lblHPValue = new System.Windows.Forms.Label();
+            this.labelCal = new System.Windows.Forms.Label();
+            this.textCalories = new System.Windows.Forms.TextBox();
+            this.labelThirst = new System.Windows.Forms.Label();
+            this.trackThirst = new System.Windows.Forms.TrackBar();
+            this.lblThirstValue = new System.Windows.Forms.Label();
+            this.labelFatigue = new System.Windows.Forms.Label();
+            this.trackFatigue = new System.Windows.Forms.TrackBar();
+            this.lblFatigueValue = new System.Windows.Forms.Label();
+            this.labelFreezing = new System.Windows.Forms.Label();
+            this.trackFreezing = new System.Windows.Forms.TrackBar();
+            this.lblFreezingValue = new System.Windows.Forms.Label();
+            this.groupBoxCheats = new System.Windows.Forms.GroupBox();
+            this.checkNeverDie = new System.Windows.Forms.CheckBox();
+            this.checkInvulnerable = new System.Windows.Forms.CheckBox();
+            this.checkInfiniteCarry = new System.Windows.Forms.CheckBox();
+            this.checkGod = new System.Windows.Forms.CheckBox();
+            // 地图Tab控件
+            this.labelMapInfo = new System.Windows.Forms.Label();
+            this.labelMapRegion = new System.Windows.Forms.Label();
+            this.comboMapRegion = new System.Windows.Forms.ComboBox();
+            this.groupBoxMapPos = new System.Windows.Forms.GroupBox();
+            this.labelMapX = new System.Windows.Forms.Label();
+            this.textMapX = new System.Windows.Forms.TextBox();
+            this.labelMapY = new System.Windows.Forms.Label();
+            this.textMapY = new System.Windows.Forms.TextBox();
+            this.labelMapZ = new System.Windows.Forms.Label();
+            this.textMapZ = new System.Windows.Forms.TextBox();
+            this.btnApplyMap = new System.Windows.Forms.Button();
+            // 技能Tab控件
+            this.labelSkill1 = new System.Windows.Forms.Label();
+            this.numSkill1 = new System.Windows.Forms.NumericUpDown();
+            this.labelSkill2 = new System.Windows.Forms.Label();
+            this.numSkill2 = new System.Windows.Forms.NumericUpDown();
+            this.labelSkill3 = new System.Windows.Forms.Label();
+            this.numSkill3 = new System.Windows.Forms.NumericUpDown();
+            this.labelSkill4 = new System.Windows.Forms.Label();
+            this.numSkill4 = new System.Windows.Forms.NumericUpDown();
+            this.labelSkill5 = new System.Windows.Forms.Label();
+            this.numSkill5 = new System.Windows.Forms.NumericUpDown();
+            this.labelSkill6 = new System.Windows.Forms.Label();
+            this.numSkill6 = new System.Windows.Forms.NumericUpDown();
+            this.labelSkill7 = new System.Windows.Forms.Label();
+            this.numSkill7 = new System.Windows.Forms.NumericUpDown();
+            this.labelSkill8 = new System.Windows.Forms.Label();
+            this.numSkill8 = new System.Windows.Forms.NumericUpDown();
+            this.labelSkill9 = new System.Windows.Forms.Label();
+            this.numSkill9 = new System.Windows.Forms.NumericUpDown();
+            this.labelSkillInfo = new System.Windows.Forms.Label();
+            // 病痛Tab控件
+            this.listViewAfflictions = new System.Windows.Forms.ListView();
+            this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderDetail = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnCureSelected = new System.Windows.Forms.Button();
+            this.btnCureAll = new System.Windows.Forms.Button();
+            this.btnRefreshAfflictions = new System.Windows.Forms.Button();
+            this.lblAfflictionCount = new System.Windows.Forms.Label();
+            // 背包Tab控件
+            this.dataGridViewItems = new System.Windows.Forms.DataGridView();
+            this.comboItem = new System.Windows.Forms.ComboBox();
+            this.btnAddItem = new System.Windows.Forms.Button();
+            this.btnDeleteItem = new System.Windows.Forms.Button();
+            this.btnRepairAll = new System.Windows.Forms.Button();
+            this.btnRemoveAll = new System.Windows.Forms.Button();
+            this.lblWeightInfo = new System.Windows.Forms.Label();
+            this.labelAddItem = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -58,6 +168,20 @@
             this.tabControl1.SuspendLayout();
             this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBookSmarts)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackColdFusion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackEfficientMachine)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackFireMaster)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackFreeRunner)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackSnowWalker)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackExpertTrapper)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackStraightToHeart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBlizzardWalker)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackHP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackThirst)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackFatigue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackFreezing)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -213,6 +337,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnSaveProfile);
+            this.tabPage1.Controls.Add(this.labelProfileInfo);
+            this.tabPage1.Controls.Add(this.groupBox4DON);
+            this.tabPage1.Controls.Add(this.groupBoxFeats);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -221,8 +349,265 @@
             this.tabPage1.Text = "徽章";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // groupBoxFeats
+            // 
+            this.groupBoxFeats.Controls.Add(this.lblBlizzardWalker);
+            this.groupBoxFeats.Controls.Add(this.lblStraightToHeart);
+            this.groupBoxFeats.Controls.Add(this.lblExpertTrapper);
+            this.groupBoxFeats.Controls.Add(this.lblSnowWalker);
+            this.groupBoxFeats.Controls.Add(this.lblFreeRunner);
+            this.groupBoxFeats.Controls.Add(this.lblFireMaster);
+            this.groupBoxFeats.Controls.Add(this.lblEfficientMachine);
+            this.groupBoxFeats.Controls.Add(this.lblColdFusion);
+            this.groupBoxFeats.Controls.Add(this.lblBookSmarts);
+            this.groupBoxFeats.Controls.Add(this.trackBlizzardWalker);
+            this.groupBoxFeats.Controls.Add(this.trackStraightToHeart);
+            this.groupBoxFeats.Controls.Add(this.trackExpertTrapper);
+            this.groupBoxFeats.Controls.Add(this.trackSnowWalker);
+            this.groupBoxFeats.Controls.Add(this.trackFreeRunner);
+            this.groupBoxFeats.Controls.Add(this.trackFireMaster);
+            this.groupBoxFeats.Controls.Add(this.trackEfficientMachine);
+            this.groupBoxFeats.Controls.Add(this.trackColdFusion);
+            this.groupBoxFeats.Controls.Add(this.trackBookSmarts);
+            this.groupBoxFeats.Location = new System.Drawing.Point(6, 28);
+            this.groupBoxFeats.Name = "groupBoxFeats";
+            this.groupBoxFeats.Size = new System.Drawing.Size(330, 398);
+            this.groupBoxFeats.TabIndex = 0;
+            this.groupBoxFeats.TabStop = false;
+            this.groupBoxFeats.Text = "特性进度(档案)";
+            // 
+            // trackBookSmarts
+            // 
+            this.trackBookSmarts.Location = new System.Drawing.Point(100, 22);
+            this.trackBookSmarts.Maximum = 250;
+            this.trackBookSmarts.Name = "trackBookSmarts";
+            this.trackBookSmarts.Size = new System.Drawing.Size(155, 45);
+            this.trackBookSmarts.TabIndex = 0;
+            this.trackBookSmarts.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // trackColdFusion
+            // 
+            this.trackColdFusion.Location = new System.Drawing.Point(100, 63);
+            this.trackColdFusion.Maximum = 100;
+            this.trackColdFusion.Name = "trackColdFusion";
+            this.trackColdFusion.Size = new System.Drawing.Size(155, 45);
+            this.trackColdFusion.TabIndex = 1;
+            this.trackColdFusion.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // trackEfficientMachine
+            // 
+            this.trackEfficientMachine.Location = new System.Drawing.Point(100, 104);
+            this.trackEfficientMachine.Maximum = 12000;
+            this.trackEfficientMachine.Name = "trackEfficientMachine";
+            this.trackEfficientMachine.Size = new System.Drawing.Size(155, 45);
+            this.trackEfficientMachine.TabIndex = 2;
+            this.trackEfficientMachine.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // trackFireMaster
+            // 
+            this.trackFireMaster.Location = new System.Drawing.Point(100, 145);
+            this.trackFireMaster.Maximum = 1000;
+            this.trackFireMaster.Name = "trackFireMaster";
+            this.trackFireMaster.Size = new System.Drawing.Size(155, 45);
+            this.trackFireMaster.TabIndex = 3;
+            this.trackFireMaster.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // trackFreeRunner
+            // 
+            this.trackFreeRunner.Location = new System.Drawing.Point(100, 186);
+            this.trackFreeRunner.Maximum = 50;
+            this.trackFreeRunner.Name = "trackFreeRunner";
+            this.trackFreeRunner.Size = new System.Drawing.Size(155, 45);
+            this.trackFreeRunner.TabIndex = 4;
+            this.trackFreeRunner.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // trackSnowWalker
+            // 
+            this.trackSnowWalker.Location = new System.Drawing.Point(100, 227);
+            this.trackSnowWalker.Maximum = 1000;
+            this.trackSnowWalker.Name = "trackSnowWalker";
+            this.trackSnowWalker.Size = new System.Drawing.Size(155, 45);
+            this.trackSnowWalker.TabIndex = 5;
+            this.trackSnowWalker.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // trackExpertTrapper
+            // 
+            this.trackExpertTrapper.Location = new System.Drawing.Point(100, 268);
+            this.trackExpertTrapper.Maximum = 100;
+            this.trackExpertTrapper.Name = "trackExpertTrapper";
+            this.trackExpertTrapper.Size = new System.Drawing.Size(155, 45);
+            this.trackExpertTrapper.TabIndex = 6;
+            this.trackExpertTrapper.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // trackStraightToHeart
+            // 
+            this.trackStraightToHeart.Location = new System.Drawing.Point(100, 309);
+            this.trackStraightToHeart.Maximum = 250;
+            this.trackStraightToHeart.Name = "trackStraightToHeart";
+            this.trackStraightToHeart.Size = new System.Drawing.Size(155, 45);
+            this.trackStraightToHeart.TabIndex = 7;
+            this.trackStraightToHeart.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // trackBlizzardWalker
+            // 
+            this.trackBlizzardWalker.Location = new System.Drawing.Point(100, 350);
+            this.trackBlizzardWalker.Maximum = 480;
+            this.trackBlizzardWalker.Name = "trackBlizzardWalker";
+            this.trackBlizzardWalker.Size = new System.Drawing.Size(155, 45);
+            this.trackBlizzardWalker.TabIndex = 8;
+            this.trackBlizzardWalker.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // lblBookSmarts
+            // 
+            this.lblBookSmarts.AutoSize = true;
+            this.lblBookSmarts.Location = new System.Drawing.Point(10, 34);
+            this.lblBookSmarts.Name = "lblBookSmarts";
+            this.lblBookSmarts.Size = new System.Drawing.Size(59, 12);
+            this.lblBookSmarts.TabIndex = 9;
+            this.lblBookSmarts.Text = "博学:";
+            // 
+            // lblColdFusion
+            // 
+            this.lblColdFusion.AutoSize = true;
+            this.lblColdFusion.Location = new System.Drawing.Point(10, 75);
+            this.lblColdFusion.Name = "lblColdFusion";
+            this.lblColdFusion.Size = new System.Drawing.Size(59, 12);
+            this.lblColdFusion.TabIndex = 10;
+            this.lblColdFusion.Text = "冷聚变:";
+            // 
+            // lblEfficientMachine
+            // 
+            this.lblEfficientMachine.AutoSize = true;
+            this.lblEfficientMachine.Location = new System.Drawing.Point(10, 116);
+            this.lblEfficientMachine.Name = "lblEfficientMachine";
+            this.lblEfficientMachine.Size = new System.Drawing.Size(59, 12);
+            this.lblEfficientMachine.TabIndex = 11;
+            this.lblEfficientMachine.Text = "高效机器:";
+            // 
+            // lblFireMaster
+            // 
+            this.lblFireMaster.AutoSize = true;
+            this.lblFireMaster.Location = new System.Drawing.Point(10, 157);
+            this.lblFireMaster.Name = "lblFireMaster";
+            this.lblFireMaster.Size = new System.Drawing.Size(59, 12);
+            this.lblFireMaster.TabIndex = 12;
+            this.lblFireMaster.Text = "火焰大师:";
+            // 
+            // lblFreeRunner
+            // 
+            this.lblFreeRunner.AutoSize = true;
+            this.lblFreeRunner.Location = new System.Drawing.Point(10, 198);
+            this.lblFreeRunner.Name = "lblFreeRunner";
+            this.lblFreeRunner.Size = new System.Drawing.Size(59, 12);
+            this.lblFreeRunner.TabIndex = 13;
+            this.lblFreeRunner.Text = "自由奔跑:";
+            // 
+            // lblSnowWalker
+            // 
+            this.lblSnowWalker.AutoSize = true;
+            this.lblSnowWalker.Location = new System.Drawing.Point(10, 239);
+            this.lblSnowWalker.Name = "lblSnowWalker";
+            this.lblSnowWalker.Size = new System.Drawing.Size(59, 12);
+            this.lblSnowWalker.TabIndex = 14;
+            this.lblSnowWalker.Text = "雪地行者:";
+            // 
+            // lblExpertTrapper
+            // 
+            this.lblExpertTrapper.AutoSize = true;
+            this.lblExpertTrapper.Location = new System.Drawing.Point(10, 280);
+            this.lblExpertTrapper.Name = "lblExpertTrapper";
+            this.lblExpertTrapper.Size = new System.Drawing.Size(59, 12);
+            this.lblExpertTrapper.TabIndex = 15;
+            this.lblExpertTrapper.Text = "捕猎专家:";
+            // 
+            // lblStraightToHeart
+            // 
+            this.lblStraightToHeart.AutoSize = true;
+            this.lblStraightToHeart.Location = new System.Drawing.Point(10, 321);
+            this.lblStraightToHeart.Name = "lblStraightToHeart";
+            this.lblStraightToHeart.Size = new System.Drawing.Size(59, 12);
+            this.lblStraightToHeart.TabIndex = 16;
+            this.lblStraightToHeart.Text = "直击心脏:";
+            // 
+            // lblBlizzardWalker
+            // 
+            this.lblBlizzardWalker.AutoSize = true;
+            this.lblBlizzardWalker.Location = new System.Drawing.Point(10, 362);
+            this.lblBlizzardWalker.Name = "lblBlizzardWalker";
+            this.lblBlizzardWalker.Size = new System.Drawing.Size(59, 12);
+            this.lblBlizzardWalker.TabIndex = 17;
+            this.lblBlizzardWalker.Text = "暴雪行者:";
+            // 
+            // groupBox4DON
+            // 
+            this.groupBox4DON.Controls.Add(this.label4DONInfo);
+            this.groupBox4DON.Controls.Add(this.check4DON2019);
+            this.groupBox4DON.Controls.Add(this.check4DON2018);
+            this.groupBox4DON.Location = new System.Drawing.Point(342, 28);
+            this.groupBox4DON.Name = "groupBox4DON";
+            this.groupBox4DON.Size = new System.Drawing.Size(199, 250);
+            this.groupBox4DON.TabIndex = 1;
+            this.groupBox4DON.TabStop = false;
+            this.groupBox4DON.Text = "4DON徽章";
+            // 
+            // check4DON2018
+            // 
+            this.check4DON2018.AutoSize = true;
+            this.check4DON2018.Location = new System.Drawing.Point(10, 25);
+            this.check4DON2018.Name = "check4DON2018";
+            this.check4DON2018.Size = new System.Drawing.Size(96, 16);
+            this.check4DON2018.TabIndex = 0;
+            this.check4DON2018.Text = "2018四日之夜";
+            this.check4DON2018.UseVisualStyleBackColor = true;
+            // 
+            // check4DON2019
+            // 
+            this.check4DON2019.AutoSize = true;
+            this.check4DON2019.Location = new System.Drawing.Point(10, 50);
+            this.check4DON2019.Name = "check4DON2019";
+            this.check4DON2019.Size = new System.Drawing.Size(96, 16);
+            this.check4DON2019.TabIndex = 1;
+            this.check4DON2019.Text = "2019四日之夜";
+            this.check4DON2019.UseVisualStyleBackColor = true;
+            // 
+            // label4DONInfo
+            // 
+            this.label4DONInfo.AutoSize = true;
+            this.label4DONInfo.Location = new System.Drawing.Point(10, 80);
+            this.label4DONInfo.Name = "label4DONInfo";
+            this.label4DONInfo.Size = new System.Drawing.Size(185, 96);
+            this.label4DONInfo.TabIndex = 2;
+            this.label4DONInfo.Text = "四日之夜徽章需要在档案中完成\r\n全部4天挑战才会解锁。\r\n勾选代表该年挑战已完成。\r\n\r\n提示:需保存档案后才生效。";
+            // 
+            // labelProfileInfo
+            // 
+            this.labelProfileInfo.AutoSize = true;
+            this.labelProfileInfo.Location = new System.Drawing.Point(6, 8);
+            this.labelProfileInfo.Name = "labelProfileInfo";
+            this.labelProfileInfo.Size = new System.Drawing.Size(335, 12);
+            this.labelProfileInfo.TabIndex = 2;
+            this.labelProfileInfo.Text = "档案文件:未找到(本存档目录下无user档案)";
+            // 
+            // btnSaveProfile
+            // 
+            this.btnSaveProfile.Location = new System.Drawing.Point(342, 284);
+            this.btnSaveProfile.Name = "btnSaveProfile";
+            this.btnSaveProfile.Size = new System.Drawing.Size(199, 30);
+            this.btnSaveProfile.TabIndex = 3;
+            this.btnSaveProfile.Text = "保存档案";
+            this.btnSaveProfile.UseVisualStyleBackColor = true;
+            // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBoxCheats);
+            this.tabPage2.Controls.Add(this.groupBoxStats);
+            this.tabPage2.Controls.Add(this.groupBoxPos);
+            this.tabPage2.Controls.Add(this.comboRegion);
+            this.tabPage2.Controls.Add(this.labelRegion);
+            this.tabPage2.Controls.Add(this.textCustomMode);
+            this.tabPage2.Controls.Add(this.labelCustom);
+            this.tabPage2.Controls.Add(this.comboMode);
+            this.tabPage2.Controls.Add(this.labelMode);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -231,8 +616,328 @@
             this.tabPage2.Text = "玩家";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // labelMode
+            // 
+            this.labelMode.AutoSize = true;
+            this.labelMode.Location = new System.Drawing.Point(12, 13);
+            this.labelMode.Name = "labelMode";
+            this.labelMode.Size = new System.Drawing.Size(59, 12);
+            this.labelMode.TabIndex = 0;
+            this.labelMode.Text = "体验模式:";
+            // 
+            // comboMode
+            // 
+            this.comboMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboMode.FormattingEnabled = true;
+            this.comboMode.Location = new System.Drawing.Point(90, 10);
+            this.comboMode.Name = "comboMode";
+            this.comboMode.Size = new System.Drawing.Size(200, 20);
+            this.comboMode.TabIndex = 1;
+            // 
+            // labelCustom
+            // 
+            this.labelCustom.AutoSize = true;
+            this.labelCustom.Location = new System.Drawing.Point(12, 43);
+            this.labelCustom.Name = "labelCustom";
+            this.labelCustom.Size = new System.Drawing.Size(59, 12);
+            this.labelCustom.TabIndex = 2;
+            this.labelCustom.Text = "自定义模式:";
+            // 
+            // textCustomMode
+            // 
+            this.textCustomMode.Location = new System.Drawing.Point(90, 40);
+            this.textCustomMode.Name = "textCustomMode";
+            this.textCustomMode.Size = new System.Drawing.Size(200, 21);
+            this.textCustomMode.TabIndex = 3;
+            // 
+            // labelRegion
+            // 
+            this.labelRegion.AutoSize = true;
+            this.labelRegion.Location = new System.Drawing.Point(12, 73);
+            this.labelRegion.Name = "labelRegion";
+            this.labelRegion.Size = new System.Drawing.Size(59, 12);
+            this.labelRegion.TabIndex = 4;
+            this.labelRegion.Text = "当前区域:";
+            // 
+            // comboRegion
+            // 
+            this.comboRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboRegion.FormattingEnabled = true;
+            this.comboRegion.Location = new System.Drawing.Point(90, 70);
+            this.comboRegion.Name = "comboRegion";
+            this.comboRegion.Size = new System.Drawing.Size(200, 20);
+            this.comboRegion.TabIndex = 5;
+            // 
+            // groupBoxPos
+            // 
+            this.groupBoxPos.Controls.Add(this.textPosZ);
+            this.groupBoxPos.Controls.Add(this.labelPosZ);
+            this.groupBoxPos.Controls.Add(this.textPosY);
+            this.groupBoxPos.Controls.Add(this.labelPosY);
+            this.groupBoxPos.Controls.Add(this.textPosX);
+            this.groupBoxPos.Controls.Add(this.labelPosX);
+            this.groupBoxPos.Location = new System.Drawing.Point(12, 100);
+            this.groupBoxPos.Name = "groupBoxPos";
+            this.groupBoxPos.Size = new System.Drawing.Size(278, 60);
+            this.groupBoxPos.TabIndex = 6;
+            this.groupBoxPos.TabStop = false;
+            this.groupBoxPos.Text = "位置坐标(X,Z,Y)";
+            // 
+            // labelPosX
+            // 
+            this.labelPosX.AutoSize = true;
+            this.labelPosX.Location = new System.Drawing.Point(10, 27);
+            this.labelPosX.Name = "labelPosX";
+            this.labelPosX.Size = new System.Drawing.Size(23, 12);
+            this.labelPosX.TabIndex = 0;
+            this.labelPosX.Text = "X:";
+            // 
+            // textPosX
+            // 
+            this.textPosX.Location = new System.Drawing.Point(36, 24);
+            this.textPosX.Name = "textPosX";
+            this.textPosX.Size = new System.Drawing.Size(60, 21);
+            this.textPosX.TabIndex = 1;
+            // 
+            // labelPosY
+            // 
+            this.labelPosY.AutoSize = true;
+            this.labelPosY.Location = new System.Drawing.Point(102, 27);
+            this.labelPosY.Name = "labelPosY";
+            this.labelPosY.Size = new System.Drawing.Size(23, 12);
+            this.labelPosY.TabIndex = 2;
+            this.labelPosY.Text = "Y:";
+            // 
+            // textPosY
+            // 
+            this.textPosY.Location = new System.Drawing.Point(128, 24);
+            this.textPosY.Name = "textPosY";
+            this.textPosY.Size = new System.Drawing.Size(60, 21);
+            this.textPosY.TabIndex = 3;
+            // 
+            // labelPosZ
+            // 
+            this.labelPosZ.AutoSize = true;
+            this.labelPosZ.Location = new System.Drawing.Point(194, 27);
+            this.labelPosZ.Name = "labelPosZ";
+            this.labelPosZ.Size = new System.Drawing.Size(23, 12);
+            this.labelPosZ.TabIndex = 4;
+            this.labelPosZ.Text = "Z:";
+            // 
+            // textPosZ
+            // 
+            this.textPosZ.Location = new System.Drawing.Point(220, 24);
+            this.textPosZ.Name = "textPosZ";
+            this.textPosZ.Size = new System.Drawing.Size(48, 21);
+            this.textPosZ.TabIndex = 5;
+            // 
+            // groupBoxStats
+            // 
+            this.groupBoxStats.Controls.Add(this.lblFreezingValue);
+            this.groupBoxStats.Controls.Add(this.trackFreezing);
+            this.groupBoxStats.Controls.Add(this.labelFreezing);
+            this.groupBoxStats.Controls.Add(this.lblFatigueValue);
+            this.groupBoxStats.Controls.Add(this.trackFatigue);
+            this.groupBoxStats.Controls.Add(this.labelFatigue);
+            this.groupBoxStats.Controls.Add(this.lblThirstValue);
+            this.groupBoxStats.Controls.Add(this.trackThirst);
+            this.groupBoxStats.Controls.Add(this.labelThirst);
+            this.groupBoxStats.Controls.Add(this.textCalories);
+            this.groupBoxStats.Controls.Add(this.labelCal);
+            this.groupBoxStats.Controls.Add(this.lblHPValue);
+            this.groupBoxStats.Controls.Add(this.trackHP);
+            this.groupBoxStats.Controls.Add(this.labelHP);
+            this.groupBoxStats.Location = new System.Drawing.Point(12, 170);
+            this.groupBoxStats.Name = "groupBoxStats";
+            this.groupBoxStats.Size = new System.Drawing.Size(278, 250);
+            this.groupBoxStats.TabIndex = 7;
+            this.groupBoxStats.TabStop = false;
+            this.groupBoxStats.Text = "生存状态";
+            // 
+            // labelHP
+            // 
+            this.labelHP.AutoSize = true;
+            this.labelHP.Location = new System.Drawing.Point(10, 27);
+            this.labelHP.Name = "labelHP";
+            this.labelHP.Size = new System.Drawing.Size(35, 12);
+            this.labelHP.TabIndex = 0;
+            this.labelHP.Text = "健康:";
+            // 
+            // trackHP
+            // 
+            this.trackHP.Location = new System.Drawing.Point(60, 20);
+            this.trackHP.Maximum = 100;
+            this.trackHP.Name = "trackHP";
+            this.trackHP.Size = new System.Drawing.Size(160, 45);
+            this.trackHP.TabIndex = 1;
+            this.trackHP.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // lblHPValue
+            // 
+            this.lblHPValue.AutoSize = true;
+            this.lblHPValue.Location = new System.Drawing.Point(230, 28);
+            this.lblHPValue.Name = "lblHPValue";
+            this.lblHPValue.Size = new System.Drawing.Size(29, 12);
+            this.lblHPValue.TabIndex = 2;
+            this.lblHPValue.Text = "100";
+            // 
+            // labelCal
+            // 
+            this.labelCal.AutoSize = true;
+            this.labelCal.Location = new System.Drawing.Point(10, 67);
+            this.labelCal.Name = "labelCal";
+            this.labelCal.Size = new System.Drawing.Size(47, 12);
+            this.labelCal.TabIndex = 3;
+            this.labelCal.Text = "卡路里:";
+            // 
+            // textCalories
+            // 
+            this.textCalories.Location = new System.Drawing.Point(60, 64);
+            this.textCalories.Name = "textCalories";
+            this.textCalories.Size = new System.Drawing.Size(160, 21);
+            this.textCalories.TabIndex = 4;
+            // 
+            // labelThirst
+            // 
+            this.labelThirst.AutoSize = true;
+            this.labelThirst.Location = new System.Drawing.Point(10, 102);
+            this.labelThirst.Name = "labelThirst";
+            this.labelThirst.Size = new System.Drawing.Size(35, 12);
+            this.labelThirst.TabIndex = 5;
+            this.labelThirst.Text = "口渴:";
+            // 
+            // trackThirst
+            // 
+            this.trackThirst.Location = new System.Drawing.Point(60, 95);
+            this.trackThirst.Maximum = 100;
+            this.trackThirst.Name = "trackThirst";
+            this.trackThirst.Size = new System.Drawing.Size(160, 45);
+            this.trackThirst.TabIndex = 6;
+            this.trackThirst.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // lblThirstValue
+            // 
+            this.lblThirstValue.AutoSize = true;
+            this.lblThirstValue.Location = new System.Drawing.Point(230, 103);
+            this.lblThirstValue.Name = "lblThirstValue";
+            this.lblThirstValue.Size = new System.Drawing.Size(29, 12);
+            this.lblThirstValue.TabIndex = 7;
+            this.lblThirstValue.Text = "0";
+            // 
+            // labelFatigue
+            // 
+            this.labelFatigue.AutoSize = true;
+            this.labelFatigue.Location = new System.Drawing.Point(10, 147);
+            this.labelFatigue.Name = "labelFatigue";
+            this.labelFatigue.Size = new System.Drawing.Size(35, 12);
+            this.labelFatigue.TabIndex = 8;
+            this.labelFatigue.Text = "疲劳:";
+            // 
+            // trackFatigue
+            // 
+            this.trackFatigue.Location = new System.Drawing.Point(60, 140);
+            this.trackFatigue.Maximum = 100;
+            this.trackFatigue.Name = "trackFatigue";
+            this.trackFatigue.Size = new System.Drawing.Size(160, 45);
+            this.trackFatigue.TabIndex = 9;
+            this.trackFatigue.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // lblFatigueValue
+            // 
+            this.lblFatigueValue.AutoSize = true;
+            this.lblFatigueValue.Location = new System.Drawing.Point(230, 148);
+            this.lblFatigueValue.Name = "lblFatigueValue";
+            this.lblFatigueValue.Size = new System.Drawing.Size(29, 12);
+            this.lblFatigueValue.TabIndex = 10;
+            this.lblFatigueValue.Text = "0";
+            // 
+            // labelFreezing
+            // 
+            this.labelFreezing.AutoSize = true;
+            this.labelFreezing.Location = new System.Drawing.Point(10, 192);
+            this.labelFreezing.Name = "labelFreezing";
+            this.labelFreezing.Size = new System.Drawing.Size(35, 12);
+            this.labelFreezing.TabIndex = 11;
+            this.labelFreezing.Text = "寒冷:";
+            // 
+            // trackFreezing
+            // 
+            this.trackFreezing.Location = new System.Drawing.Point(60, 185);
+            this.trackFreezing.Maximum = 100;
+            this.trackFreezing.Name = "trackFreezing";
+            this.trackFreezing.Size = new System.Drawing.Size(160, 45);
+            this.trackFreezing.TabIndex = 12;
+            this.trackFreezing.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // lblFreezingValue
+            // 
+            this.lblFreezingValue.AutoSize = true;
+            this.lblFreezingValue.Location = new System.Drawing.Point(230, 193);
+            this.lblFreezingValue.Name = "lblFreezingValue";
+            this.lblFreezingValue.Size = new System.Drawing.Size(29, 12);
+            this.lblFreezingValue.TabIndex = 13;
+            this.lblFreezingValue.Text = "0";
+            // 
+            // groupBoxCheats
+            // 
+            this.groupBoxCheats.Controls.Add(this.checkGod);
+            this.groupBoxCheats.Controls.Add(this.checkInfiniteCarry);
+            this.groupBoxCheats.Controls.Add(this.checkInvulnerable);
+            this.groupBoxCheats.Controls.Add(this.checkNeverDie);
+            this.groupBoxCheats.Location = new System.Drawing.Point(300, 10);
+            this.groupBoxCheats.Name = "groupBoxCheats";
+            this.groupBoxCheats.Size = new System.Drawing.Size(240, 160);
+            this.groupBoxCheats.TabIndex = 8;
+            this.groupBoxCheats.TabStop = false;
+            this.groupBoxCheats.Text = "开关";
+            // 
+            // checkNeverDie
+            // 
+            this.checkNeverDie.AutoSize = true;
+            this.checkNeverDie.Location = new System.Drawing.Point(10, 25);
+            this.checkNeverDie.Name = "checkNeverDie";
+            this.checkNeverDie.Size = new System.Drawing.Size(72, 16);
+            this.checkNeverDie.TabIndex = 0;
+            this.checkNeverDie.Text = "永不死亡";
+            this.checkNeverDie.UseVisualStyleBackColor = true;
+            // 
+            // checkInvulnerable
+            // 
+            this.checkInvulnerable.AutoSize = true;
+            this.checkInvulnerable.Location = new System.Drawing.Point(10, 55);
+            this.checkInvulnerable.Name = "checkInvulnerable";
+            this.checkInvulnerable.Size = new System.Drawing.Size(72, 16);
+            this.checkInvulnerable.TabIndex = 1;
+            this.checkInvulnerable.Text = "无敌模式";
+            this.checkInvulnerable.UseVisualStyleBackColor = true;
+            // 
+            // checkInfiniteCarry
+            // 
+            this.checkInfiniteCarry.AutoSize = true;
+            this.checkInfiniteCarry.Location = new System.Drawing.Point(10, 85);
+            this.checkInfiniteCarry.Name = "checkInfiniteCarry";
+            this.checkInfiniteCarry.Size = new System.Drawing.Size(96, 16);
+            this.checkInfiniteCarry.TabIndex = 2;
+            this.checkInfiniteCarry.Text = "无限负重";
+            this.checkInfiniteCarry.UseVisualStyleBackColor = true;
+            // 
+            // checkGod
+            // 
+            this.checkGod.AutoSize = true;
+            this.checkGod.Location = new System.Drawing.Point(10, 115);
+            this.checkGod.Name = "checkGod";
+            this.checkGod.Size = new System.Drawing.Size(96, 16);
+            this.checkGod.TabIndex = 3;
+            this.checkGod.Text = "上帝模式";
+            this.checkGod.UseVisualStyleBackColor = true;
+            // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btnApplyMap);
+            this.tabPage3.Controls.Add(this.groupBoxMapPos);
+            this.tabPage3.Controls.Add(this.comboMapRegion);
+            this.tabPage3.Controls.Add(this.labelMapRegion);
+            this.tabPage3.Controls.Add(this.labelMapInfo);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -241,8 +946,126 @@
             this.tabPage3.Text = "地图";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // labelMapInfo
+            // 
+            this.labelMapInfo.AutoSize = true;
+            this.labelMapInfo.Location = new System.Drawing.Point(12, 13);
+            this.labelMapInfo.Name = "labelMapInfo";
+            this.labelMapInfo.Size = new System.Drawing.Size(365, 12);
+            this.labelMapInfo.TabIndex = 0;
+            this.labelMapInfo.Text = "地图信息:设置玩家所在区域与坐标,修改后记得保存存档。";
+            // 
+            // labelMapRegion
+            // 
+            this.labelMapRegion.AutoSize = true;
+            this.labelMapRegion.Location = new System.Drawing.Point(12, 43);
+            this.labelMapRegion.Name = "labelMapRegion";
+            this.labelMapRegion.Size = new System.Drawing.Size(59, 12);
+            this.labelMapRegion.TabIndex = 1;
+            this.labelMapRegion.Text = "所在区域:";
+            // 
+            // comboMapRegion
+            // 
+            this.comboMapRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboMapRegion.FormattingEnabled = true;
+            this.comboMapRegion.Location = new System.Drawing.Point(90, 40);
+            this.comboMapRegion.Name = "comboMapRegion";
+            this.comboMapRegion.Size = new System.Drawing.Size(200, 20);
+            this.comboMapRegion.TabIndex = 2;
+            // 
+            // groupBoxMapPos
+            // 
+            this.groupBoxMapPos.Controls.Add(this.textMapZ);
+            this.groupBoxMapPos.Controls.Add(this.labelMapZ);
+            this.groupBoxMapPos.Controls.Add(this.textMapY);
+            this.groupBoxMapPos.Controls.Add(this.labelMapY);
+            this.groupBoxMapPos.Controls.Add(this.textMapX);
+            this.groupBoxMapPos.Controls.Add(this.labelMapX);
+            this.groupBoxMapPos.Location = new System.Drawing.Point(12, 75);
+            this.groupBoxMapPos.Name = "groupBoxMapPos";
+            this.groupBoxMapPos.Size = new System.Drawing.Size(278, 60);
+            this.groupBoxMapPos.TabIndex = 3;
+            this.groupBoxMapPos.TabStop = false;
+            this.groupBoxMapPos.Text = "玩家坐标(X,Z,Y)";
+            // 
+            // labelMapX
+            // 
+            this.labelMapX.AutoSize = true;
+            this.labelMapX.Location = new System.Drawing.Point(10, 27);
+            this.labelMapX.Name = "labelMapX";
+            this.labelMapX.Size = new System.Drawing.Size(23, 12);
+            this.labelMapX.TabIndex = 0;
+            this.labelMapX.Text = "X:";
+            // 
+            // textMapX
+            // 
+            this.textMapX.Location = new System.Drawing.Point(36, 24);
+            this.textMapX.Name = "textMapX";
+            this.textMapX.Size = new System.Drawing.Size(60, 21);
+            this.textMapX.TabIndex = 1;
+            // 
+            // labelMapY
+            // 
+            this.labelMapY.AutoSize = true;
+            this.labelMapY.Location = new System.Drawing.Point(102, 27);
+            this.labelMapY.Name = "labelMapY";
+            this.labelMapY.Size = new System.Drawing.Size(23, 12);
+            this.labelMapY.TabIndex = 2;
+            this.labelMapY.Text = "Y:";
+            // 
+            // textMapY
+            // 
+            this.textMapY.Location = new System.Drawing.Point(128, 24);
+            this.textMapY.Name = "textMapY";
+            this.textMapY.Size = new System.Drawing.Size(60, 21);
+            this.textMapY.TabIndex = 3;
+            // 
+            // labelMapZ
+            // 
+            this.labelMapZ.AutoSize = true;
+            this.labelMapZ.Location = new System.Drawing.Point(194, 27);
+            this.labelMapZ.Name = "labelMapZ";
+            this.labelMapZ.Size = new System.Drawing.Size(23, 12);
+            this.labelMapZ.TabIndex = 4;
+            this.labelMapZ.Text = "Z:";
+            // 
+            // textMapZ
+            // 
+            this.textMapZ.Location = new System.Drawing.Point(220, 24);
+            this.textMapZ.Name = "textMapZ";
+            this.textMapZ.Size = new System.Drawing.Size(48, 21);
+            this.textMapZ.TabIndex = 5;
+            // 
+            // btnApplyMap
+            // 
+            this.btnApplyMap.Location = new System.Drawing.Point(90, 145);
+            this.btnApplyMap.Name = "btnApplyMap";
+            this.btnApplyMap.Size = new System.Drawing.Size(100, 28);
+            this.btnApplyMap.TabIndex = 4;
+            this.btnApplyMap.Text = "应用坐标";
+            this.btnApplyMap.UseVisualStyleBackColor = true;
+            // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.labelSkillInfo);
+            this.tabPage4.Controls.Add(this.numSkill9);
+            this.tabPage4.Controls.Add(this.labelSkill9);
+            this.tabPage4.Controls.Add(this.numSkill8);
+            this.tabPage4.Controls.Add(this.labelSkill8);
+            this.tabPage4.Controls.Add(this.numSkill7);
+            this.tabPage4.Controls.Add(this.labelSkill7);
+            this.tabPage4.Controls.Add(this.numSkill6);
+            this.tabPage4.Controls.Add(this.labelSkill6);
+            this.tabPage4.Controls.Add(this.numSkill5);
+            this.tabPage4.Controls.Add(this.labelSkill5);
+            this.tabPage4.Controls.Add(this.numSkill4);
+            this.tabPage4.Controls.Add(this.labelSkill4);
+            this.tabPage4.Controls.Add(this.numSkill3);
+            this.tabPage4.Controls.Add(this.labelSkill3);
+            this.tabPage4.Controls.Add(this.numSkill2);
+            this.tabPage4.Controls.Add(this.labelSkill2);
+            this.tabPage4.Controls.Add(this.numSkill1);
+            this.tabPage4.Controls.Add(this.labelSkill1);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -251,8 +1074,176 @@
             this.tabPage4.Text = "技能";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // labelSkill1
+            // 
+            this.labelSkill1.AutoSize = true;
+            this.labelSkill1.Location = new System.Drawing.Point(20, 25);
+            this.labelSkill1.Name = "labelSkill1";
+            this.labelSkill1.Size = new System.Drawing.Size(59, 12);
+            this.labelSkill1.TabIndex = 0;
+            this.labelSkill1.Text = "生火:";
+            // 
+            // numSkill1
+            // 
+            this.numSkill1.Location = new System.Drawing.Point(110, 20);
+            this.numSkill1.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            this.numSkill1.Name = "numSkill1";
+            this.numSkill1.Size = new System.Drawing.Size(100, 21);
+            this.numSkill1.TabIndex = 1;
+            // 
+            // labelSkill2
+            // 
+            this.labelSkill2.AutoSize = true;
+            this.labelSkill2.Location = new System.Drawing.Point(20, 65);
+            this.labelSkill2.Name = "labelSkill2";
+            this.labelSkill2.Size = new System.Drawing.Size(59, 12);
+            this.labelSkill2.TabIndex = 2;
+            this.labelSkill2.Text = "尸体处理:";
+            // 
+            // numSkill2
+            // 
+            this.numSkill2.Location = new System.Drawing.Point(110, 60);
+            this.numSkill2.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            this.numSkill2.Name = "numSkill2";
+            this.numSkill2.Size = new System.Drawing.Size(100, 21);
+            this.numSkill2.TabIndex = 3;
+            // 
+            // labelSkill3
+            // 
+            this.labelSkill3.AutoSize = true;
+            this.labelSkill3.Location = new System.Drawing.Point(20, 105);
+            this.labelSkill3.Name = "labelSkill3";
+            this.labelSkill3.Size = new System.Drawing.Size(59, 12);
+            this.labelSkill3.TabIndex = 4;
+            this.labelSkill3.Text = "烹饪:";
+            // 
+            // numSkill3
+            // 
+            this.numSkill3.Location = new System.Drawing.Point(110, 100);
+            this.numSkill3.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            this.numSkill3.Name = "numSkill3";
+            this.numSkill3.Size = new System.Drawing.Size(100, 21);
+            this.numSkill3.TabIndex = 5;
+            // 
+            // labelSkill4
+            // 
+            this.labelSkill4.AutoSize = true;
+            this.labelSkill4.Location = new System.Drawing.Point(20, 145);
+            this.labelSkill4.Name = "labelSkill4";
+            this.labelSkill4.Size = new System.Drawing.Size(59, 12);
+            this.labelSkill4.TabIndex = 6;
+            this.labelSkill4.Text = "冰钓:";
+            // 
+            // numSkill4
+            // 
+            this.numSkill4.Location = new System.Drawing.Point(110, 140);
+            this.numSkill4.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            this.numSkill4.Name = "numSkill4";
+            this.numSkill4.Size = new System.Drawing.Size(100, 21);
+            this.numSkill4.TabIndex = 7;
+            // 
+            // labelSkill5
+            // 
+            this.labelSkill5.AutoSize = true;
+            this.labelSkill5.Location = new System.Drawing.Point(20, 185);
+            this.labelSkill5.Name = "labelSkill5";
+            this.labelSkill5.Size = new System.Drawing.Size(59, 12);
+            this.labelSkill5.TabIndex = 8;
+            this.labelSkill5.Text = "步枪:";
+            // 
+            // numSkill5
+            // 
+            this.numSkill5.Location = new System.Drawing.Point(110, 180);
+            this.numSkill5.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            this.numSkill5.Name = "numSkill5";
+            this.numSkill5.Size = new System.Drawing.Size(100, 21);
+            this.numSkill5.TabIndex = 9;
+            // 
+            // labelSkill6
+            // 
+            this.labelSkill6.AutoSize = true;
+            this.labelSkill6.Location = new System.Drawing.Point(300, 25);
+            this.labelSkill6.Name = "labelSkill6";
+            this.labelSkill6.Size = new System.Drawing.Size(59, 12);
+            this.labelSkill6.TabIndex = 10;
+            this.labelSkill6.Text = "射箭:";
+            // 
+            // numSkill6
+            // 
+            this.numSkill6.Location = new System.Drawing.Point(390, 20);
+            this.numSkill6.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            this.numSkill6.Name = "numSkill6";
+            this.numSkill6.Size = new System.Drawing.Size(100, 21);
+            this.numSkill6.TabIndex = 11;
+            // 
+            // labelSkill7
+            // 
+            this.labelSkill7.AutoSize = true;
+            this.labelSkill7.Location = new System.Drawing.Point(300, 65);
+            this.labelSkill7.Name = "labelSkill7";
+            this.labelSkill7.Size = new System.Drawing.Size(59, 12);
+            this.labelSkill7.TabIndex = 12;
+            this.labelSkill7.Text = "衣物修理:";
+            // 
+            // numSkill7
+            // 
+            this.numSkill7.Location = new System.Drawing.Point(390, 60);
+            this.numSkill7.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            this.numSkill7.Name = "numSkill7";
+            this.numSkill7.Size = new System.Drawing.Size(100, 21);
+            this.numSkill7.TabIndex = 13;
+            // 
+            // labelSkill8
+            // 
+            this.labelSkill8.AutoSize = true;
+            this.labelSkill8.Location = new System.Drawing.Point(300, 105);
+            this.labelSkill8.Name = "labelSkill8";
+            this.labelSkill8.Size = new System.Drawing.Size(59, 12);
+            this.labelSkill8.TabIndex = 14;
+            this.labelSkill8.Text = "左轮手枪:";
+            // 
+            // numSkill8
+            // 
+            this.numSkill8.Location = new System.Drawing.Point(390, 100);
+            this.numSkill8.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            this.numSkill8.Name = "numSkill8";
+            this.numSkill8.Size = new System.Drawing.Size(100, 21);
+            this.numSkill8.TabIndex = 15;
+            // 
+            // labelSkill9
+            // 
+            this.labelSkill9.AutoSize = true;
+            this.labelSkill9.Location = new System.Drawing.Point(300, 145);
+            this.labelSkill9.Name = "labelSkill9";
+            this.labelSkill9.Size = new System.Drawing.Size(59, 12);
+            this.labelSkill9.TabIndex = 16;
+            this.labelSkill9.Text = "枪械制造:";
+            // 
+            // numSkill9
+            // 
+            this.numSkill9.Location = new System.Drawing.Point(390, 140);
+            this.numSkill9.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            this.numSkill9.Name = "numSkill9";
+            this.numSkill9.Size = new System.Drawing.Size(100, 21);
+            this.numSkill9.TabIndex = 17;
+            // 
+            // labelSkillInfo
+            // 
+            this.labelSkillInfo.AutoSize = true;
+            this.labelSkillInfo.ForeColor = System.Drawing.Color.Gray;
+            this.labelSkillInfo.Location = new System.Drawing.Point(20, 380);
+            this.labelSkillInfo.Name = "labelSkillInfo";
+            this.labelSkillInfo.Size = new System.Drawing.Size(425, 12);
+            this.labelSkillInfo.TabIndex = 18;
+            this.labelSkillInfo.Text = "提示:修改技能点数后,点击下方\"保存\"按钮才会写入存档。技能点数越高等级越高。";
+            // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.lblAfflictionCount);
+            this.tabPage5.Controls.Add(this.btnRefreshAfflictions);
+            this.tabPage5.Controls.Add(this.btnCureAll);
+            this.tabPage5.Controls.Add(this.btnCureSelected);
+            this.tabPage5.Controls.Add(this.listViewAfflictions);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
@@ -261,8 +1252,83 @@
             this.tabPage5.Text = "病痛";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // listViewAfflictions
+            // 
+            this.listViewAfflictions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderType,
+            this.columnHeaderDetail,
+            this.columnHeaderTime});
+            this.listViewAfflictions.FullRowSelect = true;
+            this.listViewAfflictions.GridLines = true;
+            this.listViewAfflictions.HideSelection = false;
+            this.listViewAfflictions.Location = new System.Drawing.Point(6, 6);
+            this.listViewAfflictions.Name = "listViewAfflictions";
+            this.listViewAfflictions.Size = new System.Drawing.Size(390, 380);
+            this.listViewAfflictions.TabIndex = 0;
+            this.listViewAfflictions.UseCompatibleStateImageBehavior = false;
+            this.listViewAfflictions.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeaderType
+            // 
+            this.columnHeaderType.Text = "类型";
+            this.columnHeaderType.Width = 120;
+            // 
+            // columnHeaderDetail
+            // 
+            this.columnHeaderDetail.Text = "详情";
+            this.columnHeaderDetail.Width = 180;
+            // 
+            // columnHeaderTime
+            // 
+            this.columnHeaderTime.Text = "时间/进度";
+            this.columnHeaderTime.Width = 90;
+            // 
+            // btnCureSelected
+            // 
+            this.btnCureSelected.Location = new System.Drawing.Point(402, 10);
+            this.btnCureSelected.Name = "btnCureSelected";
+            this.btnCureSelected.Size = new System.Drawing.Size(139, 30);
+            this.btnCureSelected.TabIndex = 1;
+            this.btnCureSelected.Text = "治愈选中";
+            this.btnCureSelected.UseVisualStyleBackColor = true;
+            // 
+            // btnCureAll
+            // 
+            this.btnCureAll.Location = new System.Drawing.Point(402, 45);
+            this.btnCureAll.Name = "btnCureAll";
+            this.btnCureAll.Size = new System.Drawing.Size(139, 30);
+            this.btnCureAll.TabIndex = 2;
+            this.btnCureAll.Text = "治愈全部";
+            this.btnCureAll.UseVisualStyleBackColor = true;
+            // 
+            // btnRefreshAfflictions
+            // 
+            this.btnRefreshAfflictions.Location = new System.Drawing.Point(402, 80);
+            this.btnRefreshAfflictions.Name = "btnRefreshAfflictions";
+            this.btnRefreshAfflictions.Size = new System.Drawing.Size(139, 30);
+            this.btnRefreshAfflictions.TabIndex = 3;
+            this.btnRefreshAfflictions.Text = "刷新列表";
+            this.btnRefreshAfflictions.UseVisualStyleBackColor = true;
+            // 
+            // lblAfflictionCount
+            // 
+            this.lblAfflictionCount.AutoSize = true;
+            this.lblAfflictionCount.Location = new System.Drawing.Point(404, 130);
+            this.lblAfflictionCount.Name = "lblAfflictionCount";
+            this.lblAfflictionCount.Size = new System.Drawing.Size(83, 12);
+            this.lblAfflictionCount.TabIndex = 4;
+            this.lblAfflictionCount.Text = "共 0 个病痛";
+            // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.btnRemoveAll);
+            this.tabPage6.Controls.Add(this.btnRepairAll);
+            this.tabPage6.Controls.Add(this.lblWeightInfo);
+            this.tabPage6.Controls.Add(this.dataGridViewItems);
+            this.tabPage6.Controls.Add(this.btnDeleteItem);
+            this.tabPage6.Controls.Add(this.btnAddItem);
+            this.tabPage6.Controls.Add(this.comboItem);
+            this.tabPage6.Controls.Add(this.labelAddItem);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
@@ -270,6 +1336,84 @@
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "背包";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // labelAddItem
+            // 
+            this.labelAddItem.AutoSize = true;
+            this.labelAddItem.Location = new System.Drawing.Point(6, 7);
+            this.labelAddItem.Name = "labelAddItem";
+            this.labelAddItem.Size = new System.Drawing.Size(59, 12);
+            this.labelAddItem.TabIndex = 0;
+            this.labelAddItem.Text = "添加物品:";
+            // 
+            // comboItem
+            // 
+            this.comboItem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboItem.FormattingEnabled = true;
+            this.comboItem.Location = new System.Drawing.Point(60, 3);
+            this.comboItem.Name = "comboItem";
+            this.comboItem.Size = new System.Drawing.Size(250, 20);
+            this.comboItem.TabIndex = 1;
+            // 
+            // btnAddItem
+            // 
+            this.btnAddItem.Location = new System.Drawing.Point(316, 2);
+            this.btnAddItem.Name = "btnAddItem";
+            this.btnAddItem.Size = new System.Drawing.Size(80, 24);
+            this.btnAddItem.TabIndex = 2;
+            this.btnAddItem.Text = "添加";
+            this.btnAddItem.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteItem
+            // 
+            this.btnDeleteItem.Location = new System.Drawing.Point(402, 2);
+            this.btnDeleteItem.Name = "btnDeleteItem";
+            this.btnDeleteItem.Size = new System.Drawing.Size(139, 24);
+            this.btnDeleteItem.TabIndex = 3;
+            this.btnDeleteItem.Text = "删除选中";
+            this.btnDeleteItem.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewItems
+            // 
+            this.dataGridViewItems.AllowUserToAddRows = false;
+            this.dataGridViewItems.AllowUserToDeleteRows = false;
+            this.dataGridViewItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewItems.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridViewItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewItems.Location = new System.Drawing.Point(6, 30);
+            this.dataGridViewItems.Name = "dataGridViewItems";
+            this.dataGridViewItems.ReadOnly = true;
+            this.dataGridViewItems.RowHeadersVisible = false;
+            this.dataGridViewItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewItems.Size = new System.Drawing.Size(535, 330);
+            this.dataGridViewItems.TabIndex = 4;
+            // 
+            // lblWeightInfo
+            // 
+            this.lblWeightInfo.AutoSize = true;
+            this.lblWeightInfo.Location = new System.Drawing.Point(6, 372);
+            this.lblWeightInfo.Name = "lblWeightInfo";
+            this.lblWeightInfo.Size = new System.Drawing.Size(167, 12);
+            this.lblWeightInfo.TabIndex = 5;
+            this.lblWeightInfo.Text = "负重信息:未知";
+            // 
+            // btnRepairAll
+            // 
+            this.btnRepairAll.Location = new System.Drawing.Point(402, 368);
+            this.btnRepairAll.Name = "btnRepairAll";
+            this.btnRepairAll.Size = new System.Drawing.Size(139, 28);
+            this.btnRepairAll.TabIndex = 6;
+            this.btnRepairAll.Text = "全部修复";
+            this.btnRepairAll.UseVisualStyleBackColor = true;
+            // 
+            // btnRemoveAll
+            // 
+            this.btnRemoveAll.Location = new System.Drawing.Point(402, 398);
+            this.btnRemoveAll.Name = "btnRemoveAll";
+            this.btnRemoveAll.Size = new System.Drawing.Size(139, 28);
+            this.btnRemoveAll.TabIndex = 7;
+            this.btnRemoveAll.Text = "全部移除";
+            this.btnRemoveAll.UseVisualStyleBackColor = true;
             // 
             // button5
             // 
@@ -342,6 +1486,20 @@
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBookSmarts)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackColdFusion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackEfficientMachine)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackFireMaster)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackFreeRunner)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackSnowWalker)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackExpertTrapper)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackStraightToHeart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBlizzardWalker)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackHP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackThirst)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackFatigue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackFreezing)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -375,5 +1533,109 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBoxFeats;
+        private System.Windows.Forms.TrackBar trackBookSmarts;
+        private System.Windows.Forms.TrackBar trackColdFusion;
+        private System.Windows.Forms.TrackBar trackEfficientMachine;
+        private System.Windows.Forms.TrackBar trackFireMaster;
+        private System.Windows.Forms.TrackBar trackFreeRunner;
+        private System.Windows.Forms.TrackBar trackSnowWalker;
+        private System.Windows.Forms.TrackBar trackExpertTrapper;
+        private System.Windows.Forms.TrackBar trackStraightToHeart;
+        private System.Windows.Forms.TrackBar trackBlizzardWalker;
+        private System.Windows.Forms.Label lblBookSmarts;
+        private System.Windows.Forms.Label lblColdFusion;
+        private System.Windows.Forms.Label lblEfficientMachine;
+        private System.Windows.Forms.Label lblFireMaster;
+        private System.Windows.Forms.Label lblFreeRunner;
+        private System.Windows.Forms.Label lblSnowWalker;
+        private System.Windows.Forms.Label lblExpertTrapper;
+        private System.Windows.Forms.Label lblStraightToHeart;
+        private System.Windows.Forms.Label lblBlizzardWalker;
+        private System.Windows.Forms.GroupBox groupBox4DON;
+        private System.Windows.Forms.CheckBox check4DON2018;
+        private System.Windows.Forms.CheckBox check4DON2019;
+        private System.Windows.Forms.Label label4DONInfo;
+        private System.Windows.Forms.Label labelProfileInfo;
+        private System.Windows.Forms.Button btnSaveProfile;
+        private System.Windows.Forms.Label labelMode;
+        private System.Windows.Forms.ComboBox comboMode;
+        private System.Windows.Forms.Label labelCustom;
+        private System.Windows.Forms.TextBox textCustomMode;
+        private System.Windows.Forms.Label labelRegion;
+        private System.Windows.Forms.ComboBox comboRegion;
+        private System.Windows.Forms.GroupBox groupBoxPos;
+        private System.Windows.Forms.Label labelPosX;
+        private System.Windows.Forms.TextBox textPosX;
+        private System.Windows.Forms.Label labelPosY;
+        private System.Windows.Forms.TextBox textPosY;
+        private System.Windows.Forms.Label labelPosZ;
+        private System.Windows.Forms.TextBox textPosZ;
+        private System.Windows.Forms.GroupBox groupBoxStats;
+        private System.Windows.Forms.Label labelHP;
+        private System.Windows.Forms.TrackBar trackHP;
+        private System.Windows.Forms.Label lblHPValue;
+        private System.Windows.Forms.Label labelCal;
+        private System.Windows.Forms.TextBox textCalories;
+        private System.Windows.Forms.Label labelThirst;
+        private System.Windows.Forms.TrackBar trackThirst;
+        private System.Windows.Forms.Label lblThirstValue;
+        private System.Windows.Forms.Label labelFatigue;
+        private System.Windows.Forms.TrackBar trackFatigue;
+        private System.Windows.Forms.Label lblFatigueValue;
+        private System.Windows.Forms.Label labelFreezing;
+        private System.Windows.Forms.TrackBar trackFreezing;
+        private System.Windows.Forms.Label lblFreezingValue;
+        private System.Windows.Forms.GroupBox groupBoxCheats;
+        private System.Windows.Forms.CheckBox checkNeverDie;
+        private System.Windows.Forms.CheckBox checkInvulnerable;
+        private System.Windows.Forms.CheckBox checkInfiniteCarry;
+        private System.Windows.Forms.CheckBox checkGod;
+        private System.Windows.Forms.Label labelMapInfo;
+        private System.Windows.Forms.Label labelMapRegion;
+        private System.Windows.Forms.ComboBox comboMapRegion;
+        private System.Windows.Forms.GroupBox groupBoxMapPos;
+        private System.Windows.Forms.Label labelMapX;
+        private System.Windows.Forms.TextBox textMapX;
+        private System.Windows.Forms.Label labelMapY;
+        private System.Windows.Forms.TextBox textMapY;
+        private System.Windows.Forms.Label labelMapZ;
+        private System.Windows.Forms.TextBox textMapZ;
+        private System.Windows.Forms.Button btnApplyMap;
+        private System.Windows.Forms.Label labelSkill1;
+        private System.Windows.Forms.NumericUpDown numSkill1;
+        private System.Windows.Forms.Label labelSkill2;
+        private System.Windows.Forms.NumericUpDown numSkill2;
+        private System.Windows.Forms.Label labelSkill3;
+        private System.Windows.Forms.NumericUpDown numSkill3;
+        private System.Windows.Forms.Label labelSkill4;
+        private System.Windows.Forms.NumericUpDown numSkill4;
+        private System.Windows.Forms.Label labelSkill5;
+        private System.Windows.Forms.NumericUpDown numSkill5;
+        private System.Windows.Forms.Label labelSkill6;
+        private System.Windows.Forms.NumericUpDown numSkill6;
+        private System.Windows.Forms.Label labelSkill7;
+        private System.Windows.Forms.NumericUpDown numSkill7;
+        private System.Windows.Forms.Label labelSkill8;
+        private System.Windows.Forms.NumericUpDown numSkill8;
+        private System.Windows.Forms.Label labelSkill9;
+        private System.Windows.Forms.NumericUpDown numSkill9;
+        private System.Windows.Forms.Label labelSkillInfo;
+        private System.Windows.Forms.ListView listViewAfflictions;
+        private System.Windows.Forms.ColumnHeader columnHeaderType;
+        private System.Windows.Forms.ColumnHeader columnHeaderDetail;
+        private System.Windows.Forms.ColumnHeader columnHeaderTime;
+        private System.Windows.Forms.Button btnCureSelected;
+        private System.Windows.Forms.Button btnCureAll;
+        private System.Windows.Forms.Button btnRefreshAfflictions;
+        private System.Windows.Forms.Label lblAfflictionCount;
+        private System.Windows.Forms.DataGridView dataGridViewItems;
+        private System.Windows.Forms.ComboBox comboItem;
+        private System.Windows.Forms.Button btnAddItem;
+        private System.Windows.Forms.Button btnDeleteItem;
+        private System.Windows.Forms.Button btnRepairAll;
+        private System.Windows.Forms.Button btnRemoveAll;
+        private System.Windows.Forms.Label lblWeightInfo;
+        private System.Windows.Forms.Label labelAddItem;
     }
 }

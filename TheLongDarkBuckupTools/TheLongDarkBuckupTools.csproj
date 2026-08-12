@@ -208,6 +208,8 @@
     <Compile Include="MoreData\Afflictions.cs" />
     <Compile Include="MoreData\AfflictionsContainer.cs" />
     <Compile Include="MoreData\BootSaveGameData.cs" />
+    <Compile Include="MoreData\GameSave.cs" />
+    <Compile Include="MoreData\Profile.cs" />
     <Compile Include="MoreData\ProfileState.cs" />
     <Compile Include="MyMassageBox.cs">
       <SubType>Form</SubType>
@@ -239,7 +241,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Serialization\CachedReflection.cs" />
     <Compile Include="Serialization\DeserializeAttribute.cs" />
+    <Compile Include="Serialization\DynamicSerializable.cs" />
+    <Compile Include="Serialization\ReflectionUtil.cs" />
     <Compile Include="ShowFile.cs">
       <SubType>Form</SubType>
     </Compile>

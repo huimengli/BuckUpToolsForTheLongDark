@@ -8,9 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 using TheLongDarkBuckupTools.GameData;
 using TheLongDarkBuckupTools.Helpers;
 using TheLongDarkBuckupTools.MoreData;
+using TheLongDarkBuckupTools.Serialization;
 
 namespace TheLongDarkBuckupTools
 {
@@ -36,6 +38,36 @@ namespace TheLongDarkBuckupTools
         /// </summary>
         private SlotData data;
 
+        /// <summary>
+        /// 当前存档管理对象(包含boot/global解析)
+        /// </summary>
+        private GameSave currentSave;
+
+        /// <summary>
+        /// 档案对象(徽章/4DON)
+        /// </summary>
+        private Profile profile;
+
+        /// <summary>
+        /// 档案文件路径
+        /// </summary>
+        private string profilePath;
+
+        /// <summary>
+        /// 是否正在加载数据(抑制事件触发写回)
+        /// </summary>
+        private bool isLoading = false;
+
+        /// <summary>
+        /// 背包下拉框条目
+        /// </summary>
+        private class ItemEntry
+        {
+            public string Id;
+            public string DisplayName;
+            public override string ToString() { return DisplayName; }
+        }
+
         public ChangeFile2(string filePath)
         {
             InitializeComponent();
@@ -52,51 +84,781 @@ namespace TheLongDarkBuckupTools
                 if (MessageBox.Show("文件不存在！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
                 {
                     Close();
+                    return;
                 }
             }
-            byte[] bytes = File.ReadAllBytes(filePath);
-            baseDataValue = EncryptString.DecompressBytesToString(bytes);
-            this.data = (SlotData)Item.DeserializeObject<SlotData>(baseDataValue);
+            try
+            {
+                // 使用GameSave加载(自动解析boot/global/病痛)
+                currentSave = new GameSave();
+                currentSave.LoadSave(filePath);
+                this.data = currentSave.SlotData;
+                this.baseDataValue = EncryptString.DecompressBytesToString(File.ReadAllBytes(filePath));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("存档加载失败:" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+                return;
+            }
+
+            // 加载档案(徽章)
+            LoadProfile();
+
+            // 初始化下拉框
+            InitCombos();
+
+            // 绑定事件
+            HookEvents();
+
             // 显示数据
             ShowData(data);
         }
 
+        /// <summary>
+        /// 加载档案文件(user*文件,最新修改优先)
+        /// </summary>
+        private void LoadProfile()
+        {
+            try
+            {
+                var dir = Path.GetDirectoryName(filePath);
+                var userFile = Directory.GetFiles(dir, "user*")
+                    .Where(f => !f.EndsWith(".backup", StringComparison.OrdinalIgnoreCase))
+                    .OrderByDescending(f => new FileInfo(f).LastWriteTime)
+                    .FirstOrDefault();
+                if (userFile != null)
+                {
+                    profilePath = userFile;
+                    profile = new Profile(userFile);
+                    labelProfileInfo.Text = "档案文件:" + Path.GetFileName(userFile);
+                }
+                else
+                {
+                    labelProfileInfo.Text = "未找到档案文件(user*)";
+                }
+            }
+            catch (Exception ex)
+            {
+                labelProfileInfo.Text = "档案加载失败:" + ex.Message;
+            }
+        }
+
+        /// <summary>
+        /// 初始化下拉框
+        /// </summary>
+        private void InitCombos()
+        {
+            comboMode.Items.AddRange(Enum.GetNames(typeof(ExperienceModeType)));
+            comboRegion.Items.AddRange(Enum.GetNames(typeof(RegionsWithMap)));
+            comboMapRegion.Items.AddRange(Enum.GetNames(typeof(RegionsWithMap)));
+
+            // 背包物品下拉框(过滤hide)
+            comboItem.BeginUpdate();
+            comboItem.Items.Clear();
+            foreach (var kv in ItemDictionary.itemInfo)
+            {
+                if (kv.Value.hide) continue;
+                comboItem.Items.Add(new ItemEntry { Id = kv.Key, DisplayName = ItemDictionary.GetInGameName(kv.Key) });
+            }
+            comboItem.EndUpdate();
+            if (comboItem.Items.Count > 0) comboItem.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// 绑定事件
+        /// </summary>
+        private void HookEvents()
+        {
+            // 底部按钮
+            this.button3.Click += button3_Click;
+            this.button5.Click += button5_Click;
+
+            // 徽章Tab
+            this.btnSaveProfile.Click += btnSaveProfile_Click;
+            this.check4DON2018.CheckedChanged += check4DON2018_CheckedChanged;
+            this.check4DON2019.CheckedChanged += check4DON2019_CheckedChanged;
+
+            // 玩家Tab
+            this.comboMode.SelectedIndexChanged += comboMode_SelectedIndexChanged;
+            this.trackHP.ValueChanged += (s, e) => lblHPValue.Text = trackHP.Value + "%";
+            this.trackThirst.ValueChanged += (s, e) => lblThirstValue.Text = trackThirst.Value + "%";
+            this.trackFatigue.ValueChanged += (s, e) => lblFatigueValue.Text = trackFatigue.Value + "%";
+            this.trackFreezing.ValueChanged += (s, e) => lblFreezingValue.Text = trackFreezing.Value + "%";
+
+            // 地图Tab
+            this.comboMapRegion.SelectedIndexChanged += (s, e) => comboRegion.SelectedIndex = comboMapRegion.SelectedIndex;
+            this.comboRegion.SelectedIndexChanged += (s, e) =>
+            {
+                if (comboMapRegion.Items.Count > comboRegion.SelectedIndex && comboRegion.SelectedIndex >= 0)
+                    comboMapRegion.SelectedIndex = comboRegion.SelectedIndex;
+            };
+            this.btnApplyMap.Click += btnApplyMap_Click;
+
+            // 病痛Tab
+            this.btnCureSelected.Click += btnCureSelected_Click;
+            this.btnCureAll.Click += btnCureAll_Click;
+            this.btnRefreshAfflictions.Click += btnRefreshAfflictions_Click;
+
+            // 背包Tab
+            this.btnAddItem.Click += btnAddItem_Click;
+            this.btnDeleteItem.Click += btnDeleteItem_Click;
+            this.btnRepairAll.Click += btnRepairAll_Click;
+            this.btnRemoveAll.Click += btnRemoveAll_Click;
+        }
+
         private void button4_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(baseDataValue))
+            try
             {
-                MessageBox.Show("存档数据为空!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                currentSave = new GameSave();
+                currentSave.LoadSave(filePath);
+                this.data = currentSave.SlotData;
+                this.baseDataValue = EncryptString.DecompressBytesToString(File.ReadAllBytes(filePath));
+                LoadProfile();
+                ShowData(data);
             }
-            this.data = (SlotData)Item.DeserializeObject<SlotData>(baseDataValue);
-            ShowData(data);
+            catch (Exception ex)
+            {
+                MessageBox.Show("刷新失败:" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>
         /// 显示存档数据
         /// </summary>
-        /// <param name="data"></param>
         private void ShowData(SlotData data)
         {
-            // 解析总概数据
-            textBox1.Text = fileInfo.Name;
-            textBox2.Text = data.m_Name ?? data.m_InternalName;
-            textBox3.Text = data.m_DisplayName;
-            textBox4.Text = data.GetGameMode();
-            textBox5.Text = data.m_VersionChangelistNumber == 0 ? data.m_Changelist.ToString(): data.m_VersionChangelistNumber.ToString();
-            textBox6.Text = data.m_Timestamp.ToString();
+            isLoading = true;
+            try
+            {
+                // 总概
+                textBox1.Text = fileInfo.Name;
+                textBox2.Text = data.m_Name ?? data.m_InternalName;
+                textBox3.Text = data.m_DisplayName;
+                textBox4.Text = data.GetGameMode();
+                textBox5.Text = data.m_VersionChangelistNumber == 0 ? data.m_Changelist.ToString() : data.m_VersionChangelistNumber.ToString();
+                textBox6.Text = data.m_Timestamp.ToString();
 
-            // 解析存档截图数据
-            var img = ((Screenshot)Item.DeserializeObject<Screenshot>(EncryptString.DecompressBytesToString(data.m_Dict.screenshot))).ToImage() ?? null;
-            pictureBox1.Visible = true;
-            pictureBox1.Image = img;
+                // 截图
+                try
+                {
+                    var img = ((Screenshot)Item.DeserializeObject<Screenshot>(EncryptString.DecompressBytesToString(data.m_Dict.screenshot))).ToImage() ?? null;
+                    pictureBox1.Visible = true;
+                    pictureBox1.Image = img;
+                }
+                catch { }
 
-            // 解析Global数据
-            var globalJson = EncryptString.DecompressBytesToString(data.m_Dict.global);
-            var dynamicGlobal = (GlobalSaveGameFormat)Item.DeserializeObject<GlobalSaveGameFormat>(globalJson);
-
-            // 解析病痛数据
-            var Afflictions = new AfflictionsContainer(dynamicGlobal);
+                // 各Tab
+                ShowFeatsTab();
+                ShowPlayerTab();
+                ShowMapTab();
+                ShowSkillsTab();
+                ShowAfflictionsTab();
+                ShowInventoryTab();
+            }
+            finally
+            {
+                isLoading = false;
+            }
         }
+
+        #region 徽章Tab
+
+        /// <summary>
+        /// 显示徽章数据
+        /// </summary>
+        private void ShowFeatsTab()
+        {
+            if (profile == null || profile.State.Feats == null) return;
+            var feats = profile.State.Feats;
+
+            SetFeatTrack(trackBookSmarts, lblBookSmarts, feats.BookSmarts?.m_HoursResearch ?? 0, "研究小时数");
+            SetFeatTrack(trackColdFusion, lblColdFusion, (int)(feats.ColdFusion?.m_ElapsedDays ?? 0), "经过天数");
+            SetFeatTrack(trackEfficientMachine, lblEfficientMachine, (int)(feats.EfficientMachine?.m_ElapsedHours ?? 0), "机器运行小时");
+            SetFeatTrack(trackFireMaster, lblFireMaster, feats.FireMaster?.m_NumFiresStarted ?? 0, "生火次数");
+            SetFeatTrack(trackFreeRunner, lblFreeRunner, (int)(feats.FreeRunner?.m_ElapsedKilometers ?? 0), "奔跑公里数");
+            SetFeatTrack(trackSnowWalker, lblSnowWalker, (int)(feats.SnowWalker?.m_ElapsedKilometers ?? 0), "行走公里数");
+            SetFeatTrack(trackExpertTrapper, lblExpertTrapper, feats.ExpertTrapper?.m_RabbitSnaredCount ?? 0, "捕兔数");
+            SetFeatTrack(trackStraightToHeart, lblStraightToHeart, feats.StraightToHeart?.m_ItemConsumedCount ?? 0, "消耗物品数");
+            SetFeatTrack(trackBlizzardWalker, lblBlizzardWalker, (int)(feats.BlizzardWalker?.m_BlizzardHoursOutside ?? 0), "暴风雪外小时");
+
+            // 4DON
+            var don2018 = profile.State.m_DaysCompleted4DON;
+            var don2019 = profile.State.m_DaysCompleted4DON2019;
+            check4DON2018.Checked = don2018 != null && don2018.Count > 0 && don2018.All(x => x);
+            check4DON2019.Checked = don2019 != null && don2019.Count > 0 && don2019.All(x => x);
+        }
+
+        private void SetFeatTrack(TrackBar track, Label lbl, int value, string unit)
+        {
+            track.Value = Math.Max(track.Minimum, Math.Min(track.Maximum, value));
+            lbl.Text = unit + ":" + value + " / " + track.Maximum;
+        }
+
+        private void check4DON2018_CheckedChanged(object sender, EventArgs e)
+        {
+            if (isLoading || profile == null) return;
+            if (profile.State.m_DaysCompleted4DON == null) profile.State.m_DaysCompleted4DON = new List<bool>();
+            var list = profile.State.m_DaysCompleted4DON;
+            while (list.Count < 7) list.Add(false);
+            for (int i = 0; i < 7; i++) list[i] = check4DON2018.Checked;
+        }
+
+        private void check4DON2019_CheckedChanged(object sender, EventArgs e)
+        {
+            if (isLoading || profile == null) return;
+            if (profile.State.m_DaysCompleted4DON2019 == null) profile.State.m_DaysCompleted4DON2019 = new List<bool>();
+            var list = profile.State.m_DaysCompleted4DON2019;
+            while (list.Count < 7) list.Add(false);
+            for (int i = 0; i < 7; i++) list[i] = check4DON2019.Checked;
+        }
+
+        private void btnSaveProfile_Click(object sender, EventArgs e)
+        {
+            if (profile == null)
+            {
+                MessageBox.Show("未找到档案文件,无法保存!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            try
+            {
+                profile.Save();
+                MessageBox.Show("档案保存成功!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("档案保存失败:" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        #endregion
+
+        #region 玩家Tab
+
+        /// <summary>
+        /// 显示玩家数据
+        /// </summary>
+        private void ShowPlayerTab()
+        {
+            var global = currentSave.Global;
+
+            // 模式
+            var modeType = global.ExperienceModeManager?.m_CurrentModeType;
+            var modeName = modeType?.Value;
+            int idx = Array.IndexOf(Enum.GetNames(typeof(ExperienceModeType)), modeName);
+            comboMode.SelectedIndex = idx >= 0 ? idx : 0;
+            textCustomMode.Text = global.ExperienceModeManager?.m_CustomModeString ?? "";
+            comboMode_SelectedIndexChanged(null, EventArgs.Empty);
+
+            // 区域
+            var sceneName = currentSave.Boot.m_SceneName?.Value;
+            int ridx = Array.IndexOf(Enum.GetNames(typeof(RegionsWithMap)), sceneName);
+            comboRegion.SelectedIndex = ridx >= 0 ? ridx : 0;
+
+            // 位置(X=pos[0], Y=pos[2], Z=pos[1])
+            var pos = global.PlayerManager?.m_SaveGamePosition;
+            if (pos == null || pos.Count < 3)
+            {
+                textPosX.Text = "0"; textPosY.Text = "0"; textPosZ.Text = "0";
+            }
+            else
+            {
+                textPosX.Text = pos[0].ToString("0.0");
+                textPosY.Text = pos[2].ToString("0.0");
+                textPosZ.Text = pos[1].ToString("0.0");
+            }
+
+            // 状态
+            trackHP.Value = (int)((global.Condition?.m_CurrentHPProxy ?? 0) * 100);
+            lblHPValue.Text = trackHP.Value + "%";
+            textCalories.Text = ((int)(global.Hunger?.m_CurrentReserveCaloriesProxy ?? 0)).ToString();
+            trackThirst.Value = (int)((global.Thirst?.m_CurrentThirstProxy ?? 0) * 100);
+            lblThirstValue.Text = trackThirst.Value + "%";
+            trackFatigue.Value = (int)((global.Fatigue?.m_CurrentFatigueProxy ?? 0) * 100);
+            lblFatigueValue.Text = trackFatigue.Value + "%";
+            trackFreezing.Value = (int)((global.Freezing?.m_CurrentFreezingProxy ?? 0) * 100);
+            lblFreezingValue.Text = trackFreezing.Value + "%";
+
+            // 作弊
+            checkNeverDie.Checked = global.Condition?.m_NeverDieProxy ?? false;
+            checkInvulnerable.Checked = global.Condition?.m_Invulnerable ?? false;
+            checkInfiniteCarry.Checked = global.Inventory?.m_ForceOverrideWeight ?? false;
+            checkGod.Checked = global.PlayerManager?.m_God ?? false;
+        }
+
+        private void comboMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboMode.SelectedIndex < 0) return;
+            var name = (string)comboMode.SelectedItem;
+            textCustomMode.Enabled = (name == ExperienceModeType.Custom.ToString());
+        }
+
+        #endregion
+
+        #region 地图Tab
+
+        /// <summary>
+        /// 显示地图数据
+        /// </summary>
+        private void ShowMapTab()
+        {
+            labelMapInfo.Text = "地图区域与传送坐标(与玩家Tab同步)";
+            comboMapRegion.SelectedIndex = comboRegion.SelectedIndex;
+
+            var pos = currentSave.Global.PlayerManager?.m_SaveGamePosition;
+            if (pos == null || pos.Count < 3)
+            {
+                textMapX.Text = "0"; textMapY.Text = "0"; textMapZ.Text = "0";
+            }
+            else
+            {
+                textMapX.Text = pos[0].ToString("0.0");
+                textMapY.Text = pos[2].ToString("0.0");
+                textMapZ.Text = pos[1].ToString("0.0");
+            }
+        }
+
+        /// <summary>
+        /// 应用地图坐标到玩家位置
+        /// </summary>
+        private void btnApplyMap_Click(object sender, EventArgs e)
+        {
+            textPosX.Text = textMapX.Text;
+            textPosY.Text = textMapY.Text;
+            textPosZ.Text = textMapZ.Text;
+            comboRegion.SelectedIndex = comboMapRegion.SelectedIndex;
+            MessageBox.Show("坐标已应用,点击\"保存\"生效!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        #endregion
+
+        #region 技能Tab
+
+        /// <summary>
+        /// 显示技能数据
+        /// </summary>
+        private void ShowSkillsTab()
+        {
+            var skills = currentSave.Global.SkillsManager;
+            if (skills == null) return;
+
+            numSkill1.Value = Clamp((int)(skills.Firestarting?.m_Points ?? 0), (int)numSkill1.Minimum, (int)numSkill1.Maximum);
+            numSkill2.Value = Clamp((int)(skills.CarcassHarvesting?.m_Points ?? 0), (int)numSkill2.Minimum, (int)numSkill2.Maximum);
+            numSkill3.Value = Clamp((int)(skills.Cooking?.m_Points ?? 0), (int)numSkill3.Minimum, (int)numSkill3.Maximum);
+            numSkill4.Value = Clamp((int)(skills.IceFishing?.m_Points ?? 0), (int)numSkill4.Minimum, (int)numSkill4.Maximum);
+            numSkill5.Value = Clamp((int)(skills.Rifle?.m_Points ?? 0), (int)numSkill5.Minimum, (int)numSkill5.Maximum);
+            numSkill6.Value = Clamp((int)(skills.Archery?.m_Points ?? 0), (int)numSkill6.Minimum, (int)numSkill6.Maximum);
+            numSkill7.Value = Clamp((int)(skills.ClothingRepair?.m_Points ?? 0), (int)numSkill7.Minimum, (int)numSkill7.Maximum);
+            numSkill8.Value = Clamp((int)(skills.Revolver?.m_Points ?? 0), (int)numSkill8.Minimum, (int)numSkill8.Maximum);
+            numSkill9.Value = Clamp((int)(skills.Gunsmith?.m_Points ?? 0), (int)numSkill9.Minimum, (int)numSkill9.Maximum);
+        }
+
+        private int Clamp(int v, int min, int max)
+        {
+            return Math.Max(min, Math.Min(max, v));
+        }
+
+        #endregion
+
+        #region 病痛Tab
+
+        /// <summary>
+        /// 显示病痛数据
+        /// </summary>
+        private void ShowAfflictionsTab()
+        {
+            listViewAfflictions.Items.Clear();
+            if (currentSave.Afflictions == null) return;
+
+            foreach (var aff in currentSave.Afflictions.Negative)
+            {
+                var item = new ListViewItem(new[] { GetAfflictionName(aff), GetAfflictionDetail(aff), GetAfflictionTime(aff) });
+                item.Tag = aff;
+                listViewAfflictions.Items.Add(item);
+            }
+            lblAfflictionCount.Text = "当前负面状态数量:" + currentSave.Afflictions.Negative.Count;
+        }
+
+        private string GetAfflictionName(Affliction a)
+        {
+            return a.AfflictionType.ToString();
+        }
+
+        private string GetAfflictionDetail(Affliction a)
+        {
+            switch (a)
+            {
+                case Hypothermia h: return "寒冷暴露 " + h.ElapsedHours.ToString("0.0") + " 小时";
+                case Frostbite f: return "部位" + f.Location + " 伤害 " + f.Damage.ToString("0.0");
+                case FoodPoisoning fp: return "已持续 " + fp.ElapsedHours.ToString("0.0") + " 小时";
+                case Dysentery d: return "已持续 " + d.ElapsedHours.ToString("0.0") + " 小时";
+                case SprainAffliction s: return "部位" + s.Location + " 已持续 " + s.ElapsedHours.ToString("0.0") + " 小时";
+                case Burns b: return "已持续 " + b.ElapsedHours.ToString("0.0") + " 小时";
+                case BurnsElectric be: return "已持续 " + be.ElapsedHours.ToString("0.0") + " 小时";
+                case BloodLoss bl: return "已持续 " + bl.ElapsedHours.ToString("0.0") + " 小时";
+                case Infection i: return "已持续 " + i.ElapsedHours.ToString("0.0") + " 小时";
+                case InfectionRisk ir: return "感染几率 " + (ir.CurrentInfectionChance * 100).ToString("0") + "%";
+                case CabinFever cf: return "已持续 " + cf.ElapsedHours.ToString("0.0") + " 小时";
+                case IntestinalParasites ip: return "已持续 " + ip.ParasitesElapsedHours.ToString("0.0") + " 小时";
+                case BrokenRib br: return "已持续 " + br.ElapsedRest.ToString("0.0") + " 小时";
+                case WellFed wf: return "已持续 " + wf.ElapsedHoursNotStarving.ToString("0.0") + " 小时";
+                default: return "";
+            }
+        }
+
+        private string GetAfflictionTime(Affliction a)
+        {
+            switch (a)
+            {
+                case Hypothermia h: return h.ElapsedHours.ToString("0.0") + "h";
+                case Frostbite f: return "";
+                case FoodPoisoning fp: return fp.ElapsedHours.ToString("0.0") + "/" + fp.DurationHours.ToString("0.0") + "h";
+                case Dysentery d: return d.ElapsedHours.ToString("0.0") + "/" + d.DurationHours.ToString("0.0") + "h";
+                case SprainAffliction s: return s.ElapsedHours.ToString("0.0") + "/" + s.Duration.ToString("0.0") + "h";
+                case Burns b: return b.ElapsedHours.ToString("0.0") + "/" + b.DurationHours.ToString("0.0") + "h";
+                case BurnsElectric be: return be.ElapsedHours.ToString("0.0") + "/" + be.DurationHours.ToString("0.0") + "h";
+                case BloodLoss bl: return bl.ElapsedHours.ToString("0.0") + "/" + bl.DurationHours.ToString("0.0") + "h";
+                case Infection i: return i.ElapsedHours.ToString("0.0") + "/" + i.DurationHours.ToString("0.0") + "h";
+                case InfectionRisk ir: return ir.ElapsedHours.ToString("0.0") + "/" + ir.DurationHours.ToString("0.0") + "h";
+                case CabinFever cf: return cf.ElapsedHours.ToString("0.0") + "h";
+                case IntestinalParasites ip: return ip.ParasitesElapsedHours.ToString("0.0") + "h";
+                case BrokenRib br: return br.ElapsedRest.ToString("0.0") + "h";
+                case WellFed wf: return wf.ElapsedHoursNotStarving.ToString("0.0") + "h";
+                default: return "";
+            }
+        }
+
+        private void btnCureSelected_Click(object sender, EventArgs e)
+        {
+            if (listViewAfflictions.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("请先选择要治愈的病痛!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var toRemove = new List<Affliction>();
+            foreach (ListViewItem item in listViewAfflictions.SelectedItems)
+            {
+                if (item.Tag is Affliction aff) toRemove.Add(aff);
+            }
+            foreach (var aff in toRemove)
+            {
+                aff.RemoveCommand.Execute(null);
+            }
+            ShowAfflictionsTab();
+        }
+
+        private void btnCureAll_Click(object sender, EventArgs e)
+        {
+            if (currentSave.Afflictions == null) return;
+            var toRemove = currentSave.Afflictions.Negative.ToList();
+            foreach (var aff in toRemove)
+            {
+                aff.RemoveCommand.Execute(null);
+            }
+            ShowAfflictionsTab();
+        }
+
+        private void btnRefreshAfflictions_Click(object sender, EventArgs e)
+        {
+            ShowAfflictionsTab();
+        }
+
+        #endregion
+
+        #region 背包Tab
+
+        /// <summary>
+        /// 显示背包数据
+        /// </summary>
+        private void ShowInventoryTab()
+        {
+            var inventory = currentSave.Global.Inventory;
+            if (inventory == null) return;
+
+            if (dataGridViewItems.Columns.Count == 0)
+            {
+                dataGridViewItems.Columns.Add("colName", "名称");
+                dataGridViewItems.Columns.Add("colID", "物品ID");
+                dataGridViewItems.Columns.Add("colUnits", "数量");
+                dataGridViewItems.Columns.Add("colCond", "耐久");
+                dataGridViewItems.Columns.Add("colCal", "卡路里");
+                foreach (DataGridViewColumn col in dataGridViewItems.Columns)
+                {
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
+            }
+
+            dataGridViewItems.Rows.Clear();
+            double totalWeight = 0;
+            foreach (var item in inventory.Items)
+            {
+                var gear = item.Gear;
+                if (gear == null) continue;
+
+                string name = ItemDictionary.GetInGameName(item.m_PrefabName);
+                int units = gear.StackableItem?.m_UnitsProxy ?? 1;
+                string cond = (gear.NormalizedCondition * 100).ToString("0") + "%";
+                string cal = gear.FoodItem != null ? ((int)gear.FoodItem.m_CaloriesRemainingProxy).ToString() : "";
+                totalWeight += gear.m_WeightKG;
+
+                int rowIdx = dataGridViewItems.Rows.Add(name, item.m_PrefabName, units, cond, cal);
+                dataGridViewItems.Rows[rowIdx].Tag = item;
+            }
+
+            var carryWeight = Math.Round(totalWeight, 2);
+            lblWeightInfo.Text = "负重:" + carryWeight.ToString("0.00") + "kg 共" + inventory.Items.Count + "件";
+        }
+
+        private void btnAddItem_Click(object sender, EventArgs e)
+        {
+            if (comboItem.SelectedItem == null)
+            {
+                MessageBox.Show("请先选择要添加的物品!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var entry = (ItemEntry)comboItem.SelectedItem;
+            if (!ItemDictionary.itemInfo.ContainsKey(entry.Id))
+            {
+                MessageBox.Show("物品不存在于字典:" + entry.Id, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            try
+            {
+                var info = ItemDictionary.itemInfo[entry.Id];
+                var gear = new GearItemSaveDataProxy();
+                JsonConvert.PopulateObject(info.defaultSerialized, gear);
+                gear.m_HoursPlayed = currentSave.Global.TimeOfDay?.m_HoursPlayedNotPausedProxy ?? 0;
+                gear.m_BeenInPlayerInventoryProxy = true;
+                gear.NormalizedCondition = 1;
+
+                // 分配唯一实例ID
+                var rnd = new Random();
+                int id = rnd.Next();
+                while (currentSave.Global.Inventory.Items.Any(i => i.Gear != null && i.Gear.m_InstanceIDProxy == id))
+                    id = rnd.Next();
+                gear.m_InstanceIDProxy = id;
+
+                var item = new InventoryItemSaveData
+                {
+                    m_PrefabName = entry.Id,
+                    Gear = gear
+                };
+                currentSave.Global.Inventory.Items.Add(item);
+                ShowInventoryTab();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("添加物品失败:" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDeleteItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("请先选择要删除的物品!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var toRemove = new List<InventoryItemSaveData>();
+            foreach (DataGridViewRow row in dataGridViewItems.SelectedRows)
+            {
+                if (row.Tag is InventoryItemSaveData item) toRemove.Add(item);
+            }
+            foreach (var item in toRemove)
+            {
+                currentSave.Global.Inventory.Items.Remove(item);
+            }
+            ShowInventoryTab();
+        }
+
+        private void btnRepairAll_Click(object sender, EventArgs e)
+        {
+            foreach (var item in currentSave.Global.Inventory.Items)
+            {
+                var gear = item.Gear;
+                if (gear == null) continue;
+                gear.NormalizedCondition = 1;
+                gear.m_WornOut = false;
+                if (gear.FlareItem != null && gear.FlareItem.m_StateProxy != null)
+                    gear.FlareItem.m_StateProxy.SetValue(FlareState.Fresh);
+                if (gear.TorchItem != null && gear.TorchItem.m_StateProxy != null)
+                    gear.TorchItem.m_StateProxy.SetValue(TorchState.Fresh);
+            }
+            ShowInventoryTab();
+            MessageBox.Show("已修复全部物品!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnRemoveAll_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确定移除全部物品吗?(任务关键物品将保留)", "确认", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+
+            for (int i = currentSave.Global.Inventory.Items.Count - 1; i >= 0; i--)
+            {
+                var item = currentSave.Global.Inventory.Items[i];
+                if (ItemDictionary.itemInfo.ContainsKey(item.m_PrefabName) && ItemDictionary.itemInfo[item.m_PrefabName].preventDelete)
+                    continue;
+                currentSave.Global.Inventory.Items.RemoveAt(i);
+            }
+            ShowInventoryTab();
+            MessageBox.Show("已移除全部物品!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        #endregion
+
+        #region 保存/备份
+
+        /// <summary>
+        /// 保存按钮
+        /// </summary>
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CollectUI();
+                currentSave.Save();
+                textBox6.Text = data.m_Timestamp.ToString();
+                MessageBox.Show("保存成功!\n已自动备份原存档到backups目录", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("保存失败:" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// 备份按钮
+        /// </summary>
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                currentSave.Backup();
+                MessageBox.Show("备份成功!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("备份失败:" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// 收集界面改动写回存档对象
+        /// </summary>
+        private void CollectUI()
+        {
+            var global = currentSave.Global;
+
+            // 模式
+            if (comboMode.SelectedIndex >= 0)
+            {
+                var modeName = (string)comboMode.SelectedItem;
+                var mode = (ExperienceModeType)Enum.Parse(typeof(ExperienceModeType), modeName);
+                if (global.ExperienceModeManager == null) global.ExperienceModeManager = new ExperienceModeManagerSaveDataProxy();
+                if (global.ExperienceModeManager.m_CurrentModeType == null)
+                    global.ExperienceModeManager.m_CurrentModeType = new EnumWrapper<ExperienceModeType>(mode.ToString());
+                else
+                    global.ExperienceModeManager.m_CurrentModeType.SetValue(mode);
+                global.ExperienceModeManager.m_CustomModeString = textCustomMode.Text;
+            }
+
+            // 区域
+            if (comboRegion.SelectedIndex >= 0)
+            {
+                var regionName = (string)comboRegion.SelectedItem;
+                var region = (RegionsWithMap)Enum.Parse(typeof(RegionsWithMap), regionName);
+                if (currentSave.Boot.m_SceneName == null) currentSave.Boot.m_SceneName = new EnumWrapper<RegionsWithMap>(region.ToString());
+                else currentSave.Boot.m_SceneName.SetValue(region);
+            }
+
+            // 位置(X=pos[0], Y=pos[2], Z=pos[1])
+            if (global.PlayerManager == null) global.PlayerManager = new PlayerManagerSaveDataProxy();
+            if (global.PlayerManager.m_SaveGamePosition == null) global.PlayerManager.m_SaveGamePosition = new System.Collections.ObjectModel.ObservableCollection<float>();
+            var pos = global.PlayerManager.m_SaveGamePosition;
+            while (pos.Count < 3) pos.Add(0);
+            pos[0] = ParseFloat(textPosX.Text);
+            pos[2] = ParseFloat(textPosY.Text);
+            pos[1] = ParseFloat(textPosZ.Text);
+
+            // 状态
+            if (global.Condition == null) global.Condition = new ConditionSaveDataProxy();
+            global.Condition.m_CurrentHPProxy = trackHP.Value / 100f;
+            if (global.Hunger == null) global.Hunger = new HungerSaveDataProxy();
+            global.Hunger.m_CurrentReserveCaloriesProxy = ParseFloat(textCalories.Text);
+            if (global.Thirst == null) global.Thirst = new ThirstSaveDataProxy();
+            global.Thirst.m_CurrentThirstProxy = trackThirst.Value / 100f;
+            if (global.Fatigue == null) global.Fatigue = new FatigueSaveDataProxy();
+            global.Fatigue.m_CurrentFatigueProxy = trackFatigue.Value / 100f;
+            if (global.Freezing == null) global.Freezing = new FreezingSaveDataProxy();
+            global.Freezing.m_CurrentFreezingProxy = trackFreezing.Value / 100f;
+
+            // 作弊
+            global.Condition.m_NeverDieProxy = checkNeverDie.Checked;
+            global.Condition.m_Invulnerable = checkInvulnerable.Checked;
+            if (global.Inventory == null) global.Inventory = new InventorySaveDataProxy();
+            global.Inventory.m_ForceOverrideWeight = checkInfiniteCarry.Checked;
+            global.PlayerManager.m_God = checkGod.Checked;
+
+            // 技能
+            var skills = global.SkillsManager;
+            if (skills == null) global.SkillsManager = skills = new SkillsManagerSaveData();
+            if (skills.Firestarting == null) skills.Firestarting = new Skill_FirestartingSaveData();
+            skills.Firestarting.m_Points = (int)numSkill1.Value;
+            if (skills.CarcassHarvesting == null) skills.CarcassHarvesting = new Skill_CarcassHarvestingSaveData();
+            skills.CarcassHarvesting.m_Points = (int)numSkill2.Value;
+            if (skills.Cooking == null) skills.Cooking = new Skill_CookingSaveData();
+            skills.Cooking.m_Points = (int)numSkill3.Value;
+            if (skills.IceFishing == null) skills.IceFishing = new Skill_IceFishingSaveData();
+            skills.IceFishing.m_Points = (int)numSkill4.Value;
+            if (skills.Rifle == null) skills.Rifle = new Skill_RifleSaveData();
+            skills.Rifle.m_Points = (int)numSkill5.Value;
+            if (skills.Archery == null) skills.Archery = new Skill_ArcherySaveData();
+            skills.Archery.m_Points = (int)numSkill6.Value;
+            if (skills.ClothingRepair == null) skills.ClothingRepair = new Skill_ClothingRepairSaveData();
+            skills.ClothingRepair.m_Points = (int)numSkill7.Value;
+            if (skills.Revolver == null) skills.Revolver = new Skill_RevolverSaveData();
+            skills.Revolver.m_Points = (int)numSkill8.Value;
+            if (skills.Gunsmith == null) skills.Gunsmith = new Skill_GunsmithingSaveData();
+            skills.Gunsmith.m_Points = (int)numSkill9.Value;
+
+            // 徽章/档案
+            if (profile != null)
+            {
+                var feats = profile.State.Feats;
+                if (feats != null)
+                {
+                    if (feats.BookSmarts == null) feats.BookSmarts = new Feat_BookSmartsSaveData();
+                    feats.BookSmarts.m_HoursResearch = trackBookSmarts.Value;
+                    if (feats.ColdFusion == null) feats.ColdFusion = new Feat_ColdFusionSaveData();
+                    feats.ColdFusion.m_ElapsedDays = trackColdFusion.Value;
+                    if (feats.EfficientMachine == null) feats.EfficientMachine = new Feat_EfficientMachineSaveData();
+                    feats.EfficientMachine.m_ElapsedHours = trackEfficientMachine.Value;
+                    if (feats.FireMaster == null) feats.FireMaster = new Feat_FireMasterSaveData();
+                    feats.FireMaster.m_NumFiresStarted = trackFireMaster.Value;
+                    if (feats.FreeRunner == null) feats.FreeRunner = new Feat_FreeRunnerSaveData();
+                    feats.FreeRunner.m_ElapsedKilometers = trackFreeRunner.Value;
+                    if (feats.SnowWalker == null) feats.SnowWalker = new Feat_SnowWalkerSaveData();
+                    feats.SnowWalker.m_ElapsedKilometers = trackSnowWalker.Value;
+                    if (feats.ExpertTrapper == null) feats.ExpertTrapper = new Feat_ExpertTrapperSaveData();
+                    feats.ExpertTrapper.m_RabbitSnaredCount = trackExpertTrapper.Value;
+                    if (feats.StraightToHeart == null) feats.StraightToHeart = new Feat_StraightToHeartSaveData();
+                    feats.StraightToHeart.m_ItemConsumedCount = trackStraightToHeart.Value;
+                    if (feats.BlizzardWalker == null) feats.BlizzardWalker = new Feat_BlizzardWalkerSaveData();
+                    feats.BlizzardWalker.m_BlizzardHoursOutside = trackBlizzardWalker.Value;
+                }
+                // 保存档案
+                profile.Save();
+            }
+        }
+
+        private float ParseFloat(string s)
+        {
+            float v;
+            if (float.TryParse(s, out v)) return v;
+            return 0;
+        }
+
+        #endregion
     }
 }
