@@ -136,6 +136,7 @@
             this.columnHeaderDetail = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tishi = new System.Windows.Forms.Label();
             this.btnRemoveAll = new System.Windows.Forms.Button();
             this.btnRepairAll = new System.Windows.Forms.Button();
             this.lblWeightInfo = new System.Windows.Forms.Label();
@@ -160,7 +161,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.tishi = new System.Windows.Forms.Label();
+            this.player_tishi = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -615,6 +616,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.player_tishi);
             this.tabPage2.Controls.Add(this.groupBoxCheats);
             this.tabPage2.Controls.Add(this.groupBoxStats);
             this.tabPage2.Controls.Add(this.groupBoxPos);
@@ -640,7 +642,7 @@
             this.groupBoxCheats.Controls.Add(this.checkNeverDie);
             this.groupBoxCheats.Location = new System.Drawing.Point(300, 10);
             this.groupBoxCheats.Name = "groupBoxCheats";
-            this.groupBoxCheats.Size = new System.Drawing.Size(240, 160);
+            this.groupBoxCheats.Size = new System.Drawing.Size(240, 150);
             this.groupBoxCheats.TabIndex = 8;
             this.groupBoxCheats.TabStop = false;
             this.groupBoxCheats.Text = "开关";
@@ -701,9 +703,9 @@
             this.groupBoxStats.Controls.Add(this.lblHPValue);
             this.groupBoxStats.Controls.Add(this.trackHP);
             this.groupBoxStats.Controls.Add(this.labelHP);
-            this.groupBoxStats.Location = new System.Drawing.Point(12, 170);
+            this.groupBoxStats.Location = new System.Drawing.Point(12, 190);
             this.groupBoxStats.Name = "groupBoxStats";
-            this.groupBoxStats.Size = new System.Drawing.Size(278, 250);
+            this.groupBoxStats.Size = new System.Drawing.Size(278, 236);
             this.groupBoxStats.TabIndex = 7;
             this.groupBoxStats.TabStop = false;
             this.groupBoxStats.Text = "生存状态";
@@ -719,6 +721,7 @@
             // 
             // trackFreezing
             // 
+            this.trackFreezing.BackColor = System.Drawing.Color.White;
             this.trackFreezing.Location = new System.Drawing.Point(60, 185);
             this.trackFreezing.Maximum = 100;
             this.trackFreezing.Name = "trackFreezing";
@@ -746,6 +749,7 @@
             // 
             // trackFatigue
             // 
+            this.trackFatigue.BackColor = System.Drawing.Color.White;
             this.trackFatigue.Location = new System.Drawing.Point(60, 140);
             this.trackFatigue.Maximum = 100;
             this.trackFatigue.Name = "trackFatigue";
@@ -773,6 +777,7 @@
             // 
             // trackThirst
             // 
+            this.trackThirst.BackColor = System.Drawing.Color.White;
             this.trackThirst.Location = new System.Drawing.Point(60, 95);
             this.trackThirst.Maximum = 100;
             this.trackThirst.Name = "trackThirst";
@@ -816,6 +821,7 @@
             // 
             // trackHP
             // 
+            this.trackHP.BackColor = System.Drawing.Color.White;
             this.trackHP.Location = new System.Drawing.Point(60, 20);
             this.trackHP.Maximum = 100;
             this.trackHP.Name = "trackHP";
@@ -1291,6 +1297,15 @@
             this.tabPage6.Text = "背包";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // tishi
+            // 
+            this.tishi.AutoSize = true;
+            this.tishi.Location = new System.Drawing.Point(9, 406);
+            this.tishi.Name = "tishi";
+            this.tishi.Size = new System.Drawing.Size(371, 12);
+            this.tishi.TabIndex = 9;
+            this.tishi.Text = "注意: 请选中你想要操作的项后再按右键进行操作,否则会操作第一项";
+            // 
             // btnRemoveAll
             // 
             this.btnRemoveAll.Location = new System.Drawing.Point(402, 398);
@@ -1508,14 +1523,14 @@
             this.label1.Text = "漫漫长夜";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tishi
+            // player_tishi
             // 
-            this.tishi.AutoSize = true;
-            this.tishi.Location = new System.Drawing.Point(9, 406);
-            this.tishi.Name = "tishi";
-            this.tishi.Size = new System.Drawing.Size(371, 12);
-            this.tishi.TabIndex = 9;
-            this.tishi.Text = "注意: 请选中你想要操作的项后再按右键进行操作,否则会操作第一项";
+            this.player_tishi.AutoSize = true;
+            this.player_tishi.Location = new System.Drawing.Point(10, 173);
+            this.player_tishi.Name = "player_tishi";
+            this.player_tishi.Size = new System.Drawing.Size(335, 12);
+            this.player_tishi.TabIndex = 9;
+            this.player_tishi.Text = "提示: 不允许修改位置的原因是可能会导致玩家直接掉出地图.";
             // 
             // ChangeFile2
             // 
@@ -1718,5 +1733,6 @@
         private System.Windows.Forms.ToolStripMenuItem translateOnline;
         private System.Windows.Forms.ToolStripMenuItem searchOnline;
         private System.Windows.Forms.Label tishi;
+        private System.Windows.Forms.Label player_tishi;
     }
 }
