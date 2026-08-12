@@ -27,13 +27,13 @@ namespace TheLongDarkBuckupTools.Serialization
     /// 泛型枚举包装器类，用于处理枚举类型的相关操作
     /// </summary>
     /// <typeparam name="T">必须是枚举类型的泛型参数</typeparam>
-    public class EnumWrapper<T> : EnumWrapper where T : Enum
+    public class EnumWrapper<T> : EnumWrapper
     {
         /// <summary>
         /// 静态内部类，用于存储特定枚举类型的值集合
         /// </summary>
         /// <typeparam name="T2">必须是枚举类型的泛型参数</typeparam>
-        static class EnumValues<T2> where T2 : Enum
+        static class EnumValues<T2>
         {
             /// <summary>
             /// 存储枚举名称的ObservableCollection集合

@@ -79,7 +79,7 @@ namespace TheLongDarkBuckupTools.Class
                     int itemsToAdd = normalizedIndex - Count + 1;
                     for (int i = 0; i < itemsToAdd; i++)
                     {
-                        Add(default);
+                        Add(default(T));
                     }
                 }
 
@@ -292,7 +292,7 @@ namespace TheLongDarkBuckupTools.Class
                     }
                     catch (ArgumentOutOfRangeException ae)
                     {
-                        return default;
+                        return default(T);
                     }
                     catch (Exception e)
                     {
@@ -329,7 +329,7 @@ namespace TheLongDarkBuckupTools.Class
                     int itemsToAdd = normalizedIndex - Count + 1;
                     for (int i = 0; i < itemsToAdd; i++)
                     {
-                        Add(default);
+                        Add(default(T));
                     }
                 }
 
