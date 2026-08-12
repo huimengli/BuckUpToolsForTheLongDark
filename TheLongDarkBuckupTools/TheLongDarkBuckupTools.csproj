@@ -186,6 +186,7 @@
     <Compile Include="Serialization\EnumWrapper.cs" />
     <Compile Include="Helpers\Item.cs" />
     <Compile Include="Helpers\ItemDictionary.cs" />
+    <Compile Include="Helpers\ItemChineseNames.cs" />
     <Compile Include="InputBox.cs">
       <SubType>Form</SubType>
     </Compile>

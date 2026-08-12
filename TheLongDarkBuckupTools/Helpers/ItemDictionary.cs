@@ -27,6 +27,10 @@ namespace TheLongDarkBuckupTools.Helpers
 
         public static string GetInGameName(string name)
         {
+            // 优先使用内置中文名称表
+            var chinese = ItemChineseNames.GetChineseName(name);
+            if (chinese != null) return chinese;
+            // 其次尝试资源文件
             return Properties.Resources.ResourceManager.GetString(name, System.Globalization.CultureInfo.CurrentUICulture) ?? name;
         }
 
