@@ -72,6 +72,7 @@
             this.trackColdFusion = new System.Windows.Forms.TrackBar();
             this.trackBookSmarts = new System.Windows.Forms.TrackBar();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.player_tishi = new System.Windows.Forms.Label();
             this.groupBoxCheats = new System.Windows.Forms.GroupBox();
             this.checkGod = new System.Windows.Forms.CheckBox();
             this.checkInfiniteCarry = new System.Windows.Forms.CheckBox();
@@ -161,7 +162,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.player_tishi = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -535,6 +535,7 @@
             // 
             // trackBlizzardWalker
             // 
+            this.trackBlizzardWalker.BackColor = System.Drawing.Color.White;
             this.trackBlizzardWalker.Location = new System.Drawing.Point(100, 350);
             this.trackBlizzardWalker.Maximum = 480;
             this.trackBlizzardWalker.Name = "trackBlizzardWalker";
@@ -544,6 +545,7 @@
             // 
             // trackStraightToHeart
             // 
+            this.trackStraightToHeart.BackColor = System.Drawing.Color.White;
             this.trackStraightToHeart.Location = new System.Drawing.Point(100, 309);
             this.trackStraightToHeart.Maximum = 250;
             this.trackStraightToHeart.Name = "trackStraightToHeart";
@@ -553,6 +555,7 @@
             // 
             // trackExpertTrapper
             // 
+            this.trackExpertTrapper.BackColor = System.Drawing.Color.White;
             this.trackExpertTrapper.Location = new System.Drawing.Point(100, 268);
             this.trackExpertTrapper.Maximum = 100;
             this.trackExpertTrapper.Name = "trackExpertTrapper";
@@ -562,6 +565,7 @@
             // 
             // trackSnowWalker
             // 
+            this.trackSnowWalker.BackColor = System.Drawing.Color.White;
             this.trackSnowWalker.Location = new System.Drawing.Point(100, 227);
             this.trackSnowWalker.Maximum = 1000;
             this.trackSnowWalker.Name = "trackSnowWalker";
@@ -571,6 +575,7 @@
             // 
             // trackFreeRunner
             // 
+            this.trackFreeRunner.BackColor = System.Drawing.Color.White;
             this.trackFreeRunner.Location = new System.Drawing.Point(100, 186);
             this.trackFreeRunner.Maximum = 50;
             this.trackFreeRunner.Name = "trackFreeRunner";
@@ -580,6 +585,7 @@
             // 
             // trackFireMaster
             // 
+            this.trackFireMaster.BackColor = System.Drawing.Color.White;
             this.trackFireMaster.Location = new System.Drawing.Point(100, 145);
             this.trackFireMaster.Maximum = 1000;
             this.trackFireMaster.Name = "trackFireMaster";
@@ -589,6 +595,7 @@
             // 
             // trackEfficientMachine
             // 
+            this.trackEfficientMachine.BackColor = System.Drawing.Color.White;
             this.trackEfficientMachine.Location = new System.Drawing.Point(100, 104);
             this.trackEfficientMachine.Maximum = 12000;
             this.trackEfficientMachine.Name = "trackEfficientMachine";
@@ -598,6 +605,7 @@
             // 
             // trackColdFusion
             // 
+            this.trackColdFusion.BackColor = System.Drawing.Color.White;
             this.trackColdFusion.Location = new System.Drawing.Point(100, 63);
             this.trackColdFusion.Maximum = 100;
             this.trackColdFusion.Name = "trackColdFusion";
@@ -607,6 +615,7 @@
             // 
             // trackBookSmarts
             // 
+            this.trackBookSmarts.BackColor = System.Drawing.Color.White;
             this.trackBookSmarts.Location = new System.Drawing.Point(100, 22);
             this.trackBookSmarts.Maximum = 250;
             this.trackBookSmarts.Name = "trackBookSmarts";
@@ -633,6 +642,15 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "玩家";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // player_tishi
+            // 
+            this.player_tishi.AutoSize = true;
+            this.player_tishi.Location = new System.Drawing.Point(10, 173);
+            this.player_tishi.Name = "player_tishi";
+            this.player_tishi.Size = new System.Drawing.Size(335, 12);
+            this.player_tishi.TabIndex = 9;
+            this.player_tishi.Text = "提示: 不允许修改位置的原因是可能会导致玩家直接掉出地图.";
             // 
             // groupBoxCheats
             // 
@@ -1257,7 +1275,7 @@
             this.listViewAfflictions.HideSelection = false;
             this.listViewAfflictions.Location = new System.Drawing.Point(6, 6);
             this.listViewAfflictions.Name = "listViewAfflictions";
-            this.listViewAfflictions.Size = new System.Drawing.Size(390, 380);
+            this.listViewAfflictions.Size = new System.Drawing.Size(390, 420);
             this.listViewAfflictions.TabIndex = 0;
             this.listViewAfflictions.UseCompatibleStateImageBehavior = false;
             this.listViewAfflictions.View = System.Windows.Forms.View.Details;
@@ -1522,15 +1540,6 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "漫漫长夜";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // player_tishi
-            // 
-            this.player_tishi.AutoSize = true;
-            this.player_tishi.Location = new System.Drawing.Point(10, 173);
-            this.player_tishi.Name = "player_tishi";
-            this.player_tishi.Size = new System.Drawing.Size(335, 12);
-            this.player_tishi.TabIndex = 9;
-            this.player_tishi.Text = "提示: 不允许修改位置的原因是可能会导致玩家直接掉出地图.";
             // 
             // ChangeFile2
             // 
