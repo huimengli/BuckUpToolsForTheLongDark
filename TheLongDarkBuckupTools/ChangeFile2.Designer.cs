@@ -144,9 +144,12 @@
             this.copyBoth = new System.Windows.Forms.ToolStripMenuItem();
             this.cloneItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.setUnits = new System.Windows.Forms.ToolStripMenuItem();
             this.setCalories = new System.Windows.Forms.ToolStripMenuItem();
             this.setWeight = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.translateOnline = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchOnline = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeleteItem = new System.Windows.Forms.Button();
             this.btnAddItem = new System.Windows.Forms.Button();
             this.comboItem = new System.Windows.Forms.ComboBox();
@@ -157,6 +160,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.tishi = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -1269,6 +1273,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.tishi);
             this.tabPage6.Controls.Add(this.btnRemoveAll);
             this.tabPage6.Controls.Add(this.btnRepairAll);
             this.tabPage6.Controls.Add(this.lblWeightInfo);
@@ -1335,50 +1340,74 @@
             this.copyBoth,
             this.cloneItem,
             this.toolStripSeparator1,
+            this.setUnits,
             this.setCalories,
             this.setWeight,
-            this.toolStripSeparator2});
+            this.toolStripSeparator2,
+            this.translateOnline,
+            this.searchOnline});
             this.contextMenuStripItems.Name = "contextMenuStripItems";
-            this.contextMenuStripItems.Size = new System.Drawing.Size(150, 104);
+            this.contextMenuStripItems.Size = new System.Drawing.Size(197, 170);
             this.contextMenuStripItems.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripItems_Opening);
             // 
             // copyBoth
             // 
             this.copyBoth.Name = "copyBoth";
-            this.copyBoth.Size = new System.Drawing.Size(149, 22);
+            this.copyBoth.Size = new System.Drawing.Size(196, 22);
             this.copyBoth.Text = "复制名称+物品ID";
             this.copyBoth.Click += new System.EventHandler(this.copyBoth_Click);
             // 
             // cloneItem
             // 
             this.cloneItem.Name = "cloneItem";
-            this.cloneItem.Size = new System.Drawing.Size(149, 22);
+            this.cloneItem.Size = new System.Drawing.Size(196, 22);
             this.cloneItem.Text = "复制物品并添加进背包";
             this.cloneItem.Click += new System.EventHandler(this.cloneItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(146, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(193, 6);
+            // 
+            // setUnits
+            // 
+            this.setUnits.Name = "setUnits";
+            this.setUnits.Size = new System.Drawing.Size(196, 22);
+            this.setUnits.Text = "修改数量";
+            this.setUnits.Click += new System.EventHandler(this.setUnits_Click);
             // 
             // setCalories
             // 
             this.setCalories.Name = "setCalories";
-            this.setCalories.Size = new System.Drawing.Size(149, 22);
+            this.setCalories.Size = new System.Drawing.Size(196, 22);
             this.setCalories.Text = "修改卡路里";
             this.setCalories.Click += new System.EventHandler(this.setCalories_Click);
             // 
             // setWeight
             // 
             this.setWeight.Name = "setWeight";
-            this.setWeight.Size = new System.Drawing.Size(149, 22);
+            this.setWeight.Size = new System.Drawing.Size(196, 22);
             this.setWeight.Text = "修改重量";
             this.setWeight.Click += new System.EventHandler(this.setWeight_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(146, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(193, 6);
+            // 
+            // translateOnline
+            // 
+            this.translateOnline.Name = "translateOnline";
+            this.translateOnline.Size = new System.Drawing.Size(196, 22);
+            this.translateOnline.Text = "在线翻译道具名称";
+            this.translateOnline.Click += new System.EventHandler(this.translateOnline_Click);
+            // 
+            // searchOnline
+            // 
+            this.searchOnline.Name = "searchOnline";
+            this.searchOnline.Size = new System.Drawing.Size(196, 22);
+            this.searchOnline.Text = "在线搜索道具名称";
+            this.searchOnline.Click += new System.EventHandler(this.searchOnline_Click);
             // 
             // btnDeleteItem
             // 
@@ -1478,6 +1507,15 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "漫漫长夜";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tishi
+            // 
+            this.tishi.AutoSize = true;
+            this.tishi.Location = new System.Drawing.Point(9, 406);
+            this.tishi.Name = "tishi";
+            this.tishi.Size = new System.Drawing.Size(371, 12);
+            this.tishi.TabIndex = 9;
+            this.tishi.Text = "注意: 请选中你想要操作的项后再按右键进行操作,否则会操作第一项";
             // 
             // ChangeFile2
             // 
@@ -1673,8 +1711,12 @@
         private System.Windows.Forms.ToolStripMenuItem copyBoth;
         private System.Windows.Forms.ToolStripMenuItem cloneItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem setUnits;
         private System.Windows.Forms.ToolStripMenuItem setCalories;
         private System.Windows.Forms.ToolStripMenuItem setWeight;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem translateOnline;
+        private System.Windows.Forms.ToolStripMenuItem searchOnline;
+        private System.Windows.Forms.Label tishi;
     }
 }

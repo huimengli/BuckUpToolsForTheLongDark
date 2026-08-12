@@ -761,8 +761,11 @@ namespace TheLongDarkBuckupTools
 
             copyBoth.Enabled = hasRow;
             cloneItem.Enabled = hasRow;
+            setUnits.Enabled = hasRow && gear != null && gear.StackableItem != null;
             setCalories.Enabled = hasCal;
             setWeight.Enabled = hasRow;
+            translateOnline.Enabled = hasRow;
+            searchOnline.Enabled = hasRow;
         }
 
         private void copyBoth_Click(object sender, EventArgs e)
@@ -794,6 +797,29 @@ namespace TheLongDarkBuckupTools
             {
                 MessageBox.Show("复制物品失败:" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// 修改物品数量(堆叠数)
+        /// </summary>
+        private void setUnits_Click(object sender, EventArgs e)
+        {
+            var gear = GetSelectedGear();
+            if (gear == null || gear.StackableItem == null) return;
+
+            var box = new InputBox("修改数量", "输入新的数量(当前:" + gear.StackableItem.m_UnitsProxy + "):");
+            box.ShowDialog();
+            string result = InputBox.returnValue;
+            if (string.IsNullOrEmpty(result)) return;
+
+            int v;
+            if (!int.TryParse(result, out v) || v < 1)
+            {
+                MessageBox.Show("请输入有效的正整数!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            gear.StackableItem.m_UnitsProxy = v;
+            ShowInventoryTab();
         }
 
         private void setCalories_Click(object sender, EventArgs e)
@@ -834,6 +860,50 @@ namespace TheLongDarkBuckupTools
             }
             gear.m_WeightKG = ItemWeights.ToStorage(v);
             ShowInventoryTab();
+        }
+
+        /// <summary>
+        /// 在线翻译道具名称(打开Bing翻译,把英文名翻译成中文)
+        /// </summary>
+        private void translateOnline_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0) return;
+            var row = dataGridViewItems.SelectedRows[0];
+            var name = row.Cells["colName"].Value?.ToString() ?? "";
+            var id = row.Cells["colID"].Value?.ToString() ?? "";
+            if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(id)) return;
+
+            try
+            {
+                // 优先用中文名称,没有中文名时用物品ID
+                var query = Uri.EscapeDataString(string.IsNullOrEmpty(name) ? id : name);
+                System.Diagnostics.Process.Start("https://www.bing.com/translator/?from=en&to=zh-Hans&text=" + query);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("打开浏览器失败:" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// 在线搜索道具名称(打开浏览器搜索该物品)
+        /// </summary>
+        private void searchOnline_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0) return;
+            var row = dataGridViewItems.SelectedRows[0];
+            var id = row.Cells["colID"].Value?.ToString() ?? "";
+            if (string.IsNullOrEmpty(id)) return;
+
+            try
+            {
+                var query = Uri.EscapeDataString("\"The Long Dark\" " + id);
+                System.Diagnostics.Process.Start("https://www.bing.com/search?q=" + query);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("打开浏览器失败:" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 #endregion
