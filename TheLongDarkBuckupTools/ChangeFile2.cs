@@ -189,7 +189,6 @@ namespace TheLongDarkBuckupTools
         {
             comboMode.Items.AddRange(Enum.GetNames(typeof(ExperienceModeType)));
             comboRegion.Items.AddRange(Enum.GetNames(typeof(RegionsWithMap)));
-            comboMapRegion.Items.AddRange(Enum.GetNames(typeof(RegionsWithMap)));
 
             // 分类下拉框
             comboCategory.BeginUpdate();
@@ -250,15 +249,6 @@ namespace TheLongDarkBuckupTools
             this.trackFatigue.ValueChanged += (s, e) => lblFatigueValue.Text = trackFatigue.Value + "%";
             this.trackFreezing.ValueChanged += (s, e) => lblFreezingValue.Text = trackFreezing.Value + "%";
 
-            // 地图Tab
-            this.comboMapRegion.SelectedIndexChanged += (s, e) => comboRegion.SelectedIndex = comboMapRegion.SelectedIndex;
-            this.comboRegion.SelectedIndexChanged += (s, e) =>
-            {
-                if (comboMapRegion.Items.Count > comboRegion.SelectedIndex && comboRegion.SelectedIndex >= 0)
-                    comboMapRegion.SelectedIndex = comboRegion.SelectedIndex;
-            };
-            this.btnApplyMap.Click += btnApplyMap_Click;
-
             // 病痛Tab
             this.btnCureSelected.Click += btnCureSelected_Click;
             this.btnCureAll.Click += btnCureAll_Click;
@@ -317,7 +307,6 @@ namespace TheLongDarkBuckupTools
                 // 各Tab
                 ShowFeatsTab();
                 ShowPlayerTab();
-                ShowMapTab();
                 ShowSkillsTab();
                 ShowAfflictionsTab();
                 ShowInventoryTab();
@@ -457,43 +446,6 @@ namespace TheLongDarkBuckupTools
             if (comboMode.SelectedIndex < 0) return;
             var name = (string)comboMode.SelectedItem;
             textCustomMode.Enabled = (name == ExperienceModeType.Custom.ToString());
-        }
-
-#endregion
-
-#region 地图Tab
-
-        /// <summary>
-        /// 显示地图数据
-        /// </summary>
-        private void ShowMapTab()
-        {
-            labelMapInfo.Text = "地图区域与传送坐标(与玩家Tab同步)";
-            comboMapRegion.SelectedIndex = comboRegion.SelectedIndex;
-
-            var pos = currentSave.Global.PlayerManager?.m_SaveGamePosition;
-            if (pos == null || pos.Count < 3)
-            {
-                textMapX.Text = "0"; textMapY.Text = "0"; textMapZ.Text = "0";
-            }
-            else
-            {
-                textMapX.Text = pos[0].ToString("0.0");
-                textMapY.Text = pos[2].ToString("0.0");
-                textMapZ.Text = pos[1].ToString("0.0");
-            }
-        }
-
-        /// <summary>
-        /// 应用地图坐标到玩家位置
-        /// </summary>
-        private void btnApplyMap_Click(object sender, EventArgs e)
-        {
-            textPosX.Text = textMapX.Text;
-            textPosY.Text = textMapY.Text;
-            textPosZ.Text = textMapZ.Text;
-            comboRegion.SelectedIndex = comboMapRegion.SelectedIndex;
-            MessageBox.Show("坐标已应用,点击\"保存\"生效!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
 #endregion
@@ -665,9 +617,9 @@ namespace TheLongDarkBuckupTools
                 string name = ItemDictionary.GetInGameName(item.m_PrefabName);
                 int units = gear.StackableItem?.m_UnitsProxy ?? 1;
                 string cond = (gear.NormalizedCondition * 100).ToString("0") + "%";
-                string weight = gear.m_WeightKG.ToString("0.00");
+                string weight = ItemWeights.ToKg(gear.m_WeightKG).ToString("0.00");
                 string cal = gear.FoodItem != null ? ((int)gear.FoodItem.m_CaloriesRemainingProxy).ToString() : "";
-                totalWeight += gear.m_WeightKG;
+                totalWeight += ItemWeights.ToKg(gear.m_WeightKG);
 
                 int rowIdx = dataGridViewItems.Rows.Add(name, item.m_PrefabName, units, cond, weight, cal);
                 dataGridViewItems.Rows[rowIdx].Tag = item;
@@ -698,6 +650,21 @@ namespace TheLongDarkBuckupTools
                 gear.m_HoursPlayed = currentSave.Global.TimeOfDay?.m_HoursPlayedNotPausedProxy ?? 0;
                 gear.m_BeenInPlayerInventoryProxy = true;
                 gear.NormalizedCondition = 1;
+
+                // 设置默认重量(存档内单位为 kg×1e9):优先查重量表,其次复制背包中同ID物品,最后默认0.5kg
+                float defaultKg;
+                if (ItemWeights.TryGetDefaultWeight(entry.Id, out defaultKg))
+                {
+                    gear.m_WeightKG = ItemWeights.ToStorage(defaultKg);
+                }
+                else
+                {
+                    var sameItem = currentSave.Global.Inventory.Items.FirstOrDefault(i => i.m_PrefabName == entry.Id && i.Gear != null && i.Gear.m_WeightKG > 0);
+                    if (sameItem != null)
+                        gear.m_WeightKG = sameItem.Gear.m_WeightKG;
+                    else
+                        gear.m_WeightKG = ItemWeights.ToStorage(0.5f);
+                }
 
                 // 分配唯一实例ID
                 var rnd = new Random();
@@ -792,27 +759,10 @@ namespace TheLongDarkBuckupTools
             var gear = GetSelectedGear();
             bool hasCal = hasRow && gear != null && gear.FoodItem != null;
 
-            copyName.Enabled = hasRow;
-            copyID.Enabled = hasRow;
             copyBoth.Enabled = hasRow;
+            cloneItem.Enabled = hasRow;
             setCalories.Enabled = hasCal;
             setWeight.Enabled = hasRow;
-        }
-
-        private void copyName_Click(object sender, EventArgs e)
-        {
-            if (dataGridViewItems.SelectedRows.Count == 0) return;
-            var row = dataGridViewItems.SelectedRows[0];
-            var val = row.Cells["colName"].Value;
-            if (val != null) Clipboard.SetText(val.ToString());
-        }
-
-        private void copyID_Click(object sender, EventArgs e)
-        {
-            if (dataGridViewItems.SelectedRows.Count == 0) return;
-            var row = dataGridViewItems.SelectedRows[0];
-            var val = row.Cells["colID"].Value;
-            if (val != null) Clipboard.SetText(val.ToString());
         }
 
         private void copyBoth_Click(object sender, EventArgs e)
@@ -822,6 +772,28 @@ namespace TheLongDarkBuckupTools
             var name = row.Cells["colName"].Value?.ToString() ?? "";
             var id = row.Cells["colID"].Value?.ToString() ?? "";
             Clipboard.SetText(name + "  " + id);
+        }
+
+        /// <summary>
+        /// 复制当前选中物品(深拷贝全部数据)并添加进背包
+        /// </summary>
+        private void cloneItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0) return;
+            var row = dataGridViewItems.SelectedRows[0];
+            var src = row.Tag as InventoryItemSaveData;
+            if (src == null || src.Gear == null) return;
+
+            try
+            {
+                var newItem = currentSave.CloneItem(src);
+                currentSave.Global.Inventory.Items.Add(newItem);
+                ShowInventoryTab();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("复制物品失败:" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void setCalories_Click(object sender, EventArgs e)
@@ -849,7 +821,7 @@ namespace TheLongDarkBuckupTools
             var gear = GetSelectedGear();
             if (gear == null) return;
 
-            var box = new InputBox("修改重量", "输入新的重量(kg)(当前:" + gear.m_WeightKG.ToString("0.00") + "):");
+            var box = new InputBox("修改重量", "输入新的重量(kg)(当前:" + ItemWeights.ToKg(gear.m_WeightKG).ToString("0.00") + "):");
             box.ShowDialog();
             string result = InputBox.returnValue;
             if (string.IsNullOrEmpty(result)) return;
@@ -860,7 +832,7 @@ namespace TheLongDarkBuckupTools
                 MessageBox.Show("请输入有效的非负数值!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            gear.m_WeightKG = v;
+            gear.m_WeightKG = ItemWeights.ToStorage(v);
             ShowInventoryTab();
         }
 
@@ -922,23 +894,7 @@ namespace TheLongDarkBuckupTools
                 global.ExperienceModeManager.m_CustomModeString = textCustomMode.Text;
             }
 
-            // 区域
-            if (comboRegion.SelectedIndex >= 0)
-            {
-                var regionName = (string)comboRegion.SelectedItem;
-                var region = (RegionsWithMap)Enum.Parse(typeof(RegionsWithMap), regionName);
-                if (currentSave.Boot.m_SceneName == null) currentSave.Boot.m_SceneName = new EnumWrapper<RegionsWithMap>(region.ToString());
-                else currentSave.Boot.m_SceneName.SetValue(region);
-            }
-
-            // 位置(X=pos[0], Y=pos[2], Z=pos[1])
-            if (global.PlayerManager == null) global.PlayerManager = new PlayerManagerSaveDataProxy();
-            if (global.PlayerManager.m_SaveGamePosition == null) global.PlayerManager.m_SaveGamePosition = new System.Collections.ObjectModel.ObservableCollection<float>();
-            var pos = global.PlayerManager.m_SaveGamePosition;
-            while (pos.Count < 3) pos.Add(0);
-            pos[0] = ParseFloat(textPosX.Text);
-            pos[2] = ParseFloat(textPosY.Text);
-            pos[1] = ParseFloat(textPosZ.Text);
+            // 玩家区域/位置暂时不允许修改,仅显示(如需修改,后续再开放)
 
             // 状态(代理值为0~100,与读取保持一致,直接写回)
             if (global.Condition == null) global.Condition = new ConditionSaveDataProxy();

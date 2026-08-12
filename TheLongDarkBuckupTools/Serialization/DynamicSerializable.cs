@@ -235,6 +235,18 @@ namespace TheLongDarkBuckupTools.Serialization
             return JsonConvert.SerializeObject(res, jsonSerializerSettings);
         }
 
+        /// <summary>
+        /// 深拷贝对象:通过"重构→序列化→重新解析"完整复制对象的全部字段,
+        /// 包括已知字段(属性/字段)和未知字段(extraFields 保留的数据),
+        /// 确保复制出的对象与原对象完全独立,保存时数据不丢失。
+        /// </summary>
+        public object CloneObject(object o)
+        {
+            var res = ReconstructObject(o);
+            var json = JsonConvert.SerializeObject(res, jsonSerializerSettings);
+            return Parse(JObject.Parse(json, jsonLoadSettings), o.GetType());
+        }
+
         public object Reconstruct(object o, DeserializeAttribute attr = null)
         {
             object result = null;

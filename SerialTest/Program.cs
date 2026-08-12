@@ -1,63 +1,65 @@
-using System;
+﻿using System;
 using System.IO;
-using System.Reflection;
-using Newtonsoft.Json.Linq;
+using System.Linq;
 using TheLongDarkBuckupTools.GameData;
+using TheLongDarkBuckupTools.Helpers;
+using TheLongDarkBuckupTools.MoreData;
 using TheLongDarkBuckupTools.Serialization;
 
 namespace SerialTest
 {
     class Program
     {
-        static string DecompressBytesToString(byte[] data)
-        {
-            var t = typeof(SlotData).Assembly.GetType("TheLongDarkBuckupTools.Helpers.EncryptString");
-            var m = t.GetMethod("DecompressBytesToString", BindingFlags.Static | BindingFlags.Public);
-            return (string)m.Invoke(null, new object[] { data });
-        }
-
         static void Main(string[] args)
         {
             string slotPath = @"C:\Users\29133\AppData\Local\Hinterland\TheLongDark\autosave3";
-            string slotJson = DecompressBytesToString(File.ReadAllBytes(slotPath));
-            var slot = JObject.Parse(slotJson);
-            string globalB64 = (string)slot["m_Dict"]["global"];
-            string globalJson = DecompressBytesToString(Convert.FromBase64String(globalB64));
+            var gs = new GameSave();
+            gs.LoadSave(slotPath);
+            var inv = gs.Global.Inventory;
+            Console.WriteLine("加载成功,物品数: " + inv.Items.Count);
 
-            Console.WriteLine("=== 端到端:加载真实global → 序列化 → 再加载 ===");
-            var dyn1 = new DynamicSerializable<GlobalSaveGameFormat>(globalJson);
-            Console.WriteLine("第1次加载 OK");
-            string out1 = dyn1.Serialize();
-            Console.WriteLine("序列化 OK, 长度 " + out1.Length);
+            // 选一个带重量/堆叠/食物的物品克隆
+            var src = inv.Items.FirstOrDefault(i => i.Gear != null && i.Gear.m_WeightKG > 0 && i.Gear.StackableItem != null);
+            if (src == null) src = inv.Items.FirstOrDefault(i => i.Gear != null && i.Gear.m_WeightKG > 0);
+            Console.WriteLine("选中克隆源: " + src.m_PrefabName + " 重量=" + src.Gear.m_WeightKG + " InstanceID=" + src.Gear.m_InstanceIDProxy);
 
-            try
-            {
-                var dyn2 = new DynamicSerializable<GlobalSaveGameFormat>(out1);
-                Console.WriteLine("第2次加载 OK!");
-                Console.WriteLine("Condition HP = " + dyn2.Obj.Condition?.m_CurrentHPProxy);
-                Console.WriteLine("Encumber = " + (dyn2.Obj.Encumber == null ? "null" : dyn2.Obj.Encumber.m_NumSecondsSinceLastVoiceOver.ToString()));
-                Console.WriteLine("WellFed = " + (dyn2.Obj.WellFed == null ? "null" : dyn2.Obj.WellFed.m_ElapsedHoursNotStarving.ToString()));
-                Console.WriteLine("成功!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("第2次加载失败: " + ex);
-                return;
-            }
+            int before = inv.Items.Count;
+            var clone = gs.CloneItem(src);
+            inv.Items.Add(clone);
+            Console.WriteLine("克隆完成,物品数: " + inv.Items.Count);
+            Console.WriteLine("克隆: " + clone.m_PrefabName + " 重量=" + clone.Gear.m_WeightKG + " InstanceID=" + clone.Gear.m_InstanceIDProxy);
+            bool idOk = clone.Gear.m_InstanceIDProxy != src.Gear.m_InstanceIDProxy;
+            bool refOk = !object.ReferenceEquals(clone.Gear, src.Gear);
+            Console.WriteLine("ID不同: " + idOk + "  对象独立: " + refOk);
 
-            // 再测:第2次结果再序列化再加载(连续保存)
-            Console.WriteLine();
-            Console.WriteLine("=== 再序列化一次(连续保存模拟) ===");
-            string out2 = dyn1.Serialize();
-            try
+            // 修改克隆物品的堆叠/重量,确认不影响原物品
+            if (clone.Gear.StackableItem != null)
             {
-                var dyn3 = new DynamicSerializable<GlobalSaveGameFormat>(out2);
-                Console.WriteLine("第3次加载 OK!");
+                clone.Gear.StackableItem.m_UnitsProxy = 999;
+                Console.WriteLine("改克隆堆叠后,原物品堆叠=" + (src.Gear.StackableItem != null ? src.Gear.StackableItem.m_UnitsProxy.ToString() : "null") + " 克隆堆叠=" + clone.Gear.StackableItem.m_UnitsProxy);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("第3次加载失败: " + ex);
-            }
+            clone.Gear.m_WeightKG = 123456789f;
+            Console.WriteLine("改克隆重量后,原物品重量=" + src.Gear.m_WeightKG + " 克隆重量=" + clone.Gear.m_WeightKG);
+
+            // 保存后再重载验证
+            string tmp = Path.Combine(Path.GetTempPath(), "autosave_clone_test");
+            Directory.CreateDirectory(tmp);
+            string tmpSlot = Path.Combine(tmp, "sandbox_clone_test");
+            File.Copy(slotPath, tmpSlot, true);
+            gs.path = tmpSlot;
+            gs.Save();
+            Console.WriteLine("保存成功");
+
+            var gs2 = new GameSave();
+            gs2.LoadSave(tmpSlot);
+            var inv2 = gs2.Global.Inventory;
+            Console.WriteLine("重载成功,物品数: " + inv2.Items.Count + " (应为 " + (before + 1) + ")");
+            var loaded = inv2.Items.FirstOrDefault(i => i.Gear != null && i.Gear.m_WeightKG == 123456789f);
+            Console.WriteLine("找到克隆物品(重量123456789): " + (loaded != null ? loaded.m_PrefabName + " InstanceID=" + loaded.Gear.m_InstanceIDProxy : "未找到!"));
+
+            // 清理
+            try { File.Delete(tmpSlot); Directory.Delete(tmp); } catch { }
+            Console.WriteLine(before + 1 == inv2.Items.Count && loaded != null ? "=== 克隆端到端测试通过 ===" : "=== 测试失败 ===");
         }
     }
 }

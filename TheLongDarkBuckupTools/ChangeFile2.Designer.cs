@@ -106,17 +106,6 @@
             this.comboMode = new System.Windows.Forms.ComboBox();
             this.labelMode = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.btnApplyMap = new System.Windows.Forms.Button();
-            this.groupBoxMapPos = new System.Windows.Forms.GroupBox();
-            this.textMapZ = new System.Windows.Forms.TextBox();
-            this.labelMapZ = new System.Windows.Forms.Label();
-            this.textMapY = new System.Windows.Forms.TextBox();
-            this.labelMapY = new System.Windows.Forms.Label();
-            this.textMapX = new System.Windows.Forms.TextBox();
-            this.labelMapX = new System.Windows.Forms.Label();
-            this.comboMapRegion = new System.Windows.Forms.ComboBox();
-            this.labelMapRegion = new System.Windows.Forms.Label();
-            this.labelMapInfo = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.labelSkillInfo = new System.Windows.Forms.Label();
             this.numSkill9 = new System.Windows.Forms.NumericUpDown();
@@ -152,9 +141,8 @@
             this.lblWeightInfo = new System.Windows.Forms.Label();
             this.dataGridViewItems = new System.Windows.Forms.DataGridView();
             this.contextMenuStripItems = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.copyName = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyID = new System.Windows.Forms.ToolStripMenuItem();
             this.copyBoth = new System.Windows.Forms.ToolStripMenuItem();
+            this.cloneItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.setCalories = new System.Windows.Forms.ToolStripMenuItem();
             this.setWeight = new System.Windows.Forms.ToolStripMenuItem();
@@ -192,8 +180,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackThirst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackHP)).BeginInit();
             this.groupBoxPos.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.groupBoxMapPos.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSkill9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSkill8)).BeginInit();
@@ -861,6 +847,7 @@
             // 
             this.textPosZ.Location = new System.Drawing.Point(220, 24);
             this.textPosZ.Name = "textPosZ";
+            this.textPosZ.ReadOnly = true;
             this.textPosZ.Size = new System.Drawing.Size(48, 21);
             this.textPosZ.TabIndex = 5;
             // 
@@ -877,6 +864,7 @@
             // 
             this.textPosY.Location = new System.Drawing.Point(128, 24);
             this.textPosY.Name = "textPosY";
+            this.textPosY.ReadOnly = true;
             this.textPosY.Size = new System.Drawing.Size(60, 21);
             this.textPosY.TabIndex = 3;
             // 
@@ -893,6 +881,7 @@
             // 
             this.textPosX.Location = new System.Drawing.Point(36, 24);
             this.textPosX.Name = "textPosX";
+            this.textPosX.ReadOnly = true;
             this.textPosX.Size = new System.Drawing.Size(60, 21);
             this.textPosX.TabIndex = 1;
             // 
@@ -908,6 +897,7 @@
             // comboRegion
             // 
             this.comboRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboRegion.Enabled = false;
             this.comboRegion.FormattingEnabled = true;
             this.comboRegion.Location = new System.Drawing.Point(90, 70);
             this.comboRegion.Name = "comboRegion";
@@ -959,11 +949,6 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.btnApplyMap);
-            this.tabPage3.Controls.Add(this.groupBoxMapPos);
-            this.tabPage3.Controls.Add(this.comboMapRegion);
-            this.tabPage3.Controls.Add(this.labelMapRegion);
-            this.tabPage3.Controls.Add(this.labelMapInfo);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -971,105 +956,6 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "地图";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // btnApplyMap
-            // 
-            this.btnApplyMap.Location = new System.Drawing.Point(90, 145);
-            this.btnApplyMap.Name = "btnApplyMap";
-            this.btnApplyMap.Size = new System.Drawing.Size(100, 28);
-            this.btnApplyMap.TabIndex = 4;
-            this.btnApplyMap.Text = "应用坐标";
-            this.btnApplyMap.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxMapPos
-            // 
-            this.groupBoxMapPos.Controls.Add(this.textMapZ);
-            this.groupBoxMapPos.Controls.Add(this.labelMapZ);
-            this.groupBoxMapPos.Controls.Add(this.textMapY);
-            this.groupBoxMapPos.Controls.Add(this.labelMapY);
-            this.groupBoxMapPos.Controls.Add(this.textMapX);
-            this.groupBoxMapPos.Controls.Add(this.labelMapX);
-            this.groupBoxMapPos.Location = new System.Drawing.Point(12, 75);
-            this.groupBoxMapPos.Name = "groupBoxMapPos";
-            this.groupBoxMapPos.Size = new System.Drawing.Size(278, 60);
-            this.groupBoxMapPos.TabIndex = 3;
-            this.groupBoxMapPos.TabStop = false;
-            this.groupBoxMapPos.Text = "玩家坐标(X,Z,Y)";
-            // 
-            // textMapZ
-            // 
-            this.textMapZ.Location = new System.Drawing.Point(220, 24);
-            this.textMapZ.Name = "textMapZ";
-            this.textMapZ.Size = new System.Drawing.Size(48, 21);
-            this.textMapZ.TabIndex = 5;
-            // 
-            // labelMapZ
-            // 
-            this.labelMapZ.AutoSize = true;
-            this.labelMapZ.Location = new System.Drawing.Point(194, 27);
-            this.labelMapZ.Name = "labelMapZ";
-            this.labelMapZ.Size = new System.Drawing.Size(17, 12);
-            this.labelMapZ.TabIndex = 4;
-            this.labelMapZ.Text = "Z:";
-            // 
-            // textMapY
-            // 
-            this.textMapY.Location = new System.Drawing.Point(128, 24);
-            this.textMapY.Name = "textMapY";
-            this.textMapY.Size = new System.Drawing.Size(60, 21);
-            this.textMapY.TabIndex = 3;
-            // 
-            // labelMapY
-            // 
-            this.labelMapY.AutoSize = true;
-            this.labelMapY.Location = new System.Drawing.Point(102, 27);
-            this.labelMapY.Name = "labelMapY";
-            this.labelMapY.Size = new System.Drawing.Size(17, 12);
-            this.labelMapY.TabIndex = 2;
-            this.labelMapY.Text = "Y:";
-            // 
-            // textMapX
-            // 
-            this.textMapX.Location = new System.Drawing.Point(36, 24);
-            this.textMapX.Name = "textMapX";
-            this.textMapX.Size = new System.Drawing.Size(60, 21);
-            this.textMapX.TabIndex = 1;
-            // 
-            // labelMapX
-            // 
-            this.labelMapX.AutoSize = true;
-            this.labelMapX.Location = new System.Drawing.Point(10, 27);
-            this.labelMapX.Name = "labelMapX";
-            this.labelMapX.Size = new System.Drawing.Size(17, 12);
-            this.labelMapX.TabIndex = 0;
-            this.labelMapX.Text = "X:";
-            // 
-            // comboMapRegion
-            // 
-            this.comboMapRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboMapRegion.FormattingEnabled = true;
-            this.comboMapRegion.Location = new System.Drawing.Point(90, 40);
-            this.comboMapRegion.Name = "comboMapRegion";
-            this.comboMapRegion.Size = new System.Drawing.Size(200, 20);
-            this.comboMapRegion.TabIndex = 2;
-            // 
-            // labelMapRegion
-            // 
-            this.labelMapRegion.AutoSize = true;
-            this.labelMapRegion.Location = new System.Drawing.Point(15, 46);
-            this.labelMapRegion.Name = "labelMapRegion";
-            this.labelMapRegion.Size = new System.Drawing.Size(59, 12);
-            this.labelMapRegion.TabIndex = 1;
-            this.labelMapRegion.Text = "所在区域:";
-            // 
-            // labelMapInfo
-            // 
-            this.labelMapInfo.AutoSize = true;
-            this.labelMapInfo.Location = new System.Drawing.Point(15, 16);
-            this.labelMapInfo.Name = "labelMapInfo";
-            this.labelMapInfo.Size = new System.Drawing.Size(317, 12);
-            this.labelMapInfo.TabIndex = 0;
-            this.labelMapInfo.Text = "地图信息:设置玩家所在区域与坐标,修改后记得保存存档。";
             // 
             // tabPage4
             // 
@@ -1446,37 +1332,29 @@
             // contextMenuStripItems
             // 
             this.contextMenuStripItems.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyName,
-            this.copyID,
             this.copyBoth,
+            this.cloneItem,
             this.toolStripSeparator1,
             this.setCalories,
             this.setWeight,
             this.toolStripSeparator2});
             this.contextMenuStripItems.Name = "contextMenuStripItems";
-            this.contextMenuStripItems.Size = new System.Drawing.Size(150, 126);
+            this.contextMenuStripItems.Size = new System.Drawing.Size(150, 104);
             this.contextMenuStripItems.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripItems_Opening);
-            // 
-            // copyName
-            // 
-            this.copyName.Name = "copyName";
-            this.copyName.Size = new System.Drawing.Size(149, 22);
-            this.copyName.Text = "复制名称";
-            this.copyName.Click += new System.EventHandler(this.copyName_Click);
-            // 
-            // copyID
-            // 
-            this.copyID.Name = "copyID";
-            this.copyID.Size = new System.Drawing.Size(149, 22);
-            this.copyID.Text = "复制物品ID";
-            this.copyID.Click += new System.EventHandler(this.copyID_Click);
             // 
             // copyBoth
             // 
             this.copyBoth.Name = "copyBoth";
             this.copyBoth.Size = new System.Drawing.Size(149, 22);
-            this.copyBoth.Text = "复制名称和ID";
+            this.copyBoth.Text = "复制名称+物品ID";
             this.copyBoth.Click += new System.EventHandler(this.copyBoth_Click);
+            // 
+            // cloneItem
+            // 
+            this.cloneItem.Name = "cloneItem";
+            this.cloneItem.Size = new System.Drawing.Size(149, 22);
+            this.cloneItem.Text = "复制物品并添加进背包";
+            this.cloneItem.Click += new System.EventHandler(this.cloneItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -1647,10 +1525,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackHP)).EndInit();
             this.groupBoxPos.ResumeLayout(false);
             this.groupBoxPos.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.groupBoxMapPos.ResumeLayout(false);
-            this.groupBoxMapPos.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSkill9)).EndInit();
@@ -1759,17 +1633,6 @@
         private System.Windows.Forms.CheckBox checkInvulnerable;
         private System.Windows.Forms.CheckBox checkInfiniteCarry;
         private System.Windows.Forms.CheckBox checkGod;
-        private System.Windows.Forms.Label labelMapInfo;
-        private System.Windows.Forms.Label labelMapRegion;
-        private System.Windows.Forms.ComboBox comboMapRegion;
-        private System.Windows.Forms.GroupBox groupBoxMapPos;
-        private System.Windows.Forms.Label labelMapX;
-        private System.Windows.Forms.TextBox textMapX;
-        private System.Windows.Forms.Label labelMapY;
-        private System.Windows.Forms.TextBox textMapY;
-        private System.Windows.Forms.Label labelMapZ;
-        private System.Windows.Forms.TextBox textMapZ;
-        private System.Windows.Forms.Button btnApplyMap;
         private System.Windows.Forms.Label labelSkill1;
         private System.Windows.Forms.NumericUpDown numSkill1;
         private System.Windows.Forms.Label labelSkill2;
@@ -1807,9 +1670,8 @@
         private System.Windows.Forms.Label lblWeightInfo;
         private System.Windows.Forms.Label labelAddItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripItems;
-        private System.Windows.Forms.ToolStripMenuItem copyName;
-        private System.Windows.Forms.ToolStripMenuItem copyID;
         private System.Windows.Forms.ToolStripMenuItem copyBoth;
+        private System.Windows.Forms.ToolStripMenuItem cloneItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem setCalories;
         private System.Windows.Forms.ToolStripMenuItem setWeight;

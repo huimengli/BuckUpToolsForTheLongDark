@@ -78,6 +78,29 @@ namespace TheLongDarkBuckupTools.MoreData
         }
 
         /// <summary>
+        /// 深拷贝一个背包物品(完整复制全部字段,含未知字段),
+        /// 并分配新的唯一实例ID。用于"复制物品并添加进背包"。
+        /// </summary>
+        public InventoryItemSaveData CloneItem(InventoryItemSaveData src)
+        {
+            var newGear = (GearItemSaveDataProxy)dynamicGlobal.CloneObject(src.Gear);
+            if (newGear == null) throw new Exception("复制物品数据失败");
+
+            // 分配唯一实例ID
+            var rnd = new Random();
+            int id = rnd.Next();
+            while (Global.Inventory.Items.Any(i => i.Gear != null && i.Gear.m_InstanceIDProxy == id))
+                id = rnd.Next();
+            newGear.m_InstanceIDProxy = id;
+
+            return new InventoryItemSaveData
+            {
+                m_PrefabName = src.m_PrefabName,
+                Gear = newGear
+            };
+        }
+
+        /// <summary>
         /// 保存存档
         /// </summary>
         public void Save()
