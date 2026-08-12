@@ -1,0 +1,331 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace FindConst5
+{
+    // 反汇编 dump 工具: 读取 GameAssembly.dll 指定 RVA 范围, 输出反汇编(简单 x64 解码)
+    class Program
+    {
+        static byte[] data;
+        static Dictionary<long, string> sections = new Dictionary<long, string>(); // RVA -> name
+
+        static int Main(string[] args)
+        {
+            string dll = @"J:\SteamLibrary\steamapps\common\TheLongDark\GameAssembly.dll";
+            if (args.Length > 0 && File.Exists(args[0])) dll = args[0];
+            data = File.ReadAllBytes(dll);
+            Console.WriteLine("File size: " + data.Length);
+
+            // Parse PE
+            int peOff = BitConverter.ToInt32(data, 0x3C);
+            ushort numSections = BitConverter.ToUInt16(data, peOff + 6);
+            ushort optSize = BitConverter.ToUInt16(data, peOff + 20);
+            int sectStart = peOff + 24 + optSize;
+            for (int i = 0; i < numSections; i++)
+            {
+                int p = sectStart + i * 40;
+                string name = System.Text.Encoding.ASCII.GetString(data, p, 8).TrimEnd('\0');
+                uint vsize = BitConverter.ToUInt32(data, p + 8);
+                uint vaddr = BitConverter.ToUInt32(data, p + 12);
+                uint rawSize = BitConverter.ToUInt32(data, p + 16);
+                uint rawPtr = BitConverter.ToUInt32(data, p + 20);
+                Console.WriteLine($"SECT {name} RVA=0x{vaddr:X8} size=0x{vsize:X8} file=0x{rawPtr:X8} rawSize=0x{rawSize:X8}");
+            }
+
+            // 指定 dump 范围(按 RVA)
+            List<long> ranges = new List<long>();
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i].StartsWith("0x")) ranges.Add(Convert.ToInt64(args[i], 16));
+            }
+
+            if (ranges.Count == 0)
+            {
+                Console.WriteLine("用法: FindConst5 <rvaStart> [rvaEnd] [rvaStart2] [rvaEnd2] ...");
+                Console.WriteLine("  每对 rvaStart/rvaEnd 各 dump 一个区域(默认区域 256 字节, 若仅给 start)");
+                return 1;
+            }
+
+            for (int r = 0; r < ranges.Count; r += 2)
+            {
+                long rva = ranges[r];
+                long end = r + 1 < ranges.Count ? ranges[r + 1] : rva + 0x100;
+                DumpRange(rva, end);
+            }
+            return 0;
+        }
+
+        static long RvaToFile(long rva)
+        {
+            int peOff = BitConverter.ToInt32(data, 0x3C);
+            ushort numSections = BitConverter.ToUInt16(data, peOff + 6);
+            ushort optSize = BitConverter.ToUInt16(data, peOff + 20);
+            int sectStart = peOff + 24 + optSize;
+            for (int i = 0; i < numSections; i++)
+            {
+                int p = sectStart + i * 40;
+                uint vaddr = BitConverter.ToUInt32(data, p + 12);
+                uint vsize = BitConverter.ToUInt32(data, p + 8);
+                uint rawPtr = BitConverter.ToUInt32(data, p + 20);
+                uint rawSize = BitConverter.ToUInt32(data, p + 16);
+                if (rva >= vaddr && rva < vaddr + Math.Min(vsize, rawSize))
+                    return rawPtr + (rva - vaddr);
+            }
+            return -1;
+        }
+
+        static void DumpRange(long startRva, long endRva)
+        {
+            long f = RvaToFile(startRva);
+            if (f < 0) { Console.WriteLine($"RVA 0x{startRva:X} 不在任何 section"); return; }
+            Console.WriteLine();
+            Console.WriteLine($"===== DUMP RVA 0x{startRva:X} - 0x{endRva:X} (file 0x{f:X}) =====");
+            for (long rva = startRva; rva < endRva; )
+            {
+                long fp = RvaToFile(rva);
+                if (fp < 0) { rva += 16; continue; }
+                int len = (int)Math.Min(16, endRva - rva);
+                byte[] bytes = new byte[len];
+                Array.Copy(data, fp, bytes, 0, len);
+
+                // 反汇编(简单解码,最多 8 字节/指令)
+                string asm = Disasm(rva, bytes, out int consumed);
+                string hex = BitConverter.ToString(bytes).Replace("-", " ");
+                Console.WriteLine($"0x{rva:X8}: {hex,-48} | {asm}");
+                rva += consumed > 0 ? consumed : 1;
+            }
+        }
+
+        static string Reg(byte modrm, int rexR, int rexB, int rexX)
+        {
+            int reg = ((modrm >> 3) & 7) | (rexR << 3);
+            int rm = (modrm & 7) | (rexB << 3);
+            string[] r8 = { "al", "cl", "dl", "bl", "spl", "bpl", "sil", "dil", "r8b", "r9b", "r10b", "r11b", "r12b", "r13b", "r14b", "r15b" };
+            string[] r32 = { "eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi", "r8d", "r9d", "r10d", "r11d", "r12d", "r13d", "r14d", "r15d" };
+            string[] r64 = { "rax", "rcx", "rdx", "rbx", "rsp", "rbp", "rsi", "rdi", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15" };
+            string[] xmm = { "xmm0", "xmm1", "xmm2", "xmm3", "xmm4", "xmm5", "xmm6", "xmm7", "xmm8", "xmm9", "xmm10", "xmm11", "xmm12", "xmm13", "xmm14", "xmm15" };
+            return xmm[reg] + ", " + xmm[rm];
+        }
+
+        static string Disasm(long rva, byte[] b, out int consumed)
+        {
+            consumed = 0;
+            try
+            {
+                if (b.Length == 0) { consumed = 1; return ""; }
+                int p = 0;
+                int rexR = 0, rexB = 0, rexX = 0;
+                string prefix = "";
+                if (b[p] == 0x48 || b[p] == 0x4C || b[p] == 0x4D || b[p] == 0x41 || b[p] == 0x42 || b[p] == 0x43 || b[p] == 0x44 || b[p] == 0x45 || b[p] == 0x46 || b[p] == 0x47 || b[p] == 0x49 || b[p] == 0x4A || b[p] == 0x4B || b[p] == 0x4E || b[p] == 0x4F)
+                {
+                    rexR = (b[p] >> 2) & 1; rexB = (b[p] >> 0) & 1; rexX = (b[p] >> 1) & 1;
+                    prefix = (b[p] & 0x08) != 0 ? "REX.W " : "REX ";
+                    p = 1;
+                }
+                else if (b[p] == 0xF2 || b[p] == 0xF3 || b[p] == 0x66 || b[p] == 0x2E || b[p] == 0x3E)
+                {
+                    prefix = b[p] == 0xF2 ? "REPNE " : b[p] == 0xF3 ? "REP " : b[p] == 0x66 ? "66 " : "";
+                    p = 1;
+                    if (p < b.Length && (b[p] >= 0x40 && b[p] <= 0x4F))
+                    {
+                        rexR = (b[p] >> 2) & 1; rexB = (b[p] >> 0) & 1; rexX = (b[p] >> 1) & 1;
+                        p++;
+                    }
+                }
+
+                if (p >= b.Length) { consumed = p; return prefix + "?"; }
+                byte op = b[p];
+                int opLen = p + 1;
+
+                if (op == 0x0F)
+                {
+                    if (p + 1 >= b.Length) { consumed = opLen; return prefix + "0F?"; }
+                    byte op2 = b[p + 1];
+                    if (op2 == 0x2E || op2 == 0x2F) // ucomisd/ucomiss
+                    {
+                        if (p + 2 >= b.Length) { consumed = opLen + 1; return "ucomi?"; }
+                        string r = Reg(b[p + 2], rexR, rexB, 0);
+                        consumed = opLen + 2;
+                        return prefix + (op2 == 0x2E ? "ucomisd " : "ucomiss ") + r;
+                    }
+                    else if (op2 == 0x10 || op2 == 0x11) // movups/movupd
+                    {
+                        if (p + 2 >= b.Length) { consumed = opLen + 1; return "movu?"; }
+                        consumed = opLen + 2;
+                        return prefix + (op2 == 0x10 ? "movupd " : "movupd ") + "?";
+                    }
+                    else if (op2 == 0x1F) { consumed = opLen + 1; return prefix + "nop"; }
+                    else if (op2 == 0x05 || op2 == 0x34 || op2 == 0x35) { consumed = opLen + 1; return prefix + "syscall/sysenter"; }
+                    else if (op2 == 0x31) { consumed = opLen + 1; return prefix + "rdtsc"; }
+                    else if (op2 == 0x57 || op2 == 0x58 || op2 == 0x59) // xorps/xorps/subps... skip
+                    { consumed = opLen + 1; return prefix + "0F " + op2.ToString("X2") + " ?"; }
+                    else if (op2 == 0xBE || op2 == 0xB6 || op2 == 0xBF || op2 == 0xB7) // movsx/movzx
+                    {
+                        consumed = opLen + 1;
+                        return prefix + (op2 == 0xBE ? "movsx " : op2 == 0xBF ? "movsx " : "movzx ") + "?";
+                    }
+                    else if (op2 == 0xAF) { consumed = opLen + 1; return prefix + "imul ?"; }
+                    else if (op2 == 0x80 || op2 == 0x81 || op2 == 0x82 || op2 == 0x83 || op2 == 0x84 || op2 == 0x85) // jcc
+                    {
+                        consumed = opLen + 1;
+                        string[] cc = { "jo", "jno", "jb", "jae", "je", "jne", "jbe", "ja", "js", "jns", "jp", "jnp", "jl", "jge", "jle", "jg" };
+                        return prefix + cc[op2 & 0xF] + " ?";
+                    }
+                    else { consumed = opLen + 1; return prefix + "0F " + op2.ToString("X2") + " ?"; }
+                }
+
+                switch (op)
+                {
+                    case 0x48: case 0x4C: case 0x41: case 0x44: consumed = 1; return "?rex";
+                    case 0x55: consumed = 1; return "push rbp";
+                    case 0x53: consumed = 1; return "push rbx";
+                    case 0x56: consumed = 1; return "push rsi";
+                    case 0x57: consumed = 1; return "push rdi";
+                    case 0x5D: consumed = 1; return "pop rbp";
+                    case 0x5B: consumed = 1; return "pop rbx";
+                    case 0x5E: consumed = 1; return "pop rsi";
+                    case 0x5F: consumed = 1; return "pop rdi";
+                    case 0xC3: consumed = 1; return "ret";
+                    case 0xCC: consumed = 1; return "int3";
+                    case 0x90: consumed = 1; return "nop";
+                    case 0xE8: consumed = 5; return "call 0x" + (rva + 5 + (int)(uint)BitConverter.ToInt32(b, 1)).ToString("X8");
+                    case 0xE9: consumed = 5; return "jmp 0x" + (rva + 5 + (int)(uint)BitConverter.ToInt32(b, 1)).ToString("X8");
+                    case 0xEB: consumed = 2; return "jmp short " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x74: consumed = 2; return "je " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x75: consumed = 2; return "jne " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x7C: consumed = 2; return "jl " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x7D: consumed = 2; return "jge " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x7E: consumed = 2; return "jle " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x7F: consumed = 2; return "jg " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x72: consumed = 2; return "jb " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x76: consumed = 2; return "jbe " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x77: consumed = 2; return "ja " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x78: consumed = 2; return "js " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x79: consumed = 2; return "jns " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x7A: consumed = 2; return "jp " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x7B: consumed = 2; return "jnp " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x70: consumed = 2; return "jo " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0x71: consumed = 2; return "jno " + (rva + 2 + (sbyte)b[1]).ToString("X8");
+                    case 0xB8: case 0xB9: case 0xBA: case 0xBB: case 0xBC: case 0xBD: case 0xBE: case 0xBF:
+                        consumed = 5;
+                        return prefix + "mov " + new[] { "eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi" }[op - 0xB8] + ", 0x" + BitConverter.ToInt32(b, 1).ToString("X8");
+                    case 0x8B: // mov r32/64, r/m
+                    case 0x89: // mov r/m, r32/64
+                    case 0x8D: // lea
+                        if (p + 1 >= b.Length) { consumed = opLen; return "mov?"; }
+                        byte modrm = b[p + 1];
+                        int reg = ((modrm >> 3) & 7) | (rexR << 3);
+                        int rm = (modrm & 7) | (rexB << 3);
+                        int mod = modrm >> 6;
+                        string[] r32n = { "eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi" };
+                        string[] r64n = { "rax", "rcx", "rdx", "rbx", "rsp", "rbp", "rsi", "rdi" };
+                        string regn = (op == 0x8D) ? ((prefix.Contains("W") ? r64n : r32n)[reg]) : ((prefix.Contains("W") ? r64n : r32n)[reg]);
+                        if (mod == 3)
+                        {
+                            consumed = opLen + 2;
+                            return prefix + (op == 0x8B ? "mov " : op == 0x89 ? "mov " : "lea ") + regn + ", " + ((prefix.Contains("W") ? r64n : r32n)[rm]);
+                        }
+                        else
+                        {
+                            int dispSize = mod == 0 ? (rm == 5 ? 4 : 0) : mod == 1 ? 1 : 4;
+                            int extra = 0;
+                            if (rm == 4) extra = 1; // SIB
+                            consumed = opLen + 2 + dispSize + extra;
+                            long disp = 0;
+                            int dpos = p + 2 + extra;
+                            if (dispSize == 1) disp = (sbyte)b[dpos];
+                            else if (dispSize == 4) disp = BitConverter.ToInt32(b, dpos);
+                            if (mod == 0 && rm == 5) disp = 0; // RIP-relative -> absolute target
+                            string m = "";
+                            if (mod == 0 && rm == 5)
+                            {
+                                long target = rva + consumed + disp;
+                                m = "[0x" + target.ToString("X8") + "]";
+                                return prefix + (op == 0x8B ? "mov " : op == 0x89 ? "mov " : "lea ") + regn + ", " + m;
+                            }
+                            if (rm == 4)
+                            {
+                                byte sib = b[p + 2];
+                                int ss = sib >> 6, index = ((sib >> 3) & 7) | (rexX << 3), basee = (sib & 7) | (rexB << 3);
+                                string[] idxn = { "rax", "rcx", "rdx", "rbx", "rsp", "rbp", "rsi", "rdi" };
+                                string bs = basee == 5 && mod == 0 ? "rbp" : idxn[basee];
+                                string ix = index == 4 ? "" : idxn[index] + "*" + (1 << ss);
+                                string d = dispSize > 0 ? (disp >= 0 ? "+0x" + disp.ToString("X") : "-0x" + (-disp).ToString("X")) : "";
+                                m = "[" + bs + (ix.Length > 0 ? "+" + ix : "") + d + "]";
+                            }
+                            else
+                            {
+                                string bs = ((prefix.Contains("W") ? r64n : r32n)[rm]);
+                                string d = dispSize > 0 ? (disp >= 0 ? "+0x" + disp.ToString("X") : "-0x" + (-disp).ToString("X")) : "";
+                                m = "[" + bs + d + "]";
+                            }
+                            return prefix + (op == 0x8B ? "mov " : op == 0x89 ? "mov " : "lea ") + regn + ", " + m;
+                        }
+                    case 0x2B: // sub r, r/m
+                    case 0x03: // add r, r/m
+                    case 0x01: // add r/m, r
+                    case 0x29: // sub r/m, r
+                    case 0x39: case 0x3B: // cmp
+                    case 0x85: case 0x84: // test
+                        if (p + 1 >= b.Length) { consumed = opLen; return "?bin"; }
+                        byte m2 = b[p + 1];
+                        int reg2 = ((m2 >> 3) & 7) | (rexR << 3);
+                        int rm2 = (m2 & 7) | (rexB << 3);
+                        string[] n64 = { "rax", "rcx", "rdx", "rbx", "rsp", "rbp", "rsi", "rdi" };
+                        string[] n32 = { "eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi" };
+                        string[] nregs = prefix.Contains("W") ? n64 : n32;
+                        string opn = op == 0x2B ? "sub " : op == 0x03 ? "add " : op == 0x01 ? "add " : op == 0x29 ? "sub " : op == 0x3B ? "cmp " : op == 0x39 ? "cmp " : "test ";
+                        if ((m2 >> 6) == 3)
+                        {
+                            consumed = opLen + 2;
+                            return prefix + opn + nregs[reg2] + ", " + nregs[rm2];
+                        }
+                        consumed = opLen + 2;
+                        return prefix + opn + nregs[reg2] + ", [mem]";
+                    case 0x0F: consumed = 2; return prefix + "0F?";
+                    case 0x81: case 0x83: // add/sub/cmp/and/or/xor with imm
+                        if (p + 1 >= b.Length) { consumed = opLen; return "?imm"; }
+                        byte mr = b[p + 1];
+                        int rg = (mr >> 3) & 7;
+                        string[] ops = { "add", "or", "adc", "sbb", "and", "sub", "xor", "cmp" };
+                        consumed = opLen + 2 + ((op == 0x83) ? 1 : 4);
+                        return prefix + ops[rg] + " ?, " + (op == 0x83 ? "0x" + ((sbyte)b[p + 2]).ToString("X2") : "0x" + BitConverter.ToInt32(b, p + 2).ToString("X8"));
+                    case 0x83: consumed = 1; return "?83";
+                    case 0x80: case 0x82: consumed = opLen + 2; return prefix + "?imm8";
+                    case 0x85: consumed = 1; return "?85";
+                    case 0x84: consumed = 1; return "?84";
+                    case 0x8B: consumed = 1; return "?8B";
+                    case 0x01: case 0x03: case 0x29: case 0x2B: case 0x39: case 0x3B: consumed = 1; return "?" + op.ToString("X2");
+                    case 0xC7: // mov r/m32, imm32
+                        consumed = opLen + 2 + 4;
+                        return prefix + "mov [mem], imm32";
+                    case 0xC6: // mov r/m8, imm8
+                        consumed = opLen + 2 + 1;
+                        return prefix + "mov [mem], imm8";
+                    case 0xA1: case 0xA3: consumed = opLen + 4; return prefix + "mov eax/rax, moffs";
+                    case 0x66: consumed = 1; return "66 ?";
+                    case 0xF2: case 0xF3: consumed = 1; return (op == 0xF2 ? "F2 " : "F3 ") + "?";
+                    case 0xD9: case 0xDB: case 0xDD: case 0xDF: consumed = opLen + 1; return "x87 ?";
+                    case 0x68: consumed = 5; return "push 0x" + BitConverter.ToInt32(b, 1).ToString("X8");
+                    case 0x6A: consumed = 2; return "push 0x" + ((sbyte)b[1]).ToString("X2");
+                    case 0x50: case 0x51: case 0x52: case 0x53: case 0x54: case 0x55: case 0x56: case 0x57:
+                        consumed = 1;
+                        return "push " + new[] { "rax", "rcx", "rdx", "rbx", "rsp", "rbp", "rsi", "rdi" }[op - 0x50];
+                    case 0x58: case 0x59: case 0x5A: case 0x5B: case 0x5C: case 0x5D: case 0x5E: case 0x5F:
+                        consumed = 1;
+                        return "pop " + new[] { "rax", "rcx", "rdx", "rbx", "rsp", "rbp", "rsi", "rdi" }[op - 0x58];
+                    case 0x69: consumed = opLen + 2 + 4; return prefix + "imul ?, ?, imm32";
+                    case 0x6B: consumed = opLen + 2 + 1; return prefix + "imul ?, ?, imm8";
+                    case 0x40: case 0x41: case 0x42: case 0x43: case 0x44: case 0x45: case 0x46: case 0x47: case 0x49: case 0x4A: case 0x4B: case 0x4E: case 0x4F:
+                        consumed = 1; return "REX?";
+                    case 0x8D: consumed = 1; return "?8D";
+                    default:
+                        consumed = 1;
+                        return op.ToString("X2") + " ?";
+                }
+            }
+            catch { consumed = Math.Max(1, consumed); return "??"; }
+        }
+    }
+}

@@ -28,11 +28,11 @@ namespace TheLongDarkBuckupTools.Helpers
         public static float ToStorageLiters(float liters) => liters * StorageMultiplier;
 
         /// <summary>
-        /// 液体容量存储上限(升):游戏内部将容量值作为 int 运算,
-        /// 存储值(升×1e9)不能超过 int.MaxValue,因此最大约 2.147 升。
-        /// 输入超过此值的容量会导致游戏内 int 溢出(显示 -214748.36 升)。
+        /// 液体容量存储上限(升):游戏内部容量单位为 Int64(1升 = 1e9 units),
+        /// 存档中可直接存储任意合理升数(如 40 升水 = 40000000000)。
+        /// 此值仅供工具输入校验,上限按 long.MaxValue / 1e9 计算(约 9.2e9 升)。
         /// </summary>
-        public const float MaxLiters = (int.MaxValue - 1) / StorageMultiplier;
+        public const float MaxLiters = (long.MaxValue - 1) / StorageMultiplier;
 
         /// <summary>
         /// 物品默认重量表(单位 kg,来自真实存档提取 + 游戏公开数据)。

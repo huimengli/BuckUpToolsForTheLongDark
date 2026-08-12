@@ -860,7 +860,7 @@ namespace TheLongDarkBuckupTools
             }
             if (v > ItemWeights.MaxLiters)
             {
-                MessageBox.Show("容量超出游戏上限!\n\n游戏内部将容量作为整数运算,最大支持约 " + ItemWeights.MaxLiters.ToString("0.00") + " 升。\n输入过大的值会导致游戏内溢出(显示为 -214748.36 升)。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("容量超出游戏上限!\n\n游戏内部容量单位为 Int64(1升 = 1e9 units),最大支持约 " + ItemWeights.MaxLiters.ToString("0.00") + " 升。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (gear.LiquidItem != null) gear.LiquidItem.m_LiquidLitersProxy = ItemWeights.ToStorageLiters(v);

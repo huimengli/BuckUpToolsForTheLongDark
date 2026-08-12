@@ -26,7 +26,11 @@ namespace TheLongDarkBuckupTools.Serialization
         /// 使用 Symbol 格式输出为无引号的 Infinity(与游戏原版格式一致),
         /// 避免默认 String 格式把浮点特殊值写成带引号的 "Infinity" 字符串,导致重载时报错。
         /// </summary>
-        private static JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings() { FloatFormatHandling = FloatFormatHandling.Symbol };
+        private static JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings()
+        {
+            FloatFormatHandling = FloatFormatHandling.Symbol,
+            Converters = { new IntegralFloatConverter() }
+        };
 
         private Dictionary<object, List<KeyValuePair<string, JToken>>> extraFields = new Dictionary<object, List<KeyValuePair<string, JToken>>>();
         public T Obj { get; private set; }
@@ -350,5 +354,70 @@ namespace TheLongDarkBuckupTools.Serialization
             return m.Name;
         }
 
+    }
+
+    /// <summary>
+    /// 整数值浮点→整数token转换器(核心修复)。
+    ///
+    /// TLD 存档使用 IntBackedUnit 系统存储重量/液体:存档 JSON 中是 Int64 units
+    /// (1升 = 1e9 units,如 0.5升 → 500000000),游戏 ReadJson 区分 JSON token 类型:
+    ///   - Integer token → 直接作为 m_Units(units 语义,正确)
+    ///   - Float token   → 当作升数,再 ×1e9 转换(如 5E+08 会被当作 5e8 升 → 溢出)
+    ///
+    /// 问题:Newtonsoft.Json 默认把 float 500000000f 序列化为科学计数法 "5E+08" (Float token),
+    /// 游戏读到后按升数处理 → m_Units 溢出 → 游戏内显示 -214748.36 升。
+    ///
+    /// 修复:本转换器在 WriteJson 时,把数值恰好为整数的 float/double 写成整数 token
+    /// (JsonToken.Integer),与游戏原生格式一致;非整数值保持浮点;
+    /// NaN/Infinity 保持 Symbol 无引号格式(与 FloatFormatHandling.Symbol 一致)。
+    /// </summary>
+    public class IntegralFloatConverter : JsonConverter
+    {
+        /// <summary>2^53:double 在此范围内可精确表示为 long,转整数 token 无损</summary>
+        private const double MaxExactLong = 9007199254740992.0;
+
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(float) || objectType == typeof(double);
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            if (value is float)
+            {
+                float f = (float)value;
+                if (float.IsNaN(f))
+                    writer.WriteRawValue("NaN");
+                else if (float.IsPositiveInfinity(f))
+                    writer.WriteRawValue("Infinity");
+                else if (float.IsNegativeInfinity(f))
+                    writer.WriteRawValue("-Infinity");
+                else if (f == (float)Math.Floor(f) && Math.Abs((double)f) <= MaxExactLong)
+                    writer.WriteValue((long)f); // 整数 units → 整数 token(游戏原生格式)
+                else
+                    writer.WriteValue(f);
+            }
+            else
+            {
+                double d = (double)value;
+                if (double.IsNaN(d))
+                    writer.WriteRawValue("NaN");
+                else if (double.IsPositiveInfinity(d))
+                    writer.WriteRawValue("Infinity");
+                else if (double.IsNegativeInfinity(d))
+                    writer.WriteRawValue("-Infinity");
+                else if (d == Math.Floor(d) && Math.Abs(d) <= MaxExactLong)
+                    writer.WriteValue((long)d); // 整数 units → 整数 token(游戏原生格式)
+                else
+                    writer.WriteValue(d);
+            }
+        }
+
+        public override bool CanRead => false;
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            throw new NotSupportedException("IntegralFloatConverter is write-only.");
+        }
     }
 }
