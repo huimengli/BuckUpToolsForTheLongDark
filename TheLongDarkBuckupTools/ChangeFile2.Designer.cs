@@ -50,7 +50,6 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            // 徽章Tab控件
             this.groupBoxFeats = new System.Windows.Forms.GroupBox();
             this.trackBookSmarts = new System.Windows.Forms.TrackBar();
             this.trackColdFusion = new System.Windows.Forms.TrackBar();
@@ -76,7 +75,6 @@
             this.label4DONInfo = new System.Windows.Forms.Label();
             this.labelProfileInfo = new System.Windows.Forms.Label();
             this.btnSaveProfile = new System.Windows.Forms.Button();
-            // 玩家Tab控件
             this.labelMode = new System.Windows.Forms.Label();
             this.comboMode = new System.Windows.Forms.ComboBox();
             this.labelCustom = new System.Windows.Forms.Label();
@@ -110,7 +108,6 @@
             this.checkInvulnerable = new System.Windows.Forms.CheckBox();
             this.checkInfiniteCarry = new System.Windows.Forms.CheckBox();
             this.checkGod = new System.Windows.Forms.CheckBox();
-            // 地图Tab控件
             this.labelMapInfo = new System.Windows.Forms.Label();
             this.labelMapRegion = new System.Windows.Forms.Label();
             this.comboMapRegion = new System.Windows.Forms.ComboBox();
@@ -122,7 +119,6 @@
             this.labelMapZ = new System.Windows.Forms.Label();
             this.textMapZ = new System.Windows.Forms.TextBox();
             this.btnApplyMap = new System.Windows.Forms.Button();
-            // 技能Tab控件
             this.labelSkill1 = new System.Windows.Forms.Label();
             this.numSkill1 = new System.Windows.Forms.NumericUpDown();
             this.labelSkill2 = new System.Windows.Forms.Label();
@@ -142,7 +138,6 @@
             this.labelSkill9 = new System.Windows.Forms.Label();
             this.numSkill9 = new System.Windows.Forms.NumericUpDown();
             this.labelSkillInfo = new System.Windows.Forms.Label();
-            // 病痛Tab控件
             this.listViewAfflictions = new System.Windows.Forms.ListView();
             this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDetail = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -151,7 +146,6 @@
             this.btnCureAll = new System.Windows.Forms.Button();
             this.btnRefreshAfflictions = new System.Windows.Forms.Button();
             this.lblAfflictionCount = new System.Windows.Forms.Label();
-            // 背包Tab控件
             this.dataGridViewItems = new System.Windows.Forms.DataGridView();
             this.comboItem = new System.Windows.Forms.ComboBox();
             this.btnAddItem = new System.Windows.Forms.Button();

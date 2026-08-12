@@ -68,6 +68,14 @@ namespace TheLongDarkBuckupTools
             public override string ToString() { return DisplayName; }
         }
 
+        /// <summary>
+        /// 设计器所需的无参构造函数
+        /// </summary>
+        public ChangeFile2()
+        {
+            InitializeComponent();
+        }
+
         public ChangeFile2(string filePath)
         {
             InitializeComponent();
@@ -99,7 +107,11 @@ namespace TheLongDarkBuckupTools
             {
                 MessageBox.Show("存档加载失败:" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
+#if DEBUG
+                throw ex;
+#else
                 return;
+#endif
             }
 
             // 加载档案(徽章)
@@ -263,7 +275,7 @@ namespace TheLongDarkBuckupTools
             }
         }
 
-        #region 徽章Tab
+#region 徽章Tab
 
         /// <summary>
         /// 显示徽章数据
@@ -332,9 +344,9 @@ namespace TheLongDarkBuckupTools
             }
         }
 
-        #endregion
+#endregion
 
-        #region 玩家Tab
+#region 玩家Tab
 
         /// <summary>
         /// 显示玩家数据
@@ -369,15 +381,15 @@ namespace TheLongDarkBuckupTools
                 textPosZ.Text = pos[1].ToString("0.0");
             }
 
-            // 状态
-            trackHP.Value = (int)((global.Condition?.m_CurrentHPProxy ?? 0) * 100);
+            // 状态(代理值本身为0~100,直接绑定,clamp防止存档异常值越界)
+            trackHP.Value = Clamp((int)(global.Condition?.m_CurrentHPProxy ?? 0), 0, trackHP.Maximum);
             lblHPValue.Text = trackHP.Value + "%";
             textCalories.Text = ((int)(global.Hunger?.m_CurrentReserveCaloriesProxy ?? 0)).ToString();
-            trackThirst.Value = (int)((global.Thirst?.m_CurrentThirstProxy ?? 0) * 100);
+            trackThirst.Value = Clamp((int)(global.Thirst?.m_CurrentThirstProxy ?? 0), 0, trackThirst.Maximum);
             lblThirstValue.Text = trackThirst.Value + "%";
-            trackFatigue.Value = (int)((global.Fatigue?.m_CurrentFatigueProxy ?? 0) * 100);
+            trackFatigue.Value = Clamp((int)(global.Fatigue?.m_CurrentFatigueProxy ?? 0), 0, trackFatigue.Maximum);
             lblFatigueValue.Text = trackFatigue.Value + "%";
-            trackFreezing.Value = (int)((global.Freezing?.m_CurrentFreezingProxy ?? 0) * 100);
+            trackFreezing.Value = Clamp((int)(global.Freezing?.m_CurrentFreezingProxy ?? 0), 0, trackFreezing.Maximum);
             lblFreezingValue.Text = trackFreezing.Value + "%";
 
             // 作弊
@@ -394,9 +406,9 @@ namespace TheLongDarkBuckupTools
             textCustomMode.Enabled = (name == ExperienceModeType.Custom.ToString());
         }
 
-        #endregion
+#endregion
 
-        #region 地图Tab
+#region 地图Tab
 
         /// <summary>
         /// 显示地图数据
@@ -431,9 +443,9 @@ namespace TheLongDarkBuckupTools
             MessageBox.Show("坐标已应用,点击\"保存\"生效!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        #endregion
+#endregion
 
-        #region 技能Tab
+#region 技能Tab
 
         /// <summary>
         /// 显示技能数据
@@ -459,9 +471,9 @@ namespace TheLongDarkBuckupTools
             return Math.Max(min, Math.Min(max, v));
         }
 
-        #endregion
+#endregion
 
-        #region 病痛Tab
+#region 病痛Tab
 
         /// <summary>
         /// 显示病痛数据
@@ -564,9 +576,9 @@ namespace TheLongDarkBuckupTools
             ShowAfflictionsTab();
         }
 
-        #endregion
+#endregion
 
-        #region 背包Tab
+#region 背包Tab
 
         /// <summary>
         /// 显示背包数据
@@ -705,9 +717,9 @@ namespace TheLongDarkBuckupTools
             MessageBox.Show("已移除全部物品!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        #endregion
+#endregion
 
-        #region 保存/备份
+#region 保存/备份
 
         /// <summary>
         /// 保存按钮
@@ -781,17 +793,17 @@ namespace TheLongDarkBuckupTools
             pos[2] = ParseFloat(textPosY.Text);
             pos[1] = ParseFloat(textPosZ.Text);
 
-            // 状态
+            // 状态(代理值为0~100,与读取保持一致,直接写回)
             if (global.Condition == null) global.Condition = new ConditionSaveDataProxy();
-            global.Condition.m_CurrentHPProxy = trackHP.Value / 100f;
+            global.Condition.m_CurrentHPProxy = trackHP.Value;
             if (global.Hunger == null) global.Hunger = new HungerSaveDataProxy();
             global.Hunger.m_CurrentReserveCaloriesProxy = ParseFloat(textCalories.Text);
             if (global.Thirst == null) global.Thirst = new ThirstSaveDataProxy();
-            global.Thirst.m_CurrentThirstProxy = trackThirst.Value / 100f;
+            global.Thirst.m_CurrentThirstProxy = trackThirst.Value;
             if (global.Fatigue == null) global.Fatigue = new FatigueSaveDataProxy();
-            global.Fatigue.m_CurrentFatigueProxy = trackFatigue.Value / 100f;
+            global.Fatigue.m_CurrentFatigueProxy = trackFatigue.Value;
             if (global.Freezing == null) global.Freezing = new FreezingSaveDataProxy();
-            global.Freezing.m_CurrentFreezingProxy = trackFreezing.Value / 100f;
+            global.Freezing.m_CurrentFreezingProxy = trackFreezing.Value;
 
             // 作弊
             global.Condition.m_NeverDieProxy = checkNeverDie.Checked;
@@ -859,6 +871,6 @@ namespace TheLongDarkBuckupTools
             return 0;
         }
 
-        #endregion
+#endregion
     }
 }

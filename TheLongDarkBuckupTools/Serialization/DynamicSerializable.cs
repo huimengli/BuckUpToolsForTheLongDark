@@ -47,10 +47,16 @@ namespace TheLongDarkBuckupTools.Serialization
             }
             else if (token.Type == JTokenType.Boolean)
             {
+                if (t == typeof(string))
+                    return token.ToString();
                 return token.Value<bool>();
             }
             else if (token.Type == JTokenType.Integer || token.Type == JTokenType.Float)
             {
+                if (t == typeof(string))
+                    return token.ToString();
+                if (t == typeof(object))
+                    return ((JValue)token).Value;
                 if (t == typeof(byte))
                     return token.Value<byte>();
                 else if (t == typeof(short))
@@ -92,7 +98,15 @@ namespace TheLongDarkBuckupTools.Serialization
                 }
                 if (!deserialize)
                     return s;
-                return Parse(JToken.Parse(s, jsonLoadSettings), t);
+                try
+                {
+                    return Parse(JToken.Parse(s, jsonLoadSettings), t);
+                }
+                catch
+                {
+                    // 嵌入的JSON字符串无法解析(如纯文本/非标准格式)时,回退为原始字符串
+                    return s;
+                }
             }
             else if (token.Type == JTokenType.Null)
             {
@@ -126,6 +140,8 @@ namespace TheLongDarkBuckupTools.Serialization
                     var attr = prop.GetCustomAttributeCached<DeserializeAttribute>(false);
                     var childType = prop.PropertyType;
                     var childVal = Parse(child.Value, childType, attr);
+                    if (childVal == null && childType.IsValueType)
+                        continue; // JSON null 赋给值类型时跳过,保留默认值
                     prop.SetValue(result, childVal);
                 }
                 else if (fields.ContainsKey(child.Key))
@@ -134,6 +150,8 @@ namespace TheLongDarkBuckupTools.Serialization
                     var attr = field.GetCustomAttributeCached<DeserializeAttribute>(false);
                     var childType = field.FieldType;
                     var childVal = Parse(child.Value, childType, attr);
+                    if (childVal == null && childType.IsValueType)
+                        continue; // JSON null 赋给值类型时跳过,保留默认值
                     field.SetValue(result, childVal);
                 }
                 else
@@ -155,7 +173,10 @@ namespace TheLongDarkBuckupTools.Serialization
             int i = 0;
             foreach (var child in obj)
             {
-                result.SetValue(Parse(child, elemType, new DeserializeAttribute(null, deserializeItems)), i++);
+                var val = Parse(child, elemType, new DeserializeAttribute(null, deserializeItems));
+                if (val == null && elemType.IsValueType)
+                    val = Activator.CreateInstance(elemType); // JSON null 元素用默认值填充
+                result.SetValue(val, i++);
             }
             return ReflectionUtil.ConvertArray(result, t);
         }
@@ -167,7 +188,13 @@ namespace TheLongDarkBuckupTools.Serialization
             var valType = t.GetGenericArguments()[1];
             foreach (var child in obj)
             {
-                dict.Add(Parse(child.Key, keyType), Parse(child.Value, valType, new DeserializeAttribute(null, deserializeItems)));
+                object key = Parse(child.Key, keyType);
+                if (key is string && keyType.IsValueType && keyType != typeof(string))
+                {
+                    // JSON键始终是字符串,值类型键需转换
+                    try { key = Convert.ChangeType(key, keyType); } catch { /* 忽略无法转换的键 */ }
+                }
+                dict.Add(key, Parse(child.Value, valType, new DeserializeAttribute(null, deserializeItems)));
             }
             return dict;
         }
