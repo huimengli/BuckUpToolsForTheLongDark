@@ -69,6 +69,32 @@ namespace TheLongDarkBuckupTools
         }
 
         /// <summary>
+        /// 分类下拉框条目
+        /// </summary>
+        private class CategoryEntry
+        {
+            public ItemCategory? Category;
+            public string Display;
+            public override string ToString() { return Display; }
+        }
+
+        /// <summary>
+        /// 分类中文名映射
+        /// </summary>
+        private static readonly KeyValuePair<ItemCategory, string>[] categoryNames = new[]
+        {
+            new KeyValuePair<ItemCategory, string>(ItemCategory.FirstAid, "急救"),
+            new KeyValuePair<ItemCategory, string>(ItemCategory.Clothing, "衣物"),
+            new KeyValuePair<ItemCategory, string>(ItemCategory.Food, "食物"),
+            new KeyValuePair<ItemCategory, string>(ItemCategory.Tools, "工具"),
+            new KeyValuePair<ItemCategory, string>(ItemCategory.Materials, "材料"),
+            new KeyValuePair<ItemCategory, string>(ItemCategory.Collectible, "收藏品"),
+            new KeyValuePair<ItemCategory, string>(ItemCategory.Books, "书籍"),
+            new KeyValuePair<ItemCategory, string>(ItemCategory.Hidden, "隐藏"),
+            new KeyValuePair<ItemCategory, string>(ItemCategory.Unknown, "其他"),
+        };
+
+        /// <summary>
         /// 设计器所需的无参构造函数
         /// </summary>
         public ChangeFile2()
@@ -165,12 +191,33 @@ namespace TheLongDarkBuckupTools
             comboRegion.Items.AddRange(Enum.GetNames(typeof(RegionsWithMap)));
             comboMapRegion.Items.AddRange(Enum.GetNames(typeof(RegionsWithMap)));
 
-            // 背包物品下拉框(过滤hide)
+            // 分类下拉框
+            comboCategory.BeginUpdate();
+            comboCategory.Items.Clear();
+            comboCategory.Items.Add(new CategoryEntry { Category = null, Display = "全部" });
+            foreach (var kv in categoryNames)
+            {
+                comboCategory.Items.Add(new CategoryEntry { Category = kv.Key, Display = kv.Value });
+            }
+            comboCategory.EndUpdate();
+            if (comboCategory.Items.Count > 0) comboCategory.SelectedIndex = 0;
+
+            // 背包物品下拉框(按分类过滤)
+            RefreshItemCombo();
+        }
+
+        /// <summary>
+        /// 根据当前分类刷新物品下拉框
+        /// </summary>
+        private void RefreshItemCombo()
+        {
             comboItem.BeginUpdate();
             comboItem.Items.Clear();
+            var selected = comboCategory.SelectedItem as CategoryEntry;
             foreach (var kv in ItemDictionary.itemInfo)
             {
                 if (kv.Value.hide) continue;
+                if (selected != null && selected.Category.HasValue && kv.Value.category != selected.Category.Value) continue;
                 comboItem.Items.Add(new ItemEntry { Id = kv.Key, DisplayName = ItemDictionary.GetInGameName(kv.Key) });
             }
             comboItem.EndUpdate();
@@ -178,14 +225,19 @@ namespace TheLongDarkBuckupTools
         }
 
         /// <summary>
+        /// 分类变化时刷新物品下拉框
+        /// </summary>
+        private void comboCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (isLoading) return;
+            RefreshItemCombo();
+        }
+
+        /// <summary>
         /// 绑定事件
         /// </summary>
         private void HookEvents()
         {
-            // 底部按钮
-            this.button3.Click += button3_Click;
-            this.button5.Click += button5_Click;
-
             // 徽章Tab
             this.btnSaveProfile.Click += btnSaveProfile_Click;
             this.check4DON2018.CheckedChanged += check4DON2018_CheckedChanged;
@@ -213,6 +265,7 @@ namespace TheLongDarkBuckupTools
             this.btnRefreshAfflictions.Click += btnRefreshAfflictions_Click;
 
             // 背包Tab
+            this.comboCategory.SelectedIndexChanged += comboCategory_SelectedIndexChanged;
             this.btnAddItem.Click += btnAddItem_Click;
             this.btnDeleteItem.Click += btnDeleteItem_Click;
             this.btnRepairAll.Click += btnRepairAll_Click;
@@ -594,6 +647,7 @@ namespace TheLongDarkBuckupTools
                 dataGridViewItems.Columns.Add("colID", "物品ID");
                 dataGridViewItems.Columns.Add("colUnits", "数量");
                 dataGridViewItems.Columns.Add("colCond", "耐久");
+                dataGridViewItems.Columns.Add("colWeight", "重量(kg)");
                 dataGridViewItems.Columns.Add("colCal", "卡路里");
                 foreach (DataGridViewColumn col in dataGridViewItems.Columns)
                 {
@@ -611,10 +665,11 @@ namespace TheLongDarkBuckupTools
                 string name = ItemDictionary.GetInGameName(item.m_PrefabName);
                 int units = gear.StackableItem?.m_UnitsProxy ?? 1;
                 string cond = (gear.NormalizedCondition * 100).ToString("0") + "%";
+                string weight = gear.m_WeightKG.ToString("0.00");
                 string cal = gear.FoodItem != null ? ((int)gear.FoodItem.m_CaloriesRemainingProxy).ToString() : "";
                 totalWeight += gear.m_WeightKG;
 
-                int rowIdx = dataGridViewItems.Rows.Add(name, item.m_PrefabName, units, cond, cal);
+                int rowIdx = dataGridViewItems.Rows.Add(name, item.m_PrefabName, units, cond, weight, cal);
                 dataGridViewItems.Rows[rowIdx].Tag = item;
             }
 
@@ -717,6 +772,98 @@ namespace TheLongDarkBuckupTools
             MessageBox.Show("已移除全部物品!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>
+        /// 获取当前选中行的装备数据
+        /// </summary>
+        private GearItemSaveDataProxy GetSelectedGear()
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0) return null;
+            var row = dataGridViewItems.SelectedRows[0];
+            var item = row.Tag as InventoryItemSaveData;
+            return item?.Gear;
+        }
+
+        /// <summary>
+        /// 右键菜单打开时按选中行启用/禁用菜单项
+        /// </summary>
+        private void contextMenuStripItems_Opening(object sender, CancelEventArgs e)
+        {
+            bool hasRow = dataGridViewItems.SelectedRows.Count > 0;
+            var gear = GetSelectedGear();
+            bool hasCal = hasRow && gear != null && gear.FoodItem != null;
+
+            copyName.Enabled = hasRow;
+            copyID.Enabled = hasRow;
+            copyBoth.Enabled = hasRow;
+            setCalories.Enabled = hasCal;
+            setWeight.Enabled = hasRow;
+        }
+
+        private void copyName_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0) return;
+            var row = dataGridViewItems.SelectedRows[0];
+            var val = row.Cells["colName"].Value;
+            if (val != null) Clipboard.SetText(val.ToString());
+        }
+
+        private void copyID_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0) return;
+            var row = dataGridViewItems.SelectedRows[0];
+            var val = row.Cells["colID"].Value;
+            if (val != null) Clipboard.SetText(val.ToString());
+        }
+
+        private void copyBoth_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0) return;
+            var row = dataGridViewItems.SelectedRows[0];
+            var name = row.Cells["colName"].Value?.ToString() ?? "";
+            var id = row.Cells["colID"].Value?.ToString() ?? "";
+            Clipboard.SetText(name + "  " + id);
+        }
+
+        private void setCalories_Click(object sender, EventArgs e)
+        {
+            var gear = GetSelectedGear();
+            if (gear == null || gear.FoodItem == null) return;
+
+            var box = new InputBox("修改卡路里", "输入新的卡路里数值(当前:" + ((int)gear.FoodItem.m_CaloriesRemainingProxy) + "):");
+            box.ShowDialog();
+            string result = InputBox.returnValue;
+            if (string.IsNullOrEmpty(result)) return;
+
+            float v;
+            if (!float.TryParse(result, out v) || v < 0)
+            {
+                MessageBox.Show("请输入有效的非负数值!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            gear.FoodItem.m_CaloriesRemainingProxy = v;
+            ShowInventoryTab();
+        }
+
+        private void setWeight_Click(object sender, EventArgs e)
+        {
+            var gear = GetSelectedGear();
+            if (gear == null) return;
+
+            var box = new InputBox("修改重量", "输入新的重量(kg)(当前:" + gear.m_WeightKG.ToString("0.00") + "):");
+            box.ShowDialog();
+            string result = InputBox.returnValue;
+            if (string.IsNullOrEmpty(result)) return;
+
+            float v;
+            if (!float.TryParse(result, out v) || v < 0)
+            {
+                MessageBox.Show("请输入有效的非负数值!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            gear.m_WeightKG = v;
+            ShowInventoryTab();
+        }
+
 #endregion
 
 #region 保存/备份
@@ -731,7 +878,7 @@ namespace TheLongDarkBuckupTools
                 CollectUI();
                 currentSave.Save();
                 textBox6.Text = data.m_Timestamp.ToString();
-                MessageBox.Show("保存成功!\n已自动备份原存档到backups目录", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("保存成功!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -871,6 +1018,6 @@ namespace TheLongDarkBuckupTools
             return 0;
         }
 
-#endregion
+        #endregion
     }
 }

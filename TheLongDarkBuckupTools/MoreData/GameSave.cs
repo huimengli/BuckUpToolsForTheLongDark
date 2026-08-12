@@ -82,8 +82,6 @@ namespace TheLongDarkBuckupTools.MoreData
         /// </summary>
         public void Save()
         {
-            Backup();
-
             LastSaved = DateTime.Now.Ticks;
             var bootSerialized = dynamicBoot.Serialize();
             SlotData.m_Dict.boot = EncryptString.CompressStringToBytes(bootSerialized);

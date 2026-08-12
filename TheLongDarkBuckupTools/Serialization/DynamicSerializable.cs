@@ -21,6 +21,13 @@ namespace TheLongDarkBuckupTools.Serialization
 
         private static JsonLoadSettings jsonLoadSettings = new JsonLoadSettings() { LineInfoHandling = LineInfoHandling.Ignore };
 
+        /// <summary>
+        /// 序列化设置:TLD存档中存在非标准JSON的 Infinity/-Infinity/NaN 值,
+        /// 使用 Symbol 格式输出为无引号的 Infinity(与游戏原版格式一致),
+        /// 避免默认 String 格式把浮点特殊值写成带引号的 "Infinity" 字符串,导致重载时报错。
+        /// </summary>
+        private static JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings() { FloatFormatHandling = FloatFormatHandling.Symbol };
+
         private Dictionary<object, List<KeyValuePair<string, JToken>>> extraFields = new Dictionary<object, List<KeyValuePair<string, JToken>>>();
         public T Obj { get; private set; }
 
@@ -95,6 +102,29 @@ namespace TheLongDarkBuckupTools.Serialization
                 {
                     // TLD存档中m_Dict等字段为base64字符串,需转为byte[]
                     return Convert.FromBase64String(s);
+                }
+                // 防御性处理:某些工具/旧版本可能把浮点特殊值写成带引号的字符串(如 "Infinity"),
+                // 目标为数值类型时尝试解析,失败则返回原始字符串
+                else if (t == typeof(float))
+                {
+                    float f;
+                    if (float.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out f))
+                        return f;
+                    return s;
+                }
+                else if (t == typeof(double))
+                {
+                    double d;
+                    if (double.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
+                        return d;
+                    return s;
+                }
+                else if (t == typeof(decimal))
+                {
+                    decimal m;
+                    if (decimal.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out m))
+                        return m;
+                    return s;
                 }
                 if (!deserialize)
                     return s;
@@ -202,7 +232,7 @@ namespace TheLongDarkBuckupTools.Serialization
         public string Serialize()
         {
             var res = ReconstructObject(Obj);
-            return JsonConvert.SerializeObject(res);
+            return JsonConvert.SerializeObject(res, jsonSerializerSettings);
         }
 
         public object Reconstruct(object o, DeserializeAttribute attr = null)
@@ -241,7 +271,7 @@ namespace TheLongDarkBuckupTools.Serialization
             }
 
             if (attr != null && result != null && attr.Json)
-                return JsonConvert.SerializeObject(result);
+                return JsonConvert.SerializeObject(result, jsonSerializerSettings);
             return result;
         }
 
