@@ -187,6 +187,10 @@ namespace TheLongDarkBuckupTools
         {
             //MessageBox.Show(listBox1.SelectedItem.ToString());
             var file = (FileInfo)listBox1.SelectedItem;
+            if(file == null)
+            {
+                return;
+            }
             if (file.Name.StartsWith("photo"))
             {
                 SelectPhoto(file);

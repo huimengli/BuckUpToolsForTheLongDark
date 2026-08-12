@@ -147,6 +147,7 @@
             this.cloneItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.setUnits = new System.Windows.Forms.ToolStripMenuItem();
+            this.setLiters = new System.Windows.Forms.ToolStripMenuItem();
             this.setCalories = new System.Windows.Forms.ToolStripMenuItem();
             this.setWeight = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -1374,13 +1375,14 @@
             this.cloneItem,
             this.toolStripSeparator1,
             this.setUnits,
+            this.setLiters,
             this.setCalories,
             this.setWeight,
             this.toolStripSeparator2,
             this.translateOnline,
             this.searchOnline});
             this.contextMenuStripItems.Name = "contextMenuStripItems";
-            this.contextMenuStripItems.Size = new System.Drawing.Size(197, 170);
+            this.contextMenuStripItems.Size = new System.Drawing.Size(197, 192);
             this.contextMenuStripItems.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripItems_Opening);
             // 
             // copyBoth
@@ -1408,6 +1410,13 @@
             this.setUnits.Size = new System.Drawing.Size(196, 22);
             this.setUnits.Text = "修改数量";
             this.setUnits.Click += new System.EventHandler(this.setUnits_Click);
+            // 
+            // setLiters
+            // 
+            this.setLiters.Name = "setLiters";
+            this.setLiters.Size = new System.Drawing.Size(196, 22);
+            this.setLiters.Text = "修改容量(升)";
+            this.setLiters.Click += new System.EventHandler(this.setLiters_Click);
             // 
             // setCalories
             // 
@@ -1553,7 +1562,9 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "ChangeFile2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ChangeFile2";
             this.Load += new System.EventHandler(this.ChangeFile2_Load);
             this.tabControl1.ResumeLayout(false);
@@ -1736,6 +1747,7 @@
         private System.Windows.Forms.ToolStripMenuItem cloneItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem setUnits;
+        private System.Windows.Forms.ToolStripMenuItem setLiters;
         private System.Windows.Forms.ToolStripMenuItem setCalories;
         private System.Windows.Forms.ToolStripMenuItem setWeight;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;

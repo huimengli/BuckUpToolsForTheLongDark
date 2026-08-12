@@ -19,6 +19,22 @@ namespace TheLongDarkBuckupTools.Helpers
         public static float ToStorage(float kg) => kg * StorageMultiplier;
 
         /// <summary>
+        /// 液体容量换算:存档中 m_LiquidLitersProxy / m_VolumeProxy 与重量同格式(实际升 × 1e9)。
+        /// 把存档原始值换算为显示用的升。
+        /// </summary>
+        public static float ToLiters(float storageLiters) => storageLiters / StorageMultiplier;
+
+        /// <summary>把用户输入的升数转换为存档存储值</summary>
+        public static float ToStorageLiters(float liters) => liters * StorageMultiplier;
+
+        /// <summary>
+        /// 液体容量存储上限(升):游戏内部将容量值作为 int 运算,
+        /// 存储值(升×1e9)不能超过 int.MaxValue,因此最大约 2.147 升。
+        /// 输入超过此值的容量会导致游戏内 int 溢出(显示 -214748.36 升)。
+        /// </summary>
+        public const float MaxLiters = (int.MaxValue - 1) / StorageMultiplier;
+
+        /// <summary>
         /// 物品默认重量表(单位 kg,来自真实存档提取 + 游戏公开数据)。
         /// 用于"添加物品"时为新物品设置合理的重量。
         /// </summary>

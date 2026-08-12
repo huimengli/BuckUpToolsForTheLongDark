@@ -598,6 +598,7 @@ namespace TheLongDarkBuckupTools
                 dataGridViewItems.Columns.Add("colName", "名称");
                 dataGridViewItems.Columns.Add("colID", "物品ID");
                 dataGridViewItems.Columns.Add("colUnits", "数量");
+                dataGridViewItems.Columns.Add("colLiters", "容量(L)");
                 dataGridViewItems.Columns.Add("colCond", "耐久");
                 dataGridViewItems.Columns.Add("colWeight", "重量(kg)");
                 dataGridViewItems.Columns.Add("colCal", "卡路里");
@@ -616,12 +617,17 @@ namespace TheLongDarkBuckupTools
 
                 string name = ItemDictionary.GetInGameName(item.m_PrefabName);
                 int units = gear.StackableItem?.m_UnitsProxy ?? 1;
+                // 液体容量:过氧化氢/灯油等用 LiquidItem,水壶等用 WaterSupply(存档均为 实际升×1e9,需换算)
+                float liters = 0;
+                if (gear.LiquidItem != null) liters = ItemWeights.ToLiters(gear.LiquidItem.m_LiquidLitersProxy);
+                else if (gear.WaterSupply != null) liters = ItemWeights.ToLiters(gear.WaterSupply.m_VolumeProxy);
+                string litersText = liters > 0 ? liters.ToString("0.00") : "";
                 string cond = (gear.NormalizedCondition * 100).ToString("0") + "%";
                 string weight = ItemWeights.ToKg(gear.m_WeightKG).ToString("0.00");
                 string cal = gear.FoodItem != null ? ((int)gear.FoodItem.m_CaloriesRemainingProxy).ToString() : "";
                 totalWeight += ItemWeights.ToKg(gear.m_WeightKG);
 
-                int rowIdx = dataGridViewItems.Rows.Add(name, item.m_PrefabName, units, cond, weight, cal);
+                int rowIdx = dataGridViewItems.Rows.Add(name, item.m_PrefabName, units, litersText, cond, weight, cal);
                 dataGridViewItems.Rows[rowIdx].Tag = item;
             }
 
@@ -650,6 +656,12 @@ namespace TheLongDarkBuckupTools
                 gear.m_HoursPlayed = currentSave.Global.TimeOfDay?.m_HoursPlayedNotPausedProxy ?? 0;
                 gear.m_BeenInPlayerInventoryProxy = true;
                 gear.NormalizedCondition = 1;
+
+                // 液体容量换算:defaultSerialized 中为实际升,存档存储需 ×1e9(过氧化氢/灯油/水壶等)
+                if (gear.LiquidItem != null && gear.LiquidItem.m_LiquidLitersProxy > 0)
+                    gear.LiquidItem.m_LiquidLitersProxy = ItemWeights.ToStorageLiters(gear.LiquidItem.m_LiquidLitersProxy);
+                if (gear.WaterSupply != null && gear.WaterSupply.m_VolumeProxy > 0)
+                    gear.WaterSupply.m_VolumeProxy = ItemWeights.ToStorageLiters(gear.WaterSupply.m_VolumeProxy);
 
                 // 设置默认重量(存档内单位为 kg×1e9):优先查重量表,其次复制背包中同ID物品,最后默认0.5kg
                 float defaultKg;
@@ -758,10 +770,13 @@ namespace TheLongDarkBuckupTools
             bool hasRow = dataGridViewItems.SelectedRows.Count > 0;
             var gear = GetSelectedGear();
             bool hasCal = hasRow && gear != null && gear.FoodItem != null;
+            // 液体物品:过氧化氢/灯油等(LiquidItem)或水壶(WaterSupply)可改容量
+            bool hasLiquid = hasRow && gear != null && (gear.LiquidItem != null || gear.WaterSupply != null);
 
             copyBoth.Enabled = hasRow;
             cloneItem.Enabled = hasRow;
             setUnits.Enabled = hasRow && gear != null && gear.StackableItem != null;
+            setLiters.Enabled = hasLiquid;
             setCalories.Enabled = hasCal;
             setWeight.Enabled = hasRow;
             translateOnline.Enabled = hasRow;
@@ -822,6 +837,37 @@ namespace TheLongDarkBuckupTools
             ShowInventoryTab();
         }
 
+        /// <summary>
+        /// 修改液体容量(升),支持 LiquidItem(过氧化氢/灯油)和 WaterSupply(水壶)。
+        /// 存档存储为 实际升×1e9,需换算。
+        /// </summary>
+        private void setLiters_Click(object sender, EventArgs e)
+        {
+            var gear = GetSelectedGear();
+            if (gear == null || (gear.LiquidItem == null && gear.WaterSupply == null)) return;
+
+            float cur = gear.LiquidItem != null ? gear.LiquidItem.m_LiquidLitersProxy : gear.WaterSupply.m_VolumeProxy;
+            var box = new InputBox("修改容量", "输入新的液体容量(升)(当前:" + ItemWeights.ToLiters(cur).ToString("0.00") + "):");
+            box.ShowDialog();
+            string result = InputBox.returnValue;
+            if (string.IsNullOrEmpty(result)) return;
+
+            float v;
+            if (!float.TryParse(result, out v) || v < 0)
+            {
+                MessageBox.Show("请输入有效的非负数值!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (v > ItemWeights.MaxLiters)
+            {
+                MessageBox.Show("容量超出游戏上限!\n\n游戏内部将容量作为整数运算,最大支持约 " + ItemWeights.MaxLiters.ToString("0.00") + " 升。\n输入过大的值会导致游戏内溢出(显示为 -214748.36 升)。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (gear.LiquidItem != null) gear.LiquidItem.m_LiquidLitersProxy = ItemWeights.ToStorageLiters(v);
+            else gear.WaterSupply.m_VolumeProxy = ItemWeights.ToStorageLiters(v);
+            ShowInventoryTab();
+        }
+
         private void setCalories_Click(object sender, EventArgs e)
         {
             var gear = GetSelectedGear();
@@ -876,7 +922,9 @@ namespace TheLongDarkBuckupTools
             try
             {
                 // 优先用中文名称,没有中文名时用物品ID
-                var query = Uri.EscapeDataString(string.IsNullOrEmpty(name) ? id : name);
+                //var query = Uri.EscapeDataString(string.IsNullOrEmpty(name) ? id : name);
+                // 直接搜索物品ID
+                var query = Uri.EscapeDataString(id);
                 System.Diagnostics.Process.Start("https://www.bing.com/translator/?from=en&to=zh-Hans&text=" + query);
             }
             catch (Exception ex)
