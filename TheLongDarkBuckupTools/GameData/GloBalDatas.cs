@@ -1563,7 +1563,12 @@ namespace TheLongDarkBuckupTools.GameData
     /// </summary>
     public class PowderItemSaveDataProxy
     {
-        // 预留字段用于粉末特殊属性
+        /// <summary>
+        /// 粉末物品重量(存档格式:实际kg × 1e9,与 GearItem.m_WeightKG 一致)。
+        /// 注意:游戏显示粉末物品(盐/盐袋/面粉/燕麦等)重量时读取的是此值,
+        /// 而非 GearItem.m_WeightKG,因此修改重量时必须同步设置两者。
+        /// </summary>
+        public float m_WeightKG { get; set; }
     }
 
     /// <summary>

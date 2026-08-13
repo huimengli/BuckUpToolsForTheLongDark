@@ -636,9 +636,13 @@ namespace TheLongDarkBuckupTools
                 else if (gear.WaterSupply != null) liters = ItemWeights.ToLiters(gear.WaterSupply.m_VolumeProxy);
                 string litersText = liters > 0 ? liters.ToString("0.00") : "";
                 string cond = (gear.NormalizedCondition * 100).ToString("0") + "%";
-                string weight = ItemWeights.ToKg(gear.m_WeightKG).ToString("0.00");
+                // 粉末物品(盐/面粉等)重量由 PowderItem.m_WeightKG 决定,优先取它
+                float weightKg = (gear.PowderItem != null && gear.PowderItem.m_WeightKG > 0)
+                    ? ItemWeights.ToKg(gear.PowderItem.m_WeightKG)
+                    : ItemWeights.ToKg(gear.m_WeightKG);
+                string weight = weightKg.ToString("0.00");
                 string cal = gear.FoodItem != null ? ((int)gear.FoodItem.m_CaloriesRemainingProxy).ToString() : "";
-                totalWeight += ItemWeights.ToKg(gear.m_WeightKG);
+                totalWeight += weightKg;
 
                 int rowIdx = dataGridViewItems.Rows.Add(name, item.m_PrefabName, units, litersText, cond, weight, cal);
                 dataGridViewItems.Rows[rowIdx].Tag = item;
@@ -690,6 +694,10 @@ namespace TheLongDarkBuckupTools
                     else
                         gear.m_WeightKG = ItemWeights.ToStorage(0.5f);
                 }
+
+                // 粉末物品(盐/盐袋/面粉/燕麦等):游戏读取 PowderItem.m_WeightKG 计算重量,需同步设置,否则游戏内显示 0.00kg
+                if (gear.PowderItem != null)
+                    gear.PowderItem.m_WeightKG = gear.m_WeightKG;
 
                 // 分配唯一实例ID
                 var rnd = new Random();
@@ -936,6 +944,9 @@ namespace TheLongDarkBuckupTools
                 return;
             }
             gear.m_WeightKG = ItemWeights.ToStorage(v);
+            // 粉末物品(盐/面粉等)重量由 PowderItem.m_WeightKG 决定,需同步设置,否则游戏内不生效
+            if (gear.PowderItem != null)
+                gear.PowderItem.m_WeightKG = gear.m_WeightKG;
             ShowInventoryTab();
         }
 
@@ -1204,8 +1215,11 @@ namespace TheLongDarkBuckupTools
             if (result.TryGetValue("WaterSupply", out var ws) && ws is Dictionary<string, object> wsDict && wsDict.TryGetValue("m_VolumeProxy", out var vp) && vp is float vpf)
                 wsDict["m_VolumeProxy"] = ItemWeights.ToLiters(vpf);
 
-            // 重量换算为实际 kg
-            result["m_WeightKG"] = ItemWeights.ToKg(gear.m_WeightKG);
+            // 重量换算为实际 kg;粉末物品优先取 PowderItem.m_WeightKG(游戏实际读取值)
+            float realWeightKg = (gear.PowderItem != null && gear.PowderItem.m_WeightKG > 0)
+                ? ItemWeights.ToKg(gear.PowderItem.m_WeightKG)
+                : ItemWeights.ToKg(gear.m_WeightKG);
+            result["m_WeightKG"] = realWeightKg;
             return result;
         }
 

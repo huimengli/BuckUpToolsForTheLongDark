@@ -190,6 +190,10 @@ namespace TheLongDarkBuckupTools.Helpers
             { "GEAR_CookedMeatMoose", 2.0f },
             { "GEAR_KetchupChips", 0.25f },
             { "GEAR_MapleSyrup", 0.5f },
+            { "GEAR_Flour", 0.5f },
+            { "GEAR_Salt", 0.5f },
+            { "GEAR_SaltBag", 10f },
+            { "GEAR_OatsTin", 0.5f },
 
             // ---- 工具 Tools ----
             { "GEAR_Accelerant", 0.1f },
