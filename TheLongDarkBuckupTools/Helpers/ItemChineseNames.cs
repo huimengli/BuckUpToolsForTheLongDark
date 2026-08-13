@@ -118,6 +118,7 @@ namespace TheLongDarkBuckupTools.Helpers
             Add("GEAR_TransponderParts", "应答器零件");
             Add("GEAR_WaterPurificationTablets", "净水药片");
             Add("GEAR_WoodMatches", "木火柴");
+            Add("GEAR_BearSkinBedRoll", "熊皮睡袋");
 
             // ===== 医疗类 =====
             Add("GEAR_BottleAntibiotics", "抗生素");

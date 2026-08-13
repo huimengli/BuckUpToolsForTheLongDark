@@ -536,17 +536,19 @@ namespace TheLongDarkBuckupTools.Helpers
 			AddItemInfo("GEAR_RifleBullets", ItemCategory.Hidden, @"{}");
             AddItemInfo("GEAR_ScarfTorn", ItemCategory.Hidden, @"{}");
              */
+
+            // 额外追加数据
             AddItemInfo("GEAR_AcornCoffeeCup", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 125}}");
             AddItemInfo("GEAR_AcornCooked", ItemCategory.Food, @"{""StackableItem"": {""m_UnitsProxy"": 1},""FoodItem"": {""m_CaloriesRemainingProxy"": 100}}");
-            AddItemInfo("GEAR_AcornGrounds", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 27}}");
-            AddItemInfo("GEAR_AcornShelled", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 2}}");
+            AddItemInfo("GEAR_AcornGrounds", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 1}}");
+            AddItemInfo("GEAR_AcornShelled", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 1}}");
             AddItemInfo("GEAR_AirfieldCabinNote", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_AirfieldCargomasterNote", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_AirfieldControlNote", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_AirfieldHangarNote", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_AirfieldJunkerNote", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_AnimalFat", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 540}}");
-            AddItemInfo("GEAR_ArrowHardened", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 4}}");
+            AddItemInfo("GEAR_ArrowHardened", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 1}}");
             AddItemInfo("GEAR_BIKey2", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_BRKey1", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_BRKey2", ItemCategory.Collectible, @"{}");
@@ -569,8 +571,8 @@ namespace TheLongDarkBuckupTools.Helpers
             AddItemInfo("GEAR_BlueprintCard_WolfSkinPants", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_Bow_Manufactured", ItemCategory.Tools, @"{}");
             AddItemInfo("GEAR_Broth", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 637.5}}");
-            AddItemInfo("GEAR_Burdock", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 3}}");
-            AddItemInfo("GEAR_BurdockPrepared", ItemCategory.Food, @"{""StackableItem"": {""m_UnitsProxy"": 3},""FoodItem"": {""m_CaloriesRemainingProxy"": 275}}");
+            AddItemInfo("GEAR_Burdock", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 1}}");
+            AddItemInfo("GEAR_BurdockPrepared", ItemCategory.Food, @"{""StackableItem"": {""m_UnitsProxy"": 1},""FoodItem"": {""m_CaloriesRemainingProxy"": 275}}");
             AddItemInfo("GEAR_BurdockTea", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 120.000008}}");
             AddItemInfo("GEAR_Camera", ItemCategory.Tools, @"{""WeaponItem"": {}}");
             AddItemInfo("GEAR_Canister", ItemCategory.Materials, @"{}");
@@ -587,14 +589,14 @@ namespace TheLongDarkBuckupTools.Helpers
             AddItemInfo("GEAR_ClipBoardTale2_B", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_ClipBoardTale2_C", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_ClipBoardTale2_D", ItemCategory.Collectible, @"{}");
-            AddItemInfo("GEAR_CookedFishcakes", ItemCategory.Food, @"{""StackableItem"": {""m_UnitsProxy"": 4},""FoodItem"": {""m_CaloriesRemainingProxy"": 312.5}}");
+            AddItemInfo("GEAR_CookedFishcakes", ItemCategory.Food, @"{""StackableItem"": {""m_UnitsProxy"": 1},""FoodItem"": {""m_CaloriesRemainingProxy"": 312.5}}");
             AddItemInfo("GEAR_CookedPieForagers", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 1125}}");
-            AddItemInfo("GEAR_CookedPieRoseHip", ItemCategory.Food, @"{""StackableItem"": {""m_UnitsProxy"": 2081},""FoodItem"": {""m_CaloriesRemainingProxy"": 270}}");
+            AddItemInfo("GEAR_CookedPieRoseHip", ItemCategory.Food, @"{""StackableItem"": {""m_UnitsProxy"": 1},""FoodItem"": {""m_CaloriesRemainingProxy"": 270}}");
             AddItemInfo("GEAR_CookedPorridge", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 107.454582}}");
             AddItemInfo("GEAR_CookedSoupRabbit", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 687.5}}");
             AddItemInfo("GEAR_CookedStewTrout", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 937.5}}");
             AddItemInfo("GEAR_CookingOil", ItemCategory.Food, @"{""LiquidItem"": {""m_LiquidLitersProxy"": 0.05,""m_LiquidQuality"": {""Value"":""NonPotable""}}}");
-            AddItemInfo("GEAR_CougarClaw", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 6}}");
+            AddItemInfo("GEAR_CougarClaw", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 1}}");
             AddItemInfo("GEAR_CougarClawKnife", ItemCategory.Tools, @"{""Millable"": {}}");
             AddItemInfo("GEAR_CougarPoster1", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_CougarPoster2", ItemCategory.Collectible, @"{}");
@@ -602,13 +604,13 @@ namespace TheLongDarkBuckupTools.Helpers
             AddItemInfo("GEAR_CuredFish", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 667.5477}}");
             AddItemInfo("GEAR_CuredMeat", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 900}}");
             AddItemInfo("GEAR_DriedApples", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 266.664185}}");
-            AddItemInfo("GEAR_FilmBoxBW", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 30}}");
-            AddItemInfo("GEAR_FilmBoxColour", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 163}}");
-            AddItemInfo("GEAR_FilmBoxSepia", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 30}}");
+            AddItemInfo("GEAR_FilmBoxBW", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 1}}");
+            AddItemInfo("GEAR_FilmBoxColour", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 1}}");
+            AddItemInfo("GEAR_FilmBoxSepia", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 1}}");
             AddItemInfo("GEAR_FishingLureA", ItemCategory.Tools, @"{}");
             AddItemInfo("GEAR_Flashlight_LongLasting", ItemCategory.Tools, @"{""FlashLightItem"": {}}");
             AddItemInfo("GEAR_Flour", ItemCategory.Food, @"{""PowderItem"": {}}");
-            AddItemInfo("GEAR_Fuse", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 59}}");
+            AddItemInfo("GEAR_Fuse", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 1}}");
             AddItemInfo("GEAR_GoldNugget", ItemCategory.Materials, @"{}");
             AddItemInfo("GEAR_HandheldShortwave", ItemCategory.Tools, @"{}");
             AddItemInfo("GEAR_HatGatorBalaclavaA", ItemCategory.Clothing, @"{""ClothingItem"": {}}");
@@ -647,7 +649,7 @@ namespace TheLongDarkBuckupTools.Helpers
             AddItemInfo("GEAR_PostCard_MR_Window", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_PostCard_Tale02", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_Potato", ItemCategory.Food, @"{}");
-            AddItemInfo("GEAR_PtarmiganFeathers", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 43}}");
+            AddItemInfo("GEAR_PtarmiganFeathers", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 1}}");
             AddItemInfo("GEAR_RawMeatCougar", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 850}}");
             AddItemInfo("GEAR_RecipeCardFishcakes", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_RecipeCardPancakePeach", ItemCategory.Collectible, @"{}");
@@ -727,7 +729,7 @@ namespace TheLongDarkBuckupTools.Helpers
             AddItemInfo("GEAR_VisorNotePV2", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_VisorNoteTWM1", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_VisorNoteTWM2", ItemCategory.Collectible, @"{}");
-            AddItemInfo("GEAR_WireBundle", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 53}}");
+            AddItemInfo("GEAR_WireBundle", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 1}}");
             AddItemInfo("GEAR_WolfSkinPant", ItemCategory.Clothing, @"{""ClothingItem"": {}}");
             AddItemInfo("GEAR_WoodworkingTools", ItemCategory.Tools, @"{}");
         }
