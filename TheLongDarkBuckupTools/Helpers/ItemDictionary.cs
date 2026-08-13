@@ -570,7 +570,7 @@ namespace TheLongDarkBuckupTools.Helpers
             AddItemInfo("GEAR_BlackrockTowerNote", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_BlueprintCard_WolfSkinPants", ItemCategory.Collectible, @"{}");
             AddItemInfo("GEAR_Bow_Manufactured", ItemCategory.Tools, @"{}");
-            AddItemInfo("GEAR_Broth", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 637.5}}");
+            AddItemInfo("GEAR_Broth", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 849.5}}");
             AddItemInfo("GEAR_Burdock", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 1}}");
             AddItemInfo("GEAR_BurdockPrepared", ItemCategory.Food, @"{""StackableItem"": {""m_UnitsProxy"": 1},""FoodItem"": {""m_CaloriesRemainingProxy"": 275}}");
             AddItemInfo("GEAR_BurdockTea", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 120.000008}}");
@@ -595,7 +595,7 @@ namespace TheLongDarkBuckupTools.Helpers
             AddItemInfo("GEAR_CookedPorridge", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 107.454582}}");
             AddItemInfo("GEAR_CookedSoupRabbit", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 687.5}}");
             AddItemInfo("GEAR_CookedStewTrout", ItemCategory.Food, @"{""FoodItem"": {""m_CaloriesRemainingProxy"": 937.5}}");
-            AddItemInfo("GEAR_CookingOil", ItemCategory.Food, @"{""LiquidItem"": {""m_LiquidLitersProxy"": 0.05,""m_LiquidQuality"": {""Value"":""NonPotable""}}}");
+            AddItemInfo("GEAR_CookingOil", ItemCategory.Food, @"{""LiquidItem"": {""m_LiquidLitersProxy"": 0.5,""m_LiquidQuality"": {""Value"":""NonPotable""}}}");
             AddItemInfo("GEAR_CougarClaw", ItemCategory.Materials, @"{""StackableItem"": {""m_UnitsProxy"": 1}}");
             AddItemInfo("GEAR_CougarClawKnife", ItemCategory.Tools, @"{""Millable"": {}}");
             AddItemInfo("GEAR_CougarPoster1", ItemCategory.Collectible, @"{}");
