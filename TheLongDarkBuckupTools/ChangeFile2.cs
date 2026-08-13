@@ -224,12 +224,13 @@ namespace TheLongDarkBuckupTools
         }
 
         /// <summary>
-        /// 分类变化时刷新物品下拉框
+        /// 分类变化时刷新物品下拉框 + 背包列表(按分类过滤)
         /// </summary>
         private void comboCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (isLoading) return;
             RefreshItemCombo();
+            ShowInventoryTab();
         }
 
         /// <summary>
@@ -586,12 +587,16 @@ namespace TheLongDarkBuckupTools
 #region 背包Tab
 
         /// <summary>
-        /// 显示背包数据
+        /// 显示背包数据(按当前分类下拉框过滤,选中"全部"时显示所有)
         /// </summary>
         private void ShowInventoryTab()
         {
             var inventory = currentSave.Global.Inventory;
             if (inventory == null) return;
+
+            // 当前选中的分类过滤条件
+            var selectedCat = comboCategory.SelectedItem as CategoryEntry;
+            ItemCategory? filterCat = selectedCat?.Category;
 
             if (dataGridViewItems.Columns.Count == 0)
             {
@@ -615,6 +620,9 @@ namespace TheLongDarkBuckupTools
                 var gear = item.Gear;
                 if (gear == null) continue;
 
+                // 分类过滤:选中非"全部"分类时,只显示匹配分类的物品
+                if (filterCat.HasValue && ItemDictionary.GetCategory(item.m_PrefabName) != filterCat.Value) continue;
+
                 string name = ItemDictionary.GetInGameName(item.m_PrefabName);
                 int units = gear.StackableItem?.m_UnitsProxy ?? 1;
                 // 液体容量:过氧化氢/灯油等用 LiquidItem,水壶等用 WaterSupply(存档均为 实际升×1e9,需换算)
@@ -632,7 +640,7 @@ namespace TheLongDarkBuckupTools
             }
 
             var carryWeight = Math.Round(totalWeight, 2);
-            lblWeightInfo.Text = "负重:" + carryWeight.ToString("0.00") + "kg 共" + inventory.Items.Count + "件";
+            lblWeightInfo.Text = "负重:" + carryWeight.ToString("0.00") + "kg 共" + dataGridViewItems.Rows.Count + "件";
         }
 
         private void btnAddItem_Click(object sender, EventArgs e)
