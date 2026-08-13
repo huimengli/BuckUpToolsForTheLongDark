@@ -561,7 +561,8 @@ namespace TheLongDarkBuckupTools
                 MessageBox.Show("不支持修改拍立得数据!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            ChangeFile2 changeFile = new ChangeFile2(NowSelect.FullName);
+            Value savePath = PlayType.Story == playType ? stroyBuckUpPath : survivalBuckUpPath;
+            ChangeFile2 changeFile = new ChangeFile2(NowSelect.FullName,savePath);
             changeFile.Show();
         }
 

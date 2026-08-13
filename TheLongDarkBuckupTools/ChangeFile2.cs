@@ -59,6 +59,11 @@ namespace TheLongDarkBuckupTools
         private bool isLoading = false;
 
         /// <summary>
+        /// 保存位置
+        /// </summary>
+        private Value savePath;
+
+        /// <summary>
         /// 背包下拉框条目
         /// </summary>
         private class ItemEntry
@@ -102,11 +107,12 @@ namespace TheLongDarkBuckupTools
             InitializeComponent();
         }
 
-        public ChangeFile2(string filePath)
+        public ChangeFile2(string filePath,Value savePath)
         {
             InitializeComponent();
 
             this.filePath = filePath;
+            this.savePath = savePath;
             this.Text = "存档修改工具";
         }
 
@@ -1023,15 +1029,7 @@ namespace TheLongDarkBuckupTools
         /// </summary>
         private void button5_Click(object sender, EventArgs e)
         {
-            try
-            {
-                currentSave.Backup();
-                MessageBox.Show("备份成功!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("备份失败:" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            Item.Save(filePath, savePath.val, DateTime.Now.ToFileTimeUtc());
         }
 
         /// <summary>
