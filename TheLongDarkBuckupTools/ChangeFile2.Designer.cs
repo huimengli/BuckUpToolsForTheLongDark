@@ -143,6 +143,7 @@
             this.lblWeightInfo = new System.Windows.Forms.Label();
             this.dataGridViewItems = new System.Windows.Forms.DataGridView();
             this.contextMenuStripItems = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyID = new System.Windows.Forms.ToolStripMenuItem();
             this.copyBoth = new System.Windows.Forms.ToolStripMenuItem();
             this.cloneItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -1373,6 +1374,7 @@
             // contextMenuStripItems
             // 
             this.contextMenuStripItems.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyID,
             this.copyBoth,
             this.cloneItem,
             this.toolStripSeparator1,
@@ -1386,6 +1388,13 @@
             this.contextMenuStripItems.Name = "contextMenuStripItems";
             this.contextMenuStripItems.Size = new System.Drawing.Size(197, 192);
             this.contextMenuStripItems.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripItems_Opening);
+            //
+            // copyID
+            //
+            this.copyID.Name = "copyID";
+            this.copyID.Size = new System.Drawing.Size(196, 22);
+            this.copyID.Text = "复制物品ID";
+            this.copyID.Click += new System.EventHandler(this.copyID_Click);
             // 
             // copyBoth
             // 
@@ -1755,6 +1764,7 @@
         private System.Windows.Forms.Label lblWeightInfo;
         private System.Windows.Forms.Label labelAddItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripItems;
+        private System.Windows.Forms.ToolStripMenuItem copyID;
         private System.Windows.Forms.ToolStripMenuItem copyBoth;
         private System.Windows.Forms.ToolStripMenuItem cloneItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

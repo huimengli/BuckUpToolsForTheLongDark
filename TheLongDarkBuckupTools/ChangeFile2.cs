@@ -796,6 +796,24 @@ namespace TheLongDarkBuckupTools
             searchOnline.Enabled = hasRow;
         }
 
+        /// <summary>
+        /// 复制物品ID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void copyID_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0) return;
+            var row = dataGridViewItems.SelectedRows[0];
+            var id = row.Cells["colID"].Value?.ToString() ?? "";
+            Clipboard.SetText(id);
+        }
+
+        /// <summary>
+        /// 复制物品名称+物品ID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void copyBoth_Click(object sender, EventArgs e)
         {
             if (dataGridViewItems.SelectedRows.Count == 0) return;
