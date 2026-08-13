@@ -112,6 +112,11 @@ namespace TheLongDarkBuckupTools
 
         private void ChangeFile2_Load(object sender, EventArgs e)
         {
+            // 导出按钮只有debug可见
+#if !DEBUG
+            this.export.Visible = false;
+#endif        
+
             this.fileInfo = new FileInfo(filePath);
             if (fileInfo.Exists == false)
             {
@@ -1101,5 +1106,130 @@ namespace TheLongDarkBuckupTools
         }
 
         #endregion
+
+        private void export_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (currentSave?.Global?.Inventory == null || currentSave.Global.Inventory.Items == null)
+                {
+                    MessageBox.Show("请先加载存档!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // 收集所有未收录于物品字典(无名称/无清单条目)的物品,按 ID 去重
+                var unknown = new Dictionary<string, GearItemSaveDataProxy>();
+                foreach (var item in currentSave.Global.Inventory.Items)
+                {
+                    if (item.Gear == null) continue;
+                    if (ItemDictionary.itemInfo.ContainsKey(item.m_PrefabName)) continue; // 已收录的跳过
+                    if (!unknown.ContainsKey(item.m_PrefabName))
+                        unknown[item.m_PrefabName] = item.Gear;
+                }
+
+                if (unknown.Count == 0)
+                {
+                    MessageBox.Show("当前存档中的物品都已收录,没有可导出的未收录物品!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // 构建导出结构:key = 物品ID,value = 子组件结构(可直接作为 ItemDictionary 的 defaultSerialized 使用)
+                var export = new Dictionary<string, object>();
+                foreach (var kv in unknown)
+                    export[kv.Key] = ExtractItemStructure(kv.Value);
+
+                using (var dlg = new SaveFileDialog())
+                {
+                    dlg.Title = "导出未收录物品结构";
+                    dlg.Filter = "JSON 文件 (*.json)|*.json";
+                    dlg.FileName = "未收录物品结构_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".json";
+                    if (dlg.ShowDialog() != DialogResult.OK) return;
+
+                    var settings = new JsonSerializerSettings
+                    {
+                        Formatting = Formatting.Indented,
+                        FloatFormatHandling = FloatFormatHandling.Symbol,
+                        Converters = { new IntegralFloatConverter() }
+                    };
+                    var json = JsonConvert.SerializeObject(export, settings);
+                    File.WriteAllText(dlg.FileName, json, new UTF8Encoding(true));
+
+                    MessageBox.Show("已导出 " + unknown.Count + " 个未收录物品的结构到:\n" + dlg.FileName, "导出成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("导出失败:" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// 提取物品 Gear 的非空子组件结构(与 ItemDictionary.defaultSerialized 格式一致)。
+        /// 液体/重量换算为实际单位(升/kg),以便直接作为添加物品清单的默认结构。
+        /// </summary>
+        private static object ExtractItemStructure(GearItemSaveDataProxy gear)
+        {
+            var result = new Dictionary<string, object>();
+
+            foreach (var prop in typeof(GearItemSaveDataProxy).GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public))
+            {
+                var attr = prop.GetCustomAttributeCached<DeserializeAttribute>(false);
+                if (attr == null || !attr.Json) continue; // 仅处理 json=true 的子组件
+                var val = prop.GetValue(gear);
+                if (val == null) continue;
+                result[prop.Name] = ToPlain(val);
+            }
+
+            // 液体容量换算为实际升(defaultSerialized 中为实际升,添加时工具自动 ×1e9)
+            if (result.TryGetValue("LiquidItem", out var li) && li is Dictionary<string, object> liDict && liDict.TryGetValue("m_LiquidLitersProxy", out var llp) && llp is float llpf)
+                liDict["m_LiquidLitersProxy"] = ItemWeights.ToLiters(llpf);
+            if (result.TryGetValue("WaterSupply", out var ws) && ws is Dictionary<string, object> wsDict && wsDict.TryGetValue("m_VolumeProxy", out var vp) && vp is float vpf)
+                wsDict["m_VolumeProxy"] = ItemWeights.ToLiters(vpf);
+
+            // 重量换算为实际 kg
+            result["m_WeightKG"] = ItemWeights.ToKg(gear.m_WeightKG);
+            return result;
+        }
+
+        /// <summary>
+        /// 把对象递归转换为纯数据(字典/列表/基本类型),EnumWrapper → {"Value": ...},与游戏序列化格式一致。
+        /// </summary>
+        private static object ToPlain(object o)
+        {
+            if (o == null) return null;
+            var t = o.GetType();
+
+            if (o is EnumWrapper ew)
+                return new Dictionary<string, object> { ["Value"] = ew.Value };
+            if (o is string || t.IsPrimitive || o is decimal || o is DateTime)
+                return o;
+
+            if (t.IsArray)
+            {
+                var list = new List<object>();
+                foreach (var item in (Array)o) list.Add(ToPlain(item));
+                return list;
+            }
+            if (o is System.Collections.IEnumerable col)
+            {
+                var list = new List<object>();
+                foreach (var item in col) list.Add(ToPlain(item));
+                return list;
+            }
+
+            var dict = new Dictionary<string, object>();
+            foreach (var prop in t.GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public))
+            {
+                if (prop.GetCustomAttributeCached<JsonIgnoreAttribute>(false) != null) continue;
+                if (prop.GetIndexParameters().Length > 0) continue;
+                dict[prop.Name] = ToPlain(prop.GetValue(o));
+            }
+            foreach (var field in t.GetFields(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public))
+            {
+                if (field.GetCustomAttributeCached<JsonIgnoreAttribute>(false) != null) continue;
+                dict[field.Name] = ToPlain(field.GetValue(o));
+            }
+            return dict;
+        }
     }
 }

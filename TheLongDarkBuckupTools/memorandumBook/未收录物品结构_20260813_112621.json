@@ -1,0 +1,1047 @@
+﻿{
+  "GEAR_VisorNoteAC3": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteAC2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_FilmBoxColour": {
+    "StackableItem": {
+      "m_UnitsProxy": 163
+    },
+    "m_WeightKG": 0.1
+  },
+  "GEAR_VisorNoteAC1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteACKey1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_RecipeCardStewMeat": {
+    "m_WeightKG": 0
+  },
+  "GEAR_PtarmiganFeathers": {
+    "StackableItem": {
+      "m_UnitsProxy": 43
+    },
+    "m_WeightKG": 0.01
+  },
+  "GEAR_Travois": {
+    "m_WeightKG": 1
+  },
+  "GEAR_HatLeatherAviatorA": {
+    "ClothingItem": {
+      "m_WearingProxy": true,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 1
+    },
+    "m_WeightKG": 0.3
+  },
+  "GEAR_VisorNoteTWM1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteTWM2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_JacketLeatherFlightA": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 2
+    },
+    "m_WeightKG": 2.5
+  },
+  "GEAR_BackerNote2C": {
+    "m_WeightKG": 0
+  },
+  "GEAR_OatsTin": {
+    "PowderItem": {},
+    "m_WeightKG": 0
+  },
+  "GEAR_Fuse": {
+    "StackableItem": {
+      "m_UnitsProxy": 59
+    },
+    "m_WeightKG": 0.15
+  },
+  "GEAR_WireBundle": {
+    "StackableItem": {
+      "m_UnitsProxy": 53
+    },
+    "m_WeightKG": 0.1
+  },
+  "GEAR_CashBundle": {
+    "StackableItem": {
+      "m_UnitsProxy": 1
+    },
+    "m_WeightKG": 0.05
+  },
+  "GEAR_SweaterChristmasA": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 0
+    },
+    "m_WeightKG": 0.3
+  },
+  "GEAR_Potato": {
+    "m_WeightKG": 0.2
+  },
+  "GEAR_Flour": {
+    "PowderItem": {},
+    "m_WeightKG": 0
+  },
+  "GEAR_BackerNote1B": {
+    "m_WeightKG": 0
+  },
+  "GEAR_CougarPoster1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Trader_Pamphlet": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteML3": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteMLKey3": {
+    "m_WeightKG": 0
+  },
+  "GEAR_CookedPieRoseHip": {
+    "StackableItem": {
+      "m_UnitsProxy": 2081
+    },
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 270,
+      "m_CaloriesTotal": 270,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 1,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.3
+  },
+  "GEAR_ImprovisedCrampons": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 0
+    },
+    "m_WeightKG": 0.75
+  },
+  "GEAR_BurdockTea": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 120.000008,
+      "m_CaloriesTotal": 120.000008,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 1,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.1
+  },
+  "GEAR_Rifle_Curators": {
+    "WeaponItem": {
+      "m_RoundsInClipProxy": 0,
+      "m_IsJammed": false
+    },
+    "Millable": {},
+    "m_WeightKG": 4
+  },
+  "GEAR_ImprovisedDownInsulation": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 0
+    },
+    "m_WeightKG": 0.25
+  },
+  "GEAR_BackerNote3A": {
+    "m_WeightKG": 0
+  },
+  "GEAR_RecipeCardSoupRabbit": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Cereal_A": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 700,
+      "m_CaloriesTotal": 700,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 0,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.2
+  },
+  "GEAR_BackerNote1A": {
+    "m_WeightKG": 0
+  },
+  "GEAR_DriedApples": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 266.664185,
+      "m_CaloriesTotal": 400,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 0,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.15
+  },
+  "GEAR_BackerNote3B": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteDP1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteDPKey1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_BackerNote3C": {
+    "m_WeightKG": 0
+  },
+  "GEAR_RecipeCardFishcakes": {
+    "m_WeightKG": 0
+  },
+  "GEAR_RevolverGreen": {
+    "WeaponItem": {
+      "m_RoundsInClipProxy": 0,
+      "m_IsJammed": false
+    },
+    "Millable": {},
+    "m_WeightKG": 1.5
+  },
+  "GEAR_WoodworkingTools": {
+    "m_WeightKG": 1.5
+  },
+  "GEAR_CougarClaw": {
+    "StackableItem": {
+      "m_UnitsProxy": 6
+    },
+    "m_WeightKG": 0.07
+  },
+  "GEAR_CuredMeat": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 900,
+      "m_CaloriesTotal": 900,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 0,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.25
+  },
+  "GEAR_RawMeatCougar": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 850,
+      "m_CaloriesTotal": 850,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 0,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 1
+  },
+  "GEAR_InsulatedFlask_B": {
+    "m_WeightKG": 0.2
+  },
+  "GEAR_VisorNoteCH2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_TipUp": {
+    "m_WeightKG": 0.3
+  },
+  "GEAR_BlueprintCard_WolfSkinPants": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Rifle_Barbs": {
+    "WeaponItem": {
+      "m_RoundsInClipProxy": 0,
+      "m_IsJammed": false
+    },
+    "Millable": {},
+    "m_WeightKG": 4.49999952
+  },
+  "GEAR_VisorNoteBI2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_BIKey2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_RecipeCardPieFishermans": {
+    "m_WeightKG": 0
+  },
+  "GEAR_CookingOil": {
+    "LiquidItem": {
+      "m_LiquidLitersProxy": 0.05,
+      "m_LiquidQuality": {
+        "Value": "NonPotable"
+      }
+    },
+    "m_WeightKG": 0
+  },
+  "GEAR_WolfSkinPant": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 2
+    },
+    "InProgressItem": {
+      "m_PercentComplete": 34.2857132,
+      "m_Weight": 1700000000
+    },
+    "m_WeightKG": 2.5
+  },
+  "GEAR_VisorNoteML1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_BackerNote4A": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteMT1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteMTKey1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_CougarPoster2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Carrot": {
+    "StackableItem": {
+      "m_UnitsProxy": 1
+    },
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 175,
+      "m_CaloriesTotal": 175,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 0,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.1
+  },
+  "GEAR_VisorNoteMT3": {
+    "m_WeightKG": 0
+  },
+  "GEAR_RecipeCardPancakePeach": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteMT2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteFM1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteBR2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_BRKey2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_BurdockPrepared": {
+    "StackableItem": {
+      "m_UnitsProxy": 3
+    },
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 275,
+      "m_CaloriesTotal": 275,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 0,
+      "m_Packaged": true
+    },
+    "m_WeightKG": 0.15
+  },
+  "GEAR_NaturalistNote1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Broth": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 637.5,
+      "m_CaloriesTotal": 850,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 1,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.8
+  },
+  "GEAR_AcornGrounds": {
+    "StackableItem": {
+      "m_UnitsProxy": 27
+    },
+    "m_WeightKG": 0.2
+  },
+  "GEAR_ArrowHardened": {
+    "StackableItem": {
+      "m_UnitsProxy": 4
+    },
+    "m_WeightKG": 0.1
+  },
+  "GEAR_MountainPassWeatherStationNote": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Camera": {
+    "WeaponItem": {
+      "m_RoundsInClipProxy": 0,
+      "m_IsJammed": false
+    },
+    "m_WeightKG": 0
+  },
+  "GEAR_PostCard_AF_Cabin": {
+    "m_WeightKG": 0
+  },
+  "GEAR_AirfieldJunkerNote": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Tale1ChiefNote1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_HandheldShortwave": {
+    "m_WeightKG": 0
+  },
+  "GEAR_AirfieldControlNote": {
+    "m_WeightKG": 0
+  },
+  "GEAR_RecipeCardPorridgeFruit": {
+    "m_WeightKG": 0
+  },
+  "GEAR_AirfieldHangarNote": {
+    "m_WeightKG": 0
+  },
+  "GEAR_CougarClawKnife": {
+    "Millable": {},
+    "m_WeightKG": 0.6
+  },
+  "GEAR_AirfieldCabinNote": {
+    "m_WeightKG": 0
+  },
+  "GEAR_AcornCoffeeCup": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 125,
+      "m_CaloriesTotal": 125,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 1,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.1
+  },
+  "GEAR_VisorNoteHRV1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteHRVKey1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_ClipBoardBunker_A": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Logbook_A01": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteHRV2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_BackerNote4B": {
+    "m_WeightKG": 0
+  },
+  "GEAR_RecipeCardPieForagers": {
+    "m_WeightKG": 0
+  },
+  "GEAR_CannedCorn": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 295,
+      "m_CaloriesTotal": 295,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 0,
+      "m_Packaged": false
+    },
+    "SmashableItem": {
+      "m_HasBeenSmashed": false
+    },
+    "m_WeightKG": 0.3
+  },
+  "GEAR_Logbook_A02": {
+    "m_WeightKG": 0
+  },
+  "GEAR_ClipBoardBunker_B": {
+    "m_WeightKG": 0
+  },
+  "GEAR_CougarWrap": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 1
+    },
+    "m_WeightKG": 1
+  },
+  "GEAR_CannedHam": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 550,
+      "m_CaloriesTotal": 550,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 0,
+      "m_Packaged": true
+    },
+    "m_WeightKG": 0.4
+  },
+  "GEAR_Logbook_A03": {
+    "m_WeightKG": 0
+  },
+  "GEAR_ClipBoardBunker_C": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNotePV2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNotePV1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteBlackrock3": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteBlackrockKey3": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteBlackrock1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_PostCard_BR_Prison": {
+    "m_WeightKG": 0
+  },
+  "GEAR_SurvivalElevatorCrank": {
+    "m_WeightKG": 1
+  },
+  "GEAR_BlackrockCodeNote": {
+    "m_WeightKG": 0
+  },
+  "GEAR_NoiseMaker": {
+    "m_WeightKG": 0.2
+  },
+  "GEAR_PostCard_BR_Canyon": {
+    "m_WeightKG": 0
+  },
+  "GEAR_BlackrockAmmoRoomNote": {
+    "m_WeightKG": 0
+  },
+  "GEAR_InsulatedFlask_C": {
+    "m_WeightKG": 0.2
+  },
+  "GEAR_BlackrockAdminNote": {
+    "m_WeightKG": 0
+  },
+  "GEAR_BlackrockSecurityNote": {
+    "m_WeightKG": 0
+  },
+  "GEAR_BallisticVest": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 0
+    },
+    "m_WeightKG": 6
+  },
+  "GEAR_RevolverStubNosed": {
+    "WeaponItem": {
+      "m_RoundsInClipProxy": 0,
+      "m_IsJammed": false
+    },
+    "Millable": {},
+    "m_WeightKG": 1.25
+  },
+  "GEAR_BlackrockTowerNote": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteBlackrock2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_BackerNote2B": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteBR1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_BRKey1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_RecipeCardPieMeat": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Rifle_Vaughns": {
+    "WeaponItem": {
+      "m_RoundsInClipProxy": 0,
+      "m_IsJammed": false
+    },
+    "Millable": {},
+    "m_WeightKG": 3
+  },
+  "GEAR_AcornCooked": {
+    "StackableItem": {
+      "m_UnitsProxy": 1
+    },
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 100,
+      "m_CaloriesTotal": 100,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 0,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.03
+  },
+  "GEAR_RifleScabbardA": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 0
+    },
+    "m_WeightKG": 0.25
+  },
+  "GEAR_Logbook_A04": {
+    "m_WeightKG": 0
+  },
+  "GEAR_ClipBoardBunker_D": {
+    "m_WeightKG": 0
+  },
+  "GEAR_AirfieldCargomasterNote": {
+    "m_WeightKG": 0
+  },
+  "GEAR_FilmBoxSepia": {
+    "StackableItem": {
+      "m_UnitsProxy": 30
+    },
+    "m_WeightKG": 0.1
+  },
+  "GEAR_Bow_Manufactured": {
+    "m_WeightKG": 0.35
+  },
+  "GEAR_PostCard_MR_Window": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Respirator": {
+    "m_WeightKG": 0
+  },
+  "GEAR_FilmBoxBW": {
+    "StackableItem": {
+      "m_UnitsProxy": 30
+    },
+    "m_WeightKG": 0.1
+  },
+  "GEAR_MinersPants": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 2
+    },
+    "m_WeightKG": 1
+  },
+  "GEAR_Tale2GeologistNote1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Tale2_LockerKey": {
+    "m_WeightKG": 0
+  },
+  "GEAR_LogbookTale2_A01": {
+    "m_WeightKG": 0
+  },
+  "GEAR_MinersBoots": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 2
+    },
+    "m_WeightKG": 2
+  },
+  "GEAR_ClipBoardTale2_A": {
+    "m_WeightKG": 0
+  },
+  "GEAR_LangstonMineLockboxKey1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_GoldNugget": {
+    "m_WeightKG": 0.25
+  },
+  "GEAR_Canister": {
+    "m_WeightKG": 0.2
+  },
+  "GEAR_LangstonMineKey1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Tale2_CorpseKey": {
+    "m_WeightKG": 0
+  },
+  "GEAR_ClipBoardTale2_B": {
+    "m_WeightKG": 0
+  },
+  "GEAR_MinersHelmet": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 0
+    },
+    "m_WeightKG": 0.4
+  },
+  "GEAR_InsulatedFlask_D": {
+    "m_WeightKG": 0.2
+  },
+  "GEAR_MinersJacket": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 2
+    },
+    "m_WeightKG": 2
+  },
+  "GEAR_Vice": {
+    "m_WeightKG": 2
+  },
+  "GEAR_LogbookTale2_A02": {
+    "m_WeightKG": 0
+  },
+  "GEAR_ClipBoardTale2_C": {
+    "m_WeightKG": 0
+  },
+  "GEAR_LogbookTale2_A03": {
+    "m_WeightKG": 0
+  },
+  "GEAR_ToolBelt": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 0
+    },
+    "m_WeightKG": 0.2
+  },
+  "GEAR_Tale2RudigerNote1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_LogbookTale2_A04": {
+    "m_WeightKG": 0
+  },
+  "GEAR_PostCard_Tale02": {
+    "m_WeightKG": 0
+  },
+  "GEAR_ClipBoardTale2_D": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Tale3_ForemanRefugeKey": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Tale3ForemanLog1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Tale_03_PostCard_01": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Tale3ForemanLog2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Tale_03_PostCard_02": {
+    "m_WeightKG": 0
+  },
+  "GEAR_PostCard_MP_OgresTeardrop": {
+    "m_WeightKG": 0
+  },
+  "GEAR_SaltBag": {
+    "PowderItem": {},
+    "m_WeightKG": 0
+  },
+  "GEAR_Tale_03_PostCard_05": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Tale3RudigerNote1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_MountainPassAvalancheNote": {
+    "m_WeightKG": 0
+  },
+  "GEAR_PostCard_MP_BrokenRoad": {
+    "m_WeightKG": 0
+  },
+  "GEAR_NaturalistNote2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Tale3RudigerNote2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Tale3ForemanLog3": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Tale_03_PostCard_03": {
+    "m_WeightKG": 0
+  },
+  "GEAR_FishingLureA": {
+    "m_WeightKG": 0.01
+  },
+  "GEAR_HatGatorBalaclavaA": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 0
+    },
+    "m_WeightKG": 0.2
+  },
+  "GEAR_TacticalJacket": {
+    "ClothingItem": {
+      "m_WearingProxy": false,
+      "m_PercentWet": 0,
+      "m_PercentFrozen": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HoursRemainingOnCloseFire": 0,
+      "m_DroppedIndoors": false,
+      "m_HasEquippedData": true,
+      "m_EquippedLayerIndex": 2
+    },
+    "m_WeightKG": 2
+  },
+  "GEAR_Tale3RudigerNote3": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Rudiger_Watch": {
+    "m_WeightKG": 0
+  },
+  "GEAR_SecurityChiefID": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Flashlight_LongLasting": {
+    "FlashLightItem": {
+      "m_IsOn": false,
+      "m_IsHigh": false,
+      "m_CurrentBatteryCharge": 1
+    },
+    "m_WeightKG": 1.25
+  },
+  "GEAR_Tale3ForemanLog4": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Tale_03_PostCard_04": {
+    "m_WeightKG": 0
+  },
+  "GEAR_Salt": {
+    "PowderItem": {},
+    "m_WeightKG": 0
+  },
+  "GEAR_Burdock": {
+    "StackableItem": {
+      "m_UnitsProxy": 3
+    },
+    "m_WeightKG": 0.15
+  },
+  "GEAR_VisorNoteDP2": {
+    "m_WeightKG": 0
+  },
+  "GEAR_VisorNoteDP3": {
+    "m_WeightKG": 0
+  },
+  "GEAR_BackerNote2A": {
+    "m_WeightKG": 0
+  },
+  "GEAR_AcornShelled": {
+    "StackableItem": {
+      "m_UnitsProxy": 2
+    },
+    "m_WeightKG": 0.05
+  },
+  "GEAR_Skillet": {
+    "m_WeightKG": 1
+  },
+  "GEAR_VisorNoteCH1": {
+    "m_WeightKG": 0
+  },
+  "GEAR_AnimalFat": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 540,
+      "m_CaloriesTotal": 900,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 0,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 1
+  },
+  "GEAR_CookedPieForagers": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 1125,
+      "m_CaloriesTotal": 1125,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 1,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.3
+  },
+  "GEAR_CookedStewTrout": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 937.5,
+      "m_CaloriesTotal": 937.5,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 1,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.35
+  },
+  "GEAR_CookedFishcakes": {
+    "StackableItem": {
+      "m_UnitsProxy": 4
+    },
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 312.5,
+      "m_CaloriesTotal": 312.5,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 0,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.212
+  },
+  "GEAR_CookedPorridge": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 107.454582,
+      "m_CaloriesTotal": 437.5,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 1,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.2
+  },
+  "GEAR_CuredFish": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 667.5477,
+      "m_CaloriesTotal": 900,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 0,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.2
+  },
+  "GEAR_CookedSoupRabbit": {
+    "FoodItem": {
+      "m_CaloriesRemainingProxy": 687.5,
+      "m_CaloriesTotal": 687.5,
+      "m_Opened": false,
+      "m_HeatPercent": 0,
+      "m_HoursPlayed": 10060.7148,
+      "m_HarvestedByPlayer": false,
+      "m_NumTimesHeatedUp": 1,
+      "m_Packaged": false
+    },
+    "m_WeightKG": 0.35
+  }
+}

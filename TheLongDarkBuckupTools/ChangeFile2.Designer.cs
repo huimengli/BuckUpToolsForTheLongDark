@@ -163,6 +163,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.export = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -1298,6 +1299,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.export);
             this.tabPage6.Controls.Add(this.tishi);
             this.tabPage6.Controls.Add(this.btnRemoveAll);
             this.tabPage6.Controls.Add(this.btnRepairAll);
@@ -1550,6 +1552,16 @@
             this.label1.Text = "漫漫长夜";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // export
+            // 
+            this.export.Location = new System.Drawing.Point(257, 368);
+            this.export.Name = "export";
+            this.export.Size = new System.Drawing.Size(139, 28);
+            this.export.TabIndex = 10;
+            this.export.Text = "导出未知物品";
+            this.export.UseVisualStyleBackColor = true;
+            this.export.Click += new System.EventHandler(this.export_Click);
+            // 
             // ChangeFile2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1755,5 +1767,6 @@
         private System.Windows.Forms.ToolStripMenuItem searchOnline;
         private System.Windows.Forms.Label tishi;
         private System.Windows.Forms.Label player_tishi;
+        private System.Windows.Forms.Button export;
     }
 }
