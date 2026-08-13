@@ -97,7 +97,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(188, 24);
             this.button4.TabIndex = 7;
-            this.button4.Text = "修改(测试中)";
+            this.button4.Text = "修改存档";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
