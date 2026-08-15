@@ -495,6 +495,45 @@ namespace TheLongDarkBuckupTools.Helpers
             public int Bottom;
         }
 
+        // ===== Windows DPI 缩放处理 API（Windows 10 1607+ 支持线程级 DPI 感知）=====
+        /// <summary>
+        /// DPI 感知级别
+        /// </summary>
+        private enum DpiAwareness
+        {
+            DpiUnaware = 0,
+            SystemDpiAware = 1,
+            PerMonitorDpiAware = 2
+        }
+
+        /// <summary>
+        /// 线程 DPI 上下文：不感知 DPI
+        /// </summary>
+        private static readonly IntPtr DPI_AWARENESS_CONTEXT_UNAWARE = new IntPtr(-1);
+
+        /// <summary>
+        /// 线程 DPI 上下文：Per-Monitor V2（Win10 1607+，可正确处理多显示器不同缩放）
+        /// </summary>
+        private static readonly IntPtr DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = new IntPtr(-4);
+
+        /// <summary>
+        /// 设置当前线程的 DPI 感知上下文
+        /// </summary>
+        [DllImport("user32.dll")]
+        private static extern IntPtr SetThreadDpiAwarenessContext(IntPtr dpiContext);
+
+        /// <summary>
+        /// 获取当前线程的 DPI 感知上下文（NULL 表示继承进程设置，即不感知）
+        /// </summary>
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetThreadDpiAwarenessContext();
+
+        /// <summary>
+        /// 解析 DPI 感知上下文的感知级别
+        /// </summary>
+        [DllImport("user32.dll")]
+        private static extern int GetAwarenessFromDpiAwarenessContext(IntPtr value);
+
         /// <summary>
         /// 截图指定窗口
         /// </summary>
@@ -519,34 +558,80 @@ namespace TheLongDarkBuckupTools.Helpers
             if (GetWindowRect(hWnd, ref rect) == IntPtr.Zero)
                 return null;   // 获取窗口矩形失败
 
-            int width = rect.Right - rect.Left;
-            int height = rect.Bottom - rect.Top;
-            if (width <= 0 || height <= 0)
-                return null;
-
-            // 创建与窗口大小一致的 Bitmap
-            Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
-            using (Graphics g = Graphics.FromImage(bitmap))
+            // ===== Windows DPI 缩放修复 =====
+            // 本程序未声明 DPI-Aware。当系统缩放(125%/150%等)时，GetWindowRect 返回的是
+            // "虚拟化逻辑坐标"，而 CopyFromScreen 依赖物理像素坐标，两者坐标系不一致，
+            // 会导致截图区域偏移、或截图分辨率变低(模糊)。
+            // 解决：将当前线程临时切换为 Per-Monitor DPI Aware，让 GetWindowRect 与
+            //       CopyFromScreen 统一使用物理像素坐标，截出与屏幕一致的高清图；
+            //       截图完成后立即恢复线程上下文，不影响主程序界面。
+            IntPtr oldDpiContext = IntPtr.Zero;
+            bool dpiSwitched = false;
+            try
             {
-                // 将屏幕指定区域复制到位图
-                g.CopyFromScreen(rect.Left, rect.Top, 0, 0, new Size(width, height));
-            }
+                // 仅当线程当前"不感知 DPI"时才需要切换（已感知时坐标本就是物理像素）
+                try
+                {
+                    oldDpiContext = GetThreadDpiAwarenessContext();
+                    if (oldDpiContext == IntPtr.Zero ||
+                        GetAwarenessFromDpiAwarenessContext(oldDpiContext) == (int)DpiAwareness.DpiUnaware)
+                    {
+                        dpiSwitched = SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2) != IntPtr.Zero;
+                        if (dpiSwitched && GetWindowRect(hWnd, ref rect) == IntPtr.Zero)
+                            return null;   // 坐标系切换后重新获取窗口矩形失败
+                    }
+                }
+                catch (EntryPointNotFoundException)
+                {
+                    dpiSwitched = false;   // 系统过旧，不支持线程 DPI 上下文，按原逻辑坐标处理
+                }
+                catch (DllNotFoundException)
+                {
+                    dpiSwitched = false;
+                }
 
-            // 如果需要保存，则保存为 PNG（可根据需要调整格式）
-            if (nowSave)
+                int width = rect.Right - rect.Left;
+                int height = rect.Bottom - rect.Top;
+                if (width <= 0 || height <= 0)
+                    return null;
+
+                // 创建与窗口大小一致的 Bitmap（DPI 感知时尺寸为物理像素，画面清晰）
+                Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
+                using (Graphics g = Graphics.FromImage(bitmap))
+                {
+                    // 将屏幕指定区域复制到位图
+                    g.CopyFromScreen(rect.Left, rect.Top, 0, 0, new Size(width, height));
+                }
+
+                // 如果需要保存，则保存为 PNG（可根据需要调整格式）
+                if (nowSave)
+                {
+                    if (string.IsNullOrWhiteSpace(savePath))
+                        throw new ArgumentException("保存路径不能为空", nameof(savePath));
+
+                    // 确保目录存在
+                    string directory = System.IO.Path.GetDirectoryName(savePath);
+                    if (!string.IsNullOrEmpty(directory) && !System.IO.Directory.Exists(directory))
+                        System.IO.Directory.CreateDirectory(directory);
+
+                    bitmap.Save(savePath, ImageFormat.Png);
+                }
+
+                return bitmap;
+            }
+            finally
             {
-                if (string.IsNullOrWhiteSpace(savePath))
-                    throw new ArgumentException("保存路径不能为空", nameof(savePath));
-
-                // 确保目录存在
-                string directory = System.IO.Path.GetDirectoryName(savePath);
-                if (!string.IsNullOrEmpty(directory) && !System.IO.Directory.Exists(directory))
-                    System.IO.Directory.CreateDirectory(directory);
-
-                bitmap.Save(savePath, ImageFormat.Png);
+                // 无论成功失败，都恢复线程原来的 DPI 上下文
+                if (dpiSwitched)
+                {
+                    try
+                    {
+                        SetThreadDpiAwarenessContext(
+                            oldDpiContext == IntPtr.Zero ? DPI_AWARENESS_CONTEXT_UNAWARE : oldDpiContext);
+                    }
+                    catch { }
+                }
             }
-
-            return bitmap;
         }
 
         #region 外来代码
