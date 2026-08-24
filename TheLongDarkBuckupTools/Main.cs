@@ -76,6 +76,11 @@ namespace TheLongDarkBuckupTools
             }
         }
 
+        /// <summary>
+        /// 迁移时是否限制备份数量
+        /// </summary>
+        private bool exportLimitNum = false;
+
         public Main()
         {
             InitializeComponent();
@@ -90,6 +95,8 @@ namespace TheLongDarkBuckupTools
             }
             //QuickSave = (Keys)Enum.Parse(typeof(Keys), textBox1.Text);
             //radioButton1.Checked = true;
+            zipExportPath.Text = AppDomain.CurrentDomain.BaseDirectory + "迁移压缩包.zip";
+            toolTip1.SetToolTip(this.zipExportPath, zipExportPath.Text);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -730,6 +737,42 @@ namespace TheLongDarkBuckupTools
 
             // 打开监视的文件夹
             Item.OpenOnWindows(WinLator.WatcherPathToFilePath(text.Text));
+        }
+
+        private void zipExportPathSelect_Click(object sender, EventArgs e)
+        {
+            Value zipPath = new Value(zipExportPath.Text);
+            Item.ChoiceFolder(zipPath, "请选择压缩包保存位置", Environment.SpecialFolder.Desktop);
+            zipExportPath.Text = zipPath.val + "\\迁移压缩包.zip";
+            toolTip1.SetToolTip(this.zipExportPath, zipExportPath.Text);
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(exportLimitNumTextBox.Text) == false)
+            {
+                if (int.TryParse(exportLimitNumTextBox.Text, out int num))
+                {
+                    exportLimitNum = true;
+                }
+                else
+                {
+                    MessageBox.Show("请输入一个有效的数字", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    exportLimitNumTextBox.Text = "";
+                    exportLimitNum = false;
+                }
+            }
+        }
+
+        private void withNumber_CheckedChanged(object sender, EventArgs e)
+        {
+            exportLimitNum = withNumber.Checked;
+            exportLimitNumTextBox.Enabled = exportLimitNum;
+        }
+
+        private void export_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
