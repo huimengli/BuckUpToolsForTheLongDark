@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TheLongDarkBuckupTools.Class;
 
 namespace TheLongDarkBuckupTools.AddFunc
 {
@@ -242,6 +243,29 @@ namespace TheLongDarkBuckupTools.AddFunc
         {
             ts.Reverse();
             return ts;
+        }
+
+        /// <summary>
+        /// 对ListEX的每个元素进行指定操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ts"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static ListEX<T> This<T>(this ListEX<T> ts,Func<ListEX<T>,ListEX<T>> func)
+        {
+            return func(ts);
+        }
+
+        /// <summary>
+        /// 将IEnumerable转为ListEX
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static ListEX<T> ToListEX<T>(this IEnumerable<T> values)
+        {
+            return new ListEX<T>(values.ToList());
         }
 
         /// <summary>

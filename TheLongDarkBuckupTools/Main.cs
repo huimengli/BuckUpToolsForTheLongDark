@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Security.AccessControl;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -95,8 +98,6 @@ namespace TheLongDarkBuckupTools
             }
             //QuickSave = (Keys)Enum.Parse(typeof(Keys), textBox1.Text);
             //radioButton1.Checked = true;
-            zipExportPath.Text = AppDomain.CurrentDomain.BaseDirectory + "迁移压缩包.zip";
-            toolTip1.SetToolTip(this.zipExportPath, zipExportPath.Text);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -154,6 +155,11 @@ namespace TheLongDarkBuckupTools
                     radioButton1.Checked = true;
                     break;
             }
+
+            // 迁移窗口设置
+            zipExportPath.Text = AppDomain.CurrentDomain.BaseDirectory + "迁移压缩包.zip";
+            toolTip1.SetToolTip(this.zipExportPath, zipExportPath.Text);
+            toolTip1.SetToolTip(this.export, "导出迁移压缩包(默认不导出剧情存档备份)");
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -772,7 +778,122 @@ namespace TheLongDarkBuckupTools
 
         private void export_Click(object sender, EventArgs e)
         {
+            // 如果导出zip已经存在
+            if (File.Exists(zipExportPath.Text))
+            {
+                if (MessageBox.Show($"压缩包已经存在,是否覆盖?\n{zipExportPath.Text}", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                {
+                    return;
+                }
+                else
+                {
+                    File.Delete(zipExportPath.Text);
+                }
+            } 
 
+            int.TryParse(exportLimitNumTextBox.Text, out int limitNum);
+            // 创建一个临时文件夹,然后将存档文件夹复制到临时文件夹中,然后压缩临时文件夹,最后删除临时文件夹
+            string tempFolder = Path.Combine(Path.GetTempPath(), "TheLongDarkBuckupToolsTemp");
+
+            // 如果临时文件夹存在,则删除
+            if (Directory.Exists(tempFolder))
+            {
+                Directory.Delete(tempFolder, true);
+            }
+            // 创建临时文件夹
+            else
+            {
+                Directory.CreateDirectory(tempFolder);
+            }
+
+            // 是否迁移本程序
+            if (withExe.Checked)
+            {
+                // 复制本程序到临时文件夹
+                string thisProgramPath = AppDomain.CurrentDomain.BaseDirectory;
+                string[] files = Directory.GetFiles(thisProgramPath);
+
+                foreach (string fileName in files)
+                {
+                    FileInfo file = new FileInfo(fileName);
+                    if (file.Extension == ".exe" || file.Extension == ".dll")
+                    {
+                        string filename = Path.GetFileName(fileName);
+                        string destFile = Path.Combine(tempFolder, filename);
+                        File.Copy(fileName, destFile, true);
+                    }
+                }
+            }
+
+            // 创建备份文件夹
+            string backupFolder = Path.Combine(tempFolder, "bfFolder");
+            Directory.CreateDirectory(backupFolder);
+
+            // 创建生存存档文件夹
+            string survivalFolder = Path.Combine(backupFolder, "Survival");
+            Directory.CreateDirectory(survivalFolder);
+
+            // 创建压缩包文件夹
+            string zipFolderName = Path.Combine(backupFolder, "zippath");
+            DirectoryInfo zipFolder = Directory.CreateDirectory(zipFolderName);
+            zipFolder.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+
+            // 复制存档文件夹到临时文件夹
+            if (Directory.Exists(textBox3.Text))
+            {
+                if(Directory.Exists(Path.Combine(textBox3.Text, "Survival")))
+                {
+                    ListEX<FileInfo> survivalFiles = new ListEX<FileInfo>(new DirectoryInfo(Path.Combine(textBox3.Text, "Survival")).GetFiles());
+                    if (exportLimitNum && survivalFiles.Count > limitNum)
+                    {
+                        survivalFiles.OrderBy(f => f.LastWriteTime).ToListEX().TakeLast(limitNum).ForEach(file =>
+                        {
+                            string destFile = Path.Combine(survivalFolder, file.Name);
+                            File.Copy(file.FullName, destFile, true);
+                            // 如果是截图类存档
+                            if (file.Extension == ".png")
+                            {
+                                string gzName = $"{file.NameWithoutExtension()}.gz";
+                                destFile = Path.Combine(zipFolderName, gzName);
+                                File.Copy(Path.Combine(textBox3.Text, "zippath", gzName), destFile, true);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        foreach (string fileName in Directory.GetFiles(Path.Combine(textBox3.Text, "Survival")))
+                        {
+                            string destFile = Path.Combine(survivalFolder, Path.GetFileName(fileName));
+                            File.Copy(fileName, destFile, true);
+                        }
+                        foreach (string dirPath in Directory.GetDirectories(Path.Combine(textBox3.Text, "zippath")))
+                        {
+                            string destFile = Path.Combine(zipFolderName, Path.GetFileName(dirPath));
+                            File.Copy(dirPath, destFile, true);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("请选择有效的存档文件夹", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 压缩临时文件夹
+            Task.Run(() =>
+            {
+                ZipFile.CreateFromDirectory(tempFolder, zipExportPath.Text, CompressionLevel.Optimal, false);
+
+                // 删除临时文件夹
+                Directory.Delete(tempFolder, true);
+
+                // 弹窗提示完成
+                MessageBox.Show($"迁移压缩包已生成:\n{zipExportPath.Text}", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // 打开压缩包所在文件夹
+                Item.OpenFile(zipExportPath.Text);
+            });
         }
     }
 }
