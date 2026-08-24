@@ -157,9 +157,9 @@ namespace TheLongDarkBuckupTools
             }
 
             // 迁移窗口设置
-            zipExportPath.Text = AppDomain.CurrentDomain.BaseDirectory + "迁移压缩包.zip";
+            zipExportPath.Text = AppDomain.CurrentDomain.BaseDirectory + "漫漫长夜工具迁移包.zip";
             toolTip1.SetToolTip(this.zipExportPath, zipExportPath.Text);
-            toolTip1.SetToolTip(this.export, "导出迁移压缩包(默认不导出剧情存档备份)");
+            toolTip1.SetToolTip(this.export, "导出漫漫长夜工具迁移包(默认不导出剧情存档备份)");
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -749,7 +749,7 @@ namespace TheLongDarkBuckupTools
         {
             Value zipPath = new Value(zipExportPath.Text);
             Item.ChoiceFolder(zipPath, "请选择压缩包保存位置", Environment.SpecialFolder.Desktop);
-            zipExportPath.Text = zipPath.val + "\\迁移压缩包.zip";
+            zipExportPath.Text = zipPath.val + "\\漫漫长夜工具迁移包.zip";
             toolTip1.SetToolTip(this.zipExportPath, zipExportPath.Text);
         }
 
@@ -889,7 +889,7 @@ namespace TheLongDarkBuckupTools
                 Directory.Delete(tempFolder, true);
 
                 // 弹窗提示完成
-                MessageBox.Show($"迁移压缩包已生成:\n{zipExportPath.Text}", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"漫漫长夜工具迁移包已生成:\n{zipExportPath.Text}", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // 打开压缩包所在文件夹
                 Item.OpenFile(zipExportPath.Text);
